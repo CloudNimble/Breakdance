@@ -115,14 +115,14 @@ namespace AdvancedREI.Restier.Testier
                 matrix[method] = IsFilterMethodAccessible(apiType, method);
             }
 
-            sb.AppendLine($"-----------------------------------------------");
-            sb.AppendLine(string.Format("{0,-35} | {1,8}", "Function Name", "Found"));
-            sb.AppendLine($"-----------------------------------------------");
+            sb.AppendLine($"----------------------------------------------");
+            sb.AppendLine(string.Format("{0,-40} | {1,7}", "Function Name", "Found"));
+            sb.AppendLine($"----------------------------------------------");
             foreach (var result in matrix)
             {
-                sb.AppendLine(string.Format("{0,-35} | {1,8}", result.Key, result.Value));
+                sb.AppendLine(string.Format("{0,-40} | {1,7}", result.Key, result.Value));
             }
-            sb.AppendLine($"-----------------------------------------------");
+            sb.AppendLine($"----------------------------------------------");
 
             return sb.ToString();
         }
