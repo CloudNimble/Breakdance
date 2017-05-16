@@ -26,7 +26,7 @@ namespace AdvancedREI.Restier.Tests.Testier
         {
             var modelBuilder = new TestModelBuilder();
             var model = await modelBuilder.GetModelAsync(null, default(CancellationToken));
-            var result = model.GenerateConventionMatrix();
+            var result = model.GenerateConventionList();
             TestContext.WriteLine(result);
             result.Should().NotBeNullOrWhiteSpace();
             result.Should().NotContain("--");
@@ -37,7 +37,7 @@ namespace AdvancedREI.Restier.Tests.Testier
         {
             var modelBuilder = new TestModelBuilder();
             var model = await modelBuilder.GetModelAsync(null, default(CancellationToken));
-            var result = model.GenerateConventionMatrix(true);
+            var result = model.GenerateConventionList(true);
             TestContext.WriteLine(result);
             result.Should().NotBeNullOrWhiteSpace();
             result.Should().Contain("--");
@@ -49,7 +49,7 @@ namespace AdvancedREI.Restier.Tests.Testier
             var modelBuilder = new TestModelBuilder();
             var model = await modelBuilder.GetModelAsync(null, default(CancellationToken));
             var api = new SportsApi(null);
-            var result = api.GenerateVisibilityReport(model);
+            var result = api.GenerateVisibilityMatrix(model);
 
             TestContext.WriteLine(result);
             result.Should().NotBeNullOrWhiteSpace();
@@ -76,7 +76,7 @@ namespace AdvancedREI.Restier.Tests.Testier
 
             File.Exists(fileName).Should().BeTrue();
             var oldReport = File.ReadAllText(fileName);
-            var newReport = api.GenerateVisibilityReport(model);
+            var newReport = api.GenerateVisibilityMatrix(model);
             oldReport.Should().BeEquivalentTo(newReport);
         }
 

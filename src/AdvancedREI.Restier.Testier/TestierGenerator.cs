@@ -23,7 +23,7 @@ namespace AdvancedREI.Restier.Testier
         /// <param name="edmModel"></param>
         /// <param name="addTableSeparators"></param>
         /// <returns></returns>
-        public static string GenerateConventionMatrix(this IEdmModel edmModel, bool addTableSeparators = false)
+        public static string GenerateConventionList(this IEdmModel edmModel, bool addTableSeparators = false)
         {
             var sb = new StringBuilder();
             var model = (EdmModel)edmModel;
@@ -89,13 +89,13 @@ namespace AdvancedREI.Restier.Testier
         /// <param name="api"></param>
         /// <param name="edmModel"></param>
         /// <returns></returns>
-        public static string GenerateVisibilityReport<T>(this EntityFrameworkApi<T> api, IEdmModel edmModel) where T : DbContext
+        public static string GenerateVisibilityMatrix<T>(this EntityFrameworkApi<T> api, IEdmModel edmModel) where T : DbContext
         {
             var sb = new StringBuilder();
             var model = (EdmModel)edmModel;
             var apiType = api.GetType();
 
-            var conventions = edmModel.GenerateConventionMatrix();
+            var conventions = edmModel.GenerateConventionList();
             var matrix = conventions.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToDictionary(c => c, c => false);
 
             var authorizerMethods = matrix.Where(c => c.Key.StartsWith("Can")).Select(c => c.Key).ToList();
@@ -136,7 +136,7 @@ namespace AdvancedREI.Restier.Testier
         /// <param name="edmModel"></param>
         public static void WriteCurrentVisibilityReport<T>(this EntityFrameworkApi<T> api, IEdmModel edmModel) where T : DbContext
         {
-            var report = api.GenerateVisibilityReport(edmModel);
+            var report = api.GenerateVisibilityMatrix(edmModel);
             System.IO.File.WriteAllText($"{api.GetType().Name}-ApiSurface.txt", report);
         }
 
