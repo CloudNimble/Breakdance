@@ -1,5 +1,5 @@
 # Testier for Microsoft's Restier Platform
-A testing framework for the Restier OData platform.
+A testing framework for the [Restier OData platform](https://github.com/OData/RESTier).
 
 ## Introduction
 Testier is a set of helpers that make it easier to build unit tests for your Restier-based APIs. Because Restier uses a set of built-in conventions to reflect over your API and _automagically_ find the methods it needs, it can be difficult to know what methods the system is expecting to find.
@@ -53,7 +53,7 @@ The included unit tests show how to take this information, and build tests that 
 
 ## Installation
 
-You can install Testier from NuGet by opening up Package Manager and typing `install-package AdvancedREI.Restier.Testier -pre`. Please note that the current version requires AdvancedREI's flavor of Restier, which we are currently shipping because Microsoft has not officially updated their NuGet packages in some time.
+You can install Testier from NuGet by opening up Package Manager and typing `install-package AdvancedREI.Restier.Testier -pre`. Please note that the current version requires [AdvancedREI's flavor of Restier](https://github.com/robertmclaws/RESTier), which we are currently shipping because Microsoft has not officially updated their NuGet packages for quite some time.
 
 ## Known Issues
 
