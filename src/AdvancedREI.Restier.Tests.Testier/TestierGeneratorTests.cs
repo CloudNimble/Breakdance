@@ -3,6 +3,7 @@ using AdvancedREI.Restier.Tests.Testier.Controllers;
 using AdvancedREI.Restier.Tests.Testier.Model;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -52,6 +53,31 @@ namespace AdvancedREI.Restier.Tests.Testier
 
             TestContext.WriteLine(result);
             result.Should().NotBeNullOrWhiteSpace();
+        }
+
+        //[TestMethod]
+        public async Task WriteApiToFileSystem()
+        {
+            var modelBuilder = new TestModelBuilder();
+            var model = await modelBuilder.GetModelAsync(null, default(CancellationToken));
+            var api = new SportsApi(null);
+            api.WriteCurrentVisibilityReport(model);
+
+            File.Exists($"{api.GetType().Name}-ApiSurface.txt").Should().BeTrue();
+        }
+
+        [TestMethod]
+        public async Task CompareCurrentApiReportToPriorRun()
+        {
+            var modelBuilder = new TestModelBuilder();
+            var model = await modelBuilder.GetModelAsync(null, default(CancellationToken));
+            var api = new SportsApi(null);
+            var fileName = $"{api.GetType().Name}-ApiSurface.txt";
+
+            File.Exists(fileName).Should().BeTrue();
+            var oldReport = File.ReadAllText(fileName);
+            var newReport = api.GenerateVisibilityReport(model);
+            oldReport.Should().BeEquivalentTo(newReport);
         }
 
     }
