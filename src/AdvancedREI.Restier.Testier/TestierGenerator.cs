@@ -29,7 +29,7 @@ namespace AdvancedREI.Restier.Testier
             var model = (EdmModel)edmModel;
 
             //RWM: Cycle through the EntitySets first.
-            foreach (var entitySet in model.EntityContainer.EntitySets())
+            foreach (var entitySet in model.EntityContainer.EntitySets().OrderBy(c => c.Name))
             {
                 if (addTableSeparators)
                 {
@@ -142,14 +142,14 @@ namespace AdvancedREI.Restier.Testier
 
         #endregion
 
-            #region Private Members
+        #region Private Members
 
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="api"></param>
-            /// <param name="methodName"></param>
-            /// <returns></returns>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="api"></param>
+        /// <param name="methodName"></param>
+        /// <returns></returns>
         private static bool IsAuthorizerMethodAccessible(Type api, string methodName)
         {
             //ConventionBasedChangeSetItemAuthorizer.cs:46

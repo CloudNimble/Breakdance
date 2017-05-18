@@ -24,20 +24,30 @@ namespace AdvancedREI.Restier.Testier
 
         #region Private Members
 
-        public static List<RestierPipelineStates> ExcludedFilterStates = new List<RestierPipelineStates>
+        /// <summary>
+        /// 
+        /// </summary>
+        private static List<RestierPipelineStates> ExcludedFilterStates = new List<RestierPipelineStates>
         {
+            RestierPipelineStates.Authorization,
             RestierPipelineStates.PreSubmit,
             RestierPipelineStates.PostSubmit
         };
 
-        public static List<RestierEntitySetOperations> ExcludedEntitySetSubmitOperations = new List<RestierEntitySetOperations>
+        /// <summary>
+        /// 
+        /// </summary>
+        private static List<RestierEntitySetOperations> ExcludedEntitySetSubmitOperations = new List<RestierEntitySetOperations>
         {
             RestierEntitySetOperations.Insert,
             RestierEntitySetOperations.Update,
             RestierEntitySetOperations.Delete
         };
 
-        public static List<RestierMethodOperations> ExcludedMethodSubmitOperations = new List<RestierMethodOperations>
+        /// <summary>
+        /// 
+        /// </summary>
+        private static List<RestierMethodOperations> ExcludedMethodSubmitOperations = new List<RestierMethodOperations>
         {
             RestierMethodOperations.Execute
         };

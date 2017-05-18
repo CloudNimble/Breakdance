@@ -2,7 +2,7 @@
 echo Would you like to push the packages to NuGet when finished?
 set /p choice="Enter y/n: "
 
-set version=1.0.0-beta2a
+set version=1.0.0-beta2b
 
 del builds\nuget\*.nupkg
 @echo on

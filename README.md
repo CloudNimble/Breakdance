@@ -10,29 +10,6 @@ Testier uses a copy of the same convention lookup code, and the same method nami
 --------------------------------------------------
 Function Name                            |   Found
 --------------------------------------------------
-CanFilterSport                           |   False
-CanInsertSports                          |   False
-CanUpdateSports                          |   False
-CanDeleteSports                          |   False
-OnInsertingSports                        |   False
-OnUpdatingSports                         |   False
-OnDeletingSports                         |   False
-OnFilterSport                            |    True
-OnInsertedSports                         |    True
-OnUpdatedSports                          |   False
-OnDeletedSports                          |   False
-CanFilterTeam                            |   False
-CanInsertTeams                           |   False
-CanUpdateTeams                           |   False
-CanDeleteTeams                           |   False
-OnInsertingTeams                         |   False
-OnUpdatingTeams                          |   False
-OnDeletingTeams                          |   False
-OnFilterTeam                             |   False
-OnInsertedTeams                          |   False
-OnUpdatedTeams                           |   False
-OnDeletedTeams                           |   False
-CanFilterPlayer                          |   False
 CanInsertPlayers                         |   False
 CanUpdatePlayers                         |   False
 CanDeletePlayers                         |   False
@@ -43,6 +20,26 @@ OnFilterPlayer                           |   False
 OnInsertedPlayers                        |   False
 OnUpdatedPlayers                         |   False
 OnDeletedPlayers                         |   False
+CanInsertSports                          |   False
+CanUpdateSports                          |   False
+CanDeleteSports                          |   False
+OnInsertingSports                        |   False
+OnUpdatingSports                         |   False
+OnDeletingSports                         |   False
+OnFilterSport                            |    True
+OnInsertedSports                         |    True
+OnUpdatedSports                          |   False
+OnDeletedSports                          |   False
+CanInsertTeams                           |   False
+CanUpdateTeams                           |   False
+CanDeleteTeams                           |   False
+OnInsertingTeams                         |   False
+OnUpdatingTeams                          |   False
+OnDeletingTeams                          |   False
+OnFilterTeam                             |   False
+OnInsertedTeams                          |   False
+OnUpdatedTeams                           |   False
+OnDeletedTeams                           |   False
 CanExecuteTestMethod                     |   False
 OnExecutingTestMethod                    |   False
 OnExecutedTestMethod                     |   False
