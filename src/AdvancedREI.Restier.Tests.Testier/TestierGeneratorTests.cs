@@ -49,20 +49,22 @@ namespace AdvancedREI.Restier.Tests.Testier
             result.Should().NotBeNullOrWhiteSpace();
         }
 
-        //[TestMethod]
+        [TestMethod]
         public async Task WriteApiToFileSystem()
         {
+            var relativePath = "..//..//";
             var api = await TestierHelpers.GetTestableApiInstance<SportsApi>();
-            await api.WriteCurrentVisibilityMatrix();
+            await api.WriteCurrentVisibilityMatrix(relativePath);
 
-            File.Exists($"{api.GetType().Name}-ApiSurface.txt").Should().BeTrue();
+            File.Exists($"{relativePath}{api.GetType().Name}-ApiSurface.txt").Should().BeTrue();
         }
 
         [TestMethod]
         public async Task CompareCurrentApiReportToPriorRun()
         {
+            var relativePath = "..//..//";
             var api = await TestierHelpers.GetTestableApiInstance<SportsApi>();
-            var fileName = $"{api.GetType().Name}-ApiSurface.txt";
+            var fileName = $"{relativePath}{api.GetType().Name}-ApiSurface.txt";
 
             File.Exists(fileName).Should().BeTrue();
             var oldReport = File.ReadAllText(fileName);

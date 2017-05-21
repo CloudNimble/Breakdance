@@ -13,8 +13,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright></copyright>
     <dependencies>
-      <dependency id="AdvancedREI.Restier.Providers.EntityFramework" version="1.0.0-Beta2b" />
-      <dependency id="AdvancedREI.Restier.Publishers.OData" version="1.0.0-Beta2b" />
+      <dependency id="AdvancedREI.Restier.Providers.EntityFramework" version="1.0.0-Beta2a" />
+      <dependency id="AdvancedREI.Restier.Publishers.OData" version="1.0.0-Beta2a" />
     </dependencies>
   </metadata>
   <files>

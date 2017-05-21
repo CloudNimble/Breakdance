@@ -18,13 +18,15 @@ namespace AdvancedREI.Restier.Testier
     public static class TestierGenerator
     {
 
+        const string separator = "------------------------------------------------------------";
+
         #region Public Methods
 
         /// <summary>
-        /// Generates 
+        /// Generates a list of detailed information about the expected Restier conventions for a given Api.
         /// </summary>
-        /// <param name="edmModel"></param>
-        /// <returns></returns>
+        /// <param name="edmModel">The <see cref="IEdmModel"/> to use to generate the convention definitions list.</param>
+        /// <returns>A <see cref="List{RestierConventionDefinition}"/> containing detailed information about the expected Restier conventions.</returns>
         public static List<RestierConventionDefinition> GenerateConventionDefinitions(this IEdmModel edmModel)
         {
             var entries = new List<RestierConventionDefinition>();
@@ -66,10 +68,10 @@ namespace AdvancedREI.Restier.Testier
         }
 
         /// <summary>
-        /// Generates 
+        /// Generates a human-readable list of conventions for a Restier Api.
         /// </summary>
-        /// <param name="edmModel"></param>
-        /// <param name="addTableSeparators"></param>
+        /// <param name="edmModel">The <see cref="IEdmModel"/> to use to generate the conventions list.</param>
+        /// <param name="addTableSeparators">A boolean specifying whether or not to add visual separators to the list.</param>
         /// <returns></returns>
         public static string GenerateConventionReport(this IEdmModel edmModel, bool addTableSeparators = false)
         {
@@ -168,18 +170,18 @@ namespace AdvancedREI.Restier.Testier
                 methodMatrix[definition.Key] = value;
             }
 
-            sb.AppendLine($"--------------------------------------------------");
-            sb.AppendLine(string.Format("{0,-40} | {1,7}", "Function Name", "Found?"));
-            sb.AppendLine($"--------------------------------------------------");
+            sb.AppendLine(separator);
+            sb.AppendLine(string.Format("{0,-50} | {1,7}", "Function Name", "Found?"));
+            sb.AppendLine(separator);
             foreach (var result in entitySetMatrix)
             {
-                sb.AppendLine(string.Format("{0,-40} | {1,7}", result.Key.Name, result.Value));
+                sb.AppendLine(string.Format("{0,-50} | {1,7}", result.Key.Name, result.Value));
             }
             foreach (var result in methodMatrix)
             {
-                sb.AppendLine(string.Format("{0,-40} | {1,7}", result.Key.Name, result.Value));
+                sb.AppendLine(string.Format("{0,-50} | {1,7}", result.Key.Name, result.Value));
             }
-            sb.AppendLine($"--------------------------------------------------");
+            sb.AppendLine(separator);
 
             return sb.ToString();
         }
@@ -188,11 +190,16 @@ namespace AdvancedREI.Restier.Testier
         /// An extension method that generates the Visibility Matrix for the current Api and writes it to a text file.
         /// </summary>
         /// <param name="api">The <see cref="ApiBase"/> instance to build the Visibility Matrix for.</param>
+        /// <param name="sourceDirectory">
+        /// A string containing the relative or absolute path to use as the root. The default is "". If you want to be able to check it in 
+        /// with the project, use "..//..//".
+        /// </param>
         /// <param name="suffix">A string to append to the Api name when writing the text file.</param>
-        public static async Task WriteCurrentVisibilityMatrix(this ApiBase api, string suffix = "ApiSurface")
+        public static async Task WriteCurrentVisibilityMatrix(this ApiBase api, string sourceDirectory = "", string suffix = "ApiSurface")
         {
+            var filePath = $"{sourceDirectory}{api.GetType().Name}-{suffix}.txt";
             var report = await api.GenerateVisibilityMatrix();
-            System.IO.File.WriteAllText($"{api.GetType().Name}-{suffix}.txt", report);
+            System.IO.File.WriteAllText(filePath, report);
         }
 
         #endregion
