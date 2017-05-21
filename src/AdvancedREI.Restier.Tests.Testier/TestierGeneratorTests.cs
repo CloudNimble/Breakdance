@@ -26,6 +26,7 @@ namespace AdvancedREI.Restier.Tests.Testier
             var result = model.GenerateConventionDefinitions();
             //TestContext.WriteLine(result);
             result.Should().NotBeEmpty();
+            result.Count.Should().Be(33);
         }
 
         [TestMethod]

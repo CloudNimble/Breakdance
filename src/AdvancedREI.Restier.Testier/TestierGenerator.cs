@@ -40,7 +40,7 @@ namespace AdvancedREI.Restier.Testier
                         var functionName = ConventionBasedMethodNameFactory.GetEntitySetMethodName(entitySet, pipelineState, operation);
                         if (!string.IsNullOrWhiteSpace(functionName))
                         {
-                            entries.Add(new RestierConventionDefinition(functionName, entitySet.Name, pipelineState, operation));
+                            entries.Add(new RestierConventionEntitySetDefinition(functionName, pipelineState, entitySet.Name, operation));
                         }
                     }
                 }
@@ -56,7 +56,7 @@ namespace AdvancedREI.Restier.Testier
                         var functionName = ConventionBasedMethodNameFactory.GetFunctionMethodName(function, pipelineState, operation);
                         if (!string.IsNullOrWhiteSpace(functionName))
                         {
-                            entries.Add(new RestierConventionDefinition(functionName, null, pipelineState, operation));
+                            entries.Add(new RestierConventionMethodDefinition(functionName, pipelineState, function.Name, operation));
                         }
                     }
                 }
@@ -76,7 +76,7 @@ namespace AdvancedREI.Restier.Testier
             var sb = new StringBuilder();
             var conventions = GenerateConventionDefinitions(edmModel);
 
-            foreach (var entitySet in conventions.Where(c => !string.IsNullOrWhiteSpace(c.EntitySetName)).GroupBy(c => c.EntitySetName).OrderBy(c => c.Key))
+            foreach (var entitySet in conventions.OfType<RestierConventionEntitySetDefinition>().GroupBy(c => c.EntitySetName).OrderBy(c => c.Key))
             {
                 if (addTableSeparators)
                 {
@@ -94,35 +94,23 @@ namespace AdvancedREI.Restier.Testier
                 }
             }
 
+            foreach (var function in conventions.OfType<RestierConventionMethodDefinition>().GroupBy(c => c.MethodName).OrderBy(c => c.Key))
+            {
+                if (addTableSeparators)
+                {
+                    sb.AppendLine($"-- OperationImports --");
+                }
 
+                foreach (var definition in function.OrderBy(c => c.PipelineState).ThenBy(c => c.MethodOperation))
+                {
+                    sb.AppendLine(definition.Name);
+                }
 
-            //foreach (var function in model.EntityContainer.OperationImports())
-            //{
-            //    if (addTableSeparators)
-            //    {
-            //        sb.AppendLine($"-- OperationImports --");
-            //    }
-
-
-
-
-
-            //    foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineStates)).Cast<RestierPipelineStates>())
-            //    {
-            //        foreach (var operation in Enum.GetValues(typeof(RestierMethodOperations)).Cast<RestierMethodOperations>())
-            //        {
-            //            var functionName = ConventionBasedMethodNameFactory.GetFunctionMethodName(function, pipelineState, operation);
-            //            if (!string.IsNullOrWhiteSpace(functionName))
-            //            {
-            //                //sb.Append(functionName + Environment.NewLine);
-            //            }
-            //        }
-            //    }
-            //    if (addTableSeparators)
-            //    {
-            //        sb.AppendLine();
-            //    }
-            //}
+                if (addTableSeparators)
+                {
+                    sb.AppendLine();
+                }
+            }
 
             return sb.ToString();
         }
@@ -140,34 +128,54 @@ namespace AdvancedREI.Restier.Testier
             var apiType = api.GetType();
             
             var conventions = model.GenerateConventionDefinitions();
-            var matrix = conventions.ToDictionary(c => c, c => false);
+            var entitySetMatrix = conventions.OfType<RestierConventionEntitySetDefinition>().ToDictionary(c => c, c => false);
+            var methodMatrix = conventions.OfType<RestierConventionMethodDefinition>().ToDictionary(c => c, c => false);
 
-            var authorizerMethods = matrix.Where(c => c.Key.PipelineState == RestierPipelineStates.Authorization).Select(c => c.Key).ToList();
-            foreach (var method in authorizerMethods)
+            foreach (var definition in entitySetMatrix.ToList())
             {
-                matrix[method] = IsAuthorizerMethodAccessible(apiType, method.Name);
+                var value = false;
+                switch (definition.Key.PipelineState)
+                {
+                    case RestierPipelineStates.Authorization:
+                        value = IsAuthorizerMethodAccessible(apiType, definition.Key.Name);
+                        break;
+                    default:
+                        if (definition.Key.EntitySetOperation == RestierEntitySetOperations.Filter)
+                        {
+                            value = IsFilterMethodAccessible(apiType, definition.Key.Name);
+                        }
+                        else
+                        {
+                            value = IsInterceptorMethodAccessible(apiType, definition.Key.Name);
+                        }
+                        break;
+                }
+                entitySetMatrix[definition.Key] = value;
             }
 
-            var interceptorMethods = matrix.Where(c => c.Key.PipelineState != RestierPipelineStates.Authorization && 
-                                                       c.Key.EntitySetOperation != RestierEntitySetOperations.Filter)
-                                           .Select(c => c.Key).ToList();
-            foreach (var method in interceptorMethods)
+            foreach (var definition in methodMatrix.ToList())
             {
-                matrix[method] = IsInterceptorMethodAccessible(apiType, method.Name);
-            }
-
-            var filterMethods = matrix.Where(c => c.Key.PipelineState != RestierPipelineStates.Authorization &&
-                                                       c.Key.EntitySetOperation == RestierEntitySetOperations.Filter)
-                                      .Select(c => c.Key).ToList();
-            foreach (var method in filterMethods)
-            {
-                matrix[method] = IsFilterMethodAccessible(apiType, method.Name);
+                var value = false;
+                switch (definition.Key.PipelineState)
+                {
+                    case RestierPipelineStates.Authorization:
+                        value = IsAuthorizerMethodAccessible(apiType, definition.Key.Name);
+                        break;
+                    default:
+                        value = IsInterceptorMethodAccessible(apiType, definition.Key.Name);
+                        break;
+                }
+                methodMatrix[definition.Key] = value;
             }
 
             sb.AppendLine($"--------------------------------------------------");
             sb.AppendLine(string.Format("{0,-40} | {1,7}", "Function Name", "Found?"));
             sb.AppendLine($"--------------------------------------------------");
-            foreach (var result in matrix)
+            foreach (var result in entitySetMatrix)
+            {
+                sb.AppendLine(string.Format("{0,-40} | {1,7}", result.Key.Name, result.Value));
+            }
+            foreach (var result in methodMatrix)
             {
                 sb.AppendLine(string.Format("{0,-40} | {1,7}", result.Key.Name, result.Value));
             }

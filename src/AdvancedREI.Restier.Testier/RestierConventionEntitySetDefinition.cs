@@ -10,70 +10,31 @@
         #region Properties
 
         /// <summary>
-        /// 
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 
+        /// The name of the EntitySet associated with this ConventionDefinition.
         /// </summary>
         public string EntitySetName { get; set; }
 
         /// <summary>
-        /// 
+        /// The Restier Operation associated with this ConventionDefinition.
         /// </summary>
-        public RestierPipelineStates? PipelineState { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public RestierEntitySetOperations? EntitySetOperation{ get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public RestierMethodOperations MethodOperation { get; set; }
+        public RestierEntitySetOperations EntitySetOperation{ get; set; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Creates a new <see cref="RestierConventionEntitySetDefinition"/> instance.
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="entitySetName"></param>
         /// <param name="pipelineState"></param>
-        internal RestierConventionDefinition(string name, string entitySetName, RestierPipelineStates pipelineState)
-        {
-            Name = name;
-            EntitySetName = entitySetName;
-            PipelineState = pipelineState;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
         /// <param name="entitySetName"></param>
-        /// <param name="pipelineState"></param>
         /// <param name="entitySetOperation"></param>
-        public RestierConventionDefinition(string name, string entitySetName, RestierPipelineStates pipelineState, RestierEntitySetOperations entitySetOperation) 
-            : this(name, entitySetName, pipelineState)
+        internal RestierConventionEntitySetDefinition(string name, RestierPipelineStates pipelineState, string entitySetName, RestierEntitySetOperations entitySetOperation)
+            : base(name, pipelineState)
         {
+            EntitySetName = entitySetName;
             EntitySetOperation = entitySetOperation;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="pipelineState"></param>
-        /// <param name="methodOperation"></param>
-        public RestierConventionDefinition(string name, string entitySetName, RestierPipelineStates pipelineState, RestierMethodOperations methodOperation)
-            : this(name, entitySetName, pipelineState)
-        {
-            MethodOperation = methodOperation;
         }
 
         #endregion

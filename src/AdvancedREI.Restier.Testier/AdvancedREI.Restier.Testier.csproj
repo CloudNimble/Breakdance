@@ -101,6 +101,8 @@
     <Compile Include="Enums\RestierMethodOperations.cs" />
     <Compile Include="Enums\RestierPipelineStates.cs" />
     <Compile Include="RestierConventionDefinition.cs" />
+    <Compile Include="RestierConventionOperationDefinition.cs" />
+    <Compile Include="RestierConventionEntitySetDefinition.cs" />
     <Compile Include="TestierGenerator.cs" />
     <Compile Include="TestierHelpers.cs" />
   </ItemGroup>
