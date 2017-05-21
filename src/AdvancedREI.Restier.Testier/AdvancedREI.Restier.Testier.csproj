@@ -95,17 +95,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConventionBasedMethodNameFactory.cs" />
+    <Compile Include="Enums\RestierEntitySetOperation.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestierMethodOperations.cs" />
-    <Compile Include="RestierEntitySetOperations.cs" />
-    <Compile Include="RestierPipelineStates.cs" />
+    <Compile Include="Enums\RestierMethodOperations.cs" />
+    <Compile Include="Enums\RestierPipelineStates.cs" />
+    <Compile Include="RestierConventionDefinition.cs" />
     <Compile Include="TestierGenerator.cs" />
+    <Compile Include="TestierHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AdvancedREI.Restier.Testier.nuspec" />
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

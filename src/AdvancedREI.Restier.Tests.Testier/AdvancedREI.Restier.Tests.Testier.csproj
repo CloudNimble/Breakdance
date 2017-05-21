@@ -110,11 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\SportsApiController.cs" />
-    <Compile Include="Model\Player.cs" />
-    <Compile Include="Model\Sport.cs" />
+    <Compile Include="Controllers\SportsApiModelBuilder.cs" />
+    <Compile Include="Context\Model\Player.cs" />
+    <Compile Include="Context\Model\Sport.cs" />
     <Compile Include="Context\SportsDbContext.cs" />
-    <Compile Include="Model\Team.cs" />
-    <Compile Include="Controllers\TestModelBuilder.cs" />
+    <Compile Include="Context\Model\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestierGeneratorTests.cs" />
   </ItemGroup>

@@ -10,7 +10,7 @@ namespace AdvancedREI.Restier.Tests.Testier.Model
     /// <summary>
     /// 
     /// </summary>
-    public class TestModelBuilder : IModelBuilder
+    public class SportsApiModelBuilder : IModelBuilder
     {
 
         /// <summary>

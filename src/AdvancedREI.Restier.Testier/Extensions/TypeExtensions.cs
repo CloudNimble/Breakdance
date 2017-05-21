@@ -2,6 +2,7 @@
 // Licensed under the MIT License.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace System
@@ -70,6 +71,12 @@ namespace System
 
             return null;
         }
+
+        public static MethodInfo FindQualifiedMethod(this Type type, string methodName)
+        {
+            return type.GetMethods(QualifiedMethodBindingFlags).FirstOrDefault(c => c.Name.EndsWith(methodName));
+        }
+
 
         public static MethodInfo GetQualifiedMethod(this Type type, string methodName)
         {

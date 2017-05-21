@@ -1,5 +1,6 @@
 ﻿using AdvancedREI.Restier.Tests.Testier.Model;
 using Microsoft.Restier.Providers.EntityFramework;
+using Microsoft.Restier.Publishers.OData.Model;
 using System;
 using System.Linq;
 
@@ -20,6 +21,9 @@ namespace AdvancedREI.Restier.Tests.Testier.Controllers
         {
         }
 
+        protected internal bool CanInsertSports() => true;
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -36,6 +40,12 @@ namespace AdvancedREI.Restier.Tests.Testier.Controllers
         /// <param name="entity"></param>
         protected internal void OnInsertedSports(Sport entity)
         {
+        }
+
+        [Operation]
+        public string TestMethod()
+        {
+            return "Hi!";
         }
 
     }

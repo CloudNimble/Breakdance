@@ -5,7 +5,7 @@ namespace AdvancedREI.Restier.Testier
 {
 
     /// <summary>
-    /// 
+    /// A set of string factory methods than generate Restier names for various possible operations.
     /// </summary>
     public static class ConventionBasedMethodNameFactory
     {
@@ -25,7 +25,7 @@ namespace AdvancedREI.Restier.Testier
         #region Private Members
 
         /// <summary>
-        /// 
+        /// The <see cref="RestierPipelineStates"/> to exclude from Filter name processing.
         /// </summary>
         private static List<RestierPipelineStates> ExcludedFilterStates = new List<RestierPipelineStates>
         {
@@ -35,7 +35,7 @@ namespace AdvancedREI.Restier.Testier
         };
 
         /// <summary>
-        /// 
+        /// The <see cref="RestierEntitySetOperations"/> to exclude from EntitySet Submit name processing.
         /// </summary>
         private static List<RestierEntitySetOperations> ExcludedEntitySetSubmitOperations = new List<RestierEntitySetOperations>
         {
@@ -45,7 +45,7 @@ namespace AdvancedREI.Restier.Testier
         };
 
         /// <summary>
-        /// 
+        /// The <see cref="RestierMethodOperations"/> to exclude from Method Submit name processing.
         /// </summary>
         private static List<RestierMethodOperations> ExcludedMethodSubmitOperations = new List<RestierMethodOperations>
         {
@@ -57,12 +57,12 @@ namespace AdvancedREI.Restier.Testier
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Generates the complete MethodName for a given <see cref="IEdmOperationImport"/>, <see cref="RestierPipelineStates"/>, and <see cref="RestierEntitySetOperations"/>.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entitySet"></param>
-        /// <param name="pipelineState"></param>
-        /// <param name="operation"></param>
+        /// <param name="entitySet">The <see cref="IEdmEntitySet"/> that contains the details for the EntitySet and the Entities it holds.</param>
+        /// <param name="pipelineState">The part of the Restier pipeline currently executing.</param>
+        /// <param name="operation">The <see cref="RestierEntitySetOperations"/> currently being executed.</param>
+        /// <returns>A string representing the fully-realized MethodName.</returns>
         /// <returns></returns>
         public static string GetEntitySetMethodName(IEdmEntitySet entitySet, RestierPipelineStates pipelineState, RestierEntitySetOperations operation)
         {
@@ -83,12 +83,20 @@ namespace AdvancedREI.Restier.Testier
             return $"{prefix}{operationName}{suffix}{entityReferenceName}";
         }
 
+        /// <summary>
+        /// Generates the complete MethodName for a given <see cref="IEdmOperationImport"/>, <see cref="RestierPipelineStates"/>, and <see cref="RestierEntitySetOperations"/>.
+        /// </summary>
+        /// <param name="operationImport">The <see cref="IEdmOperationImport"/> to generate a name for.</param>
+        /// <param name="pipelineState">The part of the Restier pipeline currently executing.</param>
+        /// <param name="operation">The <see cref="RestierMethodOperations"/> currently being executed.</param>
+        /// <returns>A string representing the fully-realized MethodName.</returns>
         public static string GetFunctionMethodName(IEdmOperationImport operationImport, RestierPipelineStates pipelineState, RestierMethodOperations operation)
         {
             if (pipelineState == RestierPipelineStates.Submit && ExcludedMethodSubmitOperations.Contains(operation))
             {
                 return string.Empty;
             }
+
             var prefix = GetPipelinePrefix(pipelineState);
 
             //RWM: If, for some reason, we don't have a prefix, then we don't have a method for this operation. So don't do anything.
@@ -105,44 +113,46 @@ namespace AdvancedREI.Restier.Testier
         #region Private Methods
 
         /// <summary>
-        /// 
+        /// Generates the right EntityName reference for a given Operation.
         /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="entitySet"></param>
-        /// <returns></returns>
+        /// <param name="operation">The <see cref="RestierEntitySetOperations"/> to determine the Entity name for.</param>
+        /// <param name="entitySet">The <see cref="IEdmEntitySet"/> that contains the details for the EntitySet and the Entities it holds.</param>
+        /// <returns>A string representing the right EntityName reference for a given Operation.</returns>
         internal static string GetEntityReferenceName(RestierEntitySetOperations operation, IEdmEntitySet entitySet)
         {
+            //RWM: This is backwards and should be fixed. You filter EntitySets and insert individual Entities.
             return operation == RestierEntitySetOperations.Filter ? entitySet.EntityType().Name : entitySet.Name;
         }
 
         /// <summary>
-        /// 
+        /// Generates the right OperationName string for a given <see cref="RestierEntitySetOperations"/> and <see cref="RestierPipelineStates"/>.
         /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="pipelineState"></param>
-        /// <returns></returns>
-        private static string GetOperationName(RestierEntitySetOperations operation, RestierPipelineStates pipelineState)
+        /// <param name="operation">The <see cref="RestierEntitySetOperations"/> to determine the method name for.</param>
+        /// <param name="pipelineState">The <see cref="RestierPipelineStates"/> to determine the method name for.</param>
+        /// <returns>A string containing the corrected OperationName, accounting for what the suffix will end up being.</returns>
+        internal static string GetOperationName(RestierEntitySetOperations operation, RestierPipelineStates pipelineState)
         {
             return GetOperationName(operation.ToString(), pipelineState);
         }
 
         /// <summary>
-        /// 
+        /// Generates the right OperationName string for a given <see cref="RestierMethodOperations"/> and <see cref="RestierPipelineStates"/>.
         /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="pipelineState"></param>
-        /// <returns></returns>
-        private static string GetOperationName(RestierMethodOperations operation, RestierPipelineStates pipelineState)
+        /// <param name="operation">The <see cref="RestierMethodOperations"/> to determine the method name for.</param>
+        /// <param name="pipelineState">The <see cref="RestierPipelineStates"/> to determine the method name for.</param>
+        /// <returns>A string containing the corrected OperationName, accounting for what the suffix will end up being.</returns>
+        internal static string GetOperationName(RestierMethodOperations operation, RestierPipelineStates pipelineState)
         {
             return GetOperationName(operation.ToString(), pipelineState);
         }
 
         /// <summary>
-        /// 
+        /// Generates the right OperationName string for a given <see cref="RestierMethodOperations"/> and <see cref="RestierPipelineStates"/>.
         /// </summary>
-        /// <param name="operation"></param>
-        /// <param name="pipelineState"></param>
-        /// <returns></returns>
+        /// <param name="operation">The string representing the Operation to determine the method name for.</param>
+        /// <param name="pipelineState">The <see cref="RestierPipelineStates"/> to determine the method name for.</param>
+        /// <returns>A string containing the corrected OperationName, accounting for what the suffix will end up being.</returns>
+        /// <remarks>This method is for base processing. The other overloads should be used to ensure the right name gets generated.</remarks>
         private static string GetOperationName(string operation, RestierPipelineStates pipelineState)
         {
             switch (pipelineState)
@@ -157,9 +167,9 @@ namespace AdvancedREI.Restier.Testier
         }
 
         /// <summary>
-        /// 
+        /// Returns a method prefix string for a given <see cref="RestierPipelineStates"/>.
         /// </summary>
-        /// <param name="pipelineState"></param>
+        /// <param name="pipelineState">The <see cref="RestierPipelineStates"/> to determine the prefix for.</param>
         /// <returns></returns>
         internal static string GetPipelinePrefix(RestierPipelineStates pipelineState)
         {
@@ -177,9 +187,9 @@ namespace AdvancedREI.Restier.Testier
         }
 
         /// <summary>
-        /// 
+        /// Returns a method suffix string for a given <see cref="RestierPipelineStates"/>.
         /// </summary>
-        /// <param name="pipelineState"></param>
+        /// <param name="pipelineState">The <see cref="RestierPipelineStates"/> to determine the suffix for.</param>
         /// <returns></returns>
         internal static string GetPipelineSuffix(RestierPipelineStates pipelineState)
         {

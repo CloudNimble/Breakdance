@@ -3,18 +3,18 @@
   <metadata>
     <id>AdvancedREI.Restier.Testier</id>
     <version>$version$</version>
-    <title>Restier.Testier</title>
-    <authors>Emanuele Filardo, Robert McLaws</authors>
+    <title>Testier - The Testing Framework for Restier!</title>
+    <authors>Robert McLaws</authors>
     <owners>AdvancedREI</owners>
-    <description>A set of extensions to make working with Restier more awesome!</description>
+    <description>A set of helpers to make unit testing Restier APIs a breeze!</description>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/robertmclaws/RESTier</projectUrl>
     <releaseNotes>http://odata.github.io/RESTier/</releaseNotes>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright></copyright>
     <dependencies>
-      <dependency id="AdvancedREI.Restier.Providers.EntityFramework" version="1.0.0-Beta2a" />
-      <dependency id="AdvancedREI.Restier.Publishers.OData" version="1.0.0-Beta2a" />
+      <dependency id="AdvancedREI.Restier.Providers.EntityFramework" version="1.0.0-Beta2b" />
+      <dependency id="AdvancedREI.Restier.Publishers.OData" version="1.0.0-Beta2b" />
     </dependencies>
   </metadata>
   <files>
