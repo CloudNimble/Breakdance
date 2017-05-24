@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AdvancedREI.Restier.Tests.Testier.Model
+namespace AdvancedREI.Testier.Tests.Restier.Model
 {
 
     /// <summary>

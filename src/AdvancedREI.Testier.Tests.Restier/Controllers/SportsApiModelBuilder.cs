@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.OData.Builder;
 
-namespace AdvancedREI.Restier.Tests.Testier.Model
+namespace AdvancedREI.Testier.Tests.Restier.Model
 {
 
     /// <summary>

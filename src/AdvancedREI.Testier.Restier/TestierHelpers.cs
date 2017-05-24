@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData.Extensions;
 
-namespace AdvancedREI.Restier.Testier
+namespace AdvancedREI.Testier.Restier
 {
 
     /// <summary>

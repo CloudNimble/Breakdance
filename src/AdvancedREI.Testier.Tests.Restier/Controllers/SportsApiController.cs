@@ -1,10 +1,10 @@
-﻿using AdvancedREI.Restier.Tests.Testier.Model;
+﻿using AdvancedREI.Testier.Tests.Restier.Model;
 using Microsoft.Restier.Providers.EntityFramework;
 using Microsoft.Restier.Publishers.OData.Model;
 using System;
 using System.Linq;
 
-namespace AdvancedREI.Restier.Tests.Testier.Controllers
+namespace AdvancedREI.Testier.Tests.Restier.Controllers
 {
 
     /// <summary>

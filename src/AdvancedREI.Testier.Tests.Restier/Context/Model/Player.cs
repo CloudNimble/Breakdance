@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdvancedREI.Restier.Tests.Testier.Model
+namespace AdvancedREI.Testier.Tests.Restier.Model
 {
 
     /// <summary>

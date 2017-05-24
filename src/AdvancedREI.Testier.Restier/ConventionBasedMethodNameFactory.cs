@@ -1,7 +1,7 @@
 ﻿using Microsoft.OData.Edm;
 using System.Collections.Generic;
 
-namespace AdvancedREI.Restier.Testier
+namespace AdvancedREI.Testier.Restier
 {
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace AdvancedREI.Restier.Testier
+﻿namespace AdvancedREI.Testier.Restier
 {
 
     /// <summary>

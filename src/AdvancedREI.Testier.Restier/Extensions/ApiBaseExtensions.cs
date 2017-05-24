@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AdvancedREI.Restier.Testier
+namespace AdvancedREI.Testier.Restier
 {
 
     /// <summary>

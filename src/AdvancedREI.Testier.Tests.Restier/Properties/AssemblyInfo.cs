@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("AdvancedREI.Restier.Tests.Testier")]
+[assembly: AssemblyTitle("AdvancedREI.Testier.Tests.Restier")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AdvancedREI.Restier.Tests.Testier")]
+[assembly: AssemblyProduct("AdvancedREI.Testier.Tests.Restier")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

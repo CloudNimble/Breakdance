@@ -124,7 +124,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdvancedREI.Restier.Testier\AdvancedREI.Testier.Restier.csproj">
+    <ProjectReference Include="..\AdvancedREI.Testier.Restier\AdvancedREI.Testier.Restier.csproj">
       <Project>{821ec454-7b57-4eaf-a451-efacbd73e2da}</Project>
       <Name>AdvancedREI.Testier.Restier</Name>
     </ProjectReference>

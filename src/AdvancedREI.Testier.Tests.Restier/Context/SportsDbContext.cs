@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace AdvancedREI.Restier.Tests.Testier.Model
+namespace AdvancedREI.Testier.Tests.Restier.Model
 {
 
     public partial class SportsDbContext : DbContext

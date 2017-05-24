@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AdvancedREI.Restier.Testier
+namespace AdvancedREI.Testier.Restier
 {
 
     /// <summary>

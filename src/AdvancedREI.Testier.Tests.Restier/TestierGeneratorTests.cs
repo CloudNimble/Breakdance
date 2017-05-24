@@ -1,11 +1,11 @@
-﻿using AdvancedREI.Restier.Testier;
-using AdvancedREI.Restier.Tests.Testier.Controllers;
+﻿using AdvancedREI.Testier.Restier;
+using AdvancedREI.Testier.Tests.Restier.Controllers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace AdvancedREI.Restier.Tests.Testier
+namespace AdvancedREI.Testier.Tests.Restier
 {
     [TestClass]
     public class TestierGeneratorTests
