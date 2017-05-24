@@ -183,7 +183,9 @@ namespace AdvancedREI.Testier.Restier
         public static async Task<string> GetApiMetadata<T>(string routeName = routeName, string routePrefix = routePrefix) where T : ApiBase
         {
             var response = await ExecuteTestRequest<T>(HttpMethod.Get, routeName, routePrefix, "/$metadata");
-            return await response.Content.ReadAsStringAsync();
+            var result = await response.Content.ReadAsStringAsync();
+            var doc = XDocument.Parse(result);
+            return doc.ToString();
         }
 
         /// <summary>
