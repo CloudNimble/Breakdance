@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData.Extensions;
+using System.Xml.Linq;
 
 namespace AdvancedREI.Testier.Restier
 {
@@ -196,6 +197,8 @@ namespace AdvancedREI.Testier.Restier
         {
             var filePath = $"{sourceDirectory}{typeof(T).Name}-{suffix}.txt";
             var result = await GetApiMetadata<T>();
+            var doc = XDocument.Parse(result);
+            result = doc.ToString();
             System.IO.File.WriteAllText(filePath, result);
         }
 
