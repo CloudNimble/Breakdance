@@ -7,8 +7,8 @@
     <ProjectGuid>{821EC454-7B57-4EAF-A451-EFACBD73E2DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdvancedREI.Restier.Testier</RootNamespace>
-    <AssemblyName>AdvancedREI.Restier.Testier</AssemblyName>
+    <RootNamespace>AdvancedREI.Testier.Restier</RootNamespace>
+    <AssemblyName>AdvancedREI.Testier.Restier</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\AdvancedREI.Restier.Testier.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\AdvancedREI.Testier.Restier.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\AdvancedREI.Restier.Testier.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\AdvancedREI.Testier.Restier.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -96,18 +96,19 @@
   <ItemGroup>
     <Compile Include="ConventionBasedMethodNameFactory.cs" />
     <Compile Include="Enums\RestierEntitySetOperation.cs" />
+    <Compile Include="Extensions\ApiBaseExtensions.cs" />
+    <Compile Include="Extensions\IEdmModelExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\RestierMethodOperations.cs" />
     <Compile Include="Enums\RestierPipelineStates.cs" />
-    <Compile Include="RestierConventionDefinition.cs" />
-    <Compile Include="RestierConventionOperationDefinition.cs" />
-    <Compile Include="RestierConventionEntitySetDefinition.cs" />
-    <Compile Include="TestierGenerator.cs" />
+    <Compile Include="ConventionDefinitions\RestierConventionDefinition.cs" />
+    <Compile Include="ConventionDefinitions\RestierConventionOperationDefinition.cs" />
+    <Compile Include="ConventionDefinitions\RestierConventionEntitySetDefinition.cs" />
     <Compile Include="TestierHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AdvancedREI.Restier.Testier.nuspec" />
+    <None Include="AdvancedREI.Testier.Restier.nuspec" />
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

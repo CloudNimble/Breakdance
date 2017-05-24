@@ -12,6 +12,7 @@ namespace AdvancedREI.Restier.Tests.Testier
     {
 
         private TestContext testContextInstance;
+        private const string relativePath = "..//..//";
 
         public TestContext TestContext
         {
@@ -52,7 +53,6 @@ namespace AdvancedREI.Restier.Tests.Testier
         [TestMethod]
         public async Task WriteApiToFileSystem()
         {
-            var relativePath = "..//..//";
             var api = await TestierHelpers.GetTestableApiInstance<SportsApi>();
             await api.WriteCurrentVisibilityMatrix(relativePath);
 
@@ -62,13 +62,31 @@ namespace AdvancedREI.Restier.Tests.Testier
         [TestMethod]
         public async Task CompareCurrentApiReportToPriorRun()
         {
-            var relativePath = "..//..//";
             var api = await TestierHelpers.GetTestableApiInstance<SportsApi>();
             var fileName = $"{relativePath}{api.GetType().Name}-ApiSurface.txt";
 
             File.Exists(fileName).Should().BeTrue();
             var oldReport = File.ReadAllText(fileName);
             var newReport = await api.GenerateVisibilityMatrix();
+            oldReport.Should().BeEquivalentTo(newReport);
+        }
+
+        [TestMethod]
+        public async Task WriteApiMetadataToFileSystem()
+        {
+            await TestierHelpers.WriteCurrentApiMetadata<SportsApi>(relativePath);
+
+            File.Exists($"{relativePath}{typeof(SportsApi).Name}-ApiMetadata.txt").Should().BeTrue();
+        }
+
+        [TestMethod]
+        public async Task CompareCurrentApiMetadataToPriorRun()
+        {
+            var fileName = $"{relativePath}{typeof(SportsApi).Name}-ApiMetadata.txt";
+            File.Exists(fileName).Should().BeTrue();
+
+            var oldReport = File.ReadAllText(fileName);
+            var newReport = await TestierHelpers.GetApiMetadata<SportsApi>();
             oldReport.Should().BeEquivalentTo(newReport);
         }
 

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26510.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedREI.Restier.Testier", "AdvancedREI.Restier.Testier\AdvancedREI.Restier.Testier.csproj", "{821EC454-7B57-4EAF-A451-EFACBD73E2DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedREI.Testier.Restier", "AdvancedREI.Restier.Testier\AdvancedREI.Testier.Restier.csproj", "{821EC454-7B57-4EAF-A451-EFACBD73E2DA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedREI.Restier.Tests.Testier", "AdvancedREI.Restier.Tests.Testier\AdvancedREI.Restier.Tests.Testier.csproj", "{4ADBBED8-A9DE-48E5-85ED-B2091AA68219}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedREI.Testier.Tests.Restier", "AdvancedREI.Restier.Tests.Testier\AdvancedREI.Testier.Tests.Restier.csproj", "{4ADBBED8-A9DE-48E5-85ED-B2091AA68219}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedREI.Testier.OData", "AdvancedREI.Testier.OData\AdvancedREI.Testier.OData.csproj", "{4331FCCB-C204-4FEE-B753-A52B8003B416}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{4ADBBED8-A9DE-48E5-85ED-B2091AA68219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ADBBED8-A9DE-48E5-85ED-B2091AA68219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ADBBED8-A9DE-48E5-85ED-B2091AA68219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4331FCCB-C204-4FEE-B753-A52B8003B416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4331FCCB-C204-4FEE-B753-A52B8003B416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4331FCCB-C204-4FEE-B753-A52B8003B416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4331FCCB-C204-4FEE-B753-A52B8003B416}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +38,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{821EC454-7B57-4EAF-A451-EFACBD73E2DA} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
 		{4ADBBED8-A9DE-48E5-85ED-B2091AA68219} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
+		{4331FCCB-C204-4FEE-B753-A52B8003B416} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
 	EndGlobalSection
 EndGlobal

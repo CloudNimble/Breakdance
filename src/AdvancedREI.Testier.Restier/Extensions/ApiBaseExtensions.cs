@@ -2,12 +2,10 @@
 using Microsoft.Restier.Core;
 using Microsoft.Restier.Providers.EntityFramework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.OData.Extensions;
 
 namespace AdvancedREI.Restier.Testier
 {
@@ -15,107 +13,16 @@ namespace AdvancedREI.Restier.Testier
     /// <summary>
     /// 
     /// </summary>
-    public static class TestierGenerator
+    public static class ApiBaseExtensions
     {
+
+        #region Constants
 
         const string separator = "------------------------------------------------------------";
 
+        #endregion
+
         #region Public Methods
-
-        /// <summary>
-        /// Generates a list of detailed information about the expected Restier conventions for a given Api.
-        /// </summary>
-        /// <param name="edmModel">The <see cref="IEdmModel"/> to use to generate the convention definitions list.</param>
-        /// <returns>A <see cref="List{RestierConventionDefinition}"/> containing detailed information about the expected Restier conventions.</returns>
-        public static List<RestierConventionDefinition> GenerateConventionDefinitions(this IEdmModel edmModel)
-        {
-            var entries = new List<RestierConventionDefinition>();
-            var model = (EdmModel)edmModel;
-
-            //RWM: Cycle through the EntitySets first.
-            foreach (var entitySet in model.EntityContainer.EntitySets().OrderBy(c => c.Name))
-            {
-                foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineStates)).Cast<RestierPipelineStates>())
-                {
-                    foreach (var operation in Enum.GetValues(typeof(RestierEntitySetOperations)).Cast<RestierEntitySetOperations>())
-                    {
-                        var functionName = ConventionBasedMethodNameFactory.GetEntitySetMethodName(entitySet, pipelineState, operation);
-                        if (!string.IsNullOrWhiteSpace(functionName))
-                        {
-                            entries.Add(new RestierConventionEntitySetDefinition(functionName, pipelineState, entitySet.Name, operation));
-                        }
-                    }
-                }
-                //TODO: Handle EntitySet-bound functions.
-            }
-
-            foreach (var function in model.EntityContainer.OperationImports())
-            {
-                foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineStates)).Cast<RestierPipelineStates>())
-                {
-                    foreach (var operation in Enum.GetValues(typeof(RestierMethodOperations)).Cast<RestierMethodOperations>())
-                    {
-                        var functionName = ConventionBasedMethodNameFactory.GetFunctionMethodName(function, pipelineState, operation);
-                        if (!string.IsNullOrWhiteSpace(functionName))
-                        {
-                            entries.Add(new RestierConventionMethodDefinition(functionName, pipelineState, function.Name, operation));
-                        }
-                    }
-                }
-            }
-
-            return entries;
-        }
-
-        /// <summary>
-        /// Generates a human-readable list of conventions for a Restier Api.
-        /// </summary>
-        /// <param name="edmModel">The <see cref="IEdmModel"/> to use to generate the conventions list.</param>
-        /// <param name="addTableSeparators">A boolean specifying whether or not to add visual separators to the list.</param>
-        /// <returns></returns>
-        public static string GenerateConventionReport(this IEdmModel edmModel, bool addTableSeparators = false)
-        {
-            var sb = new StringBuilder();
-            var conventions = GenerateConventionDefinitions(edmModel);
-
-            foreach (var entitySet in conventions.OfType<RestierConventionEntitySetDefinition>().GroupBy(c => c.EntitySetName).OrderBy(c => c.Key))
-            {
-                if (addTableSeparators)
-                {
-                    sb.AppendLine($"-- {entitySet.Key} --");
-                }
-
-                foreach (var definition in entitySet.OrderBy(c => c.PipelineState).ThenBy(c => c.EntitySetOperation))
-                {
-                    sb.AppendLine(definition.Name);
-                }
-
-                if (addTableSeparators)
-                {
-                    sb.AppendLine();
-                }
-            }
-
-            foreach (var function in conventions.OfType<RestierConventionMethodDefinition>().GroupBy(c => c.MethodName).OrderBy(c => c.Key))
-            {
-                if (addTableSeparators)
-                {
-                    sb.AppendLine($"-- OperationImports --");
-                }
-
-                foreach (var definition in function.OrderBy(c => c.PipelineState).ThenBy(c => c.MethodOperation))
-                {
-                    sb.AppendLine(definition.Name);
-                }
-
-                if (addTableSeparators)
-                {
-                    sb.AppendLine();
-                }
-            }
-
-            return sb.ToString();
-        }
 
         /// <summary>
         /// An extension method that generates a Markdown table of all of the possible Restier methods for the given API in the first column, and a boolean
@@ -126,9 +33,9 @@ namespace AdvancedREI.Restier.Testier
         public static async Task<string> GenerateVisibilityMatrix(this ApiBase api)
         {
             var sb = new StringBuilder();
-            var model = (EdmModel) await api.GetModelAsync(default(CancellationToken));
+            var model = (EdmModel)await api.GetModelAsync(default(CancellationToken));
             var apiType = api.GetType();
-            
+
             var conventions = model.GenerateConventionDefinitions();
             var entitySetMatrix = conventions.OfType<RestierConventionEntitySetDefinition>().ToDictionary(c => c, c => false);
             var methodMatrix = conventions.OfType<RestierConventionMethodDefinition>().ToDictionary(c => c, c => false);
@@ -191,8 +98,8 @@ namespace AdvancedREI.Restier.Testier
         /// </summary>
         /// <param name="api">The <see cref="ApiBase"/> instance to build the Visibility Matrix for.</param>
         /// <param name="sourceDirectory">
-        /// A string containing the relative or absolute path to use as the root. The default is "". If you want to be able to check it in 
-        /// with the project, use "..//..//".
+        /// A string containing the relative or absolute path to use as the root. The default is "". If you want to be able to have it as part of the project,
+        /// so you can check it into source control, use "..//..//".
         /// </param>
         /// <param name="suffix">A string to append to the Api name when writing the text file.</param>
         public static async Task WriteCurrentVisibilityMatrix(this ApiBase api, string sourceDirectory = "", string suffix = "ApiSurface")

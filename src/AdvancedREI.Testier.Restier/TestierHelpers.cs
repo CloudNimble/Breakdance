@@ -27,6 +27,58 @@ namespace AdvancedREI.Restier.Testier
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="httpMethod"></param>
+        /// <param name="routeName"></param>
+        /// <param name="routePrefix"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string routeName = routeName, string routePrefix = routePrefix,
+            string resource = null) where T : ApiBase
+        {
+            var config = await GetTestableConfiguration<T>(routeName, routePrefix);
+            var client = config.GetTestableHttpClient();
+            return await client.ExecuteTestRequest(httpMethod, routePrefix, resource);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="httpMethod"></param>
+        /// <param name="routePrefix"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public static async Task<HttpResponseMessage> ExecuteTestRequest(this HttpClient httpClient, HttpMethod httpMethod, string routePrefix = routePrefix,
+            string resource = null)
+        {
+            var request = GetTestableHttpRequestMessage(httpMethod, routePrefix, resource);
+            return await httpClient.SendAsync(request);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="httpMethod"></param>
+        /// <param name="routeName"></param>
+        /// <param name="routePrefix"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(this HttpConfiguration config, HttpMethod httpMethod, string routeName = routeName, 
+            string routePrefix = routePrefix, string resource = null) where T : ApiBase
+        {
+            var client = config.GetTestableHttpClient();
+            var request = GetTestableHttpRequestMessage(httpMethod, routePrefix, resource);
+            return await client.SendAsync(request);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -52,7 +104,7 @@ namespace AdvancedREI.Restier.Testier
              where TService : class
         {
             var config = await GetTestableConfiguration<TApi>(routeName, routePrefix);
-            var request = GetTestableRequest(HttpMethod.Get, routePrefix);
+            var request = GetTestableHttpRequestMessage(HttpMethod.Get, routePrefix);
             request.SetConfiguration(config);
             return request.CreateRequestContainer(routeName).GetService<TService>();
         }
@@ -78,6 +130,9 @@ namespace AdvancedREI.Restier.Testier
         /// <returns></returns>
         public static HttpClient GetTestableHttpClient(this HttpConfiguration config)
         {
+            //RWM: You may be compelled to think that we should track a static instance of HttpClient. And that would be normal. but because someone could
+            //     test different APIs in the same test run, we can't.
+            //     Maybe at some point we get smart and put them in a static dictionary and do lookups. But today is not that day.
             return new HttpClient(new HttpServer(config));
         }
 
@@ -95,7 +150,7 @@ namespace AdvancedREI.Restier.Testier
         }
 
         /// <summary>
-        /// Gets the <see cref="IEdmModel"/> instance for a given API, whether it used a custom ModelBuilder or the <see cref=RestierModelBuilder"/>.
+        /// Gets the <see cref="IEdmModel"/> instance for a given API, whether it used a custom ModelBuilder or the <see cref="RestierModelBuilder"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -112,12 +167,39 @@ namespace AdvancedREI.Restier.Testier
         /// <param name="routePrefix">The routePrefix corresponding to the route already mapped in MapRestierRoute or GetTestableConfiguration.</param>
         /// <param name="resource">The resource on the API to be requested.</param>
         /// <returns>An <see cref="HttpRequestMessage"/> that is ready to be sent through an HttpClient instance configured for the test.</returns>
-        public static HttpRequestMessage GetTestableRequest(HttpMethod httpMethod, string routePrefix = routePrefix, string resource = null)
+        public static HttpRequestMessage GetTestableHttpRequestMessage(HttpMethod httpMethod, string routePrefix = routePrefix, string resource = null)
         {
             var request = new HttpRequestMessage(httpMethod, localhost + routePrefix + resource);
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             return request;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static async Task<string> GetApiMetadata<T>(string routeName = routeName, string routePrefix = routePrefix) where T : ApiBase
+        {
+            var response = await ExecuteTestRequest<T>(HttpMethod.Get, routeName, routePrefix, "/$metadata");
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sourceDirectory"></param>
+        /// <param name="suffix"></param>
+        /// <returns></returns>
+        public static async Task WriteCurrentApiMetadata<T>(string sourceDirectory = "", string suffix = "ApiMetadata") where T : ApiBase
+        {
+            var filePath = $"{sourceDirectory}{typeof(T).Name}-{suffix}.txt";
+            var result = await GetApiMetadata<T>();
+            System.IO.File.WriteAllText(filePath, result);
+        }
+
+        #endregion
 
     }
 

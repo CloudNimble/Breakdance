@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package>
   <metadata>
-    <id>AdvancedREI.Restier.Testier</id>
+    <id>AdvancedREI.Testier.Restier</id>
     <version>$version$</version>
     <title>Testier - The Testing Framework for Restier!</title>
     <authors>Robert McLaws</authors>
@@ -18,9 +18,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\AdvancedREI.Restier.Testier.dll" target="lib\net452\" />
-    <file src="bin\Release\AdvancedREI.Restier.Testier.pdb" target="lib\net452\" />
-    <file src="bin\Release\AdvancedREI.Restier.Testier.xml" target="lib\net452\" />
+    <file src="bin\Release\AdvancedREI.Testier.Restier.dll" target="lib\net452\" />
+    <file src="bin\Release\AdvancedREI.Testier.Restier.pdb" target="lib\net452\" />
+    <file src="bin\Release\AdvancedREI.Testier.Restier.xml" target="lib\net452\" />
     <file src="**\*.cs" exclude="**\obj\**\*.*" target="src" />
   </files>
 </package>
