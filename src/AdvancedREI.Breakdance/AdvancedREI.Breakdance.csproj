@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <Version>1.0.0-alpha1</Version>
+    <Company>AdvancedREI</Company>
+    <Authors>AdvancedREI</Authors>
+    <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <OutputPath />
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="1.1" />
+  </ItemGroup>
+
+</Project>

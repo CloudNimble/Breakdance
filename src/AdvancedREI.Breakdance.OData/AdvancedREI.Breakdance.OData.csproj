@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.0-alpha1</Version>
+    <Authors>AdvancedREI</Authors>
+    <Company>AdvancedREI</Company>
+    <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdvancedREI.Breakdance.WebApi\AdvancedREI.Breakdance.WebApi.csproj" />
+  </ItemGroup>
+
+</Project>

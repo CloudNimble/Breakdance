@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>AdvancedREI.Breakdance.Restier</id>
+    <version>$version$</version>
+    <title>Testier - The Testing Framework for Restier!</title>
+    <authors>Robert McLaws</authors>
+    <owners>AdvancedREI</owners>
+    <description>A set of helpers to make unit testing Restier APIs a breeze!</description>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/robertmclaws/RESTier</projectUrl>
+    <releaseNotes>http://odata.github.io/RESTier/</releaseNotes>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright></copyright>
+    <dependencies>
+      <dependency id="AdvancedREI.Restier.Providers.EntityFramework" version="1.0.0-Beta2a" />
+      <dependency id="AdvancedREI.Restier.Publishers.OData" version="1.0.0-Beta2a" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\AdvancedREI.Breakdance.Restier.dll" target="lib\net452\" />
+    <file src="bin\Release\AdvancedREI.Breakdance.Restier.pdb" target="lib\net452\" />
+    <file src="bin\Release\AdvancedREI.Breakdance.Restier.xml" target="lib\net452\" />
+    <file src="**\*.cs" exclude="**\obj\**\*.*" target="src" />
+  </files>
+</package>

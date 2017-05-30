@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
+    <Authors>AdvancedREI</Authors>
+    <Company>AdvancedREI</Company>
+    <Version>1.0.0-alpha1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AdvancedREI.Restier.Core" Version="1.0.0-beta2b" />
+    <PackageReference Include="AdvancedREI.Restier.Providers.EntityFramework" Version="1.0.0-beta2b" />
+    <PackageReference Include="AdvancedREI.Restier.Publishers.OData" Version="1.0.0-beta2b" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+    <PackageReference Include="Microsoft.OData.Core" Version="7.1.1" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="7.1.1" />
+    <PackageReference Include="Microsoft.Spatial" Version="7.1.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdvancedREI.Breakdance.WebApi\AdvancedREI.Breakdance.WebApi.csproj" />
+  </ItemGroup>
+
+</Project>
