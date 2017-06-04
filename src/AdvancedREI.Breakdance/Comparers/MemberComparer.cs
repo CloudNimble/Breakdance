@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -10,7 +11,7 @@ using System.Reflection;
 namespace AdvancedREI.Breakdance.Core
 {
 
-    sealed public class MemberComparer : IComparer
+    public sealed class MemberComparer : IComparer, IComparer<object>
     {
 
         static private readonly Hashtable _memberType;
@@ -44,6 +45,7 @@ namespace AdvancedREI.Breakdance.Core
         {
             return Compare((MemberInfo)x, (MemberInfo)y);
         }
+
         public int Compare(MemberInfo x, MemberInfo y)
         {
             if (x.MemberType == y.MemberType)

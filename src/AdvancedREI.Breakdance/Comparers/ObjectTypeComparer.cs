@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace AdvancedREI.Breakdance.Core
@@ -11,7 +12,7 @@ namespace AdvancedREI.Breakdance.Core
     /// <summary>
     /// 
     /// </summary>
-    sealed public class ObjectTypeComparer : IComparer
+    sealed public class ObjectTypeComparer : IComparer, IComparer<object>
     {
         static public readonly ObjectTypeComparer Default = new ObjectTypeComparer();
         public int Compare(object x, object y)
