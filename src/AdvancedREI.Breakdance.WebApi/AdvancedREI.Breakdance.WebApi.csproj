@@ -7,6 +7,11 @@
     <Authors>AdvancedREI</Authors>
     <Company>AdvancedREI</Company>
     <Version>1.0.0-alpha1</Version>
+    <PackageProjectUrl>https://github.com/advancedrei/Breakdance</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/advancedrei/Breakdance</RepositoryUrl>
+    <PackageReleaseNotes>- 1.0.0-alpha1: Initial release.</PackageReleaseNotes>
+    <PackageTags>unit tests, breakdance, nunit, fluentassertions, odata, webapi, swagger, swashbuckle</PackageTags>
+    <Description>Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular contains helper classes for testing any WebAPI endpoint. These classes make it super easy to craft HTTP requests to your API at test time.</Description>
   </PropertyGroup>
 
   <ItemGroup>

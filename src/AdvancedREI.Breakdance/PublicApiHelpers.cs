@@ -59,6 +59,7 @@ namespace AdvancedREI.Breakdance.Core
 
         #endregion
 
+        #region Public Methods
 
         /// <summary>
         /// 
@@ -110,12 +111,16 @@ namespace AdvancedREI.Breakdance.Core
             return sb.ToString();
         }
 
+        #endregion
+
+        #region Private Methods
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="assemblyName"></param>
         /// <returns></returns>
-        public static List<TypeDefinition> GenerateTypeDefinitionsForAssembly (string assemblyName)
+        internal static List<TypeDefinition> GenerateTypeDefinitionsForAssembly (string assemblyName)
         {
             var typesList = new List<Type>();
             var typeDefinitions = new List<TypeDefinition>();
@@ -228,6 +233,8 @@ namespace AdvancedREI.Breakdance.Core
 
             return lines;
         }
+
+        #endregion
 
     }
 

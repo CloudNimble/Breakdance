@@ -7,6 +7,12 @@
     <Authors>AdvancedREI</Authors>
     <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular helps generate public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the API sirface changed, the unit test will fail.</Description>
+    <PackageId>AdvancedREI.Breakdance</PackageId>
+    <PackageProjectUrl>https://github.com/advancedrei/Breakdance</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/advancedrei/Breakdance</RepositoryUrl>
+    <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
+    <PackageReleaseNotes>- 1.0.0-alpha1: Initial release.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
