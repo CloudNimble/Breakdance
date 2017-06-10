@@ -15,8 +15,10 @@ namespace System.Net.Http
         /// </summary>
         /// <param name="httpClient"></param>
         /// <param name="httpMethod"></param>
+        /// <param name="host"></param>
         /// <param name="routePrefix"></param>
         /// <param name="resource"></param>
+        /// <param name="acceptHeader"></param>
         /// <returns></returns>
         public static async Task<HttpResponseMessage> ExecuteTestRequest(this HttpClient httpClient, HttpMethod httpMethod, string host = WebApiConstants.Localhost, 
             string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader)

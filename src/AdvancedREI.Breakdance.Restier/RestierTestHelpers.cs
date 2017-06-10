@@ -33,9 +33,11 @@ namespace AdvancedREI.Breakdance.Restier
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="httpMethod"></param>
+        /// <param name="host"></param>
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <param name="resource"></param>
+        /// <param name="acceptHeader"></param>
         /// <returns></returns>
         public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = routeName, 
             string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader) where T : ApiBase
@@ -121,7 +123,7 @@ namespace AdvancedREI.Breakdance.Restier
         }
 
         /// <summary>
-        /// Gets the <see cref="IEdmModel"/> instance for a given API, whether it used a custom ModelBuilder or the <see cref="RestierModelBuilder"/>.
+        /// Gets the <see cref="IEdmModel"/> instance for a given API, whether it used a custom ModelBuilder or the RestierModelBuilder.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
