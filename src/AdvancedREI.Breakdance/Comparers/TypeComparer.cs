@@ -7,10 +7,11 @@ using System.Globalization;
 
 namespace AdvancedREI.Breakdance.Core
 {
-    
+
     /// <summary>
-    /// 
+    /// Legacy class used to compare members.
     /// </summary>
+    /// <remarks>Should be rewritten or eliminated at our earliest possible convenience.</remarks>
     sealed public class TypeComparer : IComparer
     {
         public static readonly TypeComparer Default = new TypeComparer();

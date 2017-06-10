@@ -11,6 +11,10 @@ using System.Reflection;
 namespace AdvancedREI.Breakdance.Core
 {
 
+    /// <summary>
+    /// Legacy class used to compare members.
+    /// </summary>
+    /// <remarks>Should be rewritten or eliminated at our earliest possible convenience.</remarks>
     public sealed class MemberComparer : IComparer, IComparer<object>
     {
 

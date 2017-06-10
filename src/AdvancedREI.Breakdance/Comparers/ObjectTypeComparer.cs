@@ -10,8 +10,9 @@ namespace AdvancedREI.Breakdance.Core
 {
 
     /// <summary>
-    /// 
+    /// Legacy class used to compare types.
     /// </summary>
+    /// <remarks>Should be rewritten or eliminated at our earliest possible convenience.</remarks>
     sealed public class ObjectTypeComparer : IComparer, IComparer<object>
     {
         static public readonly ObjectTypeComparer Default = new ObjectTypeComparer();
