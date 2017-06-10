@@ -7,6 +7,9 @@
     <Authors>AdvancedREI</Authors>
     <Company>AdvancedREI</Company>
     <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
+    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 
   <ItemGroup>

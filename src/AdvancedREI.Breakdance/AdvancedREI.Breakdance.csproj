@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
-    <Version>1.0.0-alpha1</Version>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <Version>1.0.0-alpha2</Version>
     <Company>AdvancedREI</Company>
     <Authors>AdvancedREI</Authors>
     <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
@@ -13,14 +13,29 @@
     <RepositoryUrl>https://github.com/advancedrei/Breakdance</RepositoryUrl>
     <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
     <PackageReleaseNotes>- 1.0.0-alpha1: Initial release.</PackageReleaseNotes>
+    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <OutputPath />
-  </PropertyGroup>
+  </PropertyGroup>-->
+
+  <ItemGroup>
+  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="1.1" />
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
