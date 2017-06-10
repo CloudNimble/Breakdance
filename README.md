@@ -1,4 +1,5 @@
 # Breakdance by AdvancedREI
+![breakdance-small](https://cloud.githubusercontent.com/assets/1657085/26813617/6489768e-4a4d-11e7-8a49-3864333ebde9.png)
 A testing framework for managing the dangerous dance of shipping public APIs.
 
 ## Introduction
