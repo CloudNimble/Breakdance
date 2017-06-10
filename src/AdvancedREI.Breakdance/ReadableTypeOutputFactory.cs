@@ -13,6 +13,10 @@ using System.Runtime.InteropServices;
 
 namespace AdvancedREI.Breakdance
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     internal static class ReadableTypeOutputFactory
     {
 
@@ -65,6 +69,8 @@ namespace AdvancedREI.Breakdance
         }
 
         #endregion
+
+        #region Internal Methods
 
         /// <summary>
         /// 
@@ -547,6 +553,8 @@ namespace AdvancedREI.Breakdance
 
             return $"{visibility}{modifier} {codeType} {typeName}{colon}{inheritsFrom}";
         }
+
+        #endregion
 
     }
 
