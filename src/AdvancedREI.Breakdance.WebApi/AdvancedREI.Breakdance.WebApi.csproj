@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;net462</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
     <Authors>AdvancedREI</Authors>
