@@ -18,7 +18,18 @@ namespace AdvancedREI.Breakdance.Core
     public sealed class MemberComparer : IComparer, IComparer<object>
     {
 
+        #region Private Members
+
         static private readonly Hashtable _memberType;
+        private Hashtable hash;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
         static MemberComparer()
         {
             Hashtable memberType = new Hashtable
@@ -35,8 +46,10 @@ namespace AdvancedREI.Breakdance.Core
             _memberType = memberType;
         }
 
-        private Hashtable hash;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
         public MemberComparer(Type type)
         {
             hash = new Hashtable();
@@ -45,11 +58,28 @@ namespace AdvancedREI.Breakdance.Core
                 hash.Add(type, i);
             }
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public int Compare(object x, object y)
         {
             return Compare((MemberInfo)x, (MemberInfo)y);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public int Compare(MemberInfo x, MemberInfo y)
         {
             if (x.MemberType == y.MemberType)
@@ -128,6 +158,9 @@ namespace AdvancedREI.Breakdance.Core
             }
             return ((int)_memberType[x.MemberType] - (int)_memberType[y.MemberType]);
         }
+
+        #endregion
+
     }
 
 }

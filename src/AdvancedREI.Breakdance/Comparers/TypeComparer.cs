@@ -14,10 +14,24 @@ namespace AdvancedREI.Breakdance.Core
     /// <remarks>Should be rewritten or eliminated at our earliest possible convenience.</remarks>
     sealed public class TypeComparer : IComparer
     {
-        public static readonly TypeComparer Default = new TypeComparer();
+
+        #region Private Members
+
         private static bool AlphabeticalGrouping = false;
 
+        #endregion
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly TypeComparer Default = new TypeComparer();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public int Compare(object x, object y)
         {
             Type a = x as Type;
@@ -92,6 +106,7 @@ namespace AdvancedREI.Breakdance.Core
             }
             return cmp;
         }
+
     }
 
 }

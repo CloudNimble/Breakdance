@@ -30,15 +30,15 @@ namespace AdvancedREI.Breakdance.Tests.Restier
             result.Count.Should().Be(33);
         }
 
-        [TestMethod]
-        public async Task GenerateConventionMatrix_Readable()
-        {
+        //[TestMethod]
+        //public async Task GenerateConventionMatrix_Readable()
+        //{
             //var model = await TestierHelpers.GetTestableModelAsync<SportsApi>();
             //var result = model.GenerateConventionList(true);
             //TestContext.WriteLine(result);
             //result.Should().NotBeNullOrWhiteSpace();
             //result.Should().Contain("--");
-        }
+        //}
 
         [TestMethod]
         public async Task CompareReportToApi()

@@ -15,7 +15,18 @@ namespace AdvancedREI.Breakdance.Core
     /// <remarks>Should be rewritten or eliminated at our earliest possible convenience.</remarks>
     sealed public class ObjectTypeComparer : IComparer, IComparer<object>
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
         static public readonly ObjectTypeComparer Default = new ObjectTypeComparer();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public int Compare(object x, object y)
         {
             string a = x.GetType().FullName;
@@ -37,6 +48,7 @@ namespace AdvancedREI.Breakdance.Core
             }
             return cmp;
         }
+
     }
 
 }

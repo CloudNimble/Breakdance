@@ -76,9 +76,6 @@ namespace AdvancedREI.Breakdance
         /// 
         /// </summary>
         /// <param name="attributes"></param>
-        /// <param name="indent"></param>
-        /// <param name="isEnum"></param>
-        /// <param name="appendNewLine"></param>
         /// <returns></returns>
         internal static List<string> GetCustomAttributesList(IEnumerable<object> attributes)
         {
@@ -363,6 +360,7 @@ namespace AdvancedREI.Breakdance
         /// <param name="type"></param>
         /// <param name="info"></param>
         /// <param name="method"></param>
+        /// <param name="spaceBefore"></param>
         /// <returns></returns>
         internal static string GetPropertyAccessorString(Type type, MethodInfo info, string method, bool spaceBefore = false)
         {

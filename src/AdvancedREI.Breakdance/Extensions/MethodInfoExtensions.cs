@@ -54,7 +54,6 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="info"></param>
         /// <param name="type"></param>
         /// <returns></returns>
         private static bool IsSealedClass(this Type type)
