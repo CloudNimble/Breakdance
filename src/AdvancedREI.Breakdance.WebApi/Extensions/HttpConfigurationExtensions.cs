@@ -2,6 +2,10 @@
 
 namespace System.Net.Http
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public static class HttpConfigurationExtensions
     {
 
