@@ -93,14 +93,14 @@ namespace AdvancedREI.Breakdance.Core
             foreach (var typeDefinition in typeDefinitions)
             {
                 typeDefinition.Attributes.ForEach(c => sb.AppendLine(c));
-                sb.AppendLine(typeDefinition.Class);
+                sb.AppendLine(typeDefinition.TypeName);
                 sb.AppendLine(AssemblyConstants.BraceOpen);
                 sb.AppendLine();
 
                 foreach (var memberDefinition in typeDefinition.Members)
                 {
                     memberDefinition.Attributes.ForEach(c => sb.AppendLine("\t" + c));
-                    sb.AppendLine("\t" + memberDefinition.Member);
+                    sb.AppendLine("\t" + memberDefinition.MemberName);
                     sb.AppendLine();
                 }
 
