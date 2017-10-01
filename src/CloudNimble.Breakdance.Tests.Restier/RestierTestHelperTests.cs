@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CloudNimble.Breakdance.Tests.Restier
 {
     [TestClass]
-    public class TestierGeneratorTests
+    public class RestierTestHelperTests
     {
 
         private TestContext testContextInstance;

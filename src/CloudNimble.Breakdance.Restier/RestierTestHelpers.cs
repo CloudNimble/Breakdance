@@ -15,13 +15,13 @@ namespace CloudNimble.Breakdance.Restier
     /// <summary>
     /// A set of methods that make it easier to pull out Restier runtime components for unit testing.
     /// </summary>
-    /// <remarks>See TestierGeneratorTests.cs for more examples of how to use these methods.</remarks>
+    /// <remarks>See RestierTestHelperTests.cs for more examples of how to use these methods.</remarks>
     public static class RestierTestHelpers
     {
 
         #region Constants
 
-        private const string routeName = "test";
+        internal const string RouteName = "test";
         private const string acceptHeader = "application/json;odata.metadata=full";
 
         #endregion
@@ -29,7 +29,7 @@ namespace CloudNimble.Breakdance.Restier
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// l
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="httpMethod"></param>
@@ -39,7 +39,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="resource"></param>
         /// <param name="acceptHeader"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = routeName, 
+        public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = RouteName, 
             string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader) where T : ApiBase
         {
             var config = await GetTestableRestierConfiguration<T>(routeName, routePrefix);
@@ -51,28 +51,10 @@ namespace CloudNimble.Breakdance.Restier
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="config"></param>
-        /// <param name="httpMethod"></param>
-        /// <param name="routeName"></param>
-        /// <param name="routePrefix"></param>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(this HttpConfiguration config, HttpMethod httpMethod, string routeName = routeName, 
-            string routePrefix = WebApiConstants.RoutePrefix, string resource = null) where T : ApiBase
-        {
-            var client = config.GetTestableHttpClient();
-            var request = HttpClientHelpers.GetTestableHttpRequestMessage(httpMethod, WebApiConstants.Localhost, routePrefix, resource);
-            return await client.SendAsync(request);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<ApiBase> GetTestableApiInstance<T>(string routeName = routeName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
+        public static async Task<ApiBase> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
         {
             return await GetTestableApiService<T, ApiBase>(routeName, routePrefix);
         }
@@ -85,7 +67,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<TService> GetTestableApiService<TApi, TService>(string routeName = routeName, string routePrefix = WebApiConstants.RoutePrefix)
+        public static async Task<TService> GetTestableApiService<TApi, TService>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix)
              where TApi : ApiBase
              where TService : class
         {
@@ -102,7 +84,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = routeName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
+        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
         {
             var config = new HttpConfiguration();
             await config.MapRestierRoute<T>(routeName, routePrefix);
@@ -116,7 +98,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<HttpClient> GetTestableHttpClient<T>(string routeName = routeName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
+        public static async Task<HttpClient> GetTestableHttpClient<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
         {
             var config = await GetTestableRestierConfiguration<T>(routeName, routePrefix);
             return new HttpClient(new HttpServer(config));
@@ -127,7 +109,7 @@ namespace CloudNimble.Breakdance.Restier
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static async Task<IEdmModel> GetTestableModelAsync<T>(string routeName = routeName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
+        public static async Task<IEdmModel> GetTestableModelAsync<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
         {
             var api = await GetTestableApiInstance<T>(routeName, routePrefix);
             return await api.GetModelAsync();
@@ -138,7 +120,7 @@ namespace CloudNimble.Breakdance.Restier
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static async Task<string> GetApiMetadata<T>(string host = WebApiConstants.Localhost, string routeName = routeName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
+        public static async Task<string> GetApiMetadata<T>(string host = WebApiConstants.Localhost, string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
         {
             var response = await ExecuteTestRequest<T>(HttpMethod.Get, host, routeName, routePrefix, "/$metadata");
             var result = await response.Content.ReadAsStringAsync();

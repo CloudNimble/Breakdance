@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Licensed under the MIT License.  See License.txt in the project root for license information.
 
-using CloudNimble.Breakdance.Definitions;
+using CloudNimble.Breakdance.Assemblies.Definitions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -13,9 +13,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudNimble.Breakdance.Core
-{
-
+namespace CloudNimble.Breakdance.Assemblies
+{ 
     /// <summary>
     /// 
     /// </summary>

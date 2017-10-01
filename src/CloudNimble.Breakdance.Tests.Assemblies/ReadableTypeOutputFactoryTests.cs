@@ -1,5 +1,5 @@
-﻿using CloudNimble.Breakdance.Core;
-using CloudNimble.Breakdance.Tests.SampleApis;
+﻿using CloudNimble.Breakdance.Assemblies;
+using CloudNimble.Breakdance.Tests.Assemblies.SampleApis;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace CloudNimble.Breakdance.Tests
+namespace CloudNimble.Breakdance.Tests.Assemblies
 {
     [TestClass]
     public class ReadableTypeOutputFactoryTests
@@ -83,7 +83,7 @@ namespace CloudNimble.Breakdance.Tests
             var eventInfo = members.OfType<EventInfo>().FirstOrDefault();
             var eventString = ReadableTypeOutputFactory.GetEventInfoString(type, eventInfo);
 
-            eventString.Should().BeEquivalentTo("CloudNimble.Breakdance.Tests.SampleApis.SomeStaticClass+SomeEventHandler SomeEvent { public static add; public static remove; }");
+            eventString.Should().BeEquivalentTo("CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeStaticClass+SomeEventHandler SomeEvent { public static add; public static remove; }");
         }
 
         #endregion
@@ -155,7 +155,7 @@ namespace CloudNimble.Breakdance.Tests
         {
             ReadableTypeOutputFactory.GetTypeDeclarationString(typeof(SomeStaticClass))
                 .Should().NotBeNullOrWhiteSpace()
-                .And.BeEquivalentTo("public sealed class CloudNimble.Breakdance.Tests.SampleApis.SomeStaticClass");
+                .And.BeEquivalentTo("public sealed class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeStaticClass");
         }
 
         [TestMethod]
@@ -163,7 +163,7 @@ namespace CloudNimble.Breakdance.Tests
         {
             ReadableTypeOutputFactory.GetTypeDeclarationString(typeof(SomeStringList))
                 .Should().NotBeNullOrWhiteSpace()
-                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.SampleApis.SomeStringList : System.Collections.Generic.List`1<string>, ICollection, IEnumerable, " + 
+                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeStringList : System.Collections.Generic.List`1<string>, ICollection, IEnumerable, " + 
                 "IList, ICollection`1, IEnumerable`1, IList`1, IReadOnlyCollection`1, IReadOnlyList`1");
         }
 
@@ -172,7 +172,7 @@ namespace CloudNimble.Breakdance.Tests
         {
             ReadableTypeOutputFactory.GetTypeDeclarationString(typeof(SomeGenericClass<string>))
                 .Should().NotBeNullOrWhiteSpace()
-                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.SampleApis.SomeGenericClass`1<System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089>");
+                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089>");
         }
 
 

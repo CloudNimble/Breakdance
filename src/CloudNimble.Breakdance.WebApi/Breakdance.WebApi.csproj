@@ -16,6 +16,10 @@
     <IncludeSource>True</IncludeSource>
     <IncludeSymbols>True</IncludeSymbols>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+    <RootNamespace>CloudNimble.Breakdance.WebApi</RootNamespace>
+    <AssemblyName>CloudNimble.Breakdance.WebApi</AssemblyName>
+    <Product>Breakdance for WebAPI</Product>
+    <PackageId>Breakdance.WebApi</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

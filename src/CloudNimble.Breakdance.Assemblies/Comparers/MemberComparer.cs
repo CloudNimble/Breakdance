@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace CloudNimble.Breakdance.Core
+namespace CloudNimble.Breakdance.Assemblies
 {
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace CloudNimble.Breakdance
+﻿namespace CloudNimble.Breakdance.Assemblies
 {
 
     /// <summary>

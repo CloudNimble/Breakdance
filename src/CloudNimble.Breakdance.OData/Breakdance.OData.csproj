@@ -11,6 +11,10 @@
     <IncludeSource>True</IncludeSource>
     <IncludeSymbols>True</IncludeSymbols>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+    <AssemblyName>CloudNimble.Breakdance.OData</AssemblyName>
+    <RootNamespace>CloudNimble.Breakdance.OData</RootNamespace>
+    <Product>Breakdance for OData</Product>
+    <PackageId>Breakdance.OData</PackageId>
   </PropertyGroup>
 
 </Project>

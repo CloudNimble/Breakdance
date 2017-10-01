@@ -16,6 +16,10 @@
     <IncludeSource>True</IncludeSource>
     <IncludeSymbols>True</IncludeSymbols>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+    <AssemblyName>CloudNimble.Breakdance.Restier</AssemblyName>
+    <RootNamespace>CloudNimble.Breakdance.Restier</RootNamespace>
+    <PackageId>Breakdance.Restier</PackageId>
+    <Product>Breakdance for Restier</Product>
   </PropertyGroup>
 
   <ItemGroup>

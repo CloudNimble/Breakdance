@@ -1,9 +1,8 @@
-﻿using CloudNimble.Breakdance.Core;
-using CloudNimble.Breakdance.Tests.SampleApis;
+﻿using CloudNimble.Breakdance.Tests.Assemblies.SampleApis;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CloudNimble.Breakdance.Tests
+namespace CloudNimble.Breakdance.Assemblies.Tests
 {
     [TestClass]
     public class PublicApiHelpersTests
@@ -21,7 +20,7 @@ namespace CloudNimble.Breakdance.Tests
         [TestMethod]
         public void PublicApiHelpers_GenerateTypeDefinitionsForAssembly_Breakdance()
         {
-            var definitions = PublicApiHelpers.GenerateTypeDefinitionsForAssembly("CloudNimble.Breakdance.dll");
+            var definitions = PublicApiHelpers.GenerateTypeDefinitionsForAssembly("CloudNimble.Breakdance.Assemblies.dll");
             definitions.Should().NotBeNullOrEmpty();
             definitions.Count.Should().Be(8);
         }
@@ -29,7 +28,7 @@ namespace CloudNimble.Breakdance.Tests
         [TestMethod]
         public void PublicApiHelpers_GetPublicApiSurfaceReport_Breakdance()
         {
-            var report = PublicApiHelpers.GetPublicApiSurfaceReport("CloudNimble.Breakdance.dll");
+            var report = PublicApiHelpers.GetPublicApiSurfaceReport("CloudNimble.Breakdance.Assemblies.dll");
             report.Should().NotBeNullOrWhiteSpace();
         }
 

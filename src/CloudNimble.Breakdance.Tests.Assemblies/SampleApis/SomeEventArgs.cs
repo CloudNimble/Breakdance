@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudNimble.Breakdance.Tests.SampleApis
+namespace CloudNimble.Breakdance.Tests.Assemblies.SampleApis
 {
     public class SomeEventArgs
     {

@@ -1,4 +1,4 @@
-﻿using CloudNimble.Breakdance.Core;
+﻿using CloudNimble.Breakdance.Assemblies;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Runtime;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace CloudNimble.Breakdance
+namespace CloudNimble.Breakdance.Assemblies
 {
 
     /// <summary>

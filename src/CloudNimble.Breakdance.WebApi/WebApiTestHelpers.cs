@@ -5,13 +5,14 @@ namespace CloudNimble.Breakdance.WebApi
 {
 
     /// <summary>
-    /// Helper methods for generic WebAPI testing.
+    /// A set of methods that make it easier to pull out WebApi runtime components for unit testing.
     /// </summary>
+    /// <remarks>See WebApiTestHelperTests.cs for more examples of how to use these methods.</remarks>
     public static class WebApiTestHelpers
     {
 
         /// <summary>
-        /// Returns a new <see cref="HttpConfiguration" /> using the default Attribute Routing mappings.
+        /// Gets a new <see cref="HttpConfiguration" /> using the default AttributeRouting mapping engine, suitable for use in unit tests.
         /// </summary>
         /// <returns>A new <see cref="HttpConfiguration" /> instance.</returns>
         public static HttpConfiguration GetTestableConfiguration()
@@ -22,27 +23,21 @@ namespace CloudNimble.Breakdance.WebApi
         }
 
         /// <summary>
-        /// Returns a new <see cref="HttpServer" /> that uses the default Attribute Routing mappings, suitable for use in unit tests.
+        /// Gets a new <see cref="HttpServer" /> using the default AttributeRouting mapping engine, suitable for use in unit tests.
         /// </summary>
         /// <returns>A new <see cref="HttpServer" /> instance.</returns>
-        public static HttpServer GetTestableServer()
+        public static HttpServer GetTestableHttpServer()
         {
-            return GetTestableConfiguration().GetTestableServer();
+            return GetTestableConfiguration().GetTestableHttpServer();
         }
 
         /// <summary>
-        /// Returns a new <see cref="HttpServer" /> instance for a given <see cref="HttpConfiguration" />, suitable for use in unit tests.
+        /// Gets a new <see cref="HttpClient" /> instance using the default AttributeRouting mapping engine, suitable for use in unit tests
         /// </summary>
-        /// <returns>A new <see cref="HttpServer" /> instance.</returns>
-        public static HttpServer GetTestableServer(this HttpConfiguration config)
+        /// <returns>a new <see cref="HttpClient" /> instance.</returns>
+        public static HttpClient GetTestableHttpClient()
         {
-            return new HttpServer(config)
-            {
-                InnerHandler = new HttpClientHandler
-                {
-                    AllowAutoRedirect = true
-                }
-            };
+            return GetTestableConfiguration().GetTestableHttpClient();
         }
 
     }

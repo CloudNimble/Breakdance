@@ -7,6 +7,11 @@ namespace CloudNimble.Breakdance.Restier
     /// <summary>
     /// A set of string factory methods than generate Restier names for various possible operations.
     /// </summary>
+    /// <remarks>
+    /// This is an example of how Restier should ACTUALLY work to generate names. Some variation of thils class could be 
+    /// shipping in Restier, and then utilities like Breakdance could call it, instead of re-creating functionality and
+    /// having to worry about keeping it in sync.
+    /// </remarks>
     public static class ConventionBasedMethodNameFactory
     {
 

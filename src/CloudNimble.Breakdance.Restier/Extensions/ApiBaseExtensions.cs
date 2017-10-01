@@ -114,7 +114,8 @@ namespace CloudNimble.Breakdance.Restier
         #region Private Members
 
         /// <summary>
-        /// 
+        /// This method recreates parts of the code in <see cref="ConventionBasedChangeSetItemAuthorizer" /> to determine if
+        /// Restier can access the specified method name in the specified type.
         /// </summary>
         /// <param name="api"></param>
         /// <param name="methodName"></param>
@@ -134,7 +135,8 @@ namespace CloudNimble.Breakdance.Restier
         }
 
         /// <summary>
-        /// 
+        /// This method recreates parts of the code in <see cref="ConventionBasedChangeSetItemFilter" /> to determine if
+        /// Restier can access the specified method name in the specified type.
         /// </summary>
         /// <param name="api"></param>
         /// <param name="methodName"></param>
@@ -154,7 +156,8 @@ namespace CloudNimble.Breakdance.Restier
         }
 
         /// <summary>
-        /// 
+        /// This method recreates parts of the code in <see cref="ConventionBasedQueryExpressionProcessor" /> to determine if
+        /// Restier can access the specified method name in the specified type.
         /// </summary>
         /// <param name="api"></param>
         /// <param name="methodName"></param>

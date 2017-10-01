@@ -3,12 +3,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Breakdance.Tests.WebApi
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     [TestClass]
-    public class UnitTest1
+    public class WebApiTestHelperTests
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod]
         public void TestMethod1()
         {
         }
+
     }
+
 }

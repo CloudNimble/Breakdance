@@ -11,11 +11,10 @@ making weak references mainstream, even Microsoft breaks people... sometimes wit
 It's time to change all that. Breakdance integrates surface testing into your build and deployment process, in just a few lines of code. Instead of waiting until GitHub issues break your inbox, Breakdance will break YOUR build first, forcing you to make critical decisions about how to keep your customers happy BEFORE they grab their pitchforks.
 
 ### Components
-- **Breakdance:**              .NET assemblies.
+- **Breakdance.Assemblies:**   .NET assemblies.
 - **Breakdance.WebApi:**       WebApi services.
 - **Breakdance.OData:**        OData services.
 - **Breakdance.Restier:**      Restier-based OData services.
-- **Breakdance.Swashbuckle:**  Open API (Swagger) definitions. (In Progress)
 
 ## Installation
 

@@ -1,4 +1,4 @@
-﻿namespace CloudNimble.Breakdance.Tests.SampleApis
+﻿namespace CloudNimble.Breakdance.Tests.Assemblies.SampleApis
 {
 
     /// <summary>

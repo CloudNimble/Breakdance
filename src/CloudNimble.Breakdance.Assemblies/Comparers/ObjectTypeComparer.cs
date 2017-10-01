@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace CloudNimble.Breakdance.Core
+namespace CloudNimble.Breakdance.Assemblies
 {
 
     /// <summary>

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.OData", "CloudNi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakdance.Tests.Restier", "CloudNimble.Breakdance.Tests.Restier\Breakdance.Tests.Restier.csproj", "{4ADBBED8-A9DE-48E5-85ED-B2091AA68219}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance", "CloudNimble.Breakdance\Breakdance.csproj", "{C76FBD7B-4399-46D8-8C4D-EA0CF1193BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Assemblies", "CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj", "{C76FBD7B-4399-46D8-8C4D-EA0CF1193BA3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.WebApi", "CloudNimble.Breakdance.WebApi\Breakdance.WebApi.csproj", "{9B1EF3FA-44DB-430C-8264-6DF8FF4269E6}"
 EndProject
@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakdance.Tests", "CloudNimble.Breakdance.Tests\Breakdance.Tests.csproj", "{6A4813C0-9630-4EED-AA94-22DFEBC634F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakdance.Tests.Assemblies", "CloudNimble.Breakdance.Tests.Assemblies\Breakdance.Tests.Assemblies.csproj", "{6A4813C0-9630-4EED-AA94-22DFEBC634F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakdance.Tests.WebApi", "CloudNimble.Breakdance.Tests.WebApi\Breakdance.Tests.WebApi.csproj", "{73AD8F91-91B4-4BB9-9371-2AC0030F842B}"
 EndProject
