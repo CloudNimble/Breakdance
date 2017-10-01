@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>CloudNimble.Breakdance.Restier</id>
+    <version>$version$</version>
+    <title>Breakdance Testing Framework for Restier</title>
+    <authors>Robert McLaws</authors>
+    <owners>CloudNimble</owners>
+    <description>A set of helpers to make unit testing Restier APIs a breeze!</description>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/robertmclaws/RESTier</projectUrl>
+    <releaseNotes>http://odata.github.io/RESTier/</releaseNotes>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright></copyright>
+    <dependencies>
+      <dependency id="CloudNimble.Restier.Providers.EntityFramework" version="1.0.0-Beta2a" />
+      <dependency id="CloudNimble.Restier.Publishers.OData" version="1.0.0-Beta2a" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\CloudNimble.Breakdance.Restier.dll" target="lib\net452\" />
+    <file src="bin\Release\CloudNimble.Breakdance.Restier.pdb" target="lib\net452\" />
+    <file src="bin\Release\CloudNimble.Breakdance.Restier.xml" target="lib\net452\" />
+    <file src="**\*.cs" exclude="**\obj\**\*.*" target="src" />
+  </files>
+</package>

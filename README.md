@@ -1,4 +1,4 @@
-# Breakdance by AdvancedREI
+# Breakdance by CloudNimble
 ![breakdance-small](https://cloud.githubusercontent.com/assets/1657085/26813617/6489768e-4a4d-11e7-8a49-3864333ebde9.png)
 A testing framework for managing the dangerous dance of shipping public APIs.
 
@@ -17,8 +17,8 @@ It's time to change all that. Breakdance integrates surface testing into your bu
 
 ## Installation
 
-You can install Testier from NuGet by opening up Package Manager and typing `install-package AdvancedREI.Breakdance -pre`. Please note that the current version 
-requires [AdvancedREI's flavor of Restier](https://github.com/robertmclaws/RESTier), which we are currently shipping because Microsoft has not officially updated 
+You can install Testier from NuGet by opening up Package Manager and typing `install-package CloudNimble.Breakdance -pre`. Please note that the current version 
+requires [CloudNimble's flavor of Restier](https://github.com/robertmclaws/RESTier), which we are currently shipping because Microsoft has not officially updated 
 their NuGet packages for quite some time.
 
 ## Using Breakdance

@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net46</TargetFrameworks>
+    <Version>1.0.0-alpha2</Version>
+    <Company>CloudNimble</Company>
+    <Authors>CloudNimble</Authors>
+    <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular helps generate public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the API sirface changed, the unit test will fail.</Description>
+    <PackageId>CloudNimble.Breakdance</PackageId>
+    <PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
+    <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
+    <PackageReleaseNotes>- 1.0.0-alpha1: Initial release.</PackageReleaseNotes>
+    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="1.1" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
+    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

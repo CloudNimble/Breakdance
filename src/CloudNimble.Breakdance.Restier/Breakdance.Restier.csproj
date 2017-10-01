@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
+    <Authors>AdvancedREI</Authors>
+    <Company>AdvancedREI</Company>
+    <Version>1.0.0-alpha2</Version>
+    <PackageProjectUrl>https://github.com/advancedrei/Breakdance</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/advancedrei/Breakdance</RepositoryUrl>
+    <PackageReleaseNotes>- 1.0.0-alpha1: Initial release.</PackageReleaseNotes>
+    <PackageTags>unit tests, breakdance, nunit, fluentassertions, restier, odata, webapi</PackageTags>
+    <Description>Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular helps generate reports for the function naming conventions expected by the Restier framework, so you can check if your functions are being found and executed.</Description>
+    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AdvancedREI.Restier.Core" Version="1.0.0-beta2b" />
+    <PackageReference Include="AdvancedREI.Restier.Providers.EntityFramework" Version="1.0.0-beta2b" />
+    <PackageReference Include="AdvancedREI.Restier.Publishers.OData" Version="1.0.0-beta2b" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+    <PackageReference Include="Microsoft.OData.Core" Version="7.2.0" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="7.2.0" />
+    <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.Breakdance.WebApi\Breakdance.WebApi.csproj" />
+  </ItemGroup>
+
+</Project>
