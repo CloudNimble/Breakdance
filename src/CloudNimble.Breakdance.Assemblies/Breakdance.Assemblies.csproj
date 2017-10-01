@@ -1,25 +1,41 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <RootNamespace>CloudNimble.Breakdance.Assemblies</RootNamespace>
+    <AssemblyName>CloudNimble.Breakdance.Assemblies</AssemblyName>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+    <Product>Breakdance</Product>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageId>Breakdance.Assemblies</PackageId>
+    <Title>Breakdance for Assemblies</Title>
     <Version>1.0.0-beta1</Version>
     <Company>CloudNimble</Company>
     <Authors>CloudNimble</Authors>
     <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Description>Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular helps generate public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the API sirface changed, the unit test will fail.</Description>
-    <PackageId>Breakdance.Assemblies</PackageId>
     <PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
-    <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
-    <PackageReleaseNotes>- 1.0.0-alpha1: Initial release.</PackageReleaseNotes>
     <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <IncludeSource>True</IncludeSource>
     <IncludeSymbols>True</IncludeSymbols>
-    <RootNamespace>CloudNimble.Breakdance.Assemblies</RootNamespace>
-    <AssemblyName>CloudNimble.Breakdance.Assemblies</AssemblyName>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <Product>Breakdance for Assemblies</Product>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>
+      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular 
+      helps generate public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the API 
+      surface changed, the unit test will fail.
+    </Description>
+    <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
+    <PackageReleaseNotes>
+      1.0.0-beta1: 
+       - Under new management. Namespace changes, usability improvements, more docs.
+      1.0.0-alpha1:
+       - Initial release.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

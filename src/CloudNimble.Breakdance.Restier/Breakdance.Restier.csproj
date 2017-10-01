@@ -1,25 +1,41 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
-    <Authors>CloudNimble</Authors>
-    <Company>CloudNimble</Company>
-    <Version>1.0.0-beta1</Version>
-    <PackageProjectUrl>https://github.com/advancedrei/Breakdance</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/advancedrei/Breakdance</RepositoryUrl>
-    <PackageReleaseNotes>- 1.0.0-alpha1: Initial release.</PackageReleaseNotes>
-    <PackageTags>unit tests, breakdance, nunit, fluentassertions, restier, odata, webapi</PackageTags>
-    <Description>Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular helps generate reports for the function naming conventions expected by the Restier framework, so you can check if your functions are being found and executed.</Description>
-    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
-    <IncludeSource>True</IncludeSource>
-    <IncludeSymbols>True</IncludeSymbols>
     <AssemblyName>CloudNimble.Breakdance.Restier</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Restier</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <TargetFramework>net452</TargetFramework>
+    <Product>Breakdance</Product>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageId>Breakdance.Restier</PackageId>
-    <Product>Breakdance for Restier</Product>
+    <Title>Breakdance for Restier</Title>
+    <Version>1.0.0-beta1</Version>
+    <Company>CloudNimble</Company>
+    <Authors>CloudNimble</Authors>
+    <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
+    <PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
+    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>
+      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular
+      helps generate API reports for OData APIs, and compare them against a prior unit test run. That way, if something in the API
+      surface changed, the unit test will fail.
+    </Description>
+    <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
+    <PackageReleaseNotes>
+      1.0.0-beta1:
+       - Under new management. Namespace changes, usability improvements, more docs.
+      1.0.0-alpha1:
+       - Initial release.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
