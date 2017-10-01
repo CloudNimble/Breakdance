@@ -2,6 +2,8 @@
 ![breakdance-small](https://cloud.githubusercontent.com/assets/1657085/26813617/6489768e-4a4d-11e7-8a49-3864333ebde9.png)
 A testing framework for managing the dangerous dance of shipping public APIs.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/4oac97kfh85t9f7e?svg=true)](https://ci.appveyor.com/project/robertmclaws/breakdance-wcgrd)
+
 ## Introduction
 Managing breakage in public APIs is a HUGE pain in the ass. With the current tools, you never really know when you're going to break someone. And with NuGet
 making weak references mainstream, even Microsoft breaks people... sometimes without realizing it for months.
