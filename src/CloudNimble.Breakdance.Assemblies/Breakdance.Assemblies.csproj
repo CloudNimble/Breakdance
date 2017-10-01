@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
-    <Version>1.0.0-alpha2</Version>
+    <Version>1.0.0-beta1</Version>
     <Company>CloudNimble</Company>
     <Authors>CloudNimble</Authors>
     <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
@@ -16,9 +16,9 @@
     <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
     <IncludeSource>True</IncludeSource>
     <IncludeSymbols>True</IncludeSymbols>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
     <RootNamespace>CloudNimble.Breakdance.Assemblies</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.Assemblies</AssemblyName>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <Product>Breakdance for Assemblies</Product>
   </PropertyGroup>
 

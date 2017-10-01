@@ -21,7 +21,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         }
 
         [TestMethod]
-        public async Task GenerateConventionDefinitions()
+        public async Task RestierTestHelpers_GenerateConventionDefinitions()
         {
             var model = await RestierTestHelpers.GetTestableModelAsync<SportsApi>();
             var result = model.GenerateConventionDefinitions();
@@ -41,7 +41,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         //}
 
         [TestMethod]
-        public async Task CompareReportToApi()
+        public async Task RestierTestHelpers_CompareReportToApi()
         {
             var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi>();
             var result = await api.GenerateVisibilityMatrix();
@@ -51,7 +51,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         }
 
         [TestMethod]
-        public async Task WriteApiToFileSystem()
+        public async Task RestierTestHelpers_WriteApiToFileSystem()
         {
             var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi>();
             await api.WriteCurrentVisibilityMatrix(relativePath);
@@ -60,7 +60,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         }
 
         [TestMethod]
-        public async Task CompareCurrentApiReportToPriorRun()
+        public async Task RestierTestHelpers_CompareCurrentApiReportToPriorRun()
         {
             var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi>();
             var fileName = $"{relativePath}{api.GetType().Name}-ApiSurface.txt";
@@ -72,7 +72,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         }
 
         [TestMethod]
-        public async Task WriteApiMetadataToFileSystem()
+        public async Task RestierTestHelpers_WriteApiMetadataToFileSystem()
         {
             await RestierTestHelpers.WriteCurrentApiMetadata<SportsApi>(relativePath);
 
@@ -80,7 +80,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         }
 
         [TestMethod]
-        public async Task CompareCurrentApiMetadataToPriorRun()
+        public async Task RestierTestHelpers_CompareCurrentApiMetadataToPriorRun()
         {
             var fileName = $"{relativePath}{typeof(SportsApi).Name}-ApiMetadata.txt";
             File.Exists(fileName).Should().BeTrue();

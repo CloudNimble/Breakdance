@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CloudNimble.Breakdance.Assemblies.Definitions
+namespace CloudNimble.Breakdance.Assemblies
 {
 
     /// <summary>

@@ -1,0 +1,20 @@
+{
+  "CloudNimble.Breakdance.WebApi": "CloudNimble.Breakdance.WebApi.yml",
+  "CloudNimble.Breakdance.WebApi.HttpClientHelpers": "CloudNimble.Breakdance.WebApi.HttpClientHelpers.yml",
+  "CloudNimble.Breakdance.WebApi.HttpClientHelpers.GetTestableHttpRequestMessage(System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String)": "CloudNimble.Breakdance.WebApi.HttpClientHelpers.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiConstants": "CloudNimble.Breakdance.WebApi.WebApiConstants.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiConstants.DefaultAcceptHeader": "CloudNimble.Breakdance.WebApi.WebApiConstants.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiConstants.Localhost": "CloudNimble.Breakdance.WebApi.WebApiConstants.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiConstants.RoutePrefix": "CloudNimble.Breakdance.WebApi.WebApiConstants.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiTestHelpers": "CloudNimble.Breakdance.WebApi.WebApiTestHelpers.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableConfiguration": "CloudNimble.Breakdance.WebApi.WebApiTestHelpers.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpClient": "CloudNimble.Breakdance.WebApi.WebApiTestHelpers.yml",
+  "CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpServer": "CloudNimble.Breakdance.WebApi.WebApiTestHelpers.yml",
+  "System.Net.Http": "System.Net.Http.yml",
+  "System.Net.Http.HttpClientExtensions": "System.Net.Http.HttpClientExtensions.yml",
+  "System.Net.Http.HttpClientExtensions.ExecuteTestRequest(System.Net.Http.HttpClient,System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String)": "System.Net.Http.HttpClientExtensions.yml",
+  "System.Web.Http": "System.Web.Http.yml",
+  "System.Web.Http.HttpConfigurationExtensions": "System.Web.Http.HttpConfigurationExtensions.yml",
+  "System.Web.Http.HttpConfigurationExtensions.GetTestableHttpClient(System.Web.Http.HttpConfiguration)": "System.Web.Http.HttpConfigurationExtensions.yml",
+  "System.Web.Http.HttpConfigurationExtensions.GetTestableHttpServer(System.Web.Http.HttpConfiguration)": "System.Web.Http.HttpConfigurationExtensions.yml"
+}

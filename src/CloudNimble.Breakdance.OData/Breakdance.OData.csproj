@@ -4,17 +4,21 @@
     <TargetFramework>net452</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>1.0.0-alpha1</Version>
-    <Authors>AdvancedREI</Authors>
-    <Company>AdvancedREI</Company>
-    <Copyright>Copyright &amp;copy; 2017 AdvancedREI, LLC.</Copyright>
+    <Authors>CloudNimble</Authors>
+    <Company>CloudNimble</Company>
+    <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
     <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
     <IncludeSource>True</IncludeSource>
     <IncludeSymbols>True</IncludeSymbols>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
     <AssemblyName>CloudNimble.Breakdance.OData</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.OData</RootNamespace>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <Product>Breakdance for OData</Product>
     <PackageId>Breakdance.OData</PackageId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 
 </Project>
