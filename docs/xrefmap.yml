@@ -1,0 +1,1026 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: CloudNimble.Breakdance.Assemblies
+  name: CloudNimble.Breakdance.Assemblies
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.html
+  commentId: N:CloudNimble.Breakdance.Assemblies
+  fullName: CloudNimble.Breakdance.Assemblies
+  nameWithType: CloudNimble.Breakdance.Assemblies
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants
+  name: AssemblyConstants
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html
+  commentId: T:CloudNimble.Breakdance.Assemblies.AssemblyConstants
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants
+  nameWithType: AssemblyConstants
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Abstract
+  name: Abstract
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Abstract
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Abstract
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Abstract
+  nameWithType: AssemblyConstants.Abstract
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Add
+  name: Add
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Add
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Add
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Add
+  nameWithType: AssemblyConstants.Add
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BraceClose
+  name: BraceClose
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_BraceClose
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.BraceClose
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BraceClose
+  nameWithType: AssemblyConstants.BraceClose
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BraceOpen
+  name: BraceOpen
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_BraceOpen
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.BraceOpen
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BraceOpen
+  nameWithType: AssemblyConstants.BraceOpen
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BracketClose
+  name: BracketClose
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_BracketClose
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.BracketClose
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BracketClose
+  nameWithType: AssemblyConstants.BracketClose
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BracketOpen
+  name: BracketOpen
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_BracketOpen
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.BracketOpen
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.BracketOpen
+  nameWithType: AssemblyConstants.BracketOpen
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Class
+  name: Class
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Class
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Class
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Class
+  nameWithType: AssemblyConstants.Class
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Colon
+  name: Colon
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Colon
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Colon
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Colon
+  nameWithType: AssemblyConstants.Colon
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Const
+  name: Const
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Const
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Const
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Const
+  nameWithType: AssemblyConstants.Const
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Enum
+  name: Enum
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Enum
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Enum
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Enum
+  nameWithType: AssemblyConstants.Enum
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Get
+  name: Get
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Get
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Get
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Get
+  nameWithType: AssemblyConstants.Get
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Interface
+  name: Interface
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Interface
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Interface
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Interface
+  nameWithType: AssemblyConstants.Interface
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Internal
+  name: Internal
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Internal
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Internal
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Internal
+  nameWithType: AssemblyConstants.Internal
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Out
+  name: Out
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Out
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Out
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Out
+  nameWithType: AssemblyConstants.Out
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Params
+  name: Params
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Params
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Params
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Params
+  nameWithType: AssemblyConstants.Params
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.ParenthesisClose
+  name: ParenthesisClose
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_ParenthesisClose
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.ParenthesisClose
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.ParenthesisClose
+  nameWithType: AssemblyConstants.ParenthesisClose
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.ParenthesisOpen
+  name: ParenthesisOpen
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_ParenthesisOpen
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.ParenthesisOpen
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.ParenthesisOpen
+  nameWithType: AssemblyConstants.ParenthesisOpen
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Private
+  name: Private
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Private
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Private
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Private
+  nameWithType: AssemblyConstants.Private
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Protected
+  name: Protected
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Protected
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Protected
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Protected
+  nameWithType: AssemblyConstants.Protected
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Public
+  name: Public
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Public
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Public
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Public
+  nameWithType: AssemblyConstants.Public
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.ReadOnly
+  name: ReadOnly
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_ReadOnly
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.ReadOnly
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.ReadOnly
+  nameWithType: AssemblyConstants.ReadOnly
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Remove
+  name: Remove
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Remove
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Remove
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Remove
+  nameWithType: AssemblyConstants.Remove
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Sealed
+  name: Sealed
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Sealed
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Sealed
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Sealed
+  nameWithType: AssemblyConstants.Sealed
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Set
+  name: Set
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Set
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Set
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Set
+  nameWithType: AssemblyConstants.Set
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Space
+  name: Space
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Space
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Space
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Space
+  nameWithType: AssemblyConstants.Space
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Static
+  name: Static
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Static
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Static
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Static
+  nameWithType: AssemblyConstants.Static
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Struct
+  name: Struct
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Struct
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Struct
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Struct
+  nameWithType: AssemblyConstants.Struct
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Unknown
+  name: Unknown
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Unknown
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Unknown
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Unknown
+  nameWithType: AssemblyConstants.Unknown
+- uid: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Virtual
+  name: Virtual
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html#CloudNimble_Breakdance_Assemblies_AssemblyConstants_Virtual
+  commentId: F:CloudNimble.Breakdance.Assemblies.AssemblyConstants.Virtual
+  fullName: CloudNimble.Breakdance.Assemblies.AssemblyConstants.Virtual
+  nameWithType: AssemblyConstants.Virtual
+- uid: CloudNimble.Breakdance.Assemblies.MemberComparer
+  name: MemberComparer
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.html
+  commentId: T:CloudNimble.Breakdance.Assemblies.MemberComparer
+  fullName: CloudNimble.Breakdance.Assemblies.MemberComparer
+  nameWithType: MemberComparer
+- uid: CloudNimble.Breakdance.Assemblies.MemberComparer.#ctor(System.Type)
+  name: MemberComparer(Type)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.html#CloudNimble_Breakdance_Assemblies_MemberComparer__ctor_System_Type_
+  commentId: M:CloudNimble.Breakdance.Assemblies.MemberComparer.#ctor(System.Type)
+  fullName: CloudNimble.Breakdance.Assemblies.MemberComparer.MemberComparer(System.Type)
+  nameWithType: MemberComparer.MemberComparer(Type)
+- uid: CloudNimble.Breakdance.Assemblies.MemberComparer.#ctor*
+  name: MemberComparer
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.html#CloudNimble_Breakdance_Assemblies_MemberComparer__ctor_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.MemberComparer.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.MemberComparer.MemberComparer
+  nameWithType: MemberComparer.MemberComparer
+- uid: CloudNimble.Breakdance.Assemblies.MemberComparer.Compare(System.Object,System.Object)
+  name: Compare(Object, Object)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.html#CloudNimble_Breakdance_Assemblies_MemberComparer_Compare_System_Object_System_Object_
+  commentId: M:CloudNimble.Breakdance.Assemblies.MemberComparer.Compare(System.Object,System.Object)
+  fullName: CloudNimble.Breakdance.Assemblies.MemberComparer.Compare(System.Object, System.Object)
+  nameWithType: MemberComparer.Compare(Object, Object)
+- uid: CloudNimble.Breakdance.Assemblies.MemberComparer.Compare(System.Reflection.MemberInfo,System.Reflection.MemberInfo)
+  name: Compare(MemberInfo, MemberInfo)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.html#CloudNimble_Breakdance_Assemblies_MemberComparer_Compare_System_Reflection_MemberInfo_System_Reflection_MemberInfo_
+  commentId: M:CloudNimble.Breakdance.Assemblies.MemberComparer.Compare(System.Reflection.MemberInfo,System.Reflection.MemberInfo)
+  fullName: CloudNimble.Breakdance.Assemblies.MemberComparer.Compare(System.Reflection.MemberInfo, System.Reflection.MemberInfo)
+  nameWithType: MemberComparer.Compare(MemberInfo, MemberInfo)
+- uid: CloudNimble.Breakdance.Assemblies.MemberComparer.Compare*
+  name: Compare
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.html#CloudNimble_Breakdance_Assemblies_MemberComparer_Compare_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.MemberComparer.Compare
+  fullName: CloudNimble.Breakdance.Assemblies.MemberComparer.Compare
+  nameWithType: MemberComparer.Compare
+- uid: CloudNimble.Breakdance.Assemblies.MemberDefinition
+  name: MemberDefinition
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html
+  commentId: T:CloudNimble.Breakdance.Assemblies.MemberDefinition
+  fullName: CloudNimble.Breakdance.Assemblies.MemberDefinition
+  nameWithType: MemberDefinition
+- uid: CloudNimble.Breakdance.Assemblies.MemberDefinition.#ctor(System.String,System.Collections.Generic.List{System.String})
+  name: MemberDefinition(String, List<String>)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html#CloudNimble_Breakdance_Assemblies_MemberDefinition__ctor_System_String_System_Collections_Generic_List_System_String__
+  commentId: M:CloudNimble.Breakdance.Assemblies.MemberDefinition.#ctor(System.String,System.Collections.Generic.List{System.String})
+  name.vb: MemberDefinition(String, List(Of String))
+  fullName: CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberDefinition(System.String, System.Collections.Generic.List<System.String>)
+  fullName.vb: CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberDefinition(System.String, System.Collections.Generic.List(Of System.String))
+  nameWithType: MemberDefinition.MemberDefinition(String, List<String>)
+  nameWithType.vb: MemberDefinition.MemberDefinition(String, List(Of String))
+- uid: CloudNimble.Breakdance.Assemblies.MemberDefinition.#ctor*
+  name: MemberDefinition
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html#CloudNimble_Breakdance_Assemblies_MemberDefinition__ctor_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.MemberDefinition.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberDefinition
+  nameWithType: MemberDefinition.MemberDefinition
+- uid: CloudNimble.Breakdance.Assemblies.MemberDefinition.Attributes
+  name: Attributes
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html#CloudNimble_Breakdance_Assemblies_MemberDefinition_Attributes
+  commentId: P:CloudNimble.Breakdance.Assemblies.MemberDefinition.Attributes
+  fullName: CloudNimble.Breakdance.Assemblies.MemberDefinition.Attributes
+  nameWithType: MemberDefinition.Attributes
+- uid: CloudNimble.Breakdance.Assemblies.MemberDefinition.Attributes*
+  name: Attributes
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html#CloudNimble_Breakdance_Assemblies_MemberDefinition_Attributes_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.MemberDefinition.Attributes
+  fullName: CloudNimble.Breakdance.Assemblies.MemberDefinition.Attributes
+  nameWithType: MemberDefinition.Attributes
+- uid: CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberName
+  name: MemberName
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html#CloudNimble_Breakdance_Assemblies_MemberDefinition_MemberName
+  commentId: P:CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberName
+  fullName: CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberName
+  nameWithType: MemberDefinition.MemberName
+- uid: CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberName*
+  name: MemberName
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html#CloudNimble_Breakdance_Assemblies_MemberDefinition_MemberName_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberName
+  fullName: CloudNimble.Breakdance.Assemblies.MemberDefinition.MemberName
+  nameWithType: MemberDefinition.MemberName
+- uid: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer
+  name: ObjectTypeComparer
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.html
+  commentId: T:CloudNimble.Breakdance.Assemblies.ObjectTypeComparer
+  fullName: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer
+  nameWithType: ObjectTypeComparer
+- uid: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.#ctor
+  name: ObjectTypeComparer()
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.html#CloudNimble_Breakdance_Assemblies_ObjectTypeComparer__ctor
+  commentId: M:CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.ObjectTypeComparer()
+  nameWithType: ObjectTypeComparer.ObjectTypeComparer()
+- uid: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.#ctor*
+  name: ObjectTypeComparer
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.html#CloudNimble_Breakdance_Assemblies_ObjectTypeComparer__ctor_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.ObjectTypeComparer
+  nameWithType: ObjectTypeComparer.ObjectTypeComparer
+- uid: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Compare(System.Object,System.Object)
+  name: Compare(Object, Object)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.html#CloudNimble_Breakdance_Assemblies_ObjectTypeComparer_Compare_System_Object_System_Object_
+  commentId: M:CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Compare(System.Object,System.Object)
+  fullName: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Compare(System.Object, System.Object)
+  nameWithType: ObjectTypeComparer.Compare(Object, Object)
+- uid: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Compare*
+  name: Compare
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.html#CloudNimble_Breakdance_Assemblies_ObjectTypeComparer_Compare_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Compare
+  fullName: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Compare
+  nameWithType: ObjectTypeComparer.Compare
+- uid: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Default
+  name: Default
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.html#CloudNimble_Breakdance_Assemblies_ObjectTypeComparer_Default
+  commentId: F:CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Default
+  fullName: CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.Default
+  nameWithType: ObjectTypeComparer.Default
+- uid: CloudNimble.Breakdance.Assemblies.PublicApiHelpers
+  name: PublicApiHelpers
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.html
+  commentId: T:CloudNimble.Breakdance.Assemblies.PublicApiHelpers
+  fullName: CloudNimble.Breakdance.Assemblies.PublicApiHelpers
+  nameWithType: PublicApiHelpers
+- uid: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.#ctor
+  name: PublicApiHelpers()
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.html#CloudNimble_Breakdance_Assemblies_PublicApiHelpers__ctor
+  commentId: M:CloudNimble.Breakdance.Assemblies.PublicApiHelpers.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.PublicApiHelpers()
+  nameWithType: PublicApiHelpers.PublicApiHelpers()
+- uid: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.#ctor*
+  name: PublicApiHelpers
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.html#CloudNimble_Breakdance_Assemblies_PublicApiHelpers__ctor_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.PublicApiHelpers.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.PublicApiHelpers
+  nameWithType: PublicApiHelpers.PublicApiHelpers
+- uid: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport(System.String)
+  name: GetPublicApiSurfaceReport(String)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.html#CloudNimble_Breakdance_Assemblies_PublicApiHelpers_GetPublicApiSurfaceReport_System_String_
+  commentId: M:CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport(System.String)
+  fullName: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport(System.String)
+  nameWithType: PublicApiHelpers.GetPublicApiSurfaceReport(String)
+- uid: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport(System.String[])
+  name: GetPublicApiSurfaceReport(String[])
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.html#CloudNimble_Breakdance_Assemblies_PublicApiHelpers_GetPublicApiSurfaceReport_System_String___
+  commentId: M:CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport(System.String[])
+  name.vb: GetPublicApiSurfaceReport(String())
+  fullName: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport(System.String[])
+  fullName.vb: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport(System.String())
+  nameWithType: PublicApiHelpers.GetPublicApiSurfaceReport(String[])
+  nameWithType.vb: PublicApiHelpers.GetPublicApiSurfaceReport(String())
+- uid: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport*
+  name: GetPublicApiSurfaceReport
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.html#CloudNimble_Breakdance_Assemblies_PublicApiHelpers_GetPublicApiSurfaceReport_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport
+  fullName: CloudNimble.Breakdance.Assemblies.PublicApiHelpers.GetPublicApiSurfaceReport
+  nameWithType: PublicApiHelpers.GetPublicApiSurfaceReport
+- uid: CloudNimble.Breakdance.Assemblies.TypeComparer
+  name: TypeComparer
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.html
+  commentId: T:CloudNimble.Breakdance.Assemblies.TypeComparer
+  fullName: CloudNimble.Breakdance.Assemblies.TypeComparer
+  nameWithType: TypeComparer
+- uid: CloudNimble.Breakdance.Assemblies.TypeComparer.#ctor
+  name: TypeComparer()
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.html#CloudNimble_Breakdance_Assemblies_TypeComparer__ctor
+  commentId: M:CloudNimble.Breakdance.Assemblies.TypeComparer.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.TypeComparer.TypeComparer()
+  nameWithType: TypeComparer.TypeComparer()
+- uid: CloudNimble.Breakdance.Assemblies.TypeComparer.#ctor*
+  name: TypeComparer
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.html#CloudNimble_Breakdance_Assemblies_TypeComparer__ctor_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.TypeComparer.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.TypeComparer.TypeComparer
+  nameWithType: TypeComparer.TypeComparer
+- uid: CloudNimble.Breakdance.Assemblies.TypeComparer.Compare(System.Object,System.Object)
+  name: Compare(Object, Object)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.html#CloudNimble_Breakdance_Assemblies_TypeComparer_Compare_System_Object_System_Object_
+  commentId: M:CloudNimble.Breakdance.Assemblies.TypeComparer.Compare(System.Object,System.Object)
+  fullName: CloudNimble.Breakdance.Assemblies.TypeComparer.Compare(System.Object, System.Object)
+  nameWithType: TypeComparer.Compare(Object, Object)
+- uid: CloudNimble.Breakdance.Assemblies.TypeComparer.Compare*
+  name: Compare
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.html#CloudNimble_Breakdance_Assemblies_TypeComparer_Compare_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.TypeComparer.Compare
+  fullName: CloudNimble.Breakdance.Assemblies.TypeComparer.Compare
+  nameWithType: TypeComparer.Compare
+- uid: CloudNimble.Breakdance.Assemblies.TypeComparer.Default
+  name: Default
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.html#CloudNimble_Breakdance_Assemblies_TypeComparer_Default
+  commentId: F:CloudNimble.Breakdance.Assemblies.TypeComparer.Default
+  fullName: CloudNimble.Breakdance.Assemblies.TypeComparer.Default
+  nameWithType: TypeComparer.Default
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition
+  name: TypeDefinition
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html
+  commentId: T:CloudNimble.Breakdance.Assemblies.TypeDefinition
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition
+  nameWithType: TypeDefinition
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.#ctor(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{CloudNimble.Breakdance.Assemblies.MemberDefinition})
+  name: TypeDefinition(String, List<String>, List<MemberDefinition>)
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition__ctor_System_String_System_Collections_Generic_List_System_String__System_Collections_Generic_List_CloudNimble_Breakdance_Assemblies_MemberDefinition__
+  commentId: M:CloudNimble.Breakdance.Assemblies.TypeDefinition.#ctor(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{CloudNimble.Breakdance.Assemblies.MemberDefinition})
+  name.vb: TypeDefinition(String, List(Of String), List(Of MemberDefinition))
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeDefinition(System.String, System.Collections.Generic.List<System.String>, System.Collections.Generic.List<CloudNimble.Breakdance.Assemblies.MemberDefinition>)
+  fullName.vb: CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeDefinition(System.String, System.Collections.Generic.List(Of System.String), System.Collections.Generic.List(Of CloudNimble.Breakdance.Assemblies.MemberDefinition))
+  nameWithType: TypeDefinition.TypeDefinition(String, List<String>, List<MemberDefinition>)
+  nameWithType.vb: TypeDefinition.TypeDefinition(String, List(Of String), List(Of MemberDefinition))
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.#ctor*
+  name: TypeDefinition
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition__ctor_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.TypeDefinition.#ctor
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeDefinition
+  nameWithType: TypeDefinition.TypeDefinition
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.Attributes
+  name: Attributes
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition_Attributes
+  commentId: P:CloudNimble.Breakdance.Assemblies.TypeDefinition.Attributes
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.Attributes
+  nameWithType: TypeDefinition.Attributes
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.Attributes*
+  name: Attributes
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition_Attributes_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.TypeDefinition.Attributes
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.Attributes
+  nameWithType: TypeDefinition.Attributes
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.Members
+  name: Members
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition_Members
+  commentId: P:CloudNimble.Breakdance.Assemblies.TypeDefinition.Members
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.Members
+  nameWithType: TypeDefinition.Members
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.Members*
+  name: Members
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition_Members_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.TypeDefinition.Members
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.Members
+  nameWithType: TypeDefinition.Members
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeName
+  name: TypeName
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition_TypeName
+  commentId: P:CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeName
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeName
+  nameWithType: TypeDefinition.TypeName
+- uid: CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeName*
+  name: TypeName
+  href: api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html#CloudNimble_Breakdance_Assemblies_TypeDefinition_TypeName_
+  commentId: Overload:CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeName
+  fullName: CloudNimble.Breakdance.Assemblies.TypeDefinition.TypeName
+  nameWithType: TypeDefinition.TypeName
+- uid: CloudNimble.Breakdance.Restier
+  name: CloudNimble.Breakdance.Restier
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.html
+  commentId: N:CloudNimble.Breakdance.Restier
+  fullName: CloudNimble.Breakdance.Restier
+  nameWithType: CloudNimble.Breakdance.Restier
+- uid: CloudNimble.Breakdance.Restier.ApiBaseExtensions
+  name: ApiBaseExtensions
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ApiBaseExtensions.html
+  commentId: T:CloudNimble.Breakdance.Restier.ApiBaseExtensions
+  fullName: CloudNimble.Breakdance.Restier.ApiBaseExtensions
+  nameWithType: ApiBaseExtensions
+- uid: CloudNimble.Breakdance.Restier.ApiBaseExtensions.GenerateVisibilityMatrix(Microsoft.Restier.Core.ApiBase)
+  name: GenerateVisibilityMatrix(ApiBase)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ApiBaseExtensions.html#CloudNimble_Breakdance_Restier_ApiBaseExtensions_GenerateVisibilityMatrix_Microsoft_Restier_Core_ApiBase_
+  commentId: M:CloudNimble.Breakdance.Restier.ApiBaseExtensions.GenerateVisibilityMatrix(Microsoft.Restier.Core.ApiBase)
+  fullName: CloudNimble.Breakdance.Restier.ApiBaseExtensions.GenerateVisibilityMatrix(Microsoft.Restier.Core.ApiBase)
+  nameWithType: ApiBaseExtensions.GenerateVisibilityMatrix(ApiBase)
+- uid: CloudNimble.Breakdance.Restier.ApiBaseExtensions.GenerateVisibilityMatrix*
+  name: GenerateVisibilityMatrix
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ApiBaseExtensions.html#CloudNimble_Breakdance_Restier_ApiBaseExtensions_GenerateVisibilityMatrix_
+  commentId: Overload:CloudNimble.Breakdance.Restier.ApiBaseExtensions.GenerateVisibilityMatrix
+  fullName: CloudNimble.Breakdance.Restier.ApiBaseExtensions.GenerateVisibilityMatrix
+  nameWithType: ApiBaseExtensions.GenerateVisibilityMatrix
+- uid: CloudNimble.Breakdance.Restier.ApiBaseExtensions.WriteCurrentVisibilityMatrix(Microsoft.Restier.Core.ApiBase,System.String,System.String)
+  name: WriteCurrentVisibilityMatrix(ApiBase, String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ApiBaseExtensions.html#CloudNimble_Breakdance_Restier_ApiBaseExtensions_WriteCurrentVisibilityMatrix_Microsoft_Restier_Core_ApiBase_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.ApiBaseExtensions.WriteCurrentVisibilityMatrix(Microsoft.Restier.Core.ApiBase,System.String,System.String)
+  fullName: CloudNimble.Breakdance.Restier.ApiBaseExtensions.WriteCurrentVisibilityMatrix(Microsoft.Restier.Core.ApiBase, System.String, System.String)
+  nameWithType: ApiBaseExtensions.WriteCurrentVisibilityMatrix(ApiBase, String, String)
+- uid: CloudNimble.Breakdance.Restier.ApiBaseExtensions.WriteCurrentVisibilityMatrix*
+  name: WriteCurrentVisibilityMatrix
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ApiBaseExtensions.html#CloudNimble_Breakdance_Restier_ApiBaseExtensions_WriteCurrentVisibilityMatrix_
+  commentId: Overload:CloudNimble.Breakdance.Restier.ApiBaseExtensions.WriteCurrentVisibilityMatrix
+  fullName: CloudNimble.Breakdance.Restier.ApiBaseExtensions.WriteCurrentVisibilityMatrix
+  nameWithType: ApiBaseExtensions.WriteCurrentVisibilityMatrix
+- uid: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory
+  name: ConventionBasedMethodNameFactory
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.html
+  commentId: T:CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory
+  fullName: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory
+  nameWithType: ConventionBasedMethodNameFactory
+- uid: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetEntitySetMethodName(Microsoft.OData.Edm.IEdmEntitySet,CloudNimble.Breakdance.Restier.RestierPipelineStates,CloudNimble.Breakdance.Restier.RestierEntitySetOperations)
+  name: GetEntitySetMethodName(IEdmEntitySet, RestierPipelineStates, RestierEntitySetOperations)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.html#CloudNimble_Breakdance_Restier_ConventionBasedMethodNameFactory_GetEntitySetMethodName_Microsoft_OData_Edm_IEdmEntitySet_CloudNimble_Breakdance_Restier_RestierPipelineStates_CloudNimble_Breakdance_Restier_RestierEntitySetOperations_
+  commentId: M:CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetEntitySetMethodName(Microsoft.OData.Edm.IEdmEntitySet,CloudNimble.Breakdance.Restier.RestierPipelineStates,CloudNimble.Breakdance.Restier.RestierEntitySetOperations)
+  fullName: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetEntitySetMethodName(Microsoft.OData.Edm.IEdmEntitySet, CloudNimble.Breakdance.Restier.RestierPipelineStates, CloudNimble.Breakdance.Restier.RestierEntitySetOperations)
+  nameWithType: ConventionBasedMethodNameFactory.GetEntitySetMethodName(IEdmEntitySet, RestierPipelineStates, RestierEntitySetOperations)
+- uid: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetEntitySetMethodName*
+  name: GetEntitySetMethodName
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.html#CloudNimble_Breakdance_Restier_ConventionBasedMethodNameFactory_GetEntitySetMethodName_
+  commentId: Overload:CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetEntitySetMethodName
+  fullName: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetEntitySetMethodName
+  nameWithType: ConventionBasedMethodNameFactory.GetEntitySetMethodName
+- uid: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetFunctionMethodName(Microsoft.OData.Edm.IEdmOperationImport,CloudNimble.Breakdance.Restier.RestierPipelineStates,CloudNimble.Breakdance.Restier.RestierMethodOperations)
+  name: GetFunctionMethodName(IEdmOperationImport, RestierPipelineStates, RestierMethodOperations)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.html#CloudNimble_Breakdance_Restier_ConventionBasedMethodNameFactory_GetFunctionMethodName_Microsoft_OData_Edm_IEdmOperationImport_CloudNimble_Breakdance_Restier_RestierPipelineStates_CloudNimble_Breakdance_Restier_RestierMethodOperations_
+  commentId: M:CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetFunctionMethodName(Microsoft.OData.Edm.IEdmOperationImport,CloudNimble.Breakdance.Restier.RestierPipelineStates,CloudNimble.Breakdance.Restier.RestierMethodOperations)
+  fullName: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetFunctionMethodName(Microsoft.OData.Edm.IEdmOperationImport, CloudNimble.Breakdance.Restier.RestierPipelineStates, CloudNimble.Breakdance.Restier.RestierMethodOperations)
+  nameWithType: ConventionBasedMethodNameFactory.GetFunctionMethodName(IEdmOperationImport, RestierPipelineStates, RestierMethodOperations)
+- uid: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetFunctionMethodName*
+  name: GetFunctionMethodName
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.html#CloudNimble_Breakdance_Restier_ConventionBasedMethodNameFactory_GetFunctionMethodName_
+  commentId: Overload:CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetFunctionMethodName
+  fullName: CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.GetFunctionMethodName
+  nameWithType: ConventionBasedMethodNameFactory.GetFunctionMethodName
+- uid: CloudNimble.Breakdance.Restier.IEdmModelExtensions
+  name: IEdmModelExtensions
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.IEdmModelExtensions.html
+  commentId: T:CloudNimble.Breakdance.Restier.IEdmModelExtensions
+  fullName: CloudNimble.Breakdance.Restier.IEdmModelExtensions
+  nameWithType: IEdmModelExtensions
+- uid: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionDefinitions(Microsoft.OData.Edm.IEdmModel)
+  name: GenerateConventionDefinitions(IEdmModel)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.IEdmModelExtensions.html#CloudNimble_Breakdance_Restier_IEdmModelExtensions_GenerateConventionDefinitions_Microsoft_OData_Edm_IEdmModel_
+  commentId: M:CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionDefinitions(Microsoft.OData.Edm.IEdmModel)
+  fullName: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionDefinitions(Microsoft.OData.Edm.IEdmModel)
+  nameWithType: IEdmModelExtensions.GenerateConventionDefinitions(IEdmModel)
+- uid: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionDefinitions*
+  name: GenerateConventionDefinitions
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.IEdmModelExtensions.html#CloudNimble_Breakdance_Restier_IEdmModelExtensions_GenerateConventionDefinitions_
+  commentId: Overload:CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionDefinitions
+  fullName: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionDefinitions
+  nameWithType: IEdmModelExtensions.GenerateConventionDefinitions
+- uid: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionReport(Microsoft.OData.Edm.IEdmModel,System.Boolean)
+  name: GenerateConventionReport(IEdmModel, Boolean)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.IEdmModelExtensions.html#CloudNimble_Breakdance_Restier_IEdmModelExtensions_GenerateConventionReport_Microsoft_OData_Edm_IEdmModel_System_Boolean_
+  commentId: M:CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionReport(Microsoft.OData.Edm.IEdmModel,System.Boolean)
+  fullName: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionReport(Microsoft.OData.Edm.IEdmModel, System.Boolean)
+  nameWithType: IEdmModelExtensions.GenerateConventionReport(IEdmModel, Boolean)
+- uid: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionReport*
+  name: GenerateConventionReport
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.IEdmModelExtensions.html#CloudNimble_Breakdance_Restier_IEdmModelExtensions_GenerateConventionReport_
+  commentId: Overload:CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionReport
+  fullName: CloudNimble.Breakdance.Restier.IEdmModelExtensions.GenerateConventionReport
+  nameWithType: IEdmModelExtensions.GenerateConventionReport
+- uid: CloudNimble.Breakdance.Restier.RestierConventionDefinition
+  name: RestierConventionDefinition
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionDefinition.html
+  commentId: T:CloudNimble.Breakdance.Restier.RestierConventionDefinition
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionDefinition
+  nameWithType: RestierConventionDefinition
+- uid: CloudNimble.Breakdance.Restier.RestierConventionDefinition.Name
+  name: Name
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionDefinition_Name
+  commentId: P:CloudNimble.Breakdance.Restier.RestierConventionDefinition.Name
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionDefinition.Name
+  nameWithType: RestierConventionDefinition.Name
+- uid: CloudNimble.Breakdance.Restier.RestierConventionDefinition.Name*
+  name: Name
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionDefinition_Name_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierConventionDefinition.Name
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionDefinition.Name
+  nameWithType: RestierConventionDefinition.Name
+- uid: CloudNimble.Breakdance.Restier.RestierConventionDefinition.PipelineState
+  name: PipelineState
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionDefinition_PipelineState
+  commentId: P:CloudNimble.Breakdance.Restier.RestierConventionDefinition.PipelineState
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionDefinition.PipelineState
+  nameWithType: RestierConventionDefinition.PipelineState
+- uid: CloudNimble.Breakdance.Restier.RestierConventionDefinition.PipelineState*
+  name: PipelineState
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionDefinition_PipelineState_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierConventionDefinition.PipelineState
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionDefinition.PipelineState
+  nameWithType: RestierConventionDefinition.PipelineState
+- uid: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition
+  name: RestierConventionEntitySetDefinition
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.html
+  commentId: T:CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition
+  nameWithType: RestierConventionEntitySetDefinition
+- uid: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetName
+  name: EntitySetName
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionEntitySetDefinition_EntitySetName
+  commentId: P:CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetName
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetName
+  nameWithType: RestierConventionEntitySetDefinition.EntitySetName
+- uid: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetName*
+  name: EntitySetName
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionEntitySetDefinition_EntitySetName_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetName
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetName
+  nameWithType: RestierConventionEntitySetDefinition.EntitySetName
+- uid: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetOperation
+  name: EntitySetOperation
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionEntitySetDefinition_EntitySetOperation
+  commentId: P:CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetOperation
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetOperation
+  nameWithType: RestierConventionEntitySetDefinition.EntitySetOperation
+- uid: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetOperation*
+  name: EntitySetOperation
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionEntitySetDefinition_EntitySetOperation_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetOperation
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.EntitySetOperation
+  nameWithType: RestierConventionEntitySetDefinition.EntitySetOperation
+- uid: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition
+  name: RestierConventionMethodDefinition
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html
+  commentId: T:CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition
+  nameWithType: RestierConventionMethodDefinition
+- uid: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.#ctor(System.String,CloudNimble.Breakdance.Restier.RestierPipelineStates,System.String,CloudNimble.Breakdance.Restier.RestierMethodOperations)
+  name: RestierConventionMethodDefinition(String, RestierPipelineStates, String, RestierMethodOperations)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionMethodDefinition__ctor_System_String_CloudNimble_Breakdance_Restier_RestierPipelineStates_System_String_CloudNimble_Breakdance_Restier_RestierMethodOperations_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.#ctor(System.String,CloudNimble.Breakdance.Restier.RestierPipelineStates,System.String,CloudNimble.Breakdance.Restier.RestierMethodOperations)
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.RestierConventionMethodDefinition(System.String, CloudNimble.Breakdance.Restier.RestierPipelineStates, System.String, CloudNimble.Breakdance.Restier.RestierMethodOperations)
+  nameWithType: RestierConventionMethodDefinition.RestierConventionMethodDefinition(String, RestierPipelineStates, String, RestierMethodOperations)
+- uid: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.#ctor*
+  name: RestierConventionMethodDefinition
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionMethodDefinition__ctor_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.#ctor
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.RestierConventionMethodDefinition
+  nameWithType: RestierConventionMethodDefinition.RestierConventionMethodDefinition
+- uid: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodName
+  name: MethodName
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionMethodDefinition_MethodName
+  commentId: P:CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodName
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodName
+  nameWithType: RestierConventionMethodDefinition.MethodName
+- uid: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodName*
+  name: MethodName
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionMethodDefinition_MethodName_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodName
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodName
+  nameWithType: RestierConventionMethodDefinition.MethodName
+- uid: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodOperation
+  name: MethodOperation
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionMethodDefinition_MethodOperation
+  commentId: P:CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodOperation
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodOperation
+  nameWithType: RestierConventionMethodDefinition.MethodOperation
+- uid: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodOperation*
+  name: MethodOperation
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html#CloudNimble_Breakdance_Restier_RestierConventionMethodDefinition_MethodOperation_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodOperation
+  fullName: CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.MethodOperation
+  nameWithType: RestierConventionMethodDefinition.MethodOperation
+- uid: CloudNimble.Breakdance.Restier.RestierEntitySetOperations
+  name: RestierEntitySetOperations
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierEntitySetOperations.html
+  commentId: T:CloudNimble.Breakdance.Restier.RestierEntitySetOperations
+  fullName: CloudNimble.Breakdance.Restier.RestierEntitySetOperations
+  nameWithType: RestierEntitySetOperations
+- uid: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Delete
+  name: Delete
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierEntitySetOperations.html#CloudNimble_Breakdance_Restier_RestierEntitySetOperations_Delete
+  commentId: F:CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Delete
+  fullName: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Delete
+  nameWithType: RestierEntitySetOperations.Delete
+- uid: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Filter
+  name: Filter
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierEntitySetOperations.html#CloudNimble_Breakdance_Restier_RestierEntitySetOperations_Filter
+  commentId: F:CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Filter
+  fullName: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Filter
+  nameWithType: RestierEntitySetOperations.Filter
+- uid: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Insert
+  name: Insert
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierEntitySetOperations.html#CloudNimble_Breakdance_Restier_RestierEntitySetOperations_Insert
+  commentId: F:CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Insert
+  fullName: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Insert
+  nameWithType: RestierEntitySetOperations.Insert
+- uid: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Update
+  name: Update
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierEntitySetOperations.html#CloudNimble_Breakdance_Restier_RestierEntitySetOperations_Update
+  commentId: F:CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Update
+  fullName: CloudNimble.Breakdance.Restier.RestierEntitySetOperations.Update
+  nameWithType: RestierEntitySetOperations.Update
+- uid: CloudNimble.Breakdance.Restier.RestierMethodOperations
+  name: RestierMethodOperations
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierMethodOperations.html
+  commentId: T:CloudNimble.Breakdance.Restier.RestierMethodOperations
+  fullName: CloudNimble.Breakdance.Restier.RestierMethodOperations
+  nameWithType: RestierMethodOperations
+- uid: CloudNimble.Breakdance.Restier.RestierMethodOperations.Execute
+  name: Execute
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierMethodOperations.html#CloudNimble_Breakdance_Restier_RestierMethodOperations_Execute
+  commentId: F:CloudNimble.Breakdance.Restier.RestierMethodOperations.Execute
+  fullName: CloudNimble.Breakdance.Restier.RestierMethodOperations.Execute
+  nameWithType: RestierMethodOperations.Execute
+- uid: CloudNimble.Breakdance.Restier.RestierPipelineStates
+  name: RestierPipelineStates
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.html
+  commentId: T:CloudNimble.Breakdance.Restier.RestierPipelineStates
+  fullName: CloudNimble.Breakdance.Restier.RestierPipelineStates
+  nameWithType: RestierPipelineStates
+- uid: CloudNimble.Breakdance.Restier.RestierPipelineStates.Authorization
+  name: Authorization
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.html#CloudNimble_Breakdance_Restier_RestierPipelineStates_Authorization
+  commentId: F:CloudNimble.Breakdance.Restier.RestierPipelineStates.Authorization
+  fullName: CloudNimble.Breakdance.Restier.RestierPipelineStates.Authorization
+  nameWithType: RestierPipelineStates.Authorization
+- uid: CloudNimble.Breakdance.Restier.RestierPipelineStates.PostSubmit
+  name: PostSubmit
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.html#CloudNimble_Breakdance_Restier_RestierPipelineStates_PostSubmit
+  commentId: F:CloudNimble.Breakdance.Restier.RestierPipelineStates.PostSubmit
+  fullName: CloudNimble.Breakdance.Restier.RestierPipelineStates.PostSubmit
+  nameWithType: RestierPipelineStates.PostSubmit
+- uid: CloudNimble.Breakdance.Restier.RestierPipelineStates.PreSubmit
+  name: PreSubmit
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.html#CloudNimble_Breakdance_Restier_RestierPipelineStates_PreSubmit
+  commentId: F:CloudNimble.Breakdance.Restier.RestierPipelineStates.PreSubmit
+  fullName: CloudNimble.Breakdance.Restier.RestierPipelineStates.PreSubmit
+  nameWithType: RestierPipelineStates.PreSubmit
+- uid: CloudNimble.Breakdance.Restier.RestierPipelineStates.Submit
+  name: Submit
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.html#CloudNimble_Breakdance_Restier_RestierPipelineStates_Submit
+  commentId: F:CloudNimble.Breakdance.Restier.RestierPipelineStates.Submit
+  fullName: CloudNimble.Breakdance.Restier.RestierPipelineStates.Submit
+  nameWithType: RestierPipelineStates.Submit
+- uid: CloudNimble.Breakdance.Restier.RestierPipelineStates.Validation
+  name: Validation
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.html#CloudNimble_Breakdance_Restier_RestierPipelineStates_Validation
+  commentId: F:CloudNimble.Breakdance.Restier.RestierPipelineStates.Validation
+  fullName: CloudNimble.Breakdance.Restier.RestierPipelineStates.Validation
+  nameWithType: RestierPipelineStates.Validation
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers
+  name: RestierTestHelpers
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html
+  commentId: T:CloudNimble.Breakdance.Restier.RestierTestHelpers
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers
+  nameWithType: RestierTestHelpers
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.ExecuteTestRequest*
+  name: ExecuteTestRequest
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_ExecuteTestRequest_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.ExecuteTestRequest
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.ExecuteTestRequest
+  nameWithType: RestierTestHelpers.ExecuteTestRequest
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.ExecuteTestRequest``1(System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String,System.String)
+  name: ExecuteTestRequest<T>(HttpMethod, String, String, String, String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_ExecuteTestRequest__1_System_Net_Http_HttpMethod_System_String_System_String_System_String_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.ExecuteTestRequest``1(System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String,System.String)
+  name.vb: ExecuteTestRequest(Of T)(HttpMethod, String, String, String, String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.ExecuteTestRequest<T>(System.Net.Http.HttpMethod, System.String, System.String, System.String, System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.ExecuteTestRequest(Of T)(System.Net.Http.HttpMethod, System.String, System.String, System.String, System.String, System.String)
+  nameWithType: RestierTestHelpers.ExecuteTestRequest<T>(HttpMethod, String, String, String, String, String)
+  nameWithType.vb: RestierTestHelpers.ExecuteTestRequest(Of T)(HttpMethod, String, String, String, String, String)
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetApiMetadata*
+  name: GetApiMetadata
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetApiMetadata_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetApiMetadata
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetApiMetadata
+  nameWithType: RestierTestHelpers.GetApiMetadata
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetApiMetadata``1(System.String,System.String,System.String)
+  name: GetApiMetadata<T>(String, String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetApiMetadata__1_System_String_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetApiMetadata``1(System.String,System.String,System.String)
+  name.vb: GetApiMetadata(Of T)(String, String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetApiMetadata<T>(System.String, System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetApiMetadata(Of T)(System.String, System.String, System.String)
+  nameWithType: RestierTestHelpers.GetApiMetadata<T>(String, String, String)
+  nameWithType.vb: RestierTestHelpers.GetApiMetadata(Of T)(String, String, String)
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiInstance*
+  name: GetTestableApiInstance
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableApiInstance_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiInstance
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiInstance
+  nameWithType: RestierTestHelpers.GetTestableApiInstance
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiInstance``1(System.String,System.String)
+  name: GetTestableApiInstance<T>(String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableApiInstance__1_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiInstance``1(System.String,System.String)
+  name.vb: GetTestableApiInstance(Of T)(String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiInstance<T>(System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiInstance(Of T)(System.String, System.String)
+  nameWithType: RestierTestHelpers.GetTestableApiInstance<T>(String, String)
+  nameWithType.vb: RestierTestHelpers.GetTestableApiInstance(Of T)(String, String)
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiService*
+  name: GetTestableApiService
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableApiService_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiService
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiService
+  nameWithType: RestierTestHelpers.GetTestableApiService
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiService``2(System.String,System.String)
+  name: GetTestableApiService<TApi, TService>(String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableApiService__2_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiService``2(System.String,System.String)
+  name.vb: GetTestableApiService(Of TApi, TService)(String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiService<TApi, TService>(System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableApiService(Of TApi, TService)(System.String, System.String)
+  nameWithType: RestierTestHelpers.GetTestableApiService<TApi, TService>(String, String)
+  nameWithType.vb: RestierTestHelpers.GetTestableApiService(Of TApi, TService)(String, String)
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableHttpClient*
+  name: GetTestableHttpClient
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableHttpClient_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableHttpClient
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableHttpClient
+  nameWithType: RestierTestHelpers.GetTestableHttpClient
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableHttpClient``1(System.String,System.String)
+  name: GetTestableHttpClient<T>(String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableHttpClient__1_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableHttpClient``1(System.String,System.String)
+  name.vb: GetTestableHttpClient(Of T)(String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableHttpClient<T>(System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableHttpClient(Of T)(System.String, System.String)
+  nameWithType: RestierTestHelpers.GetTestableHttpClient<T>(String, String)
+  nameWithType.vb: RestierTestHelpers.GetTestableHttpClient(Of T)(String, String)
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableModelAsync*
+  name: GetTestableModelAsync
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableModelAsync_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableModelAsync
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableModelAsync
+  nameWithType: RestierTestHelpers.GetTestableModelAsync
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableModelAsync``1(System.String,System.String)
+  name: GetTestableModelAsync<T>(String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableModelAsync__1_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableModelAsync``1(System.String,System.String)
+  name.vb: GetTestableModelAsync(Of T)(String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableModelAsync<T>(System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableModelAsync(Of T)(System.String, System.String)
+  nameWithType: RestierTestHelpers.GetTestableModelAsync<T>(String, String)
+  nameWithType.vb: RestierTestHelpers.GetTestableModelAsync(Of T)(String, String)
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableRestierConfiguration*
+  name: GetTestableRestierConfiguration
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableRestierConfiguration_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableRestierConfiguration
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableRestierConfiguration
+  nameWithType: RestierTestHelpers.GetTestableRestierConfiguration
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableRestierConfiguration``1(System.String,System.String)
+  name: GetTestableRestierConfiguration<T>(String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_GetTestableRestierConfiguration__1_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableRestierConfiguration``1(System.String,System.String)
+  name.vb: GetTestableRestierConfiguration(Of T)(String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableRestierConfiguration<T>(System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.GetTestableRestierConfiguration(Of T)(System.String, System.String)
+  nameWithType: RestierTestHelpers.GetTestableRestierConfiguration<T>(String, String)
+  nameWithType.vb: RestierTestHelpers.GetTestableRestierConfiguration(Of T)(String, String)
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.WriteCurrentApiMetadata*
+  name: WriteCurrentApiMetadata
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_WriteCurrentApiMetadata_
+  commentId: Overload:CloudNimble.Breakdance.Restier.RestierTestHelpers.WriteCurrentApiMetadata
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.WriteCurrentApiMetadata
+  nameWithType: RestierTestHelpers.WriteCurrentApiMetadata
+- uid: CloudNimble.Breakdance.Restier.RestierTestHelpers.WriteCurrentApiMetadata``1(System.String,System.String)
+  name: WriteCurrentApiMetadata<T>(String, String)
+  href: api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html#CloudNimble_Breakdance_Restier_RestierTestHelpers_WriteCurrentApiMetadata__1_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.Restier.RestierTestHelpers.WriteCurrentApiMetadata``1(System.String,System.String)
+  name.vb: WriteCurrentApiMetadata(Of T)(String, String)
+  fullName: CloudNimble.Breakdance.Restier.RestierTestHelpers.WriteCurrentApiMetadata<T>(System.String, System.String)
+  fullName.vb: CloudNimble.Breakdance.Restier.RestierTestHelpers.WriteCurrentApiMetadata(Of T)(System.String, System.String)
+  nameWithType: RestierTestHelpers.WriteCurrentApiMetadata<T>(String, String)
+  nameWithType.vb: RestierTestHelpers.WriteCurrentApiMetadata(Of T)(String, String)
+- uid: CloudNimble.Breakdance.WebApi
+  name: CloudNimble.Breakdance.WebApi
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.html
+  commentId: N:CloudNimble.Breakdance.WebApi
+  fullName: CloudNimble.Breakdance.WebApi
+  nameWithType: CloudNimble.Breakdance.WebApi
+- uid: CloudNimble.Breakdance.WebApi.HttpClientHelpers
+  name: HttpClientHelpers
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.HttpClientHelpers.html
+  commentId: T:CloudNimble.Breakdance.WebApi.HttpClientHelpers
+  fullName: CloudNimble.Breakdance.WebApi.HttpClientHelpers
+  nameWithType: HttpClientHelpers
+- uid: CloudNimble.Breakdance.WebApi.HttpClientHelpers.GetTestableHttpRequestMessage(System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String)
+  name: GetTestableHttpRequestMessage(HttpMethod, String, String, String, String)
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.HttpClientHelpers.html#CloudNimble_Breakdance_WebApi_HttpClientHelpers_GetTestableHttpRequestMessage_System_Net_Http_HttpMethod_System_String_System_String_System_String_System_String_
+  commentId: M:CloudNimble.Breakdance.WebApi.HttpClientHelpers.GetTestableHttpRequestMessage(System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String)
+  fullName: CloudNimble.Breakdance.WebApi.HttpClientHelpers.GetTestableHttpRequestMessage(System.Net.Http.HttpMethod, System.String, System.String, System.String, System.String)
+  nameWithType: HttpClientHelpers.GetTestableHttpRequestMessage(HttpMethod, String, String, String, String)
+- uid: CloudNimble.Breakdance.WebApi.HttpClientHelpers.GetTestableHttpRequestMessage*
+  name: GetTestableHttpRequestMessage
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.HttpClientHelpers.html#CloudNimble_Breakdance_WebApi_HttpClientHelpers_GetTestableHttpRequestMessage_
+  commentId: Overload:CloudNimble.Breakdance.WebApi.HttpClientHelpers.GetTestableHttpRequestMessage
+  fullName: CloudNimble.Breakdance.WebApi.HttpClientHelpers.GetTestableHttpRequestMessage
+  nameWithType: HttpClientHelpers.GetTestableHttpRequestMessage
+- uid: CloudNimble.Breakdance.WebApi.WebApiConstants
+  name: WebApiConstants
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiConstants.html
+  commentId: T:CloudNimble.Breakdance.WebApi.WebApiConstants
+  fullName: CloudNimble.Breakdance.WebApi.WebApiConstants
+  nameWithType: WebApiConstants
+- uid: CloudNimble.Breakdance.WebApi.WebApiConstants.DefaultAcceptHeader
+  name: DefaultAcceptHeader
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiConstants.html#CloudNimble_Breakdance_WebApi_WebApiConstants_DefaultAcceptHeader
+  commentId: F:CloudNimble.Breakdance.WebApi.WebApiConstants.DefaultAcceptHeader
+  fullName: CloudNimble.Breakdance.WebApi.WebApiConstants.DefaultAcceptHeader
+  nameWithType: WebApiConstants.DefaultAcceptHeader
+- uid: CloudNimble.Breakdance.WebApi.WebApiConstants.Localhost
+  name: Localhost
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiConstants.html#CloudNimble_Breakdance_WebApi_WebApiConstants_Localhost
+  commentId: F:CloudNimble.Breakdance.WebApi.WebApiConstants.Localhost
+  fullName: CloudNimble.Breakdance.WebApi.WebApiConstants.Localhost
+  nameWithType: WebApiConstants.Localhost
+- uid: CloudNimble.Breakdance.WebApi.WebApiConstants.RoutePrefix
+  name: RoutePrefix
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiConstants.html#CloudNimble_Breakdance_WebApi_WebApiConstants_RoutePrefix
+  commentId: F:CloudNimble.Breakdance.WebApi.WebApiConstants.RoutePrefix
+  fullName: CloudNimble.Breakdance.WebApi.WebApiConstants.RoutePrefix
+  nameWithType: WebApiConstants.RoutePrefix
+- uid: CloudNimble.Breakdance.WebApi.WebApiTestHelpers
+  name: WebApiTestHelpers
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html
+  commentId: T:CloudNimble.Breakdance.WebApi.WebApiTestHelpers
+  fullName: CloudNimble.Breakdance.WebApi.WebApiTestHelpers
+  nameWithType: WebApiTestHelpers
+- uid: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableConfiguration
+  name: GetTestableConfiguration()
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html#CloudNimble_Breakdance_WebApi_WebApiTestHelpers_GetTestableConfiguration
+  commentId: M:CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableConfiguration
+  fullName: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableConfiguration()
+  nameWithType: WebApiTestHelpers.GetTestableConfiguration()
+- uid: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableConfiguration*
+  name: GetTestableConfiguration
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html#CloudNimble_Breakdance_WebApi_WebApiTestHelpers_GetTestableConfiguration_
+  commentId: Overload:CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableConfiguration
+  fullName: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableConfiguration
+  nameWithType: WebApiTestHelpers.GetTestableConfiguration
+- uid: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpClient
+  name: GetTestableHttpClient()
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html#CloudNimble_Breakdance_WebApi_WebApiTestHelpers_GetTestableHttpClient
+  commentId: M:CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpClient
+  fullName: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpClient()
+  nameWithType: WebApiTestHelpers.GetTestableHttpClient()
+- uid: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpClient*
+  name: GetTestableHttpClient
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html#CloudNimble_Breakdance_WebApi_WebApiTestHelpers_GetTestableHttpClient_
+  commentId: Overload:CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpClient
+  fullName: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpClient
+  nameWithType: WebApiTestHelpers.GetTestableHttpClient
+- uid: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpServer
+  name: GetTestableHttpServer()
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html#CloudNimble_Breakdance_WebApi_WebApiTestHelpers_GetTestableHttpServer
+  commentId: M:CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpServer
+  fullName: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpServer()
+  nameWithType: WebApiTestHelpers.GetTestableHttpServer()
+- uid: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpServer*
+  name: GetTestableHttpServer
+  href: api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html#CloudNimble_Breakdance_WebApi_WebApiTestHelpers_GetTestableHttpServer_
+  commentId: Overload:CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpServer
+  fullName: CloudNimble.Breakdance.WebApi.WebApiTestHelpers.GetTestableHttpServer
+  nameWithType: WebApiTestHelpers.GetTestableHttpServer
+- uid: System.Net.Http
+  name: System.Net.Http
+  href: api/Breakdance.WebApi/System.Net.Http.html
+  commentId: N:System.Net.Http
+  fullName: System.Net.Http
+  nameWithType: System.Net.Http
+- uid: System.Net.Http.HttpClientExtensions
+  name: HttpClientExtensions
+  href: api/Breakdance.WebApi/System.Net.Http.HttpClientExtensions.html
+  commentId: T:System.Net.Http.HttpClientExtensions
+  fullName: System.Net.Http.HttpClientExtensions
+  nameWithType: HttpClientExtensions
+- uid: System.Net.Http.HttpClientExtensions.ExecuteTestRequest(System.Net.Http.HttpClient,System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String)
+  name: ExecuteTestRequest(HttpClient, HttpMethod, String, String, String, String)
+  href: api/Breakdance.WebApi/System.Net.Http.HttpClientExtensions.html#System_Net_Http_HttpClientExtensions_ExecuteTestRequest_System_Net_Http_HttpClient_System_Net_Http_HttpMethod_System_String_System_String_System_String_System_String_
+  commentId: M:System.Net.Http.HttpClientExtensions.ExecuteTestRequest(System.Net.Http.HttpClient,System.Net.Http.HttpMethod,System.String,System.String,System.String,System.String)
+  fullName: System.Net.Http.HttpClientExtensions.ExecuteTestRequest(System.Net.Http.HttpClient, System.Net.Http.HttpMethod, System.String, System.String, System.String, System.String)
+  nameWithType: HttpClientExtensions.ExecuteTestRequest(HttpClient, HttpMethod, String, String, String, String)
+- uid: System.Net.Http.HttpClientExtensions.ExecuteTestRequest*
+  name: ExecuteTestRequest
+  href: api/Breakdance.WebApi/System.Net.Http.HttpClientExtensions.html#System_Net_Http_HttpClientExtensions_ExecuteTestRequest_
+  commentId: Overload:System.Net.Http.HttpClientExtensions.ExecuteTestRequest
+  fullName: System.Net.Http.HttpClientExtensions.ExecuteTestRequest
+  nameWithType: HttpClientExtensions.ExecuteTestRequest
+- uid: System.Reflection
+  name: System.Reflection
+  href: api/Breakdance.Assemblies/System.Reflection.html
+  commentId: N:System.Reflection
+  fullName: System.Reflection
+  nameWithType: System.Reflection
+- uid: System.Reflection.MethodBaseExtensions
+  name: MethodBaseExtensions
+  href: api/Breakdance.Assemblies/System.Reflection.MethodBaseExtensions.html
+  commentId: T:System.Reflection.MethodBaseExtensions
+  fullName: System.Reflection.MethodBaseExtensions
+  nameWithType: MethodBaseExtensions
+- uid: System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.ConstructorInfo,System.Type)
+  name: IsProtected(ConstructorInfo, Type)
+  href: api/Breakdance.Assemblies/System.Reflection.MethodBaseExtensions.html#System_Reflection_MethodBaseExtensions_IsProtected_System_Reflection_ConstructorInfo_System_Type_
+  commentId: M:System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.ConstructorInfo,System.Type)
+  fullName: System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.ConstructorInfo, System.Type)
+  nameWithType: MethodBaseExtensions.IsProtected(ConstructorInfo, Type)
+- uid: System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.FieldInfo,System.Type)
+  name: IsProtected(FieldInfo, Type)
+  href: api/Breakdance.Assemblies/System.Reflection.MethodBaseExtensions.html#System_Reflection_MethodBaseExtensions_IsProtected_System_Reflection_FieldInfo_System_Type_
+  commentId: M:System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.FieldInfo,System.Type)
+  fullName: System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.FieldInfo, System.Type)
+  nameWithType: MethodBaseExtensions.IsProtected(FieldInfo, Type)
+- uid: System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.MethodInfo,System.Type)
+  name: IsProtected(MethodInfo, Type)
+  href: api/Breakdance.Assemblies/System.Reflection.MethodBaseExtensions.html#System_Reflection_MethodBaseExtensions_IsProtected_System_Reflection_MethodInfo_System_Type_
+  commentId: M:System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.MethodInfo,System.Type)
+  fullName: System.Reflection.MethodBaseExtensions.IsProtected(System.Reflection.MethodInfo, System.Type)
+  nameWithType: MethodBaseExtensions.IsProtected(MethodInfo, Type)
+- uid: System.Reflection.MethodBaseExtensions.IsProtected*
+  name: IsProtected
+  href: api/Breakdance.Assemblies/System.Reflection.MethodBaseExtensions.html#System_Reflection_MethodBaseExtensions_IsProtected_
+  commentId: Overload:System.Reflection.MethodBaseExtensions.IsProtected
+  fullName: System.Reflection.MethodBaseExtensions.IsProtected
+  nameWithType: MethodBaseExtensions.IsProtected
+- uid: System.Web.Http
+  name: System.Web.Http
+  href: api/Breakdance.WebApi/System.Web.Http.html
+  commentId: N:System.Web.Http
+  fullName: System.Web.Http
+  nameWithType: System.Web.Http
+- uid: System.Web.Http.HttpConfigurationExtensions
+  name: HttpConfigurationExtensions
+  href: api/Breakdance.WebApi/System.Web.Http.HttpConfigurationExtensions.html
+  commentId: T:System.Web.Http.HttpConfigurationExtensions
+  fullName: System.Web.Http.HttpConfigurationExtensions
+  nameWithType: HttpConfigurationExtensions
+- uid: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpClient(System.Web.Http.HttpConfiguration)
+  name: GetTestableHttpClient(HttpConfiguration)
+  href: api/Breakdance.WebApi/System.Web.Http.HttpConfigurationExtensions.html#System_Web_Http_HttpConfigurationExtensions_GetTestableHttpClient_System_Web_Http_HttpConfiguration_
+  commentId: M:System.Web.Http.HttpConfigurationExtensions.GetTestableHttpClient(System.Web.Http.HttpConfiguration)
+  fullName: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpClient(System.Web.Http.HttpConfiguration)
+  nameWithType: HttpConfigurationExtensions.GetTestableHttpClient(HttpConfiguration)
+- uid: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpClient*
+  name: GetTestableHttpClient
+  href: api/Breakdance.WebApi/System.Web.Http.HttpConfigurationExtensions.html#System_Web_Http_HttpConfigurationExtensions_GetTestableHttpClient_
+  commentId: Overload:System.Web.Http.HttpConfigurationExtensions.GetTestableHttpClient
+  fullName: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpClient
+  nameWithType: HttpConfigurationExtensions.GetTestableHttpClient
+- uid: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpServer(System.Web.Http.HttpConfiguration)
+  name: GetTestableHttpServer(HttpConfiguration)
+  href: api/Breakdance.WebApi/System.Web.Http.HttpConfigurationExtensions.html#System_Web_Http_HttpConfigurationExtensions_GetTestableHttpServer_System_Web_Http_HttpConfiguration_
+  commentId: M:System.Web.Http.HttpConfigurationExtensions.GetTestableHttpServer(System.Web.Http.HttpConfiguration)
+  fullName: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpServer(System.Web.Http.HttpConfiguration)
+  nameWithType: HttpConfigurationExtensions.GetTestableHttpServer(HttpConfiguration)
+- uid: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpServer*
+  name: GetTestableHttpServer
+  href: api/Breakdance.WebApi/System.Web.Http.HttpConfigurationExtensions.html#System_Web_Http_HttpConfigurationExtensions_GetTestableHttpServer_
+  commentId: Overload:System.Web.Http.HttpConfigurationExtensions.GetTestableHttpServer
+  fullName: System.Web.Http.HttpConfigurationExtensions.GetTestableHttpServer
+  nameWithType: HttpConfigurationExtensions.GetTestableHttpServer

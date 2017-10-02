@@ -8,7 +8,7 @@
             "**/obj/**"
             //"**/bin/**"
           ],
-          "src": "../src"
+          "src": "../"
         }
       ],
       "dest": "api/Breakdance.Assemblies",
@@ -24,7 +24,7 @@
             "**/obj/**"
             //"**/bin/**"
           ],
-          "src": "../src"
+          "src": "../"
         }
       ],
       "dest": "api/Breakdance.WebApi",
@@ -40,7 +40,7 @@
             "**/obj/**"
             //"**/bin/**"
           ],
-          "src": "../src"
+          "src": "../"
         }
       ],
       "dest": "api/Breakdance.Restier",
@@ -93,7 +93,7 @@
         ]
       }
     ],
-    "dest": "_site",
+    "dest": "../../docs",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [

@@ -1,0 +1,474 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/GitHub/Breakdance/src/documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.AssemblyConstants.html",
+          "hash": "tiXhHACz/1cKzIRvmvPuVw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberComparer.html",
+          "hash": "39e8doGNapx3rAoBXCX0wQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.MemberDefinition.html",
+          "hash": "YFN3Q/vXsChUGw4smVRYCg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.ObjectTypeComparer.html",
+          "hash": "K14uWEQnDBfrpDclv0cmZA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.PublicApiHelpers.html",
+          "hash": "VUKNbzus5QfZIr2Gvkc6Bw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeComparer.html",
+          "hash": "gGJ3nu9Jvz0+0Z1Eg4bA1w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.TypeDefinition.html",
+          "hash": "5HKG2JdzhIkV3/S5V6Hp3Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/CloudNimble.Breakdance.Assemblies.html",
+          "hash": "ogIOznpfGpoy9YtK/TiRPg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/System.Reflection.MethodBaseExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/System.Reflection.MethodBaseExtensions.html",
+          "hash": "Av2i0t6ZAMluSMzwN3vcFw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Assemblies/System.Reflection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Assemblies/System.Reflection.html",
+          "hash": "Fi+D8DPJQ+2psEYtLdHvCg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ApiBaseExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ApiBaseExtensions.html",
+          "hash": "LDUzVJGQN6qlSJEtKZq3AA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.ConventionBasedMethodNameFactory.html",
+          "hash": "YIKi7n/2Iz87t4ETmcOOdQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.IEdmModelExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.IEdmModelExtensions.html",
+          "hash": "4tBhoZbGMkSxGYo1oa5d/A=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionDefinition.html",
+          "hash": "XmCcbtxCRFO+wgLTkWJSFw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionEntitySetDefinition.html",
+          "hash": "dPRngXM+RydFjtPD3oexEA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierConventionMethodDefinition.html",
+          "hash": "ht4fldNyKipDcBkTAgeRsg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierEntitySetOperations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierEntitySetOperations.html",
+          "hash": "aYcBnWcK+w8rEPsoo5zNww=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierMethodOperations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierMethodOperations.html",
+          "hash": "axhJZBMp2mZQ7ybGIfmgPQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierPipelineStates.html",
+          "hash": "Gw1XehR9fZ3w79gF4kU7rQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.RestierTestHelpers.html",
+          "hash": "hJYFcmzzZG2q6rh5kvEj0w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.Restier/CloudNimble.Breakdance.Restier.html",
+          "hash": "8/8YwxLT4OoDruBOQi7mBQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.HttpClientHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.HttpClientHelpers.html",
+          "hash": "JcHAHxBx+cvMjUBwHw6q5w=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiConstants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiConstants.html",
+          "hash": "XeyxvFFvJqEoDm4TOyQlJQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.WebApiTestHelpers.html",
+          "hash": "GBsAbYTYFuitQ/5sHwnGMA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/CloudNimble.Breakdance.WebApi.html",
+          "hash": "j5lKVzx60aU/rnBHyUJ54Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/System.Net.Http.HttpClientExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/System.Net.Http.HttpClientExtensions.html",
+          "hash": "Z6QewUmXk2l5NF8SuHmT9Q=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/System.Net.Http.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/System.Net.Http.html",
+          "hash": "XnSIyW7c3SMGEAbZohwUWA=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/System.Web.Http.HttpConfigurationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/System.Web.Http.HttpConfigurationExtensions.html",
+          "hash": "1b0qve9ncLdEQ86slmPLQg=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Breakdance.WebApi/System.Web.Http.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Breakdance.WebApi/System.Web.Http.html",
+          "hash": "S/wkIzIX2fhaV3ZTEY5qMQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "lFBtyrv7u6Lf1pjlE+oQyQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "i+5/hgOKdJWpv5FgsKgdVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "O56oDtn0tQ4Msz5WfCshAw=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "0yzuuVy+60kUBBdZdYKonA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "CT09sj8LR3shTjGkNv+McQ=="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "pUROgNiBe9RHc6NK05+dMw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing"
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
