@@ -25,9 +25,7 @@
 
   <PropertyGroup>
     <Description>
-      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular 
-      helps generate public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the API 
-      surface changed, the unit test will fail.
+      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular helps generate public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the API surface changed, the unit test will fail.
     </Description>
     <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
     <PackageReleaseNotes>

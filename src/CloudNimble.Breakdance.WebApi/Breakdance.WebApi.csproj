@@ -25,8 +25,7 @@
 
   <PropertyGroup>
     <Description>
-      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular contains helper 
-      classes for testing any WebAPI endpoint. These classes make it super easy to craft HTTP requests to your API at test time.
+      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular contains helper classes for testing any WebAPI endpoint. These classes make it super easy to craft HTTP requests to your API at test time.
     </Description>
     <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
     <PackageReleaseNotes>
