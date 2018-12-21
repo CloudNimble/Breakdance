@@ -17,7 +17,9 @@
 
         public delegate void SomeEventHandler(object sender, SomeEventArgs e);
 
-        //public static event SomeEventHandler SomeEvent;
+#pragma warning disable CS0067
+        public static event SomeEventHandler SomeEvent;
+#pragma warning restore CS0067
 
         #endregion
 
