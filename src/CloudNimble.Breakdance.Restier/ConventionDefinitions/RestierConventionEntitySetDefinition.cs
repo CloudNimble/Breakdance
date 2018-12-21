@@ -17,7 +17,7 @@
         /// <summary>
         /// The Restier Operation associated with this ConventionDefinition.
         /// </summary>
-        public RestierEntitySetOperations EntitySetOperation{ get; set; }
+        public RestierEntitySetOperations EntitySetOperation { get; set; }
 
         #endregion
 

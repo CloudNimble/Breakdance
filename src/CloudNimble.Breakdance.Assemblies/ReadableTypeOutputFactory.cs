@@ -1,5 +1,4 @@
-﻿using CloudNimble.Breakdance.Assemblies;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +22,7 @@ namespace CloudNimble.Breakdance.Assemblies
         #region Private Members
 
         private static readonly List<Type> IgnoredAttributes;
-        private static Hashtable Synonyms;
+        private static readonly Hashtable Synonyms;
         private static readonly Type[] ToStringFormatParameter;
         private static readonly object[] ToStringFormatValues;
 
@@ -90,10 +89,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// </summary>
         /// <param name="attribute"></param>
         /// <returns></returns>
-        internal static string GetCustomAttributeString(object attribute)
-        {
-            return $"[{attribute.GetType().FullName}]";
-        }
+        internal static string GetCustomAttributeString(object attribute) => $"[{attribute.GetType().FullName}]";
 
         /// <summary>
         /// 
@@ -103,7 +99,11 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         internal static string GetConstructorInfoString(Type type, ConstructorInfo info)
         {
-            if (!info.IsPublic && !info.IsProtected(type)) return string.Empty;
+            if (!info.IsPublic && !info.IsProtected(type))
+            {
+                return string.Empty;
+            }
+
             var visibility = info.IsPublic ? AssemblyConstants.Public : AssemblyConstants.Protected;
             var parameters = GetParameterInfoString(info.GetParameters(), true, true);
 
@@ -121,12 +121,18 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         internal static string GetEventInfoString(Type type, EventInfo info)
         {
-            if (info == null) return String.Empty;
+            if (info == null)
+            {
+                return String.Empty;
+            }
 
             var getter = GetPropertyAccessorString(type, info.GetAddMethod(), AssemblyConstants.Add);
             var setter = GetPropertyAccessorString(type, info.GetRemoveMethod(), AssemblyConstants.Remove);
 
-            if (string.IsNullOrWhiteSpace(getter) && string.IsNullOrWhiteSpace(setter)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(getter) && string.IsNullOrWhiteSpace(setter))
+            {
+                return string.Empty;
+            }
 
             var parameterType = GetParameterTypeString(info.EventHandlerType);
 
@@ -141,7 +147,10 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         internal static string GetFieldInfoString(Type type, FieldInfo info)
         {
-            if ((type.IsEnum && info.IsSpecialName) || (!info.IsProtected(type) && !info.IsPublic)) return string.Empty;
+            if ((type.IsEnum && info.IsSpecialName) || (!info.IsProtected(type) && !info.IsPublic))
+            {
+                return string.Empty;
+            }
 
             var visibility = string.Empty;
             var modifier = string.Empty;
@@ -267,13 +276,19 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         internal static string GetMethodInfoString(Type type, MethodInfo info)
         {
-            if (info == null) return string.Empty;
+            if (info == null)
+            {
+                return string.Empty;
+            }
 
             var visibility = string.Empty;
             var modifier = string.Empty;
-            string infoName = info.Name;
+            var infoName = info.Name;
 
-            if (infoName == "IsRowOptimized" || info.IsSpecialName) return string.Empty;
+            if (infoName == "IsRowOptimized" || info.IsSpecialName)
+            {
+                return string.Empty;
+            }
 
             if (info.IsPublic)
             {
@@ -286,21 +301,27 @@ namespace CloudNimble.Breakdance.Assemblies
             }
             else if (infoName.StartsWith("Reset") && ("Reset" != infoName))
             {
-                PropertyInfo propInfo = type.GetProperty(infoName.Substring("Reset".Length), BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
+                var propInfo = type.GetProperty(infoName.Substring("Reset".Length), BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
                 if (null != propInfo && (0 == info.GetParameters().Length))
                 {
                     visibility = AssemblyConstants.Private;
                 }
-                else return String.Empty;
+                else
+                {
+                    return String.Empty;
+                }
             }
             else if (infoName.StartsWith("ShouldSerialize") && ("ShouldSerialize" != infoName))
             {
-                PropertyInfo propInfo = type.GetProperty(infoName.Substring("ShouldSerialize".Length), BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
+                var propInfo = type.GetProperty(infoName.Substring("ShouldSerialize".Length), BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
                 if (null != propInfo && (0 == info.GetParameters().Length))
                 {
                     visibility = AssemblyConstants.Private;
                 }
-                else return string.Empty;
+                else
+                {
+                    return string.Empty;
+                }
             }
             else if (!(type.IsClass && type.IsSealed) && info.IsVirtual)
             {
@@ -309,7 +330,10 @@ namespace CloudNimble.Breakdance.Assemblies
                     visibility = AssemblyConstants.Internal;
                 }
             }
-            else return string.Empty;
+            else
+            {
+                return string.Empty;
+            }
 
             if (!type.IsInterface)
             {
@@ -341,12 +365,18 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         internal static string GetPropertyInfoString(Type type, PropertyInfo info)
         {
-            if (info == null) return String.Empty;
+            if (info == null)
+            {
+                return string.Empty;
+            }
 
             var getter = GetPropertyAccessorString(type, info.GetGetMethod(true), AssemblyConstants.Get);
             var setter = GetPropertyAccessorString(type, info.GetSetMethod(true), AssemblyConstants.Set, true);
 
-            if (string.IsNullOrWhiteSpace(getter) && string.IsNullOrWhiteSpace(setter)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(getter) && string.IsNullOrWhiteSpace(setter))
+            {
+                return string.Empty;
+            }
 
             var parameterType = GetParameterTypeString(info.PropertyType);
             var indexParameters = GetParameterInfoString(info.GetIndexParameters(), false, true);
@@ -364,11 +394,14 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         internal static string GetPropertyAccessorString(Type type, MethodInfo info, string method, bool spaceBefore = false)
         {
-            if (info == null || (!info.IsProtected(type) && !info.IsPublic)) return string.Empty;
+            if (info == null || (!info.IsProtected(type) && !info.IsPublic))
+            {
+                return string.Empty;
+            }
 
             var attributes = GetCustomAttributesList(info.GetCustomAttributes(true));
             var visibility = info.IsPublic ? AssemblyConstants.Public : AssemblyConstants.Protected;
-            string modifier = string.Empty;
+            var modifier = string.Empty;
             var space = spaceBefore ? AssemblyConstants.Space : String.Empty;
 
             if (info.IsAbstract)
@@ -396,7 +429,10 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         internal static string GetParameterInfoString(IEnumerable<ParameterInfo> parameters, bool asMethod, bool withNames)
         {
-            if (parameters.Count() == 0) return asMethod ? AssemblyConstants.ParenthesisOpen + AssemblyConstants.ParenthesisClose : string.Empty;
+            if (parameters.Count() == 0)
+            {
+                return asMethod ? AssemblyConstants.ParenthesisOpen + AssemblyConstants.ParenthesisClose : string.Empty;
+            }
 
             var openCharacter = asMethod ? AssemblyConstants.ParenthesisOpen : AssemblyConstants.BracketOpen;
             var closeCharacter = asMethod ? AssemblyConstants.ParenthesisClose : AssemblyConstants.BracketClose;

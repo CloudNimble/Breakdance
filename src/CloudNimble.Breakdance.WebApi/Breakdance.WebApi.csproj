@@ -1,38 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.WebApi</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.WebApi</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <TargetFrameworks>net452;net462</TargetFrameworks>
-    <Product>Breakdance</Product>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>Breakdance.WebApi</PackageId>
     <Title>Breakdance for WebApi 2</Title>
-    <Version>1.0.0-beta1</Version>
-    <Company>CloudNimble</Company>
-    <Authors>CloudNimble</Authors>
-    <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
-    <PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
-    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <IncludeSource>True</IncludeSource>
-    <IncludeSymbols>True</IncludeSymbols>
-  </PropertyGroup>
-
-  <PropertyGroup>
+    <Summary>
+      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes
+      for testing any WebAPI endpoint. These classes make it super easy to craft HTTP requests to your API at test time.
+    </Summary>
     <Description>
-      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular contains helper classes for testing any WebAPI endpoint. These classes make it super easy to craft HTTP requests to your API at test time.
+      $(Summary)
+
+      Commonly used types:
+      Microsoft.Restier.Core.RestierController
     </Description>
-    <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
+    <PackageTags>$(PackageTags)webapi;</PackageTags>
     <PackageReleaseNotes>
       1.0.0-beta1:
-       - Under new management. Namespace changes, usability improvements, more docs.
+      - Under new management. Namespace changes, usability improvements, more docs.
       1.0.0-alpha1:
-       - Initial release.
+      - Initial release.
     </PackageReleaseNotes>
   </PropertyGroup>
 

@@ -80,7 +80,10 @@ namespace CloudNimble.Breakdance.Restier
             var prefix = GetPipelinePrefix(pipelineState);
 
             //RWM: If, for some reason, we don't have a prefix, then we don't have a method for this operation. So don't do anything.
-            if (string.IsNullOrWhiteSpace(prefix)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(prefix))
+            {
+                return string.Empty;
+            }
 
             var operationName = GetOperationName(operation, pipelineState);
             var suffix = operation != RestierEntitySetOperations.Filter ? GetPipelineSuffix(pipelineState) : string.Empty;
@@ -105,7 +108,10 @@ namespace CloudNimble.Breakdance.Restier
             var prefix = GetPipelinePrefix(pipelineState);
 
             //RWM: If, for some reason, we don't have a prefix, then we don't have a method for this operation. So don't do anything.
-            if (string.IsNullOrWhiteSpace(prefix)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(prefix))
+            {
+                return string.Empty;
+            }
 
             var operationName = GetOperationName(operation, pipelineState);
             var suffix = GetPipelineSuffix(pipelineState);
@@ -123,10 +129,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="operation">The <see cref="RestierEntitySetOperations"/> to determine the Entity name for.</param>
         /// <param name="entitySet">The <see cref="IEdmEntitySet"/> that contains the details for the EntitySet and the Entities it holds.</param>
         /// <returns>A string representing the right EntityName reference for a given Operation.</returns>
-        internal static string GetEntityReferenceName(RestierEntitySetOperations operation, IEdmEntitySet entitySet)
-        {
-            return operation == RestierEntitySetOperations.Filter ? entitySet.Name : entitySet.EntityType().Name;
-        }
+        internal static string GetEntityReferenceName(RestierEntitySetOperations operation, IEdmEntitySet entitySet) => operation == RestierEntitySetOperations.Filter ? entitySet.Name : entitySet.EntityType().Name;
 
         /// <summary>
         /// Generates the right OperationName string for a given <see cref="RestierEntitySetOperations"/> and <see cref="RestierPipelineStates"/>.
@@ -134,10 +137,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="operation">The <see cref="RestierEntitySetOperations"/> to determine the method name for.</param>
         /// <param name="pipelineState">The <see cref="RestierPipelineStates"/> to determine the method name for.</param>
         /// <returns>A string containing the corrected OperationName, accounting for what the suffix will end up being.</returns>
-        internal static string GetOperationName(RestierEntitySetOperations operation, RestierPipelineStates pipelineState)
-        {
-            return GetOperationName(operation.ToString(), pipelineState);
-        }
+        internal static string GetOperationName(RestierEntitySetOperations operation, RestierPipelineStates pipelineState) => GetOperationName(operation.ToString(), pipelineState);
 
         /// <summary>
         /// Generates the right OperationName string for a given <see cref="RestierMethodOperations"/> and <see cref="RestierPipelineStates"/>.
@@ -145,10 +145,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="operation">The <see cref="RestierMethodOperations"/> to determine the method name for.</param>
         /// <param name="pipelineState">The <see cref="RestierPipelineStates"/> to determine the method name for.</param>
         /// <returns>A string containing the corrected OperationName, accounting for what the suffix will end up being.</returns>
-        internal static string GetOperationName(RestierMethodOperations operation, RestierPipelineStates pipelineState)
-        {
-            return GetOperationName(operation.ToString(), pipelineState);
-        }
+        internal static string GetOperationName(RestierMethodOperations operation, RestierPipelineStates pipelineState) => GetOperationName(operation.ToString(), pipelineState);
 
         /// <summary>
         /// Generates the right OperationName string for a given <see cref="RestierMethodOperations"/> and <see cref="RestierPipelineStates"/>.

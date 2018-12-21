@@ -1,33 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.Restier</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Restier</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFramework>net452</TargetFramework>
-    <Product>Breakdance</Product>
+    <TargetFramework>net462</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>Breakdance.Restier</PackageId>
     <Title>Breakdance for Restier</Title>
-    <Version>1.0.0-beta1</Version>
-    <Company>CloudNimble</Company>
-    <Authors>CloudNimble</Authors>
-    <Copyright>Copyright &amp;copy; 2017 CloudNimble, Inc.</Copyright>
-    <PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
-    <PackageIconUrl>https://cdn.advancedrei.com/storage/nuget/breakdance.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <IncludeSource>True</IncludeSource>
-    <IncludeSymbols>True</IncludeSymbols>
-  </PropertyGroup>
-
-  <PropertyGroup>
+    <Summary>
+      Restier is a framework for building convention-based, secure, queryable APIs with ASP.NET. This package contains runtime components 
+      for implementing Restier convention semantics and query interception.
+    </Summary>
     <Description>
-      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package in particular helps generate API reports for OData APIs, and compare them against a prior unit test run. That way, if something in the API surface changed, the unit test will fail.
+      $(Summary)
+
+      Commonly used types:
+      Microsoft.Restier.Core.RestierController
     </Description>
-    <PackageTags>unit tests, breakdance, nunit, fluentassertions</PackageTags>
+    <PackageTags>$(PackageTags)odata;restier;</PackageTags>
     <PackageReleaseNotes>
       1.0.0-beta1:
        - Under new management. Namespace changes, usability improvements, more docs.

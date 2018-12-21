@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.OData.Extensions;
+using System.Web.OData.Query;
 using System.Xml.Linq;
 
 namespace CloudNimble.Breakdance.Restier
@@ -38,11 +39,13 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routePrefix"></param>
         /// <param name="resource"></param>
         /// <param name="acceptHeader"></param>
+        /// <param name="defaultQuerySettings"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = RouteName, 
-            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader) where T : ApiBase
+        public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = RouteName,
+            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader, 
+            DefaultQuerySettings defaultQuerySettings = null) where T : ApiBase
         {
-            var config = await GetTestableRestierConfiguration<T>(routeName, routePrefix);
+            var config = await GetTestableRestierConfiguration<T>(routeName, routePrefix, defaultQuerySettings);
             var client = config.GetTestableHttpClient();
             return await client.ExecuteTestRequest(httpMethod, host, routePrefix, resource, acceptHeader);
         }
@@ -54,10 +57,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<ApiBase> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
-        {
-            return await GetTestableApiService<T, ApiBase>(routeName, routePrefix);
-        }
+        public static async Task<ApiBase> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase => await GetTestableApiService<T, ApiBase>(routeName, routePrefix);
 
         /// <summary>
         /// 
@@ -83,10 +83,26 @@ namespace CloudNimble.Breakdance.Restier
         /// <typeparam name="T"></typeparam>
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
+        /// <param name="defaultQuerySettings"></param>
         /// <returns></returns>
-        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase
+        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix, DefaultQuerySettings defaultQuerySettings = null) where T : ApiBase
         {
             var config = new HttpConfiguration();
+
+            if (defaultQuerySettings == null)
+            {
+                defaultQuerySettings = new DefaultQuerySettings
+                {
+                    EnableCount = true,
+                    EnableExpand = true,
+                    EnableFilter = true,
+                    EnableOrderBy = true,
+                    EnableSelect = true,
+                    MaxTop = 10
+                };
+            }
+
+            config.SetDefaultQuerySettings(defaultQuerySettings);
             await config.MapRestierRoute<T>(routeName, routePrefix);
             return config;
         }

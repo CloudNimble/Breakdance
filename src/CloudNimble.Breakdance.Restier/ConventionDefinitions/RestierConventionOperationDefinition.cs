@@ -17,7 +17,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public RestierMethodOperations MethodOperation{ get; set; }
+        public RestierMethodOperations MethodOperation { get; set; }
 
         #endregion
 
