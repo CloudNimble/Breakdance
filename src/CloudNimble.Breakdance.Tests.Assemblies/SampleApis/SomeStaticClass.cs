@@ -17,7 +17,7 @@
 
         public delegate void SomeEventHandler(object sender, SomeEventArgs e);
 
-        public static event SomeEventHandler SomeEvent;
+        //public static event SomeEventHandler SomeEvent;
 
         #endregion
 
