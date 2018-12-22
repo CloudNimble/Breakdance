@@ -1,4 +1,6 @@
-﻿namespace CloudNimble.Breakdance.Restier
+﻿using Microsoft.Restier.Core;
+
+namespace CloudNimble.Breakdance.Restier
 {
 
     /// <summary>

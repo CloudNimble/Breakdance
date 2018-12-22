@@ -1,6 +1,6 @@
 ﻿using CloudNimble.Breakdance.Tests.Restier.Model;
-using Microsoft.Restier.Providers.EntityFramework;
-using Microsoft.Restier.Publishers.OData.Model;
+using Microsoft.Restier.AspNet.Model;
+using Microsoft.Restier.EntityFramework;
 using System;
 using System.Linq;
 

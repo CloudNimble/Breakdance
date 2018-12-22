@@ -1,4 +1,6 @@
-﻿namespace CloudNimble.Breakdance.Restier
+﻿using Microsoft.Restier.Core;
+
+namespace CloudNimble.Breakdance.Restier
 {
 
     /// <summary>
@@ -17,7 +19,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public RestierMethodOperations MethodOperation { get; set; }
+        public RestierOperationMethods MethodOperation { get; set; }
 
         #endregion
 
@@ -30,7 +32,7 @@
         /// <param name="pipelineState"></param>
         /// <param name="methodName"></param>
         /// <param name="methodOperation"></param>
-        public RestierConventionMethodDefinition(string name, RestierPipelineStates pipelineState, string methodName, RestierMethodOperations methodOperation)
+        public RestierConventionMethodDefinition(string name, RestierPipelineStates pipelineState, string methodName, RestierOperationMethods methodOperation)
             : base(name, pipelineState)
         {
             MethodName = methodName;

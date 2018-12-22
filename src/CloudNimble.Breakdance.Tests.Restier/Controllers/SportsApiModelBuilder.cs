@@ -1,8 +1,8 @@
-﻿using Microsoft.OData.Edm;
+﻿using Microsoft.AspNet.OData.Builder;
+using Microsoft.OData.Edm;
 using Microsoft.Restier.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.OData.Builder;
 
 namespace CloudNimble.Breakdance.Tests.Restier.Model
 {

@@ -30,14 +30,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdvancedREI.Restier.Core" Version="1.0.0-beta2b" />
-    <PackageReference Include="AdvancedREI.Restier.Providers.EntityFramework" Version="1.0.0-beta2b" />
-    <PackageReference Include="AdvancedREI.Restier.Publishers.OData" Version="1.0.0-beta2b" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
-    <PackageReference Include="Microsoft.OData.Core" Version="7.2.0" />
-    <PackageReference Include="Microsoft.OData.Edm" Version="7.2.0" />
-    <PackageReference Include="Microsoft.Spatial" Version="7.2.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.OData.Core" Version="7.5.3" />
+    <PackageReference Include="Microsoft.Restier.AspNet" Version="1.0.0-CI-20181221-043819" />
   </ItemGroup>
 
   <ItemGroup>

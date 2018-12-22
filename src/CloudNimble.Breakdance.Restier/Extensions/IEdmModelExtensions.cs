@@ -1,4 +1,5 @@
 ﻿using Microsoft.OData.Edm;
+using Microsoft.Restier.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace CloudNimble.Breakdance.Restier
             {
                 foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineStates)).Cast<RestierPipelineStates>())
                 {
-                    foreach (var operation in Enum.GetValues(typeof(RestierMethodOperations)).Cast<RestierMethodOperations>())
+                    foreach (var operation in Enum.GetValues(typeof(RestierOperationMethods)).Cast<RestierOperationMethods>())
                     {
                         var functionName = ConventionBasedMethodNameFactory.GetFunctionMethodName(function, pipelineState, operation);
                         if (!string.IsNullOrWhiteSpace(functionName))

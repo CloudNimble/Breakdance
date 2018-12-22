@@ -1,13 +1,12 @@
 ﻿using CloudNimble.Breakdance.WebApi;
+using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.Restier.Core;
-using Microsoft.Restier.Publishers.OData;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.OData.Extensions;
-using System.Web.OData.Query;
 using System.Xml.Linq;
 
 namespace CloudNimble.Breakdance.Restier

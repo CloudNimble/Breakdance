@@ -1,6 +1,6 @@
 ﻿using Microsoft.OData.Edm;
 using Microsoft.Restier.Core;
-using Microsoft.Restier.Providers.EntityFramework;
+using Microsoft.Restier.EntityFramework;
 using System;
 using System.Linq;
 using System.Text;
