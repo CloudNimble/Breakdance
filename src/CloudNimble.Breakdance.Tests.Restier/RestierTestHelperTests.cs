@@ -3,6 +3,8 @@ using CloudNimble.Breakdance.Tests.Restier.Controllers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Restier
@@ -21,6 +23,18 @@ namespace CloudNimble.Breakdance.Tests.Restier
         }
 
         [TestMethod]
+        public async Task RestierTestHelpers_CheckVerboseErrors_NotFound()
+        {
+            var responseMessage = await RestierTestHelpers.ExecuteTestRequest<SportsApi>(HttpMethod.Get, resource: "/DoesntExist").ConfigureAwait(false);
+            responseMessage.Should().NotBeNull();
+            responseMessage.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var response = await responseMessage.Content.ReadAsStringAsync();
+            response.Should().NotBe("{\"Message\":\"An error has occurred.\"}");
+            response.Should().Be("{\"Message\":\"No HTTP resource was found that matches the request URI 'http://localhost/api/test/DoesntExist'.\",\"MessageDetail\":\"No route data was found for this request.\"}");
+            TestContext.WriteLine(response);
+        }
+
+        [TestMethod]
         public async Task RestierTestHelpers_GenerateConventionDefinitions()
         {
             var model = await RestierTestHelpers.GetTestableModelAsync<SportsApi>();
@@ -33,11 +47,11 @@ namespace CloudNimble.Breakdance.Tests.Restier
         //[TestMethod]
         //public async Task GenerateConventionMatrix_Readable()
         //{
-            //var model = await TestierHelpers.GetTestableModelAsync<SportsApi>();
-            //var result = model.GenerateConventionList(true);
-            //TestContext.WriteLine(result);
-            //result.Should().NotBeNullOrWhiteSpace();
-            //result.Should().Contain("--");
+        //    var model = await TestierHelpers.GetTestableModelAsync<SportsApi>();
+        //    var result = model.GenerateConventionList(true);
+        //    TestContext.WriteLine(result);
+        //    result.Should().NotBeNullOrWhiteSpace();
+        //    result.Should().Contain("--");
         //}
 
         [TestMethod]
