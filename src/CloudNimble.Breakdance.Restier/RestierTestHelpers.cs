@@ -4,6 +4,7 @@ using Microsoft.AspNet.OData.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.Restier.Core;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -39,12 +40,13 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="resource"></param>
         /// <param name="acceptHeader"></param>
         /// <param name="defaultQuerySettings"></param>
+        /// <param name="timeZoneInfo"></param>
         /// <returns></returns>
         public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = RouteName,
-            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader, 
-            DefaultQuerySettings defaultQuerySettings = null) where T : ApiBase
+            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader,
+            DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null) where T : ApiBase
         {
-            var config = await GetTestableRestierConfiguration<T>(routeName, routePrefix, defaultQuerySettings);
+            var config = await GetTestableRestierConfiguration<T>(routeName, routePrefix, defaultQuerySettings, timeZoneInfo);
             var client = config.GetTestableHttpClient();
             return await client.ExecuteTestRequest(httpMethod, host, routePrefix, resource, acceptHeader);
         }
@@ -83,8 +85,9 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <param name="defaultQuerySettings"></param>
+        /// <param name="timeZoneInfo"></param>
         /// <returns></returns>
-        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix, DefaultQuerySettings defaultQuerySettings = null) where T : ApiBase
+        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix, DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null) where T : ApiBase
         {
             var config = new HttpConfiguration();
 
@@ -102,6 +105,8 @@ namespace CloudNimble.Breakdance.Restier
             }
 
             config.SetDefaultQuerySettings(defaultQuerySettings);
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+            config.SetTimeZoneInfo(timeZoneInfo ?? TimeZoneInfo.Utc);
             await config.MapRestierRoute<T>(routeName, routePrefix);
             return config;
         }
