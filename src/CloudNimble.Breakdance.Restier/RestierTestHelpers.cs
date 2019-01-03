@@ -58,7 +58,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<ApiBase> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase => await GetTestableApiService<T, ApiBase>(routeName, routePrefix);
+        public static async Task<T> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase => await GetTestableApiService<T, ApiBase>(routeName, routePrefix) as T;
 
         /// <summary>
         /// 
