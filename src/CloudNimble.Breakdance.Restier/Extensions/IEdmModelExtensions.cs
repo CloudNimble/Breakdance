@@ -27,9 +27,9 @@ namespace CloudNimble.Breakdance.Restier
             //RWM: Cycle through the EntitySets first.
             foreach (var entitySet in model.EntityContainer.EntitySets().OrderBy(c => c.Name))
             {
-                foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineStates)).Cast<RestierPipelineStates>())
+                foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineState)).Cast<RestierPipelineState>())
                 {
-                    foreach (var operation in Enum.GetValues(typeof(RestierEntitySetOperations)).Cast<RestierEntitySetOperations>())
+                    foreach (var operation in Enum.GetValues(typeof(RestierEntitySetOperation)).Cast<RestierEntitySetOperation>())
                     {
                         var functionName = ConventionBasedMethodNameFactory.GetEntitySetMethodName(entitySet, pipelineState, operation);
                         if (!string.IsNullOrWhiteSpace(functionName))
@@ -43,9 +43,9 @@ namespace CloudNimble.Breakdance.Restier
 
             foreach (var function in model.EntityContainer.OperationImports())
             {
-                foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineStates)).Cast<RestierPipelineStates>())
+                foreach (var pipelineState in Enum.GetValues(typeof(RestierPipelineState)).Cast<RestierPipelineState>())
                 {
-                    foreach (var operation in Enum.GetValues(typeof(RestierOperationMethods)).Cast<RestierOperationMethods>())
+                    foreach (var operation in Enum.GetValues(typeof(RestierOperationMethod)).Cast<RestierOperationMethod>())
                     {
                         var functionName = ConventionBasedMethodNameFactory.GetFunctionMethodName(function, pipelineState, operation);
                         if (!string.IsNullOrWhiteSpace(functionName))

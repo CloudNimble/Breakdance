@@ -19,7 +19,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <summary>
         /// 
         /// </summary>
-        public RestierPipelineStates? PipelineState { get; set; }
+        public RestierPipelineState? PipelineState { get; set; }
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace CloudNimble.Breakdance.Restier
         /// </summary>
         /// <param name="name"></param>
         /// <param name="pipelineState"></param>
-        internal RestierConventionDefinition(string name, RestierPipelineStates pipelineState)
+        internal RestierConventionDefinition(string name, RestierPipelineState pipelineState)
         {
             Name = name;
             PipelineState = pipelineState;

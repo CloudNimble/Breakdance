@@ -45,11 +45,11 @@ namespace CloudNimble.Breakdance.Restier
                 var value = false;
                 switch (definition.Key.PipelineState)
                 {
-                    case RestierPipelineStates.Authorization:
+                    case RestierPipelineState.Authorization:
                         value = IsAuthorizerMethodAccessible(apiType, definition.Key.Name);
                         break;
                     default:
-                        if (definition.Key.EntitySetOperation == RestierEntitySetOperations.Filter)
+                        if (definition.Key.EntitySetOperation == RestierEntitySetOperation.Filter)
                         {
                             value = IsFilterMethodAccessible(apiType, definition.Key.Name);
                         }
@@ -67,7 +67,7 @@ namespace CloudNimble.Breakdance.Restier
                 var value = false;
                 switch (definition.Key.PipelineState)
                 {
-                    case RestierPipelineStates.Authorization:
+                    case RestierPipelineState.Authorization:
                         value = IsAuthorizerMethodAccessible(apiType, definition.Key.Name);
                         break;
                     default:

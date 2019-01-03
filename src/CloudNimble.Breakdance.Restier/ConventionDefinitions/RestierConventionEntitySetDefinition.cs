@@ -19,7 +19,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <summary>
         /// The Restier Operation associated with this ConventionDefinition.
         /// </summary>
-        public RestierEntitySetOperations EntitySetOperation { get; set; }
+        public RestierEntitySetOperation EntitySetOperation { get; set; }
 
         #endregion
 
@@ -32,7 +32,7 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="pipelineState"></param>
         /// <param name="entitySetName"></param>
         /// <param name="entitySetOperation"></param>
-        internal RestierConventionEntitySetDefinition(string name, RestierPipelineStates pipelineState, string entitySetName, RestierEntitySetOperations entitySetOperation)
+        internal RestierConventionEntitySetDefinition(string name, RestierPipelineState pipelineState, string entitySetName, RestierEntitySetOperation entitySetOperation)
             : base(name, pipelineState)
         {
             EntitySetName = entitySetName;
