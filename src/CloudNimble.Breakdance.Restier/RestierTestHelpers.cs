@@ -4,6 +4,7 @@ using Microsoft.AspNet.OData.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.Restier.Core;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -27,6 +28,20 @@ namespace CloudNimble.Breakdance.Restier
 
         #endregion
 
+        #region Private Members
+
+        private static readonly DefaultQuerySettings QueryDefaults = new DefaultQuerySettings
+        {
+            EnableCount = true,
+            EnableExpand = true,
+            EnableFilter = true,
+            EnableOrderBy = true,
+            EnableSelect = true,
+            MaxTop = 10
+        };
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -41,18 +56,20 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="acceptHeader"></param>
         /// <param name="defaultQuerySettings"></param>
         /// <param name="timeZoneInfo"></param>
+        /// <param name="payload"></param>
+        /// <param name="jsonSerializerSettings"></param>
         /// <returns></returns>
         public static async Task<HttpResponseMessage> ExecuteTestRequest<T>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = RouteName,
             string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader,
-            DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null) where T : ApiBase
+            DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null, object payload = null, JsonSerializerSettings jsonSerializerSettings = null) where T : ApiBase
         {
             var config = await GetTestableRestierConfiguration<T>(routeName, routePrefix, defaultQuerySettings, timeZoneInfo);
             var client = config.GetTestableHttpClient();
-            return await client.ExecuteTestRequest(httpMethod, host, routePrefix, resource, acceptHeader);
+            return await client.ExecuteTestRequest(httpMethod, host, routePrefix, resource, acceptHeader, payload, jsonSerializerSettings);
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the instance of the Restier API (inheriting from <see cref="ApiBase"/> from the Dependency Injection container.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="routeName"></param>
@@ -61,7 +78,7 @@ namespace CloudNimble.Breakdance.Restier
         public static async Task<T> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase => await GetTestableApiService<T, ApiBase>(routeName, routePrefix) as T;
 
         /// <summary>
-        /// 
+        /// Retrieves one of the OData core services from the Dependency Injection container.
         /// </summary>
         /// <typeparam name="TApi"></typeparam>
         /// <typeparam name="TService"></typeparam>
@@ -87,24 +104,11 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="defaultQuerySettings"></param>
         /// <param name="timeZoneInfo"></param>
         /// <returns></returns>
-        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix, DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null) where T : ApiBase
+        public static async Task<HttpConfiguration> GetTestableRestierConfiguration<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix, 
+            DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null) where T : ApiBase
         {
             var config = new HttpConfiguration();
-
-            if (defaultQuerySettings == null)
-            {
-                defaultQuerySettings = new DefaultQuerySettings
-                {
-                    EnableCount = true,
-                    EnableExpand = true,
-                    EnableFilter = true,
-                    EnableOrderBy = true,
-                    EnableSelect = true,
-                    MaxTop = 10
-                };
-            }
-
-            config.SetDefaultQuerySettings(defaultQuerySettings);
+            config.SetDefaultQuerySettings(defaultQuerySettings ?? QueryDefaults);
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             config.SetTimeZoneInfo(timeZoneInfo ?? TimeZoneInfo.Utc);
             await config.MapRestierRoute<T>(routeName, routePrefix);

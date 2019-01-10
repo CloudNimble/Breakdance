@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using Newtonsoft.Json;
+using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace CloudNimble.Breakdance.WebApi
@@ -9,6 +10,18 @@ namespace CloudNimble.Breakdance.WebApi
     /// </summary>
     public static class HttpClientHelpers
     {
+
+        #region Private Properties
+
+        private static readonly JsonSerializerSettings JsonSerializerDefaults = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            DateFormatString = "yyyy-MM-ddTHH:mm:ssZ",
+        };
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Gets an <see cref="HttpRequestMessage"/> instance properly configured to be used to make test requests.
@@ -22,14 +35,23 @@ namespace CloudNimble.Breakdance.WebApi
         /// </param>
         /// <param name="resource">The resource on the API to be requested.</param>
         /// <param name="acceptHeader">The inbound MIME types to accept. Defaults to "application/json".</param>
+        /// <param name="payload"></param>
+        /// <param name="jsonSerializerSettings"></param>
         /// <returns>An <see cref="HttpRequestMessage"/> that is ready to be sent through an HttpClient instance configured for the test.</returns>
         public static HttpRequestMessage GetTestableHttpRequestMessage(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routePrefix = WebApiConstants.RoutePrefix, 
-            string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader)
+            string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader, object payload = null, JsonSerializerSettings jsonSerializerSettings = null)
         {
-            var request = new HttpRequestMessage(httpMethod, host + routePrefix + resource);
+            var request = new HttpRequestMessage(httpMethod, $"{host}{routePrefix}{resource}");
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
+            if (httpMethod.Method.StartsWith("P") && payload != null)
+            {
+                request.Content = new StringContent(JsonConvert.SerializeObject(payload, jsonSerializerSettings ?? JsonSerializerDefaults));
+            }
+
             return request;
         }
+
+        #endregion
 
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CloudNimble.Breakdance.WebApi;
+using Newtonsoft.Json;
 
 namespace System.Net.Http
 {
@@ -23,6 +24,8 @@ namespace System.Net.Http
         /// </param>
         /// <param name="resource">The resource on the API to be requested.</param>
         /// <param name="acceptHeader">The inbound MIME types to accept. Defaults to "application/json".</param>
+        /// <param name="payload"></param>
+        /// <param name="jsonSerializerSettings"></param>
         /// <returns>An <see cref="HttpResponseMessage"/> containing the results of the attempted request.</returns>
         /// <example> 
         /// This sample shows the simplest way to create a testable <see cref="HttpClient"/> and execute a test request, using MSTest and FluentAssertions.
@@ -44,9 +47,10 @@ namespace System.Net.Http
         /// </code>
         /// </example>
         public static async Task<HttpResponseMessage> ExecuteTestRequest(this HttpClient httpClient, HttpMethod httpMethod, string host = WebApiConstants.Localhost, 
-            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader)
+            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader, object payload = null, 
+            JsonSerializerSettings jsonSerializerSettings = null)
         {
-            var request = HttpClientHelpers.GetTestableHttpRequestMessage(httpMethod, host, routePrefix, resource, acceptHeader);
+            var request = HttpClientHelpers.GetTestableHttpRequestMessage(httpMethod, host, routePrefix, resource, acceptHeader, payload, jsonSerializerSettings);
             return await httpClient.SendAsync(request);
         }
 
