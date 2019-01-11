@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace CloudNimble.Breakdance.WebApi
 {
@@ -45,7 +46,7 @@ namespace CloudNimble.Breakdance.WebApi
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             if (httpMethod.Method.StartsWith("P") && payload != null)
             {
-                request.Content = new StringContent(JsonConvert.SerializeObject(payload, jsonSerializerSettings ?? JsonSerializerDefaults));
+                request.Content = new StringContent(JsonConvert.SerializeObject(payload, jsonSerializerSettings ?? JsonSerializerDefaults), Encoding.UTF8, acceptHeader);
             }
 
             return request;
