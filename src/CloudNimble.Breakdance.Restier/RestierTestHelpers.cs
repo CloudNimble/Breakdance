@@ -75,7 +75,8 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<T> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix) where T : ApiBase => await GetTestableApiService<T, ApiBase>(routeName, routePrefix) as T;
+        public static async Task<T> GetTestableApiInstance<T>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix)
+            where T : ApiBase => await GetTestableInjectedService<T, ApiBase>(routeName, routePrefix) as T;
 
         /// <summary>
         /// Retrieves one of the OData core services from the Dependency Injection container.
@@ -85,14 +86,24 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routeName"></param>
         /// <param name="routePrefix"></param>
         /// <returns></returns>
-        public static async Task<TService> GetTestableApiService<TApi, TService>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix)
+        public static async Task<TService> GetTestableInjectedService<TApi, TService>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix)
              where TApi : ApiBase
-             where TService : class
+             where TService : class => (await GetTestableInjectionContainer<TApi>(routeName, routePrefix)).GetService<TService>();
+
+        /// <summary>
+        /// Retrieves the Dependency Injection container.
+        /// </summary>
+        /// <typeparam name="TApi"></typeparam>
+        /// <param name="routeName"></param>
+        /// <param name="routePrefix"></param>
+        /// <returns></returns>
+        public static async Task<IServiceProvider> GetTestableInjectionContainer<TApi>(string routeName = RouteName, string routePrefix = WebApiConstants.RoutePrefix)
+             where TApi : ApiBase
         {
             var config = await GetTestableRestierConfiguration<TApi>(routeName, routePrefix);
             var request = HttpClientHelpers.GetTestableHttpRequestMessage(HttpMethod.Get, WebApiConstants.Localhost, routePrefix);
             request.SetConfiguration(config);
-            return request.CreateRequestContainer(routeName).GetService<TService>();
+            return request.CreateRequestContainer(routeName);
         }
 
         /// <summary>
