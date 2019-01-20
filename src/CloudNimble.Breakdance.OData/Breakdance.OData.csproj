@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.OData</AssemblyName>
@@ -38,7 +38,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.Breakdance.WebApi\Breakdance.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

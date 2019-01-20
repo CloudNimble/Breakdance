@@ -19,8 +19,4 @@
     <ProjectReference Include="..\CloudNimble.Breakdance.Restier\Breakdance.Restier.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
 </Project>

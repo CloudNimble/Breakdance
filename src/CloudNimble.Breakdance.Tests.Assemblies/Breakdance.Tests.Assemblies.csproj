@@ -19,8 +19,4 @@
     <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
 </Project>

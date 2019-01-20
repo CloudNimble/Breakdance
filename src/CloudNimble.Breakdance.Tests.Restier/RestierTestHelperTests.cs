@@ -30,7 +30,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
             responseMessage.StatusCode.Should().Be(HttpStatusCode.NotFound);
             var response = await responseMessage.Content.ReadAsStringAsync();
             response.Should().NotBe("{\"Message\":\"An error has occurred.\"}");
-            response.Should().Be("{\"Message\":\"No HTTP resource was found that matches the request URI 'http://localhost/api/test/DoesntExist'.\",\"MessageDetail\":\"No route data was found for this request.\"}");
+            response.Should().Be("{\"Message\":\"No HTTP resource was found that matches the request URI 'http://localhost/api/tests/DoesntExist'.\",\"MessageDetail\":\"No route data was found for this request.\"}");
             TestContext.WriteLine(response);
         }
 
@@ -101,7 +101,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
 
             var oldReport = File.ReadAllText(fileName);
             var newReport = await RestierTestHelpers.GetApiMetadata<SportsApi>();
-            oldReport.Should().BeEquivalentTo(newReport);
+            oldReport.Should().BeEquivalentTo(newReport.ToString());
         }
 
     }

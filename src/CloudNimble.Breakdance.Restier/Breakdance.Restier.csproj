@@ -37,7 +37,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.Breakdance.OData\Breakdance.OData.csproj" />
     <ProjectReference Include="..\CloudNimble.Breakdance.WebApi\Breakdance.WebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>LINQPadQuery</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>

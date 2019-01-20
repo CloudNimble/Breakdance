@@ -33,8 +33,6 @@
     </PackageReleaseNotes>
     <LangVersion>7.1</LangVersion>
 
-
-
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -53,6 +51,12 @@
     <PackageReference Include="System.Reflection" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Breakdance.Tests.Assemblies</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>
