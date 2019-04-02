@@ -1,12 +1,8 @@
 ﻿using CloudNimble.Breakdance.WebApi;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Breakdance.Tests.WebApi
@@ -24,7 +20,7 @@ namespace Breakdance.Tests.WebApi
         {
             var client = new HttpClient();
             var response = await client.GetAsync("https://services.odata.org/TripPinRESTierService/People");
-            var (Result, ErrorContent) = await response.DeserializeResponseAsync<ODataV4Response<ExpandoObject>>();
+            var (Result, ErrorContent) = await response.DeserializeResponseAsync<ODataV4Entity<ExpandoObject>>();
             ErrorContent.Should().BeNullOrEmpty();
             Result.Should().NotBeNull();
         }
