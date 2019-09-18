@@ -1,5 +1,18 @@
 <Project>
-  <!--<Import Project="version.props" />-->
+
+  <PropertyGroup>
+    <IsBenchmarkProject Condition="$(MSBuildProjectName.EndsWith('.Performance'))">true</IsBenchmarkProject>
+    <IsTestProject Condition="$(MSBuildProjectName.ToLower().Contains('.tests.'))">true</IsTestProject>
+    <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
+    <IsSampleProject Condition="$(MSBuildProjectName.ToLower().Contains('.samples.'))">true</IsSampleProject>
+
+    <IncludeSource>false</IncludeSource>
+    <IncludeSymbols>true</IncludeSymbols>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
 
   <PropertyGroup>
     <Product>Breakdance</Product>
@@ -11,13 +24,17 @@
     <!--<PackageLicenseUrl>https://raw.githubusercontent.com/OData/RESTier/master/License.txt</PackageLicenseUrl>-->
     <!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
     <PackageLicenseType>MIT</PackageLicenseType>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
+
     <!--
       Suppress a warning about upcoming deprecation of PackageLicenseUrl. When embedding licenses are supported,
       replace PackageLicenseUrl with PackageLicenseExpression.
     -->
     <NoWarn>$(NoWarn);NU5125</NoWarn>
     <!-- Suppress warnings about using SemVer 2.0. -->
-    <NoWarn>$(NoWarn);NU5105</NoWarn>
+    <NoWarn>$(NoWarn);NU5105;NU5048;NU5014</NoWarn>
 
     <!-- Contact email address for NuGet packages and Linux installers. -->
     <MaintainerEmail>breakdance@nimbleapps.cloud</MaintainerEmail>
@@ -28,7 +45,7 @@
     <PackageTags>unit tests;breakdance;nunit;xunit;mstest;fluentassertions</PackageTags>
     <Serviceable>true</Serviceable>
 
-    <PackageVersion>1.0.0-Beta2.Preview1</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
 
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
