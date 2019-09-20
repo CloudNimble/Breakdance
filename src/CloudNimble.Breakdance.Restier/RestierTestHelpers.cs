@@ -172,12 +172,16 @@ namespace CloudNimble.Breakdance.Restier
         /// </summary>
         /// <typeparam name="TApi">The class inheriting from <see cref="ApiBase"/> that implements the Restier API to test.</typeparam>
         /// <typeparam name="TDbContext">The class inheriting from <see cref="DbContext"/> that connects to the database used bt <typeparamref name="TApi"/>.</typeparam>
+        /// <param name="routeName">The name that will be assigned to the route in the route configuration dictionary.</param>
+        /// <param name="routePrefix">The string that will be appendedin between the Host and the Resource when constructing a URL.</param>
+        /// <param name="serviceCollection"></param>
         /// <returns>An <see cref="IEdmModel"/> instance containing the model used to configure both OData and Restier processing.</returns>
-        public static async Task<IEdmModel> GetTestableModelAsync<TApi, TDbContext>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix)
+        public static async Task<IEdmModel> GetTestableModelAsync<TApi, TDbContext>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
+            Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var api = await GetTestableApiInstance<TApi, TDbContext>(routeName, routePrefix);
+            var api = await GetTestableApiInstance<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection);
             return await api.GetModelAsync();
         }
 
@@ -186,12 +190,17 @@ namespace CloudNimble.Breakdance.Restier
         /// </summary>
         /// <typeparam name="TApi">The class inheriting from <see cref="ApiBase"/> that implements the Restier API to test.</typeparam>
         /// <typeparam name="TDbContext">The class inheriting from <see cref="DbContext"/> that connects to the database used bt <typeparamref name="TApi"/>.</typeparam>
+        /// <param name="host"></param>
+        /// <param name="routeName">The name that will be assigned to the route in the route configuration dictionary.</param>
+        /// <param name="routePrefix">The string that will be appendedin between the Host and the Resource when constructing a URL.</param>
+        /// <param name="serviceCollection"></param>
         /// <returns>An <see cref="XDocument"/> containing the results of the metadata request.</returns>
-        public static async Task<XDocument> GetApiMetadata<TApi, TDbContext>(string host = WebApiConstants.Localhost, string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix)
+        public static async Task<XDocument> GetApiMetadata<TApi, TDbContext>(string host = WebApiConstants.Localhost, string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
+            Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var response = await ExecuteTestRequest<TApi, TDbContext>(HttpMethod.Get, host, routeName, routePrefix, "/$metadata");
+            var response = await ExecuteTestRequest<TApi, TDbContext>(HttpMethod.Get, host, routeName, routePrefix, "/$metadata", serviceCollection: serviceCollection);
             var result = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
@@ -208,13 +217,14 @@ namespace CloudNimble.Breakdance.Restier
         /// <typeparam name="TDbContext">The class inheriting from <see cref="DbContext"/> that connects to the database used bt <typeparamref name="TApi"/>.</typeparam>
         /// <param name="sourceDirectory"></param>
         /// <param name="suffix"></param>
+        /// <param name="serviceCollection"></param>
         /// <returns></returns>
-        public static async Task WriteCurrentApiMetadata<TApi, TDbContext>(string sourceDirectory = "", string suffix = "ApiMetadata")
+        public static async Task WriteCurrentApiMetadata<TApi, TDbContext>(string sourceDirectory = "", string suffix = "ApiMetadata", Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
             where TDbContext : DbContext
         {
             var filePath = $"{sourceDirectory}{typeof(TApi).Name}-{suffix}.txt";
-            var result = await GetApiMetadata<TApi, TDbContext>();
+            var result = await GetApiMetadata<TApi, TDbContext>(serviceCollection: serviceCollection);
             System.IO.File.WriteAllText(filePath, result.ToString());
         }
 
