@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.Assemblies
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.WebApi", "CloudNimble.Breakdance.Tests.WebApi\Breakdance.Tests.WebApi.csproj", "{73AD8F91-91B4-4BB9-9371-2AC0030F842B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{A17B6FBF-CC19-4095-9858-511BE5BB9153}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

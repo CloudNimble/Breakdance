@@ -1,5 +1,6 @@
 ﻿using CloudNimble.Breakdance.Restier;
 using CloudNimble.Breakdance.Tests.Restier.Controllers;
+using CloudNimble.Breakdance.Tests.Restier.Model;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
@@ -25,11 +26,11 @@ namespace CloudNimble.Breakdance.Tests.Restier
         [TestMethod]
         public async Task RestierTestHelpers_CheckVerboseErrors_NotFound()
         {
-            var responseMessage = await RestierTestHelpers.ExecuteTestRequest<SportsApi>(HttpMethod.Get, resource: "/DoesntExist").ConfigureAwait(false);
+            var responseMessage = await RestierTestHelpers.ExecuteTestRequest<SportsApi, SportsDbContext>(HttpMethod.Get, resource: "/DoesntExist").ConfigureAwait(false);
             responseMessage.Should().NotBeNull();
-            responseMessage.StatusCode.Should().Be(HttpStatusCode.NotFound);
             var response = await responseMessage.Content.ReadAsStringAsync();
-            response.Should().NotBe("{\"Message\":\"An error has occurred.\"}");
+            TestContext.WriteLine(response);
+            responseMessage.StatusCode.Should().Be(HttpStatusCode.NotFound);
             response.Should().Be("{\"Message\":\"No HTTP resource was found that matches the request URI 'http://localhost/api/tests/DoesntExist'.\",\"MessageDetail\":\"No route data was found for this request.\"}");
             TestContext.WriteLine(response);
         }
@@ -37,7 +38,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         [TestMethod]
         public async Task RestierTestHelpers_GenerateConventionDefinitions()
         {
-            var model = await RestierTestHelpers.GetTestableModelAsync<SportsApi>();
+            var model = await RestierTestHelpers.GetTestableModelAsync<SportsApi, SportsDbContext>();
             var result = model.GenerateConventionDefinitions();
             //TestContext.WriteLine(result);
             result.Should().NotBeEmpty();
@@ -57,7 +58,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         [TestMethod]
         public async Task RestierTestHelpers_CompareReportToApi()
         {
-            var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi>();
+            var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi, SportsDbContext>();
             var result = await api.GenerateVisibilityMatrix();
 
             TestContext.WriteLine(result);
@@ -67,7 +68,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         [TestMethod]
         public async Task RestierTestHelpers_WriteApiToFileSystem()
         {
-            var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi>();
+            var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi, SportsDbContext>();
             await api.WriteCurrentVisibilityMatrix(relativePath);
 
             File.Exists($"{relativePath}{api.GetType().Name}-ApiSurface.txt").Should().BeTrue();
@@ -76,7 +77,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         [TestMethod]
         public async Task RestierTestHelpers_CompareCurrentApiReportToPriorRun()
         {
-            var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi>();
+            var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi, SportsDbContext>();
             var fileName = $"{relativePath}{api.GetType().Name}-ApiSurface.txt";
 
             File.Exists(fileName).Should().BeTrue();
@@ -88,7 +89,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
         [TestMethod]
         public async Task RestierTestHelpers_WriteApiMetadataToFileSystem()
         {
-            await RestierTestHelpers.WriteCurrentApiMetadata<SportsApi>(relativePath);
+            await RestierTestHelpers.WriteCurrentApiMetadata<SportsApi, SportsDbContext>(relativePath);
 
             File.Exists($"{relativePath}{typeof(SportsApi).Name}-ApiMetadata.txt").Should().BeTrue();
         }
@@ -100,7 +101,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
             File.Exists(fileName).Should().BeTrue();
 
             var oldReport = File.ReadAllText(fileName);
-            var newReport = await RestierTestHelpers.GetApiMetadata<SportsApi>();
+            var newReport = await RestierTestHelpers.GetApiMetadata<SportsApi, SportsDbContext>();
             oldReport.Should().BeEquivalentTo(newReport.ToString());
         }
 
