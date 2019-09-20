@@ -4,7 +4,6 @@ using Microsoft.AspNet.OData.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.Restier.Core;
-using Microsoft.Restier.EntityFramework;
 using Newtonsoft.Json;
 using System;
 using System.Data.Entity;
@@ -56,7 +55,7 @@ namespace CloudNimble.Breakdance.Restier
         /// The prefix is irrelevant, is only for internal testing, and should ONLY be changed if you are testing more than one API in a test method (which is not recommended).
         /// </param>
         /// <param name="resource">The specific resource on the endpoint that will be called. Must start with a forward-slash.</param>
-        /// <param name="configureServices"></param>
+        /// <param name="serviceCollection"></param>
         /// <param name="acceptHeader">The "Accept" header that should be added to the request. Defaults to "application/json;odata.metadata=full".</param>
         /// <param name="defaultQuerySettings">A <see cref="DefaultQuerySettings"/> instabce that defines how OData operations should work. Defaults to everything enabled with a <see cref="DefaultQuerySettings.MaxTop"/> of 10.</param>
         /// <param name="timeZoneInfo">A <see cref="TimeZoneInfo"/> instenace specifying what time zone should be used to translate time payloads into. Defaults to <see cref="TimeZoneInfo.Utc"/>.</param>
@@ -64,12 +63,12 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="jsonSerializerSettings">A <see cref="JsonSerializerSettings"/> instance defining how the payload should be serialized into the request body. Defaults to using Zulu time and will include all properties in the payload, even null ones.</param>
         /// <returns>An <see cref="HttpResponseMessage"/> that contains the managed response for the request for inspection.</returns>
         public static async Task<HttpResponseMessage> ExecuteTestRequest<TApi, TDbContext>(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routeName = WebApiConstants.RouteName,
-            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, Action<IServiceCollection> configureServices = default, string acceptHeader = ODataConstants.MinimalAcceptHeader,
+            string routePrefix = WebApiConstants.RoutePrefix, string resource = null, Action<IServiceCollection> serviceCollection = default, string acceptHeader = ODataConstants.MinimalAcceptHeader,
             DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null, object payload = null, JsonSerializerSettings jsonSerializerSettings = null)
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, defaultQuerySettings, timeZoneInfo, configureServices);
+            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, defaultQuerySettings, timeZoneInfo, serviceCollection);
             var client = config.GetTestableHttpClient();
             return await client.ExecuteTestRequest(httpMethod, host, routePrefix, resource, acceptHeader, payload, jsonSerializerSettings);
         }
@@ -81,12 +80,12 @@ namespace CloudNimble.Breakdance.Restier
         /// <typeparam name="TDbContext">The class inheriting from <see cref="DbContext"/> that connects to the database used bt <typeparamref name="TApi"/>.</typeparam>
         /// <param name="routeName">The name that will be assigned to the route in the route configuration dictionary.</param>
         /// <param name="routePrefix">The string that will be appendedin between the Host and the Resource when constructing a URL.</param>
-        /// <param name="configureServices"></param>
+        /// <param name="serviceCollection"></param>
         /// <returns></returns>
         public static async Task<TApi> GetTestableApiInstance<TApi, TDbContext>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
-            Action<IServiceCollection> configureServices = default)
+            Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
-            where TDbContext : DbContext => await GetTestableInjectedService<TApi, TDbContext, ApiBase>(routeName, routePrefix, configureServices) as TApi;
+            where TDbContext : DbContext => await GetTestableInjectedService<TApi, TDbContext, ApiBase>(routeName, routePrefix, serviceCollection) as TApi;
 
         /// <summary>
         /// Retrieves class instance of type <typeparamref name="TService"/> from the Dependency Injection container.
@@ -96,13 +95,13 @@ namespace CloudNimble.Breakdance.Restier
         /// <typeparam name="TService">The type whose instance should be retrieved from the DI container.</typeparam>
         /// <param name="routeName">The name that will be assigned to the route in the route configuration dictionary.</param>
         /// <param name="routePrefix">The string that will be appendedin between the Host and the Resource when constructing a URL.</param>
-        /// <param name="configureServices"></param>
+        /// <param name="serviceCollection"></param>
         /// <returns></returns>
         public static async Task<TService> GetTestableInjectedService<TApi, TDbContext, TService>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
-            Action<IServiceCollection> configureServices = default)
+            Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
             where TDbContext : DbContext
-            where TService : class => (await GetTestableInjectionContainer<TApi, TDbContext>(routeName, routePrefix, configureServices)).GetService<TService>();
+            where TService : class => (await GetTestableInjectionContainer<TApi, TDbContext>(routeName, routePrefix, serviceCollection)).GetService<TService>();
 
         /// <summary>
         /// Retrieves the Dependency Injection container that was created as a part of the request pipeline.
@@ -111,14 +110,14 @@ namespace CloudNimble.Breakdance.Restier
         /// <typeparam name="TDbContext">The class inheriting from <see cref="DbContext"/> that connects to the database used bt <typeparamref name="TApi"/>.</typeparam>
         /// <param name="routeName">The name that will be assigned to the route in the route configuration dictionary.</param>
         /// <param name="routePrefix">The string that will be appendedin between the Host and the Resource when constructing a URL.</param>
-        /// <param name="configureServices"></param>
+        /// <param name="serviceCollection"></param>
         /// <returns></returns>
         public static async Task<IServiceProvider> GetTestableInjectionContainer<TApi, TDbContext>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
-            Action<IServiceCollection> configureServices = default)
+            Action<IServiceCollection> serviceCollection = default)
              where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, configureServices: configureServices);
+            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection);
             var request = HttpClientHelpers.GetTestableHttpRequestMessage(HttpMethod.Get, WebApiConstants.Localhost, routePrefix);
             request.SetConfiguration(config);
             return request.CreateRequestContainer(routeName);
@@ -133,19 +132,19 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="routePrefix">The string that will be appendedin between the Host and the Resource when constructing a URL.</param>
         /// <param name="defaultQuerySettings">A <see cref="DefaultQuerySettings"/> instabce that defines how OData operations should work. Defaults to everything enabled with a <see cref="DefaultQuerySettings.MaxTop"/> of 10.</param>
         /// <param name="timeZoneInfo">A <see cref="TimeZoneInfo"/> instenace specifying what time zone should be used to translate time payloads into. Defaults to <see cref="TimeZoneInfo.Utc"/>.</param>
-        /// <param name="configureServices"></param>
+        /// <param name="serviceCollection"></param>
         /// <returns>An <see cref="HttpConfiguration"/> instance</returns>
         public static async Task<HttpConfiguration> GetTestableRestierConfiguration<TApi, TDbContext>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
-            DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null, Action<IServiceCollection> configureServices = default)
+            DefaultQuerySettings defaultQuerySettings = null, TimeZoneInfo timeZoneInfo = null, Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
             where TDbContext : DbContext
         {
             var config = new HttpConfiguration();
-            Action<IServiceCollection> defaultConfigureServices = (services) => { services.AddEfProviderServices<TDbContext>(); };
+            Action<IServiceCollection> defaultConfigureServices = (services) => { services.AddEF6ProviderServices<TDbContext>(); };
             config.SetDefaultQuerySettings(defaultQuerySettings ?? QueryDefaults);
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             config.SetTimeZoneInfo(timeZoneInfo ?? TimeZoneInfo.Utc);
-            config.UseRestier<TApi>(configureServices ?? defaultConfigureServices);
+            config.UseRestier<TApi>(serviceCollection ?? defaultConfigureServices);
             config.MapRestier<TApi>(routeName, routePrefix);
             return await Task.FromResult(config);
         }
@@ -157,14 +156,14 @@ namespace CloudNimble.Breakdance.Restier
         /// <typeparam name="TDbContext">The class inheriting from <see cref="DbContext"/> that connects to the database used bt <typeparamref name="TApi"/>.</typeparam>
         /// <param name="routeName">The name that will be assigned to the route in the route configuration dictionary.</param>
         /// <param name="routePrefix">The string that will be appendedin between the Host and the Resource when constructing a URL.</param>
-        /// <param name="configureServices"></param>
+        /// <param name="serviceCollection"></param>
         /// <returns>A properly configured <see cref="HttpClient"/> that can make reqests to the in-memory Restier context.</returns>
         public static async Task<HttpClient> GetTestableHttpClient<TApi, TDbContext>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
-            Action<IServiceCollection> configureServices = default)
+            Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, configureServices: configureServices);
+            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection);
             return new HttpClient(new HttpServer(config));
         }
 
