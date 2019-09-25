@@ -4,6 +4,7 @@ using Microsoft.AspNet.OData.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.Restier.Core;
+using Microsoft.Restier.EntityFramework;
 using Newtonsoft.Json;
 using System;
 using System.Data.Entity;
