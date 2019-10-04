@@ -188,7 +188,9 @@ namespace CloudNimble.Breakdance.Assemblies
                 {
                     fieldValue = info.GetValue(null);
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception e)
+#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     Console.WriteLine(e.ToString());
                 }
@@ -230,7 +232,9 @@ namespace CloudNimble.Breakdance.Assemblies
                             var toStringMethod = fieldValue.GetType().GetMethod("ToString", ToStringFormatParameter);
                             fieldValueString = toStringMethod != null ? (string)toStringMethod.Invoke(fieldValue, ToStringFormatValues) : fieldValue.ToString();
                         }
+#pragma warning disable CA1031 // Do not catch general exception types
                         catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
                         {
                             fieldValueString = ex.ToString();
                             if (type.FullName == "System.Data.OracleClient.OracleNumber")

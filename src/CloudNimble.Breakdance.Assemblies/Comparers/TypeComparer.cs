@@ -34,6 +34,16 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         public int Compare(object x, object y)
         {
+            if (x == null)
+            {
+                throw new ArgumentNullException(nameof(x));
+            }
+
+            if (y == null)
+            {
+                throw new ArgumentNullException(nameof(y));
+            }
+
             Type a = x as Type;
             Type b = y as Type;
 

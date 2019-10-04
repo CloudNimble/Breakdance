@@ -39,7 +39,9 @@ namespace CloudNimble.Breakdance.WebApi
         /// 
         /// </summary>
         [JsonProperty("value")]
+#pragma warning disable CA2227 // Collection properties should be read only
         public List<T> Items { get; set; }
+#pragma warning restore CA2227 // Collection properties should be read only
 
     }
 

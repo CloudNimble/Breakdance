@@ -69,9 +69,9 @@ namespace CloudNimble.Breakdance.Restier
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, defaultQuerySettings, timeZoneInfo, serviceCollection);
+            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, defaultQuerySettings, timeZoneInfo, serviceCollection).ConfigureAwait(false);
             var client = config.GetTestableHttpClient();
-            return await client.ExecuteTestRequest(httpMethod, host, routePrefix, resource, acceptHeader, payload, jsonSerializerSettings);
+            return await client.ExecuteTestRequest(httpMethod, host, routePrefix, resource, acceptHeader, payload, jsonSerializerSettings).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace CloudNimble.Breakdance.Restier
         public static async Task<TApi> GetTestableApiInstance<TApi, TDbContext>(string routeName = WebApiConstants.RouteName, string routePrefix = WebApiConstants.RoutePrefix,
             Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
-            where TDbContext : DbContext => await GetTestableInjectedService<TApi, TDbContext, ApiBase>(routeName, routePrefix, serviceCollection) as TApi;
+            where TDbContext : DbContext => await GetTestableInjectedService<TApi, TDbContext, ApiBase>(routeName, routePrefix, serviceCollection).ConfigureAwait(false) as TApi;
 
         /// <summary>
         /// Retrieves class instance of type <typeparamref name="TService"/> from the Dependency Injection container.
@@ -102,7 +102,7 @@ namespace CloudNimble.Breakdance.Restier
             Action<IServiceCollection> serviceCollection = default)
             where TApi : ApiBase
             where TDbContext : DbContext
-            where TService : class => (await GetTestableInjectionContainer<TApi, TDbContext>(routeName, routePrefix, serviceCollection)).GetService<TService>();
+            where TService : class => (await GetTestableInjectionContainer<TApi, TDbContext>(routeName, routePrefix, serviceCollection).ConfigureAwait(false)).GetService<TService>();
 
         /// <summary>
         /// Retrieves the Dependency Injection container that was created as a part of the request pipeline.
@@ -118,7 +118,7 @@ namespace CloudNimble.Breakdance.Restier
              where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection);
+            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection).ConfigureAwait(false);
             var request = HttpClientHelpers.GetTestableHttpRequestMessage(HttpMethod.Get, WebApiConstants.Localhost, routePrefix);
             request.SetConfiguration(config);
             return request.CreateRequestContainer(routeName);
@@ -147,7 +147,7 @@ namespace CloudNimble.Breakdance.Restier
             config.SetTimeZoneInfo(timeZoneInfo ?? TimeZoneInfo.Utc);
             config.UseRestier<TApi>(serviceCollection ?? defaultConfigureServices);
             config.MapRestier<TApi>(routeName, routePrefix);
-            return await Task.FromResult(config);
+            return await Task.FromResult(config).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace CloudNimble.Breakdance.Restier
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection);
+            var config = await GetTestableRestierConfiguration<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection).ConfigureAwait(false);
             return new HttpClient(new HttpServer(config));
         }
 
@@ -182,8 +182,8 @@ namespace CloudNimble.Breakdance.Restier
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var api = await GetTestableApiInstance<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection);
-            return await api.GetModelAsync();
+            var api = await GetTestableApiInstance<TApi, TDbContext>(routeName, routePrefix, serviceCollection: serviceCollection).ConfigureAwait(false);
+            return await api.GetModelAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -201,8 +201,8 @@ namespace CloudNimble.Breakdance.Restier
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var response = await ExecuteTestRequest<TApi, TDbContext>(HttpMethod.Get, host, routeName, routePrefix, "/$metadata", serviceCollection: serviceCollection);
-            var result = await response.Content.ReadAsStringAsync();
+            var response = await ExecuteTestRequest<TApi, TDbContext>(HttpMethod.Get, host, routeName, routePrefix, "/$metadata", serviceCollection: serviceCollection).ConfigureAwait(false);
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
                 Trace.WriteLine(result);
@@ -225,7 +225,7 @@ namespace CloudNimble.Breakdance.Restier
             where TDbContext : DbContext
         {
             var filePath = $"{sourceDirectory}{typeof(TApi).Name}-{suffix}.txt";
-            var result = await GetApiMetadata<TApi, TDbContext>(serviceCollection: serviceCollection);
+            var result = await GetApiMetadata<TApi, TDbContext>(serviceCollection: serviceCollection).ConfigureAwait(false);
             System.IO.File.WriteAllText(filePath, result.ToString());
         }
 

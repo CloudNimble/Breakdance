@@ -15,7 +15,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <summary>
         /// A <see cref="List{String}"/> containging the full name of each attribute on the type member.
         /// </summary>
-        public List<string> Attributes { get; set; }
+        public List<string> Attributes { get; private set; }
 
         /// <summary>
         /// The full name of the type member in question.

@@ -21,6 +21,11 @@ namespace CloudNimble.Breakdance.Restier
         /// <returns>A <see cref="List{RestierConventionDefinition}"/> containing detailed information about the expected Restier conventions.</returns>
         public static List<RestierConventionDefinition> GenerateConventionDefinitions(this IEdmModel edmModel)
         {
+            if (edmModel == null)
+            {
+                throw new ArgumentNullException(nameof(edmModel));
+            }
+
             var entries = new List<RestierConventionDefinition>();
             var model = (EdmModel)edmModel;
 

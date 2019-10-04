@@ -1,8 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace System.Net.Http
@@ -22,9 +18,14 @@ namespace System.Net.Http
         /// <returns></returns>
         public static async Task<(T Response, string ErrorContent)> DeserializeResponseAsync<T>(this HttpResponseMessage message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             if (!message.IsSuccessStatusCode)
             {
-                return (default, await message.Content.ReadAsStringAsync());
+                return (default, await message.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
             var content = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
             return (JsonConvert.DeserializeObject<T>(content), null);
@@ -39,6 +40,11 @@ namespace System.Net.Http
         /// <returns></returns>
         public static async Task<(TResponse Response, TError ErrorContent)> DeserializeResponseAsync<TResponse, TError>(this HttpResponseMessage message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             var content = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (!message.IsSuccessStatusCode)

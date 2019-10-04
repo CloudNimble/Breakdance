@@ -127,7 +127,9 @@ namespace CloudNimble.Breakdance.Assemblies
                 var assembly = File.Exists(assemblyName) ? Assembly.LoadFrom(assemblyName) : Assembly.Load(assemblyName);
                 typesList.AddRange(assembly.GetTypes());
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 Console.WriteLine("Exception loading types from assembly '{0}':", assemblyName);
                 Console.WriteLine(ex.ToString());

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -42,6 +43,11 @@ namespace CloudNimble.Breakdance.WebApi
         public static HttpRequestMessage GetTestableHttpRequestMessage(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routePrefix = WebApiConstants.RoutePrefix, 
             string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader, object payload = null, JsonSerializerSettings jsonSerializerSettings = null)
         {
+            if (httpMethod == null)
+            {
+                throw new ArgumentNullException(nameof(httpMethod));
+            }
+
             var request = new HttpRequestMessage(httpMethod, $"{host}{routePrefix}{resource}");
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             if (httpMethod.Method.StartsWith("P") && payload != null)

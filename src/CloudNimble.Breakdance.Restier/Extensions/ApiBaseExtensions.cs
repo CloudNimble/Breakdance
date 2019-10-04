@@ -32,8 +32,13 @@ namespace CloudNimble.Breakdance.Restier
         /// <returns>A string containing the Markdown table of results.</returns>
         public static async Task<string> GenerateVisibilityMatrix(this ApiBase api)
         {
+            if (api == null)
+            {
+                throw new ArgumentNullException(nameof(api));
+            }
+
             var sb = new StringBuilder();
-            var model = (EdmModel)await api.GetModelAsync(default(CancellationToken));
+            var model = (EdmModel)await api.GetModelAsync(default(CancellationToken)).ConfigureAwait(false);
             var apiType = api.GetType();
 
             var conventions = model.GenerateConventionDefinitions();
@@ -104,8 +109,13 @@ namespace CloudNimble.Breakdance.Restier
         /// <param name="suffix">A string to append to the Api name when writing the text file.</param>
         public static async Task WriteCurrentVisibilityMatrix(this ApiBase api, string sourceDirectory = "", string suffix = "ApiSurface")
         {
+            if (api == null)
+            {
+                throw new ArgumentNullException(nameof(api));
+            }
+
             var filePath = $"{sourceDirectory}{api.GetType().Name}-{suffix}.txt";
-            var report = await api.GenerateVisibilityMatrix();
+            var report = await api.GenerateVisibilityMatrix().ConfigureAwait(false);
             System.IO.File.WriteAllText(filePath, report);
         }
 

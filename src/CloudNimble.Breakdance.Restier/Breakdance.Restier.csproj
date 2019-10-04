@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="[5.2.7, 6.0.0)" />
-    <PackageReference Include="Microsoft.Restier.AspNet" Version="[1.0.0-CI-20190925-212322, )" />
+    <PackageReference Include="Microsoft.Restier.AspNet" Version="[1.0.0-rc1.20191003.1, )" />
   </ItemGroup>
 
   <ItemGroup>
