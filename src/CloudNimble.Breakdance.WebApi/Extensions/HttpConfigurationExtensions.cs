@@ -22,6 +22,9 @@ namespace System.Web.Http
             //RWM: You may be compelled to think that we should track a static instance of HttpClient. And that would be normal. but because someone could
             //     test different APIs in the same test run, we can't.
             //     Maybe at some point we get smart and put them in a static dictionary and do lookups. But today is not that day.
+#pragma warning disable CA1062 // Validate arguments of public methods
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+#pragma warning restore CA1062 // Validate arguments of public methods
             return new HttpClient(config.GetTestableHttpServer());
         }
 

@@ -38,7 +38,7 @@ namespace CloudNimble.Breakdance.Restier
             }
 
             var sb = new StringBuilder();
-            var model = (EdmModel)await api.GetModelAsync(default(CancellationToken)).ConfigureAwait(false);
+            var model = (EdmModel)await api.GetModelAsync(default).ConfigureAwait(false);
             var apiType = api.GetType();
 
             var conventions = model.GenerateConventionDefinitions();
