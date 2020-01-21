@@ -4,7 +4,7 @@
     <AssemblyName>CloudNimble.Breakdance.Restier</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Restier</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -31,7 +31,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="[5.2.7, 6.0.0)" />
-    <PackageReference Include="Microsoft.Restier.AspNet" Version="[1.0.0-rc1.20191003.1, )" />
+    <PackageReference Include="Microsoft.Restier.AspNet" Version="[1.0.0-rc2.20191212.1, )" />
+    <PackageReference Include="Microsoft.Restier.EntityFramework" Version="[1.0.0-rc2.20191212.1, )" />
   </ItemGroup>
 
   <ItemGroup>

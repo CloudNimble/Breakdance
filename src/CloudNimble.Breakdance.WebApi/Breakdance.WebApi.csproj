@@ -4,7 +4,7 @@
     <AssemblyName>CloudNimble.Breakdance.WebApi</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.WebApi</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFrameworks>net452;net462;net48</TargetFrameworks>
+    <TargetFrameworks>net472;net48</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>

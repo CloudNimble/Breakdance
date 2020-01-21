@@ -146,7 +146,7 @@ namespace CloudNimble.Breakdance.Restier
             config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             config.SetTimeZoneInfo(timeZoneInfo ?? TimeZoneInfo.Utc);
             config.UseRestier<TApi>(serviceCollection ?? defaultConfigureServices);
-            config.MapRestier<TApi>(routeName, routePrefix);
+            config.MapRestier<TApi>(routeName, routePrefix, true, config.GetTestableHttpServer());
             return await Task.FromResult(config).ConfigureAwait(false);
         }
 
