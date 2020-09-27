@@ -29,10 +29,14 @@
     </PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>;NU5125;NU5105;NU5048;NU5014;NU5104</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="[5.2.7, 6.0.0)" />
-    <PackageReference Include="Microsoft.Restier.AspNet" Version="[1.0.0-rc2.20191212.1, )" />
-    <PackageReference Include="Microsoft.Restier.EntityFramework" Version="[1.0.0-rc2.20191212.1, )" />
+    <PackageReference Include="Microsoft.Restier.AspNet" Version="[1.0.0-rc4.20200909.1, )" />
+    <PackageReference Include="Microsoft.Restier.EntityFramework" Version="[1.0.0-rc4.20200909.1, )" />
   </ItemGroup>
 
   <ItemGroup>

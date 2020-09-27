@@ -17,10 +17,10 @@ namespace CloudNimble.Breakdance.Assemblies
 
         #region Private Members
 
-        private static bool AlphabeticalGrouping = false;
+        private const bool AlphabeticalGrouping = false;
 
         #endregion
-        
+
         /// <summary>
         /// 
         /// </summary>
