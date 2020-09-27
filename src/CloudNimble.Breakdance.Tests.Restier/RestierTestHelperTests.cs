@@ -23,6 +23,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
             set { testContextInstance = value; }
         }
 
+
         [TestMethod]
         public async Task RestierTestHelpers_CheckVerboseErrors_NotFound()
         {
@@ -32,6 +33,17 @@ namespace CloudNimble.Breakdance.Tests.Restier
             TestContext.WriteLine(response);
             responseMessage.StatusCode.Should().Be(HttpStatusCode.NotFound);
             response.Should().Be("{\"Message\":\"No HTTP resource was found that matches the request URI 'http://localhost/api/tests/DoesntExist'.\",\"MessageDetail\":\"No route data was found for this request.\"}");
+            TestContext.WriteLine(response);
+        }
+
+        [TestMethod]
+        public async Task RestierTestHelpers_EntitySet_Found()
+        {
+            var responseMessage = await RestierTestHelpers.ExecuteTestRequest<SportsApi, SportsDbContext>(HttpMethod.Get, resource: "/Sports").ConfigureAwait(false);
+            responseMessage.Should().NotBeNull();
+            var response = await responseMessage.Content.ReadAsStringAsync();
+            TestContext.WriteLine(response);
+            responseMessage.StatusCode.Should().Be(HttpStatusCode.OK);
             TestContext.WriteLine(response);
         }
 
