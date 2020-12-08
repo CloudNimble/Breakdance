@@ -21,6 +21,18 @@ namespace System.Security.Claims
             ClaimsPrincipal.ClaimsPrincipalSelector = () => new ClaimsPrincipal(new ClaimsIdentity(claims, authenticationType, nameType, roleType));
         }
 
+        /// <summary>
+        /// Sets the <see cref="ClaimsPrincipal.ClaimsPrincipalSelector"/> to a new ClaimsIdentity with the specified claims.
+        /// </summary>
+        /// <param name="claim">The Claims to set for the test run.</param>
+        /// <param name="authenticationType">If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests".</param>
+        /// <param name="nameType">The ClaimType to specify for the Name claim. Defaults to <see cref="ClaimTypes.NameIdentifier"/>.</param>
+        /// <param name="roleType">The ClaimType to specify for Role claims. Defaults to <see cref="ClaimTypes.Role"/>.</param>
+        public static void SetSelector(Claim claim, string authenticationType = "BreakdanceTests", string nameType = ClaimTypes.NameIdentifier, string roleType = ClaimTypes.Role)
+        {
+            ClaimsPrincipal.ClaimsPrincipalSelector = () => new ClaimsPrincipal(new ClaimsIdentity(new List<Claim> { claim }, authenticationType, nameType, roleType));
+        }
+
     }
 
 }
