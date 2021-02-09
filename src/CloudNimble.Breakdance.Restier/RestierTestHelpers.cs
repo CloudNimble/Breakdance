@@ -201,7 +201,7 @@ namespace CloudNimble.Breakdance.Restier
             where TApi : ApiBase
             where TDbContext : DbContext
         {
-            var response = await ExecuteTestRequest<TApi, TDbContext>(HttpMethod.Get, host, routeName, routePrefix, "/$metadata", serviceCollection: serviceCollection).ConfigureAwait(false);
+            var response = await ExecuteTestRequest<TApi, TDbContext>(HttpMethod.Get, host, routeName, routePrefix, "/$metadata", acceptHeader: "application/xml", serviceCollection: serviceCollection).ConfigureAwait(false);
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {

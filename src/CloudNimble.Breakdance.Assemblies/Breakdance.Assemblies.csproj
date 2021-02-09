@@ -4,7 +4,7 @@
     <RootNamespace>CloudNimble.Breakdance.Assemblies</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.Assemblies</AssemblyName>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net46;netstandard2.0;net5.0</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
