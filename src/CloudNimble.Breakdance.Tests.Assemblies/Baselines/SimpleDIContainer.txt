@@ -1,0 +1,2 @@
+ServiceType: CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeEventArgs, ImplementationType: CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeEventArgs, Lifetime: Singleton
+ServiceType: CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeStringList, ImplementationType: CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeStringList, Lifetime: Scoped

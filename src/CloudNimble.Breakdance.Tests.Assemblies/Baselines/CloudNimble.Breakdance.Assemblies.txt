@@ -1,0 +1,182 @@
+------------------------------------------------------------
+CloudNimble.Breakdance.Assemblies.dll
+------------------------------------------------------------
+
+public sealed class CloudNimble.Breakdance.Assemblies.AssemblyConstants
+{
+
+	public static string Abstract = "abstract";
+
+	public static string Add = "add";
+
+	public static string BraceClose = "}";
+
+	public static string BraceOpen = "{";
+
+	public static string BracketClose = "]";
+
+	public static string BracketOpen = "[";
+
+	public static string Class = "class";
+
+	public static string Colon = " : ";
+
+	public static string Const = "const";
+
+	public static string Enum = "enum";
+
+	public static string Get = "get";
+
+	public static string Interface = "interface";
+
+	public static string Internal = "internal";
+
+	public static string Out = "out";
+
+	public static string Params = "params";
+
+	public static string ParenthesisClose = ")";
+
+	public static string ParenthesisOpen = "(";
+
+	public static string Private = "private";
+
+	public static string Protected = "protected";
+
+	public static string Public = "public";
+
+	public static string ReadOnly = "readonly";
+
+	public static string Remove = "remove";
+
+	public static string Sealed = "sealed";
+
+	public static string Set = "set";
+
+	public static string Space = " ";
+
+	public static string Static = "static";
+
+	public static string Struct = "struct";
+
+	public static string Unknown = "UNKNOWN";
+
+	public static string Virtual = "virtual";
+
+}
+
+[System.AttributeUsageAttribute]
+public sealed class CloudNimble.Breakdance.Assemblies.BreakdanceManifestGeneratorAttribute : System.Attribute
+{
+
+	public BreakdanceManifestGeneratorAttribute()
+
+}
+
+[System.AttributeUsageAttribute]
+public sealed class CloudNimble.Breakdance.Assemblies.BreakdanceTestAssemblyAttribute : System.Attribute
+{
+
+	public BreakdanceTestAssemblyAttribute()
+
+}
+
+public sealed class CloudNimble.Breakdance.Assemblies.DependencyInjectionTestHelpers
+{
+
+	public static string GetContainerContentsLog(Microsoft.Extensions.DependencyInjection.ServiceCollection collection)
+
+}
+
+public sealed class CloudNimble.Breakdance.Assemblies.MemberComparerIComparer, IComparer`1
+{
+
+	public MemberComparer(System.Type type)
+
+	public virtual int Compare(object x, object y)
+
+	public int Compare(System.Reflection.MemberInfo x, System.Reflection.MemberInfo y)
+
+}
+
+public class CloudNimble.Breakdance.Assemblies.MemberDefinition
+{
+
+	public MemberDefinition(string member, System.Collections.Generic.List`1<string> attributes)
+
+	System.Collections.Generic.List`1<string> Attributes { public get; }
+
+	string MemberName { public get; public set; }
+
+}
+
+public sealed class CloudNimble.Breakdance.Assemblies.ObjectTypeComparerIComparer, IComparer`1
+{
+
+	public readonly CloudNimble.Breakdance.Assemblies.ObjectTypeComparer Default = CloudNimble.Breakdance.Assemblies.ObjectTypeComparer;
+
+	public ObjectTypeComparer()
+
+	public virtual int Compare(object x, object y)
+
+}
+
+public class CloudNimble.Breakdance.Assemblies.PublicApiHelpers
+{
+
+	public PublicApiHelpers()
+
+	public static string GetPublicApiSurfaceReport(string assemblyName)
+
+	public static System.Collections.Generic.Dictionary`2<string, string> GetPublicApiSurfaceReport(string[] assemblyList)
+
+}
+
+public sealed class CloudNimble.Breakdance.Assemblies.TypeComparerIComparer
+{
+
+	public readonly CloudNimble.Breakdance.Assemblies.TypeComparer Default = CloudNimble.Breakdance.Assemblies.TypeComparer;
+
+	public TypeComparer()
+
+	public virtual int Compare(object x, object y)
+
+}
+
+public class CloudNimble.Breakdance.Assemblies.TypeDefinition
+{
+
+	public TypeDefinition(string classDefinition, System.Collections.Generic.List`1<string> attributes, System.Collections.Generic.List`1<CloudNimble.Breakdance.Assemblies.MemberDefinition> members)
+
+	System.Collections.Generic.List`1<string> Attributes { public get; }
+
+	System.Collections.Generic.List`1<CloudNimble.Breakdance.Assemblies.MemberDefinition> Members { public get; }
+
+	string TypeName { public get; public set; }
+
+}
+
+[System.Runtime.CompilerServices.ExtensionAttribute]
+public sealed class System.Reflection.MethodBaseExtensions
+{
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static bool IsProtected(System.Reflection.ConstructorInfo info, System.Type type)
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static bool IsProtected(System.Reflection.FieldInfo info, System.Type type)
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static bool IsProtected(System.Reflection.MethodInfo info, System.Type type)
+
+}
+
+public sealed class System.Security.Claims.ClaimsPrincipalTestHelpers
+{
+
+	public static void SetSelector(System.Collections.Generic.List`1<System.Security.Claims.Claim> claims, params string authenticationType, params string nameType, params string roleType)
+
+	public static void SetSelector(System.Security.Claims.Claim claim, params string authenticationType, params string nameType, params string roleType)
+
+}
+

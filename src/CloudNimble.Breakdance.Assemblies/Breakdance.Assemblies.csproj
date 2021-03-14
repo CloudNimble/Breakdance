@@ -4,7 +4,7 @@
     <RootNamespace>CloudNimble.Breakdance.Assemblies</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.Assemblies</AssemblyName>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFrameworks>net46;netstandard2.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>net472;netstandard2.0;net5.0</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -37,14 +37,20 @@
     <NoWarn>;NU5125;NU5105;NU5048;NU5014;NU5104;CS0649</NoWarn>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version ="5.0.0" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version ="5.0.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="[1.1.0, 6.0.0)" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="[4.3.0, 6.0.0)" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="[4.3.0, 6.0.0)" />
     <PackageReference Include="System.Collections.NonGeneric" Version="[4.3.0, 6.0.0)" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version ="5.0.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="[3.1.3, 6.0.0)" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="[4.7.0, 6.0.0)" />
     <PackageReference Include="System.Threading.Tasks" Version="[4.3.0, 6.0.0)" />
@@ -59,5 +65,11 @@
       <_Parameter1>CloudNimble.Breakdance.Tests.Assemblies, PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+
 
 </Project>

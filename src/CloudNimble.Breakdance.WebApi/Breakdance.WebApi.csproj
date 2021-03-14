@@ -53,4 +53,8 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+  </ItemGroup>
+
 </Project>
