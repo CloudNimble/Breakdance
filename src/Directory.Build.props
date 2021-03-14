@@ -6,9 +6,11 @@
     <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
     <IsSampleProject Condition="$(MSBuildProjectName.ToLower().Contains('.samples.'))">true</IsSampleProject>
 
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSource>false</IncludeSource>
     <IncludeSymbols>true</IncludeSymbols>
-
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
     <LangVersion>9.0</LangVersion>
@@ -16,15 +18,14 @@
 
   <PropertyGroup>
     <Product>Breakdance</Product>
-
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>CloudNimble</Authors>
-    <Company>CloudNimble Inc.</Company>
+    <Company>CloudNimble, Inc.</Company>
+    <RpmPackageVendor>CloudNimble</RpmPackageVendor>
     <Copyright>Copyright © 2017-2021 CloudNimble, Inc. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <!--<PackageLicenseUrl>https://raw.githubusercontent.com/OData/RESTier/master/License.txt</PackageLicenseUrl>-->
     <!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
-    <PackageLicenseType>MIT</PackageLicenseType>
-
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!--
       Suppress a warning about upcoming deprecation of PackageLicenseUrl. When embedding licenses are supported,
       replace PackageLicenseUrl with PackageLicenseExpression.
@@ -41,8 +42,6 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>unit tests;breakdance;nunit;xunit;mstest;fluentassertions</PackageTags>
     <Serviceable>true</Serviceable>
-
-    <PackageVersion>1.0.0</PackageVersion>
 
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
@@ -62,7 +61,6 @@
 
   <PropertyGroup Condition=" '$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '!$(IsSampleProject)' != 'true' and $(Configuration) != 'Release' ">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -85,4 +83,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- RWM: Uncomment this to enable SourceLink debugging in your projects (Make sure you set RepositoryUrl and RepositoryType). -->
+  <!--<ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>-->
 </Project>
