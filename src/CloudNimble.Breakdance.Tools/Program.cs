@@ -203,7 +203,7 @@ namespace CloudNimble.Breakdance.Tools
             {
                 var instance = Activator.CreateInstance(methodInfo.DeclaringType);
                 methodInfo.Invoke(instance, parameters);
-                ColorConsole.WriteSuccess("Method was invoked successfully./n");
+                ColorConsole.WriteSuccess("Method was invoked successfully.\n");
             }
             catch (Exception ex)
             {

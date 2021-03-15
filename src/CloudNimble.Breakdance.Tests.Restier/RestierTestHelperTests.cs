@@ -1,4 +1,5 @@
-﻿using CloudNimble.Breakdance.Restier;
+﻿using CloudNimble.Breakdance.Assemblies;
+using CloudNimble.Breakdance.Restier;
 using CloudNimble.Breakdance.Tests.Restier.Controllers;
 using CloudNimble.Breakdance.Tests.Restier.Model;
 using FluentAssertions;
@@ -15,7 +16,7 @@ namespace CloudNimble.Breakdance.Tests.Restier
     {
 
         private TestContext testContextInstance;
-        private const string relativePath = "..//..//";
+        private const string relativePath = "..//..//..//";
 
         public TestContext TestContext
         {
@@ -77,13 +78,11 @@ namespace CloudNimble.Breakdance.Tests.Restier
             result.Should().NotBeNullOrWhiteSpace();
         }
 
-        [TestMethod]
-        public async Task RestierTestHelpers_WriteApiToFileSystem()
+        [BreakdanceManifestGenerator]
+        public async Task RestierTestHelpers_WriteApiToFileSystem(string projectPath)
         {
             var api = await RestierTestHelpers.GetTestableApiInstance<SportsApi, SportsDbContext>();
-            await api.WriteCurrentVisibilityMatrix(relativePath);
-
-            File.Exists($"{relativePath}{api.GetType().Name}-ApiSurface.txt").Should().BeTrue();
+            await api.WriteCurrentVisibilityMatrix(Path.Combine(projectPath, "Baselines"));
         }
 
         [TestMethod]
@@ -98,12 +97,10 @@ namespace CloudNimble.Breakdance.Tests.Restier
             oldReport.Should().BeEquivalentTo(newReport);
         }
 
-        [TestMethod]
-        public async Task RestierTestHelpers_WriteApiMetadataToFileSystem()
+        [BreakdanceManifestGenerator]
+        public async Task RestierTestHelpers_WriteApiMetadataToFileSystem(string projectPath)
         {
-            await RestierTestHelpers.WriteCurrentApiMetadata<SportsApi, SportsDbContext>(relativePath);
-
-            File.Exists($"{relativePath}{typeof(SportsApi).Name}-ApiMetadata.txt").Should().BeTrue();
+            await RestierTestHelpers.WriteCurrentApiMetadata<SportsApi, SportsDbContext>(Path.Combine(projectPath, "Baselines"));
         }
 
         [TestMethod]
