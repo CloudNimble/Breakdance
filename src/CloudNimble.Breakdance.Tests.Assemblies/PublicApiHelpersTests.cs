@@ -1,9 +1,10 @@
-﻿using CloudNimble.Breakdance.Tests.Assemblies.SampleApis;
+﻿using CloudNimble.Breakdance.Assemblies;
+using CloudNimble.Breakdance.Tests.Assemblies.SampleApis;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
-namespace CloudNimble.Breakdance.Assemblies.Tests
+namespace CloudNimble.Breakdance.Tests.Assemblies
 {
 
     [TestClass]
@@ -24,7 +25,7 @@ namespace CloudNimble.Breakdance.Assemblies.Tests
         {
             var definitions = PublicApiHelpers.GenerateTypeDefinitionsForAssembly("CloudNimble.Breakdance.Assemblies.dll");
             definitions.Should().NotBeNullOrEmpty();
-            definitions.Count.Should().Be(8);
+            definitions.Should().HaveCount(8);
         }
 
         [TestMethod]

@@ -86,6 +86,10 @@ public sealed class CloudNimble.Breakdance.Assemblies.DependencyInjectionTestHel
 
 	public static string GetContainerContentsLog(Microsoft.Extensions.DependencyInjection.ServiceCollection collection)
 
+	public static string GetContainerContentsLog(Microsoft.Extensions.Hosting.IHostBuilder hostBuilder)
+
+	public static string GetContainerContentsLog(System.IServiceProvider provider)
+
 }
 
 public sealed class CloudNimble.Breakdance.Assemblies.MemberComparerIComparer, IComparer`1
@@ -153,6 +157,42 @@ public class CloudNimble.Breakdance.Assemblies.TypeDefinition
 	System.Collections.Generic.List`1<CloudNimble.Breakdance.Assemblies.MemberDefinition> Members { public get; }
 
 	string TypeName { public get; public set; }
+
+}
+
+[System.Runtime.CompilerServices.ExtensionAttribute]
+public sealed class Microsoft.Extensions.DependencyInjection.IHostBuilderExtensions
+{
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static System.Collections.Generic.Dictionary`2<System.Type, Microsoft.Extensions.DependencyInjection.ServiceDescriptor> GetAllServiceDescriptors(Microsoft.Extensions.Hosting.IHostBuilder builder)
+
+}
+
+[System.Runtime.CompilerServices.ExtensionAttribute]
+public sealed class Microsoft.Extensions.DependencyInjection.IServiceProviderExtensions
+{
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static System.Collections.Generic.Dictionary`2<System.Type, Microsoft.Extensions.DependencyInjection.ServiceDescriptor> GetAllServiceDescriptors(System.IServiceProvider provider)
+
+}
+
+[System.Runtime.CompilerServices.ExtensionAttribute]
+public sealed class System.ObjectExtensions
+{
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static object GetFieldValue(object obj, string fieldName)
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static object GetPropertyValue(object obj, string propertyName)
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static void SetFieldValue(object obj, string fieldName, object val)
+
+	[System.Runtime.CompilerServices.ExtensionAttribute]
+	public static void SetPropertyValue(object obj, string propertyName, object val)
 
 }
 

@@ -122,8 +122,17 @@ namespace CloudNimble.Breakdance.Tools
                     foreach (var testAssembly in testAssemblies)
                     {
                         ColorConsole.WriteEmbeddedColorLine($"Checking for tests in [cyan]{Path.GetFileName(testAssembly)}[/cyan]", ConsoleColor.White);
+                        Assembly assembly = null;
+                        try
+                        {
+                            assembly = File.Exists(testAssembly) ? Assembly.LoadFrom(testAssembly) : Assembly.Load(testAssembly);
+                        }
+                        catch (FileLoadException ex)
+                        {
+                            ColorConsole.WriteError($"Assembly could not be loaded. {ex.Message}.");
+                            continue;
+                        }
 
-                        var assembly = File.Exists(testAssembly) ? Assembly.LoadFrom(testAssembly) : Assembly.Load(testAssembly);
                         if (assembly == null)
                         {
                             ColorConsole.WriteError("Assembly could not be loaded.");
@@ -169,7 +178,7 @@ namespace CloudNimble.Breakdance.Tools
                                     ColorConsole.WriteError($"Method has too many parameters. Please specify a single string parameter representing the base path for writing files and try again.");
                                     break;
                             }
-
+                            
                         }
 
                     }
@@ -194,7 +203,7 @@ namespace CloudNimble.Breakdance.Tools
             {
                 var instance = Activator.CreateInstance(methodInfo.DeclaringType);
                 methodInfo.Invoke(instance, parameters);
-                ColorConsole.WriteSuccess("Method was invoked successfully.");
+                ColorConsole.WriteSuccess("Method was invoked successfully./n");
             }
             catch (Exception ex)
             {
