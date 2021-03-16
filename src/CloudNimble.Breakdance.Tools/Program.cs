@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tools
@@ -32,16 +33,15 @@ namespace CloudNimble.Breakdance.Tools
                 var config = c.Option("-config <configuration>", "The desired project / solution configuration. Defaults to Debug.", CommandOptionType.SingleValue);
 
                 c.HelpOption(helpOptionTemplate);
-                c.OnExecuteAsync(cancellationToken =>
+                c.OnExecuteAsync(async cancellationToken =>
                 {
                     var rootFolder = root.HasValue() ? root.Value() : Directory.GetCurrentDirectory();
                     var configuration = config.HasValue() ? config.Value() : "Debug";
 
-                    Generate(rootFolder, configuration);
+                    await Generate(rootFolder, configuration).ConfigureAwait(false);
 
                     Console.WriteLine("Breakdance manifest generation has completed.");
 
-                    return Task.FromResult(0);
                 });
 
             });
@@ -57,7 +57,7 @@ namespace CloudNimble.Breakdance.Tools
         /// </summary>
         /// <param name="path"></param>
         /// <param name="config"></param>
-        private static void Generate(string path, string config)
+        private static async Task Generate(string path, string config)
         {
             ColorConsole.WriteEmbeddedColorLine($"Looking for Tests in path [cyan]{path}[/cyan]...", ConsoleColor.Yellow);
             var projects = Directory.GetDirectories(path);
@@ -168,14 +168,21 @@ namespace CloudNimble.Breakdance.Tools
                                     ColorConsole.WriteWarning("Any relative path file writes will take place from the folder 'dotnet breakdance' was installed to. Consider adding a " +
                                         "'string path' parameter to the method so the tool can pass in the root path for the Test Project as a parameter.");
 
-                                    InvokeMethod(methodInfo, null);
+                                    await InvokeMethod(methodInfo, null).ConfigureAwait(false);
                                     break;
                                 case 1:
                                     //RWM: No warning necessary.
-                                    InvokeMethod(methodInfo, new object[] { testPath });
+                                    if (parameterInfo[0].ParameterType == typeof(string))
+                                    {
+                                        await InvokeMethod (methodInfo, new object[] { testPath }).ConfigureAwait(false);
+                                    }
+                                    else
+                                    {
+                                        ColorConsole.WriteError($"Method parameter is not a string. Change the parameter type, ore remove it, and try again.\nDon't forget to recompile.");
+                                    }
                                     break;
                                 default:
-                                    ColorConsole.WriteError($"Method has too many parameters. Please specify a single string parameter representing the base path for writing files and try again.");
+                                    ColorConsole.WriteError($"Method has too many parameters. Please specify a single string parameter representing the base path for writing files and try again.\nDon't forget to recompile.");
                                     break;
                             }
                             
@@ -196,13 +203,23 @@ namespace CloudNimble.Breakdance.Tools
         /// </summary>
         /// <param name="methodInfo"></param>
         /// <param name="parameters"></param>
-        private static void InvokeMethod(MethodInfo methodInfo, object[] parameters)
+        private static async Task InvokeMethod(MethodInfo methodInfo, object[] parameters)
         {
             ColorConsole.WriteWarning($"Attempting to invoke method {methodInfo.DeclaringType.Name}.{methodInfo.Name}");
             try
             {
+
                 var instance = Activator.CreateInstance(methodInfo.DeclaringType);
-                methodInfo.Invoke(instance, parameters);
+                //RWM: Handle the Async method case, it needs to be awaited to actually get the result written.
+                //     Taken from https://stackoverflow.com/questions/20350397/how-can-i-tell-if-a-c-sharp-method-is-async-await-via-reflection
+                if (methodInfo.GetCustomAttribute(typeof (AsyncStateMachineAttribute)) != null)
+                {
+                    await (dynamic)methodInfo.Invoke(instance, parameters);
+                }
+                else
+                {
+                    methodInfo.Invoke(instance, parameters);
+                }
                 ColorConsole.WriteSuccess("Method was invoked successfully.\n");
             }
             catch (Exception ex)

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies
 {
@@ -39,7 +40,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 
 
         [BreakdanceManifestGenerator]
-        public void WriteServiceCollectionOutputLog(string projectPath)
+        public async Task WriteServiceCollectionOutputLog_Async(string projectPath)
         {
             var collection = GetServiceCollection();
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(collection);
@@ -50,6 +51,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             }
             File.WriteAllText(fullPath, result);
+            await Task.FromResult(0);
         }
 
         [BreakdanceManifestGenerator]
