@@ -19,8 +19,9 @@ namespace System
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="fieldName"></param>
+        /// <param name="throwIfNull"></param>
         /// <returns></returns>
-        public static object GetFieldValue(this object obj, string fieldName)
+        public static object GetFieldValue(this object obj, string fieldName, bool throwIfNull = true)
         {
             if (obj == null)
             {
@@ -28,11 +29,11 @@ namespace System
             }
             var objType = obj.GetType();
             var fieldInfo = GetFieldInfo(objType, fieldName);
-            if (fieldInfo == null)
+            if (fieldInfo == null && throwIfNull)
             {
                 throw new ArgumentOutOfRangeException(fieldName, $"Couldn't find field {fieldName} in type {objType.FullName}");
             }
-            return fieldInfo.GetValue(obj);
+            return fieldInfo?.GetValue(obj);
         }
 
         /// <summary>
@@ -61,8 +62,9 @@ namespace System
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="propertyName"></param>
+        /// <param name="throwIfNull"></param>
         /// <returns></returns>
-        public static object GetPropertyValue(this object obj, string propertyName)
+        public static object GetPropertyValue(this object obj, string propertyName, bool throwIfNull = true)
         {
             if (obj == null)
             {
@@ -70,11 +72,11 @@ namespace System
             }
             var objType = obj.GetType();
             var propertyInfo = GetPropertyInfo(objType, propertyName);
-            if (propertyInfo == null)
+            if (propertyInfo == null && throwIfNull)
             {
                 throw new ArgumentOutOfRangeException(propertyName, $"Couldn't find property {propertyName} in type {objType.FullName}");
             }
-            return propertyInfo.GetValue(obj, null);
+            return propertyInfo?.GetValue(obj, null);
         }
 
         /// <summary>
