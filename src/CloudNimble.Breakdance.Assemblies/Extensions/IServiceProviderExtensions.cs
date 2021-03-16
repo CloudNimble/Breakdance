@@ -28,24 +28,40 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (provider is ServiceProvider serviceProvider)
             {
-                var result = new Dictionary<Type, ServiceDescriptor>();
-
                 var engine = serviceProvider.GetFieldValue("_engine");
-                var callSiteFactory = engine.GetPropertyValue("CallSiteFactory");
-                var descriptorLookup = callSiteFactory.GetFieldValue("_descriptorLookup");
-                if (descriptorLookup is IDictionary dictionary)
-                {
-                    foreach (DictionaryEntry entry in dictionary)
-                    {
-                        result.Add((Type)entry.Key, (ServiceDescriptor)entry.Value.GetPropertyValue("Last"));
-                    }
-                }
+                return GetServicesFromServiceProviderEngine(engine);
+            }
 
-                return result;
+            else if (provider.GetType().Name == "ServiceProviderEngineScope")
+            {
+                var engine = provider.GetPropertyValue("Engine");
+                return GetServicesFromServiceProviderEngine(engine);
             }
 
             throw new NotSupportedException($"Type '{provider.GetType()}' is not supported!");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="engine"></param>
+        /// <returns></returns>
+        private static Dictionary<Type, ServiceDescriptor> GetServicesFromServiceProviderEngine(object engine)
+        {
+            var result = new Dictionary<Type, ServiceDescriptor>();
+            var callSiteFactory = engine.GetPropertyValue("CallSiteFactory");
+            var descriptorLookup = callSiteFactory.GetFieldValue("_descriptorLookup");
+            if (descriptorLookup is IDictionary dictionary)
+            {
+                foreach (DictionaryEntry entry in dictionary)
+                {
+                    result.Add((Type)entry.Key, (ServiceDescriptor)entry.Value.GetPropertyValue("Last"));
+                }
+            }
+
+            return result;
+        }
+
     }
 
 }

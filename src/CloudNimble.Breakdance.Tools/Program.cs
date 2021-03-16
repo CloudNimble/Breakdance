@@ -31,6 +31,7 @@ namespace CloudNimble.Breakdance.Tools
                 c.Description = "Execute manifest generators specified in your Test projects.";
                 var root = c.Option("-path <path>", "Working directory for the code compiler. Defaults to current directory.", CommandOptionType.SingleValue);
                 var config = c.Option("-config <configuration>", "The desired project / solution configuration. Defaults to Debug.", CommandOptionType.SingleValue);
+                var project = c.Option("-project <project>", "A single project in the specified path to analyze.", CommandOptionType.SingleValue);
 
                 c.HelpOption(helpOptionTemplate);
                 c.OnExecuteAsync(async cancellationToken =>
@@ -38,7 +39,7 @@ namespace CloudNimble.Breakdance.Tools
                     var rootFolder = root.HasValue() ? root.Value() : Directory.GetCurrentDirectory();
                     var configuration = config.HasValue() ? config.Value() : "Debug";
 
-                    await Generate(rootFolder, configuration).ConfigureAwait(false);
+                    await Generate(rootFolder, configuration, project.Value()).ConfigureAwait(false);
 
                     Console.WriteLine("Breakdance manifest generation has completed.");
 
@@ -57,12 +58,13 @@ namespace CloudNimble.Breakdance.Tools
         /// </summary>
         /// <param name="path"></param>
         /// <param name="config"></param>
-        private static async Task Generate(string path, string config)
+        /// <param name="project"></param>
+        private static async Task Generate(string path, string config, string project)
         {
             ColorConsole.WriteEmbeddedColorLine($"Looking for Tests in path [cyan]{path}[/cyan]...", ConsoleColor.Yellow);
             var projects = Directory.GetDirectories(path);
             //RWM: First find the test folders.
-            var tests = projects.Where(c => c.ToLower().Contains(".test")).OrderBy(c => c.Length);
+            var tests = projects.Where(c => !string.IsNullOrWhiteSpace(project) ? c.Contains(project) : c.ToLower().Contains(project ?? ".test")).OrderBy(c => c.Length);
 
             if (!tests.Any())
             {
