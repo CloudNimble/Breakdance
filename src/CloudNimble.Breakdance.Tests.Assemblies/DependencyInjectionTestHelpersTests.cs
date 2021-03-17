@@ -38,10 +38,11 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             result.Should().Be(baseline);
         }
 
-
+        //[TestMethod]
         [BreakdanceManifestGenerator]
         public async Task WriteServiceCollectionOutputLog_Async(string projectPath)
         {
+            //var projectPath = "..//..//..//";
             var collection = GetServiceCollection();
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(collection);
             var fullPath = Path.Combine(projectPath, "Baselines//ServiceCollection.txt");
@@ -54,9 +55,11 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             await Task.FromResult(0);
         }
 
+        //[TestMethod]
         [BreakdanceManifestGenerator]
         public void WriteHostBuilderOutputLog(string projectPath)
         {
+            //var projectPath = "..//..//..//";
             var host = GetSimpleMessageBusHost();
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(host);
             var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder.txt");

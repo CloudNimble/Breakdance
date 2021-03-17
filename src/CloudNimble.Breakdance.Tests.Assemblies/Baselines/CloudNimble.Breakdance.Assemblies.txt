@@ -81,6 +81,7 @@ public sealed class CloudNimble.Breakdance.Assemblies.BreakdanceTestAssemblyAttr
 
 }
 
+[System.Runtime.CompilerServices.ExtensionAttribute]
 public sealed class CloudNimble.Breakdance.Assemblies.DependencyInjectionTestHelpers
 {
 
@@ -183,10 +184,10 @@ public sealed class System.ObjectExtensions
 {
 
 	[System.Runtime.CompilerServices.ExtensionAttribute]
-	public static object GetFieldValue(object obj, string fieldName)
+	public static object GetFieldValue(object obj, string fieldName, params bool throwIfNull)
 
 	[System.Runtime.CompilerServices.ExtensionAttribute]
-	public static object GetPropertyValue(object obj, string propertyName)
+	public static object GetPropertyValue(object obj, string propertyName, params bool throwIfNull)
 
 	[System.Runtime.CompilerServices.ExtensionAttribute]
 	public static void SetFieldValue(object obj, string fieldName, object val)
