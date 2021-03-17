@@ -1,6 +1,7 @@
 using CloudNimble.Breakdance.Assemblies;
 using McMaster.Extensions.CommandLineUtils;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -227,7 +228,9 @@ namespace CloudNimble.Breakdance.Tools
             catch (Exception ex)
             {
                 ColorConsole.WriteError("The method could not be invoked. Make sure the only parameter is the a string for the base path.");
-                ColorConsole.WriteError($"Exception: {ex.Message}");
+                var exception = ex.Demystify();
+                ColorConsole.WriteError($"Exception: {exception.Message}");
+                ColorConsole.WriteError($"Stack Trace: {exception.StackTrace}");
             }
         }
 
