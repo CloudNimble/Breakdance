@@ -10,9 +10,8 @@
   <PropertyGroup>
     <PackageId>Breakdance.Restier</PackageId>
     <Title>Breakdance for Restier</Title>
-    <Summary>
-      Restier is a framework for building convention-based, secure, queryable APIs with ASP.NET. This package contains runtime components 
-      for implementing Restier convention semantics and query interception.
+    <Summary>Restier is a framework for building convention-based, secure, queryable APIs with ASP.NET. This package contains tools to
+      test Restier services in-memory without having to spin up a dedicated website or IIS.
     </Summary>
     <Description>
       $(Summary)
@@ -22,10 +21,7 @@
     </Description>
     <PackageTags>$(PackageTags)odata;restier;</PackageTags>
     <PackageReleaseNotes>
-      1.0.0-beta1:
-       - Under new management. Namespace changes, usability improvements, more docs.
-      1.0.0-alpha1:
-       - Initial release.
+      This portion of the project has been transferred to Microsoft, so this package is obsolete. Replace it with Microsoft.Restier.Breakdance. 
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -34,19 +30,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="[5.2.7, 6.0.0)" />
-    <PackageReference Include="Microsoft.Restier.AspNet" Version="[1.0.0-rc5.20201113.1, )" />
-    <PackageReference Include="Microsoft.Restier.EntityFramework" Version="[1.0.0-rc5.20201113.1, )" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.Breakdance.WebApi\Breakdance.WebApi.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!--<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>LINQPadQuery</_Parameter1>
-    </AssemblyAttribute>-->
+    <PackageReference Include="Microsoft.Restier.Breakdance" Version="[1.0.0-rc6*, 2.0)" />
   </ItemGroup>
 
 </Project>

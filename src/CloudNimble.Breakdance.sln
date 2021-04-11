@@ -15,7 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
-		..\docs\docfx.json = ..\docs\docfx.json
 		global.json = global.json
 		..\README.md = ..\README.md
 	EndProjectSection
@@ -30,9 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5ED113B8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.Breakdance.Tools", "CloudNimble.Breakdance.Tools\CloudNimble.Breakdance.Tools.csproj", "{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Restier", "CloudNimble.Breakdance.Restier\Breakdance.Restier.csproj", "{D52DAD76-F85D-4931-B896-853D6AE8CFA3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.Restier", "CloudNimble.Breakdance.Tests.Restier\Breakdance.Tests.Restier.csproj", "{8B19D31B-762B-4B4B-B59C-48D66CB4B238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Restier", "CloudNimble.Breakdance.Restier\Breakdance.Restier.csproj", "{3080C14F-FE27-4A11-A11E-7DF1FCF40511}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,14 +57,10 @@ Global
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D52DAD76-F85D-4931-B896-853D6AE8CFA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D52DAD76-F85D-4931-B896-853D6AE8CFA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D52DAD76-F85D-4931-B896-853D6AE8CFA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D52DAD76-F85D-4931-B896-853D6AE8CFA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B19D31B-762B-4B4B-B59C-48D66CB4B238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B19D31B-762B-4B4B-B59C-48D66CB4B238}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B19D31B-762B-4B4B-B59C-48D66CB4B238}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B19D31B-762B-4B4B-B59C-48D66CB4B238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,8 +71,7 @@ Global
 		{6A4813C0-9630-4EED-AA94-22DFEBC634F3} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
 		{73AD8F91-91B4-4BB9-9371-2AC0030F842B} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4} = {5ED113B8-216E-48A0-80E4-1C8ACC2297D7}
-		{D52DAD76-F85D-4931-B896-853D6AE8CFA3} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
-		{8B19D31B-762B-4B4B-B59C-48D66CB4B238} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
+		{3080C14F-FE27-4A11-A11E-7DF1FCF40511} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3411FFE-2016-4EC3-B613-9C6ADDE2CB59}

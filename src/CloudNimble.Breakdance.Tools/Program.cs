@@ -177,7 +177,7 @@ namespace CloudNimble.Breakdance.Tools
                                     //RWM: No warning necessary.
                                     if (parameterInfo[0].ParameterType == typeof(string))
                                     {
-                                        await InvokeMethod (methodInfo, new object[] { testPath }).ConfigureAwait(false);
+                                        await InvokeMethod(methodInfo, new object[] { testPath }).ConfigureAwait(false);
                                     }
                                     else
                                     {
@@ -227,7 +227,7 @@ namespace CloudNimble.Breakdance.Tools
             }
             catch (Exception ex)
             {
-                ColorConsole.WriteError("The method could not be invoked. Make sure the only parameter is the a string for the base path.");
+                ColorConsole.WriteError("The method could not be invoked. Make sure the only parameter is the a string that allows Breakdance to pass over the current project path");
                 var exception = ex.Demystify();
                 ColorConsole.WriteError($"Exception: {exception.Message}");
                 ColorConsole.WriteError($"Stack Trace: {exception.StackTrace}");
