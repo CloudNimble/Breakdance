@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CloudNimble.Breakdance.Tools": {
+      "commandName": "Project",
+      "commandLineArgs": "generate -path \"D:\\Github\\Breakdance\\src\" -config Debug"
+    }
+  }
+}

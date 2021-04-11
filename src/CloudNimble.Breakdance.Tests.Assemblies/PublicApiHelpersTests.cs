@@ -1,9 +1,12 @@
-﻿using CloudNimble.Breakdance.Tests.Assemblies.SampleApis;
+﻿using CloudNimble.Breakdance.Assemblies;
+using CloudNimble.Breakdance.Tests.Assemblies.SampleApis;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
-namespace CloudNimble.Breakdance.Assemblies.Tests
+namespace CloudNimble.Breakdance.Tests.Assemblies
 {
+
     [TestClass]
     public class PublicApiHelpersTests
     {
@@ -22,7 +25,7 @@ namespace CloudNimble.Breakdance.Assemblies.Tests
         {
             var definitions = PublicApiHelpers.GenerateTypeDefinitionsForAssembly("CloudNimble.Breakdance.Assemblies.dll");
             definitions.Should().NotBeNullOrEmpty();
-            definitions.Count.Should().Be(8);
+            definitions.Should().HaveCount(15);
         }
 
         [TestMethod]
@@ -35,7 +38,7 @@ namespace CloudNimble.Breakdance.Assemblies.Tests
         [TestMethod]
         public void PublicApiHelpers_GetPublicApiSurfaceReport_FluentAssertions()
         {
-            var report = PublicApiHelpers.GetPublicApiSurfaceReport("FluentAssertions.dll");
+            var report = PublicApiHelpers.GetPublicApiSurfaceReport("..\\FluentAssertions.dll");
             report.Should().NotBeNullOrWhiteSpace();
         }
 
@@ -45,6 +48,19 @@ namespace CloudNimble.Breakdance.Assemblies.Tests
             var report = PublicApiHelpers.GetPublicApiSurfaceReport("Azkaban.dll");
             report.Should().BeNullOrWhiteSpace();
         }
+
+        [BreakdanceManifestGenerator]
+        public void WritePublicApiManifest(string path)
+        {
+            var report = PublicApiHelpers.GetPublicApiSurfaceReport("CloudNimble.Breakdance.Assemblies.dll");
+            var fullPath = Path.Combine(path, "Baselines//CloudNimble.Breakdance.Assemblies.txt");
+            if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            }
+            File.WriteAllText(fullPath, report);
+        }
+
 
 
     }

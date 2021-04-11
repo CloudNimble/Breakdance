@@ -82,6 +82,16 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         public int Compare(MemberInfo x, MemberInfo y)
         {
+            if (x == null)
+            {
+                throw new ArgumentNullException(nameof(x));
+            }
+
+            if (y == null)
+            {
+                throw new ArgumentNullException(nameof(y));
+            }
+
             if (x.MemberType == y.MemberType)
             {
                 Type xt = x.DeclaringType;

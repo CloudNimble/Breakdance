@@ -1,34 +1,47 @@
 <Project>
-  <!--<Import Project="version.props" />-->
+
+  <PropertyGroup>
+    <IsBenchmarkProject Condition="$(MSBuildProjectName.EndsWith('.Performance'))">true</IsBenchmarkProject>
+    <IsTestProject Condition="$(MSBuildProjectName.ToLower().Contains('.tests.'))">true</IsTestProject>
+    <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
+    <IsSampleProject Condition="$(MSBuildProjectName.ToLower().Contains('.samples.'))">true</IsSampleProject>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSource>false</IncludeSource>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 
   <PropertyGroup>
     <Product>Breakdance</Product>
-
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>CloudNimble</Authors>
-    <Company>CloudNimble Inc.</Company>
-    <Copyright>Copyright © 2017-2019 CloudNimble, Inc. All rights reserved.</Copyright>
+    <Company>CloudNimble, Inc.</Company>
+    <RpmPackageVendor>CloudNimble</RpmPackageVendor>
+    <Copyright>Copyright © 2017-2021 CloudNimble, Inc. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <!--<PackageLicenseUrl>https://raw.githubusercontent.com/OData/RESTier/master/License.txt</PackageLicenseUrl>-->
     <!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
-    <PackageLicenseType>MIT</PackageLicenseType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!--
       Suppress a warning about upcoming deprecation of PackageLicenseUrl. When embedding licenses are supported,
       replace PackageLicenseUrl with PackageLicenseExpression.
     -->
     <NoWarn>$(NoWarn);NU5125</NoWarn>
     <!-- Suppress warnings about using SemVer 2.0. -->
-    <NoWarn>$(NoWarn);NU5105</NoWarn>
+    <NoWarn>$(NoWarn);NU5105;NU5048;NU5014</NoWarn>
 
     <!-- Contact email address for NuGet packages and Linux installers. -->
-    <MaintainerEmail>breakdance@nimbleapps.cloud</MaintainerEmail>
+    <MaintainerEmail>opensource@nimbleapps.cloud</MaintainerEmail>
 
     <PackageIconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</PackageIconUrl>
     <PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>unit tests;breakdance;nunit;xunit;mstest;fluentassertions</PackageTags>
     <Serviceable>true</Serviceable>
-
-    <PackageVersion>1.0.0-Beta2.Preview1</PackageVersion>
 
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
@@ -46,25 +59,34 @@
     <BuildProjectReferences Condition=" '$(NoBuild)' == 'true' ">false</BuildProjectReferences>
   </PropertyGroup>
 
-  <!-- Folder layout -->
-  <PropertyGroup>
-    <IsBenchmarkProject Condition="$(MSBuildProjectName.EndsWith('.Performance'))">true</IsBenchmarkProject>
-    <IsTestProject Condition="$(MSBuildProjectName.Contains('.Tests.'))">true</IsTestProject>
-    <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
-    <IsSampleProject Condition="$(MSBuildProjectName.Contains('.Samples.'))">true</IsSampleProject>
-
-    <IncludeSource>false</IncludeSource>
-    <IncludeSymbols>true</IncludeSymbols>
-    
+  <PropertyGroup Condition=" $(IsTestProject) == 'true' ">
+    <NoWarn>$(NoWarn);CA1001;CA1707;CA2007;CA1801;CS1591</NoWarn>
   </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '!$(IsSampleProject)' != 'true' and $(Configuration) != 'Release' ">
+  <PropertyGroup Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' or $(Configuration) == 'Debug' ">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
-    <StandardTestTfms>netcoreapp2.2;net461</StandardTestTfms>
+    <StandardTestTfms>net5.0;net472</StandardTestTfms>
   </PropertyGroup>
 
+  <ItemGroup Condition=" $(IsTestProject) != 'true' and  $(IsSampleProject) != 'true'">
+    <!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.3.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(IsTestProject) == 'true'  and  $(IsSampleProject) != 'true'">
+    <PackageReference Include="FluentAssertions" Version="5.10.3" PrivateAssets="All" />
+    <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" PrivateAssets="All" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+  </ItemGroup>
+
+  <!-- RWM: Uncomment this to enable SourceLink debugging in your projects (Make sure you set RepositoryUrl and RepositoryType). -->
+  <!--<ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>-->
 </Project>

@@ -13,19 +13,24 @@
     {
 
         /// <summary>
-        /// 
+        /// Specifies the Accept HTTP header required for JSON payloads.
         /// </summary>
         public const string DefaultAcceptHeader = "application/json";
 
         /// <summary>
-        /// 
+        /// Specifies the default testing HTTP host.
         /// </summary>
         public const string Localhost = "http://localhost/";
 
         /// <summary>
-        /// 
+        /// Specifies the default prefix that should be appended to the host to route the request to the API.
         /// </summary>
-        public const string RoutePrefix = "api/test";
+        public const string RoutePrefix = "api/tests";
+
+        /// <summary>
+        /// The default name of the route for the ASP.NET route dictionary.
+        /// </summary>
+        public const string RouteName = "api/tests";
 
     }
 

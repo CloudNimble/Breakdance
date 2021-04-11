@@ -172,7 +172,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         {
             ReadableTypeOutputFactory.GetTypeDeclarationString(typeof(SomeGenericClass<string>))
                 .Should().NotBeNullOrWhiteSpace()
-                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089>");
+                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e>");
         }
 
 

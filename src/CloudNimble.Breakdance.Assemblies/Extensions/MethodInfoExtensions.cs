@@ -15,6 +15,10 @@
         /// <returns></returns>
         public static bool IsProtected(this ConstructorInfo info, Type type)
         {
+            if (info == null)
+            {
+                throw new ArgumentNullException(nameof(info));
+            }
             return IsProtectedInternal(info, type);
         }
 
@@ -26,6 +30,16 @@
         /// <returns></returns>
         public static bool IsProtected(this FieldInfo info, Type type)
         {
+            if (info == null)
+            {
+                throw new ArgumentNullException(nameof(info));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return !type.IsSealedClass() && (info.IsFamily || info.IsFamilyAndAssembly || info.IsFamilyOrAssembly);
         }
 
@@ -37,6 +51,11 @@
         /// <returns></returns>
         public static bool IsProtected(this MethodInfo info, Type type)
         {
+            if (info == null)
+            {
+                throw new ArgumentNullException(nameof(info));
+            }
+
             return IsProtectedInternal(info, type);
         }
 
