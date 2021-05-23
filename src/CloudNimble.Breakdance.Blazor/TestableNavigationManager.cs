@@ -16,7 +16,7 @@ namespace CloudNimble.Breakdance.Blazor
 
         #region Private Members
 
-        private string _baseUrl;
+        private readonly string _baseUrl;
 
         #endregion
 
