@@ -6,7 +6,7 @@ namespace CloudNimble.Breakdance.Blazor
 {
 
     /// <summary>
-    /// 
+    /// A <see cref="NavigationManager"/> instance suitable for local unit tests.
     /// </summary>
     /// <remarks>
     /// Inspired by https://github.com/bUnit-dev/bUnit/issues/73#issuecomment-597828532
@@ -30,6 +30,15 @@ namespace CloudNimble.Breakdance.Blazor
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TestableNavigationManager()
+        {
+            _baseUrl = "https://localhost/";
+            EnsureInitialized();
+        }
 
         /// <summary>
         /// 

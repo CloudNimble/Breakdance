@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <AssemblyName>CloudNimble.Breakdance.Tests.Blazor</AssemblyName>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Breakdance.Blazor\Breakdance.Blazor.csproj" />
+    <ProjectReference Include="..\CloudNimble.Breakdance.Blazor\Breakdance.Blazor.csproj" />
   </ItemGroup>
 
 </Project>

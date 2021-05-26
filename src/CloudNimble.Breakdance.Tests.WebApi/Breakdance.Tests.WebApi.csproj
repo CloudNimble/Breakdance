@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net48</TargetFrameworks>
     <AssemblyName>CloudNimble.Breakdance.Tests.WebApi</AssemblyName>
+    <TargetFrameworks>net472;net48</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

@@ -1,7 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <RootNamespace>CloudNimble.Breakdance.AspNetCore</RootNamespace>
+    <AssemblyName>CloudNimble.Breakdance.AspNetCore</AssemblyName>
     <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Breakdance.AspNetCore</PackageId>
+    <Title>Breakdance for AspNetCore</Title>
   </PropertyGroup>
 
   <ItemGroup>
