@@ -75,14 +75,19 @@
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.3.1">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>$(AssemblyName.Replace("Breakdance", "Breakdance.Tests")), PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</_Parameter1>
+    </AssemblyAttribute>
+    
   </ItemGroup>
 
   <ItemGroup Condition=" $(IsTestProject) == 'true'  and  $(IsSampleProject) != 'true'">
     <PackageReference Include="FluentAssertions" Version="5.10.3" PrivateAssets="All" />
     <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" PrivateAssets="All" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
   </ItemGroup>
 
   <!-- RWM: Uncomment this to enable SourceLink debugging in your projects (Make sure you set RepositoryUrl and RepositoryType). -->

@@ -18,7 +18,7 @@
       $(Summary)
 
       Commonly used types:
-      Microsoft.Restier.Core.RestierController
+      System.Net.Http.HttpClient
     </Description>
     <PackageTags>$(PackageTags)webapi;</PackageTags>
     <PackageReleaseNotes>
@@ -40,16 +40,13 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.Breakdance.WebApi, PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.Breakdance.Restier, PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</_Parameter1>
+      <_Parameter1>Microsoft.Restier.Breakdance, PublicKey=0024000004800000940000000602000000240000525341310004000001000100f1fcc0061e7ed7476808f86fdecd6a9585915f329fc6312d08331c971da86230330e42ed8ffbd528c523fa023d92c3db1123b5d044b3aad9e04fd3877ffca8e4ba836a740ec3074f0fcbef770ff14d2fa1b5a8403ab16f398ac14998bd011c35505b6bc555326037a7ab7dcca118000a19a5475377358e9dea38df76452b01c9</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>CloudNimble.Breakdance.Tests.WebApi, PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.Breakdance.Tests.Restier, PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</_Parameter1>
+      <_Parameter1>Microsoft.Restier.Tests.Breakdance, PublicKey=0024000004800000940000000602000000240000525341310004000001000100f1fcc0061e7ed7476808f86fdecd6a9585915f329fc6312d08331c971da86230330e42ed8ffbd528c523fa023d92c3db1123b5d044b3aad9e04fd3877ffca8e4ba836a740ec3074f0fcbef770ff14d2fa1b5a8403ab16f398ac14998bd011c35505b6bc555326037a7ab7dcca118000a19a5475377358e9dea38df76452b01c9</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 

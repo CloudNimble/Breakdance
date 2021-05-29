@@ -38,7 +38,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         [TestMethod]
         public void PublicApiHelpers_GetPublicApiSurfaceReport_FluentAssertions()
         {
-            var report = PublicApiHelpers.GetPublicApiSurfaceReport("..\\FluentAssertions.dll");
+            var report = PublicApiHelpers.GetPublicApiSurfaceReport("FluentAssertions.dll");
             report.Should().NotBeNullOrWhiteSpace();
         }
 

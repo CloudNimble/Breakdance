@@ -13,8 +13,6 @@
 
   <ItemGroup>
     <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataConstants.cs" Link="ODataConstants.cs" />
-    <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataV4Entity.cs" Link="ODataV4Entity.cs" />
-    <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataV4List.cs" Link="ODataV4List.cs" />
   </ItemGroup>
 
 </Project>
