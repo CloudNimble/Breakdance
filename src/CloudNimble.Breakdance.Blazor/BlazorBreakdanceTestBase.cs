@@ -2,6 +2,7 @@
 using CloudNimble.Breakdance.Assemblies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 
@@ -22,8 +23,12 @@ namespace CloudNimble.Breakdance.Blazor
         public TestContext BUnitTestContext { get; set; }
 
         /// <summary>
-        /// An <see cref="Action{IServiceCollection}"/> that lets you register additional services with the DI container.
+        /// An <see cref="Action{IServiceCollection}"/> that lets you register additional services with the <see cref="BUnitTestContext"/>.
         /// </summary>
+        /// <remarks>
+        /// To register services with the TestHost, call <see cref="IHostBuilder.ConfigureServices(Action{HostBuilderContext, IServiceCollection})"/> on 
+        /// <see cref="BreakdanceTestBase.TestHostBuilder">TestHostBuilder</see> instead.
+        /// </remarks>
         public Action<IServiceCollection> RegisterServices { get; set; }
 
         #endregion
