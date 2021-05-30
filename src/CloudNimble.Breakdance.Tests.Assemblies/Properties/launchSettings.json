@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Breakdance.Tests.Assemblies": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Alpha"
+      }
+
+    }
+  }
+}

@@ -9,10 +9,10 @@ namespace Breakdance.Tests.Blazor
 {
 
     /// <summary>
-    /// Tests the functionality of <see cref="BlazorTestBase"/>.
+    /// Tests the functionality of <see cref="BlazorBreakdanceTestBase"/>.
     /// </summary>
     [TestClass]
-    public class BlazorTestBase_CoreTests : BlazorTestBase
+    public class BlazorTestBase_CoreTests : BlazorBreakdanceTestBase
     {
 
         /// <summary>

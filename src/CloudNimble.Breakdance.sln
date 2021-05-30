@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5ED113B8-216E-48A0-80E4-1C8ACC2297D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.Breakdance.Tools", "CloudNimble.Breakdance.Tools\CloudNimble.Breakdance.Tools.csproj", "{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tools", "CloudNimble.Breakdance.Tools\Breakdance.Tools.csproj", "{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Restier", "CloudNimble.Breakdance.Restier\Breakdance.Restier.csproj", "{3080C14F-FE27-4A11-A11E-7DF1FCF40511}"
 EndProject
@@ -32,12 +32,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4D52396-C8E7-45A4-86AE-A3B626CC80EA}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.runsettings = .runsettings
 		Directory.Build.props = Directory.Build.props
 		global.json = global.json
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakdance.Tests.AspNetCore", "CloudNimble.Breakdance.Tests.AspNetCore\Breakdance.Tests.AspNetCore.csproj", "{88BF2786-A37B-4131-A954-49F7CB2C222F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.AspNetCore", "CloudNimble.Breakdance.Tests.AspNetCore\Breakdance.Tests.AspNetCore.csproj", "{88BF2786-A37B-4131-A954-49F7CB2C222F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

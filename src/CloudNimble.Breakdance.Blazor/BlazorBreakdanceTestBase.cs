@@ -1,4 +1,5 @@
 ﻿using Bunit;
+using CloudNimble.Breakdance.Assemblies;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace CloudNimble.Breakdance.Blazor
     /// <summary>
     /// A base class for building BUnit unit tests for Blazor apps that automatically handles basic registration stuff for you.
     /// </summary>
-    public class BlazorTestBase
+    public class BlazorBreakdanceTestBase : BreakdanceTestBase
     {
 
         #region Properties
@@ -45,8 +46,9 @@ namespace CloudNimble.Breakdance.Blazor
         /// <summary>
         /// Properly instantiates the <see cref="BUnitTestContext"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context.
         /// </summary>
-        public void TestSetup()
+        public override void TestSetup()
         {
+            base.TestSetup();
             BUnitTestContext = new TestContext();
             if (RegisterServices != null)
             {
@@ -57,8 +59,9 @@ namespace CloudNimble.Breakdance.Blazor
         /// <summary>
         /// Disposes of the <see cref="BUnitTestContext"/>.
         /// </summary>
-        public void TestTearDown()
+        public override void TestTearDown()
         {
+            base.TestTearDown();
             BUnitTestContext?.Dispose();
         }
 
