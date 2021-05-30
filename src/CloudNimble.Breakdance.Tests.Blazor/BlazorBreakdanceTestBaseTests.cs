@@ -12,7 +12,7 @@ namespace Breakdance.Tests.Blazor
     /// Tests the functionality of <see cref="BlazorBreakdanceTestBase"/> the way most end-users will use them.
     /// </summary>
     [TestClass]
-    public class BlazorTestBaseTests : BlazorBreakdanceTestBase
+    public class BlazorBreakdanceTestBaseTests : BlazorBreakdanceTestBase
     {
 
         #region Test Lifecycle
@@ -35,11 +35,11 @@ namespace Breakdance.Tests.Blazor
         /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
         /// </summary>
         [TestMethod]
-        public void BlazorTestBase_Setup_CreatesTestContext_ConflictingServices()
+        public void BlazorBreakdanceTestBase_Setup_CreatesTestContext_ConflictingServices()
         {
             BUnitTestContext.Should().NotBeNull();
             RegisterServices.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(13);
+            BUnitTestContext.Services.Should().HaveCount(14);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             GetServices<NavigationManager>().Should().HaveCount(1);
             GetService<TestableNavigationManager>().Should().NotBeNull();

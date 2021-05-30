@@ -13,19 +13,20 @@ namespace Breakdance.Tests.Blazor
     /// Tests the functionality of <see cref="BlazorBreakdanceTestBase"/>.
     /// </summary>
     [TestClass]
-    public class BlazorTestBase_CoreTests : BlazorBreakdanceTestBase
+    public class BlazorBreakdanceTestBase_CoreTests : BlazorBreakdanceTestBase
     {
 
         /// <summary>
         /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
         /// </summary>
         [TestMethod]
-        public void BlazorTestBase_Setup_CreatesTestContext_NoServices()
+        public void BlazorBreakdanceTestBase_Setup_CreatesTestContext_NoServices()
         {
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
             BUnitTestContext.Should().BeNull();
             RegisterServices.Should().BeNull();
+            GetService<IConfiguration>().Should().BeNull();
 
             TestSetup();
 
@@ -42,7 +43,7 @@ namespace Breakdance.Tests.Blazor
         /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
         /// </summary>
         [TestMethod]
-        public void BlazorTestBase_TestSetup_CreatesTestContext_ConflictingServices()
+        public void BlazorBreakdanceTestBase_TestSetup_CreatesTestContext_ConflictingServices()
         {
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
@@ -67,7 +68,7 @@ namespace Breakdance.Tests.Blazor
         /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
         /// </summary>
         [TestMethod]
-        public void BlazorTestBase_TestSetup_CreatesTestContext_Services()
+        public void BlazorBreakdanceTestBase_TestSetup_CreatesTestContext_Services()
         {
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
@@ -91,7 +92,7 @@ namespace Breakdance.Tests.Blazor
         /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
         /// </summary>
         [TestMethod]
-        public void BlazorTestBase_GetServices_ReturnsServiceOnlyInTestContext()
+        public void BlazorBreakdanceTestBase_GetServices_ReturnsServiceOnlyInTestContext()
         {
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
