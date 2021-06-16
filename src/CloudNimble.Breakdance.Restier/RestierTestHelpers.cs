@@ -25,7 +25,7 @@ namespace CloudNimble.Breakdance.Restier
         {
             return AspNetCoreTestHelpers.GetTestableHttpServer(services =>
             {
-                /* JHC Almost there...
+                /* JHC Almost there...  maybe this needs to be in restier rather than in breakdance
                 services.AddRestier((builder) =>
                 {
                     // This delegate is executed after OData is added to the container.
