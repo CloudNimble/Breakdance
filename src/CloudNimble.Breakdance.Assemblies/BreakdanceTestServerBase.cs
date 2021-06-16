@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using System;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Assemblies
 {
@@ -7,32 +10,32 @@ namespace CloudNimble.Breakdance.Assemblies
     /// <summary>
     /// A base class for unit tests that maintains an <see cref="IHost"/> with configuration and a Dependency Injection container.
     /// </summary>
-    public abstract class BreakdanceTestBase : IDisposable
+    public abstract class BreakdanceTestServerBase : IDisposable
     {
         private bool disposedValue;
 
         #region Properties
 
         /// <summary>
-        /// The <see cref="IHost"/> instance containing the test host.
+        /// 
         /// </summary>
-        public IHost TestHost { get; internal set; }
+        public TestServer TestServer { get; internal set; }
 
         /// <summary>
-        /// The <see cref="IHostBuilder"/> instance used to configure the test host.
+        /// 
         /// </summary>
-        public IHostBuilder TestHostBuilder { get; internal set; }
+        public IWebHostBuilder TestWebHostBuilder { get; internal set; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Creates a new <see cref="BreakdanceTestBase"/> instance. 
+        /// Creates a new <see cref="BreakdanceTestServerBase"/> instance. 
         /// </summary>
-        public BreakdanceTestBase()
+        public BreakdanceTestServerBase()
         {
-            TestHostBuilder = Host.CreateDefaultBuilder();
+            EnsureTestServer();
         }
 
         #endregion
@@ -40,7 +43,7 @@ namespace CloudNimble.Breakdance.Assemblies
         #region Public Methods
 
         /// <summary>
-        /// Method used by test assemblies to setup the environment.
+        /// 
         /// </summary>
         /// <remarks>
         /// With MSTest, use [AssemblyInitialize].
@@ -49,11 +52,11 @@ namespace CloudNimble.Breakdance.Assemblies
         /// </remarks>
         public virtual void AssemblySetup()
         {
-            EnsureTestHost();
+            EnsureTestServer();
         }
 
         /// <summary>
-        /// Method used by test assemblies to clean up the environment.
+        /// Disposes of the TestServer
         /// </summary>
         /// <remarks>
         /// With MSTest, use [AssemblyCleanup].
@@ -66,7 +69,7 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
-        /// Clean up disposable objects in the environment.
+        /// 
         /// </summary>
         public void Dispose()
         {
@@ -76,7 +79,7 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
-        /// Method used by test classes to setup the environment.
+        /// 
         /// </summary>
         /// <remarks>
         /// With MSTest, use [TestInitialize].
@@ -85,13 +88,14 @@ namespace CloudNimble.Breakdance.Assemblies
         /// </remarks>
         public virtual void TestSetup()
         {
-            EnsureTestHost();
+            EnsureTestServer();
         }
 
         /// <summary>
-        /// Method used by test classes to clean up the environment.
+        /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// With MSTest, use [TestCleanup].
         /// With NUnit, use [TearDown].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
@@ -107,16 +111,33 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <summary>
         /// Makes sure that we always have a working Host.
         /// </summary>
-        internal virtual void EnsureTestHost()
+        internal void EnsureTestServer()
         {
-            if (TestHost == null)
+            if (TestServer == null)
             {
-                TestHost = TestHostBuilder.Build();
+                using var host = new HostBuilder()
+                    .ConfigureWebHost(builder =>
+                    {
+                        builder.UseTestServer()
+                           .ConfigureServices(services =>
+                           {
+                               // JHC TODO:
+                           })
+                           .Configure(app =>
+                           {
+                               // JHC TODO:
+                           });
+                    })
+                    .Build();
+                
+                host.Start();
+
+                TestServer = host.GetTestServer();
             }
         }
 
         /// <summary>
-        /// Removes references to all <see cref="BreakdanceTestBase"/> resources.
+        /// Removes references to all <see cref="BreakdanceTestServerBase"/> resources.
         /// </summary>
         /// <param name="disposing">Whether or not we are actively disposing of resources.</param>
         protected virtual void Dispose(bool disposing)
@@ -125,11 +146,11 @@ namespace CloudNimble.Breakdance.Assemblies
             {
                 if (disposing)
                 {
-                    TestHost?.Dispose();
+                    TestServer?.Dispose();
                 }
 
-                TestHostBuilder = null;
-                TestHost = null;
+                TestWebHostBuilder = null;
+                TestServer = null;
                 disposedValue = true;
             }
         }

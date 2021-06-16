@@ -14,7 +14,6 @@ namespace Breakdance.Tests.Blazor
     [TestClass]
     public class BlazorBreakdanceTestBaseTests : BlazorBreakdanceTestBase
     {
-
         #region Test Lifecycle
 
         [TestInitialize]
@@ -46,5 +45,4 @@ namespace Breakdance.Tests.Blazor
         }
 
     }
-
 }

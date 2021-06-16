@@ -10,4 +10,8 @@
     <PackageReference Include="coverlet.collector" Version="1.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.Breakdance.AspNetCore\Breakdance.AspNetCore.csproj" />
+  </ItemGroup>
+
 </Project>

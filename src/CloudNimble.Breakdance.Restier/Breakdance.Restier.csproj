@@ -4,7 +4,7 @@
     <AssemblyName>CloudNimble.Breakdance.Restier</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Restier</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -30,7 +30,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Restier.Breakdance" Version="[1.0.0-rc6*, 2.0)" />
+    <ProjectReference Include="..\CloudNimble.Breakdance.AspNetCore\Breakdance.AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>

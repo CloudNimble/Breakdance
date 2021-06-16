@@ -36,7 +36,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net46|AnyCPU'">
     <NoWarn>;NU5125;NU5105;NU5048;NU5014;NU5104;CS0649</NoWarn>
   </PropertyGroup>
-  
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net5.0'">
+    <Compile Remove="BreakdanceTestServerBase.cs" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3.0.0, 6.0.0)" />
@@ -46,6 +49,7 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[5.0.0, 6.0.0)" />
     <PackageReference Update="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.6" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -70,6 +74,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>CloudNimble.Breakdance.AspNetCore, PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>

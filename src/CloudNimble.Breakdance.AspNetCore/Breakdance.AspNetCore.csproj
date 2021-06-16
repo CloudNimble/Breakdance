@@ -4,15 +4,46 @@
     <RootNamespace>CloudNimble.Breakdance.AspNetCore</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.AspNetCore</AssemblyName>
     <TargetFramework>net5.0</TargetFramework>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>Breakdance.AspNetCore</PackageId>
     <Title>Breakdance for AspNetCore</Title>
+    <PackageVersion>1.0.1</PackageVersion>
+    <Summary>
+      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes
+      for testing AspNetCore WebAPI endpoints. These classes make it super easy to craft HTTP requests to your API at test time.
+    </Summary>
+    <Description>
+      $(Summary)
+
+
+    </Description>
+    <PackageTags>$(PackageTags)webapi;</PackageTags>
+    <PackageReleaseNotes>
+      1.0.0-alpha1:
+      - Initial release.
+    </PackageReleaseNotes>
+    
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BreakdanceTestServerBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataConstants.cs" Link="ODataConstants.cs" />
+    <Compile Include="..\CloudNimble.Breakdance.WebApi\WebApiConstants.cs" Link="WebApiConstants.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
   </ItemGroup>
 
 </Project>
