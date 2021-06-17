@@ -107,7 +107,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <summary>
         /// Makes sure that we always have a working Host.
         /// </summary>
-        internal virtual void EnsureTestHost()
+        internal void EnsureTestHost()
         {
             if (TestHost == null)
             {

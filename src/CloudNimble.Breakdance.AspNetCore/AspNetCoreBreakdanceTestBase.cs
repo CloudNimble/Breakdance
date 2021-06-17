@@ -36,8 +36,6 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// An <see cref="Action{IServiceCollection}"/> that lets you register additional services with the <see cref="TestServer"/>.
         /// </summary>
         /// <remarks>
-        /// To register services with the TestServer, call <see cref="IWebHostBuilder.ConfigureServices(Action{WebHostBuilderContext, IServiceCollection})"/> on 
-        /// <see cref="BreakdanceTestServerBase.TestWebHostBuilder">TestServerBuilder</see> instead.
         /// </remarks>
         public Action<IServiceCollection> RegisterServices { get; set; }
 
@@ -140,20 +138,10 @@ namespace CloudNimble.Breakdance.AspNetCore
         {
             if (TestServer == null)
             {
-                base.EnsureTestHost();
                 TestHost.Start();
                 TestServer = TestHost.GetTestServer();
                 TestClient = TestServer.CreateClient();
             }
-        }
-
-        /// <summary>
-        /// Overrides the base implementation to ensure that we also get a properly constructed <see cref="TestServer"/>.
-        /// </summary>
-        internal override void EnsureTestHost()
-        {
-            base.EnsureTestHost();
-            EnsureTestServer();
         }
 
         #endregion
