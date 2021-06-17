@@ -29,10 +29,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="BreakdanceTestServerBase.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataConstants.cs" Link="ODataConstants.cs" />
     <Compile Include="..\CloudNimble.Breakdance.WebApi\WebApiConstants.cs" Link="WebApiConstants.cs" />
   </ItemGroup>

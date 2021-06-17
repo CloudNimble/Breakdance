@@ -37,10 +37,6 @@
     <NoWarn>;NU5125;NU5105;NU5048;NU5014;NU5104;CS0649</NoWarn>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net5.0'">
-    <Compile Remove="BreakdanceTestServerBase.cs" />
-  </ItemGroup>
-  
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3.0.0, 6.0.0)" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="[3.0.0, 6.0.0)" />
