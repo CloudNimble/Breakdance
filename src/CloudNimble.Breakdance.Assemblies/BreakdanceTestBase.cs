@@ -14,12 +14,12 @@ namespace CloudNimble.Breakdance.Assemblies
         #region Properties
 
         /// <summary>
-        /// 
+        /// The <see cref="IHost"/> instance containing the test host.
         /// </summary>
         public IHost TestHost { get; internal set; }
 
         /// <summary>
-        /// 
+        /// The <see cref="IHostBuilder"/> instance used to configure the test host.
         /// </summary>
         public IHostBuilder TestHostBuilder { get; internal set; }
 
@@ -40,7 +40,7 @@ namespace CloudNimble.Breakdance.Assemblies
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Method used by test assemblies to setup the environment.
         /// </summary>
         /// <remarks>
         /// With MSTest, use [AssemblyInitialize].
@@ -53,7 +53,7 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
-        /// Disposes of the TestHost
+        /// Method used by test assemblies to clean up the environment.
         /// </summary>
         /// <remarks>
         /// With MSTest, use [AssemblyCleanup].
@@ -66,7 +66,7 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
-        /// 
+        /// Clean up disposable objects in the environment.
         /// </summary>
         public void Dispose()
         {
@@ -76,7 +76,7 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
-        /// 
+        /// Method used by test classes to setup the environment.
         /// </summary>
         /// <remarks>
         /// With MSTest, use [TestInitialize].
@@ -89,10 +89,9 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
-        /// 
+        /// Method used by test classes to clean up the environment.
         /// </summary>
         /// <remarks>
-        /// 
         /// With MSTest, use [TestCleanup].
         /// With NUnit, use [TearDown].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context

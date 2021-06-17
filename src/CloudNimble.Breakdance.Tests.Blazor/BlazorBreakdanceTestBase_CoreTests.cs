@@ -4,6 +4,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Breakdance.Tests.Blazor
@@ -15,9 +16,8 @@ namespace Breakdance.Tests.Blazor
     [TestClass]
     public class BlazorBreakdanceTestBase_CoreTests : BlazorBreakdanceTestBase
     {
-
         /// <summary>
-        /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
+        /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup.
         /// </summary>
         [TestMethod]
         public void BlazorBreakdanceTestBase_Setup_CreatesTestContext_NoServices()
@@ -40,7 +40,7 @@ namespace Breakdance.Tests.Blazor
         }
 
         /// <summary>
-        /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
+        /// Tests that DI works property when configuring the <see cref="Bunit.TestContext"/>.
         /// </summary>
         [TestMethod]
         public void BlazorBreakdanceTestBase_TestSetup_CreatesTestContext_ConflictingServices()
@@ -65,7 +65,7 @@ namespace Breakdance.Tests.Blazor
         }
 
         /// <summary>
-        /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
+        /// Tests that DI works property when configuring the <see cref="Bunit.TestContext"/>.
         /// </summary>
         [TestMethod]
         public void BlazorBreakdanceTestBase_TestSetup_CreatesTestContext_Services()
@@ -89,7 +89,7 @@ namespace Breakdance.Tests.Blazor
         }
 
         /// <summary>
-        /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup. />
+        /// Tests that services registered specifically on the <see cref="IHost"/> will not be registered on the <see cref="Bunit.TestContext"/>.
         /// </summary>
         [TestMethod]
         public void BlazorBreakdanceTestBase_GetServices_ReturnsServiceOnlyInTestContext()
