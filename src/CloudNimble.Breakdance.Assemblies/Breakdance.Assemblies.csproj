@@ -45,7 +45,6 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
     <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[5.0.0, 6.0.0)" />
     <PackageReference Update="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.6" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
