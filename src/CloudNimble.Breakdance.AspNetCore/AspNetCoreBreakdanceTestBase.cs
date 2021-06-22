@@ -1,4 +1,5 @@
 ﻿using CloudNimble.Breakdance.Assemblies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +40,13 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public Action<IServiceCollection> RegisterServices { get; set; }
 
+        /// <summary>
+        /// An <see cref="Action{IApplicationBuilder}"/> that lets you modify the application configuration for the <see cref="TestServer"/>.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public Action<IApplicationBuilder> ConfigureHost { get; set; }
+
         #endregion
 
         #region Constructors
@@ -61,9 +69,12 @@ namespace CloudNimble.Breakdance.AspNetCore
                                }
                            })
                            .Configure(app =>
-                            {
-                                // JHC TODO: should we provide an Action<IApplicationBuilder> propertyas well and invoke it here??
-                            });
+                           {
+                               if (ConfigureHost != null)
+                               {
+                                   ConfigureHost.Invoke(app);
+                               }
+                           });
                 });
         }
 
