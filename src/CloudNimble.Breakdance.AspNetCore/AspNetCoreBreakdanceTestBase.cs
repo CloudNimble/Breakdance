@@ -57,20 +57,20 @@ namespace CloudNimble.Breakdance.AspNetCore
                 .ConfigureWebHost(builder =>
                 {
                     builder.UseTestServer()
-                           .ConfigureServices(services =>
-                           {
-                               if (RegisterServices != null)
-                               {
-                                   RegisterServices.Invoke(services);
-                               }
-                           })
-                           .Configure(app =>
-                           {
-                               if (ConfigureHost != null)
-                               {
-                                   ConfigureHost.Invoke(app);
-                               }
-                           });
+                        .ConfigureServices(services =>
+                        {
+                            if (RegisterServices != null)
+                            {
+                                RegisterServices.Invoke(services);
+                            }
+                        })
+                        .Configure(app =>
+                        {
+                            if (ConfigureHost != null)
+                            {
+                                ConfigureHost.Invoke(app);
+                            }
+                        });
                 });
         }
 
