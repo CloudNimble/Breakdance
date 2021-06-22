@@ -53,7 +53,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public AspNetCoreBreakdanceTestBase()
         {
             // configure the TestHostBuilder in the base class to create a WebHost
-            TestHostBuilder = new HostBuilder()
+            TestHostBuilder
                 .ConfigureWebHost(builder =>
                 {
                     builder.UseTestServer()
@@ -145,6 +145,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         {
             if (TestServer == null)
             {
+                EnsureTestHost();
                 TestHost.Start();
                 TestServer = TestHost.GetTestServer();
                 TestClient = TestServer.CreateClient();

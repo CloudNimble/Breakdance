@@ -13,7 +13,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakdance.Tests.AspNetCore
+namespace CloudNimble.Breakdance.Tests.AspNetCore
 {
 
     /// <summary>
@@ -95,9 +95,5 @@ namespace Breakdance.Tests.AspNetCore
             content.Should().Be("Hello from the dummy middleware!");
         }
 
-    }
-
-    public class DummyService
-    {
     }
 }
