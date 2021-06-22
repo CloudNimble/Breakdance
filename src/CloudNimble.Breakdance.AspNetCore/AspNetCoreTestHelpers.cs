@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.TestHost;
 using System.Net.Http;
 using CloudNimble.Breakdance.Assemblies;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Builder;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
@@ -32,12 +33,27 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <summary>
         /// Gets a new <see cref="TestServer"/> with the provided service registration.
         /// </summary>
-        /// <param name="registration"></param>
+        /// <param name="registration">Delegate for customizing the <see cref="IServiceCollection"/> of services available to the host.</param>
         /// <returns></returns>
         public static TestServer GetTestableHttpServer(Action<IServiceCollection> registration)
         {
             var testBase = new AspNetCoreBreakdanceTestBase();
             testBase.RegisterServices = registration;
+            testBase.EnsureTestServer();
+            return testBase.TestServer;
+        }
+
+        /// <summary>
+        /// Gets a new <see cref="TestServer"/> with the provided service registration and application builder.
+        /// </summary>
+        /// <param name="registration">Delegate for customizing the <see cref="IServiceCollection"/> of services available to the host.</param>
+        /// <param name="builder">Delegate for customizing the <see cref="IApplicationBuilder"></see> used to configure the host.</param>
+        /// <returns></returns>
+        public static TestServer GetTestableHttpServer(Action<IServiceCollection> registration, Action<IApplicationBuilder> builder)
+        {
+            var testBase = new AspNetCoreBreakdanceTestBase();
+            testBase.RegisterServices = registration;
+            testBase.ConfigureHost = builder;
             testBase.EnsureTestServer();
             return testBase.TestServer;
         }
