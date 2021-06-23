@@ -25,9 +25,9 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// Tests that the static method properly creates a <see cref="TestServer"/> with expected defaults in its <see cref="IServiceCollection"/>.
         /// </summary>
         [TestMethod]
-        public void CanGetTestableHttpServer_WithoutConfiguration()
+        public async Task CanGetTestableHttpServer_WithoutConfiguration()
         {
-            var server = AspNetCoreTestHelpers.GetTestableHttpServer();
+            var server = await AspNetCoreTestHelpers.GetTestableHttpServer();
             server.Should().NotBeNull();
             server.Services.GetAllServiceDescriptors().Should().HaveCount(43);
         }
@@ -36,9 +36,9 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// Tests that the static method properly creates a <see cref="TestServer"/> that can generate an <see cref="HttpClient"/>.
         /// </summary>
         [TestMethod]
-        public void CanGetTestableHttpClient_FromServer()
+        public async Task CanGetTestableHttpClient_FromServer()
         {
-            var server = AspNetCoreTestHelpers.GetTestableHttpServer();
+            var server = await AspNetCoreTestHelpers.GetTestableHttpServer();
             var client = server.CreateClient();
             client.Should().NotBeNull();
         }
@@ -47,9 +47,9 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// Tests that the static method can properly pass configuration delegates to the <see cref="IHostBuilder"/>.
         /// </summary>
         [TestMethod]
-        public void CanGetTestableHttpServer_WithFullConfiguration()
+        public async Task CanGetTestableHttpServer_WithFullConfiguration()
         {
-            var server = AspNetCoreTestHelpers.GetTestableHttpServer(
+            var server = await AspNetCoreTestHelpers.GetTestableHttpServer(
                 services => {
                     services.AddScoped<DummyService>();
                 },
@@ -69,7 +69,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         [TestMethod]
         public async Task CanGetTestableHttpServer_WithFunctioningClient()
         {
-            var server = AspNetCoreTestHelpers.GetTestableHttpServer(
+            var server = await AspNetCoreTestHelpers.GetTestableHttpServer(
                 services => {
                     services.AddScoped<DummyService>();
                 },
