@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
@@ -14,10 +15,10 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <summary>
         /// Gets a new <see cref="TestServer" /> with default services.
         /// </summary>
-        public static TestServer GetTestableHttpServer()
+        public static async Task<TestServer> GetTestableHttpServer()
         {
             var testBase = new AspNetCoreBreakdanceTestBase();
-            testBase.EnsureTestServer();
+            await testBase.EnsureTestServer().ConfigureAwait(false);
             return testBase.TestServer;
         }
 
@@ -26,11 +27,13 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </summary>
         /// <param name="registration">Delegate for customizing the <see cref="IServiceCollection"/> of services available to the host.</param>
         /// <returns></returns>
-        public static TestServer GetTestableHttpServer(Action<IServiceCollection> registration)
+        public static async Task<TestServer> GetTestableHttpServer(Action<IServiceCollection> registration)
         {
-            var testBase = new AspNetCoreBreakdanceTestBase();
-            testBase.RegisterServices = registration;
-            testBase.EnsureTestServer();
+            var testBase = new AspNetCoreBreakdanceTestBase
+            {
+                RegisterServices = registration
+            };
+            await testBase.EnsureTestServer().ConfigureAwait(false);
             return testBase.TestServer;
         }
 
@@ -40,12 +43,14 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <param name="registration">Delegate for customizing the <see cref="IServiceCollection"/> of services available to the host.</param>
         /// <param name="builder">Delegate for customizing the <see cref="IApplicationBuilder"></see> used to configure the host.</param>
         /// <returns></returns>
-        public static TestServer GetTestableHttpServer(Action<IServiceCollection> registration, Action<IApplicationBuilder> builder)
+        public static async Task<TestServer> GetTestableHttpServer(Action<IServiceCollection> registration, Action<IApplicationBuilder> builder)
         {
-            var testBase = new AspNetCoreBreakdanceTestBase();
-            testBase.RegisterServices = registration;
-            testBase.ConfigureHost = builder;
-            testBase.EnsureTestServer();
+            var testBase = new AspNetCoreBreakdanceTestBase
+            {
+                RegisterServices = registration,
+                ConfigureHost = builder
+            };
+            await testBase.EnsureTestServer().ConfigureAwait(false);
             return testBase.TestServer;
         }
 

@@ -94,8 +94,4 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
     }
-
-    public class DummyService
-    {
-    }
 }

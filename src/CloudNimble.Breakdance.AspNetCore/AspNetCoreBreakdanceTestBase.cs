@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
@@ -53,7 +54,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public AspNetCoreBreakdanceTestBase()
         {
             // configure the TestHostBuilder in the base class to create a WebHost
-            TestHostBuilder = new HostBuilder()
+            TestHostBuilder
                 .ConfigureWebHost(builder =>
                 {
                     builder.UseTestServer()
@@ -103,7 +104,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public override void AssemblySetup()
         {
             base.AssemblySetup();
-            EnsureTestServer();
+            EnsureTestServer().GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public override void TestSetup()
         {
             base.TestSetup();
-            EnsureTestServer();
+            EnsureTestServer().GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -141,11 +142,12 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <summary>
         /// Properly instantiates the <see cref="TestServer"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context.
         /// </summary>
-        internal void EnsureTestServer()
+        internal async Task EnsureTestServer()
         {
             if (TestServer == null)
             {
-                TestHost.Start();
+                EnsureTestHost();
+                await TestHost.StartAsync().ConfigureAwait(false);
                 TestServer = TestHost.GetTestServer();
                 TestClient = TestServer.CreateClient();
             }
