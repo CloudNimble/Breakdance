@@ -1,6 +1,8 @@
 ﻿using CloudNimble.Breakdance.Assemblies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,28 +27,9 @@ namespace CloudNimble.Breakdance.AspNetCore
         public TestServer TestServer { get; internal set; }
 
         /// <summary>
-        /// 
+        /// Replaces the <see cref="TestHostBuilder"/> from the <see cref="BreakdanceTestBase"/> with an <see cref="IWebHostBuilder"/> implementation.
         /// </summary>
         public new IWebHostBuilder TestHostBuilder { get; internal set; }
-
-        /// <summary>
-        /// An <see cref="Action{IServiceCollection}"/> that lets you register additional services with the <see cref="TestServer"/>.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        public Action<IServiceCollection> RegisterServices { get; set; }
-
-        /// <summary>
-        /// An <see cref="Action{IApplicationBuilder}"/> that lets you modify the application configuration for the <see cref="TestServer"/>.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        public Action<IApplicationBuilder> ConfigureHost { get; set; }
-
-        /// <summary>
-        /// An <see cref="Action{IConfigurationBuilder}"/> that lets you specify customize the <see cref="IConfiguration"/> for the <see cref="TestServer"/>.
-        /// </summary>
-        public Action<IConfigurationBuilder> BuildConfiguration { get; set; }
 
         #endregion
 
@@ -55,58 +38,101 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <summary>
         /// Creates a new <see cref="AspNetCoreBreakdanceTestBase"/> instance.
         /// </summary>
+        /// <remarks>The call to .Configure() with no content is required to get a minimal, empty <see cref="IWebHost"/>.</remarks>
         public AspNetCoreBreakdanceTestBase()
         {
             // replace the TestHostBuilder with one that will generate an IWebHost
             TestHostBuilder = new WebHostBuilder()
-                                .Configure(appBuilder =>
-                                {
-                                    if (ConfigureHost != null)
-                                    {
-                                        ConfigureHost.Invoke(appBuilder);
-                                    }
-                                })
-                                .ConfigureAppConfiguration(configuration =>
-                                {
-                                    if (BuildConfiguration != null)
-                                    {
-                                        BuildConfiguration.Invoke(configuration);
-                                    }
-                                })
-                                .ConfigureServices(services =>
-                                {
-                                    if (RegisterServices != null)
-                                    {
-                                        RegisterServices.Invoke(services);
-                                    }
-                                });
-
-            /*
-            TestHostBuilder
-                .ConfigureWebHost(builder =>
-                {
-                    builder.UseTestServer()
-                        .ConfigureServices(services =>
-                        {
-                            if (RegisterServices != null)
-                            {
-                                RegisterServices.Invoke(services);
-                            }
-                        })
-                        .Configure(app =>
-                        {
-                            if (ConfigureHost != null)
-                            {
-                                ConfigureHost.Invoke(app);
-                            }
-                        });
-                });
-            */
+                    .Configure(_ => { });
         }
 
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Adds minimal MVC services to the <see cref="TestHostBuilder"/>.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <remarks>
+        /// Calls AddMvcCore() on the <see cref="IServiceCollection"/> which does the following, according to the Microsoft docs:
+        ///    will register the minimum set of services necessary to route requests and invoke
+        ///     controllers. It is not expected that any application will satisfy its requirements
+        ///     with just a call to Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection).
+        ///     Additional configuration using the Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder
+        ///     will be required.
+        /// </remarks>
+        public void AddMinimalMvc(Action<MvcOptions> options)
+        {
+            TestHostBuilder.ConfigureServices(services =>
+            {
+                services.AddMvcCore(options);
+            });
+        }
+
+        /// <summary>
+        /// Adds Controller services to the <see cref="TestHostBuilder"/>.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <remarks>
+        /// Calls AddControllers() on the <see cref="IServiceCollection"/> which does the following, according to the Microsoft docs:
+        ///     combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
+        ///     Microsoft.Extensions.DependencyInjection.MvcApiExplorerMvcCoreBuilderExtensions.AddApiExplorer(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     and Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
+        /// </remarks>
+        public void AddApis(Action<MvcOptions> options)
+        {
+            TestHostBuilder.ConfigureServices(services =>
+            {
+                services.AddControllers(options);
+            });
+        }
+
+        /// <summary>
+        /// Adds support for Controllers and Razor views to the <see cref="TestHostBuilder"/>.
+        /// </summary>
+        /// <param name="options"></param>
+        /// <remarks>
+        /// Calls AddControllersWithViews() on the <see cref="IServiceCollection"/> which does the following, according to the Microsoft docs:
+        ///     combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
+        ///     Microsoft.Extensions.DependencyInjection.MvcApiExplorerMvcCoreBuilderExtensions.AddApiExplorer(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.TagHelperServicesExtensions.AddCacheTagHelper(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     and Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
+        /// </remarks>
+        public void AddViews(Action<MvcOptions> options)
+        {
+            TestHostBuilder.ConfigureServices(services =>
+            {
+                services.AddControllersWithViews(options);
+            });
+        }
+
+        /// <summary>
+        /// Adds support for Controllers and Razor views to the <see cref="TestHostBuilder"/>.
+        /// </summary>
+        /// <remarks>
+        /// Calls AddRazorPages() on the <see cref="IServiceCollection"/> which does the following, according to the Microsoft docs:
+        ///     combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
+        ///     Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     Microsoft.Extensions.DependencyInjection.TagHelperServicesExtensions.AddCacheTagHelper(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+        ///     and Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuilderExtensions.AddRazorPages(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
+        /// </remarks>
+        public void AddRazorPages()
+        {
+            TestHostBuilder.ConfigureServices(services =>
+            {
+                services.AddRazorPages();
+            });
+        }
 
         /// <summary>
         /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
@@ -169,8 +195,9 @@ namespace CloudNimble.Breakdance.AspNetCore
         #region Private Methods
 
         /// <summary>
-        /// Properly instantiates the <see cref="TestServer"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context.
+        /// Ensures that the <see cref="TestServer"/> has been constructed.
         /// </summary>
+        /// <remarks>The constructor used below builds and starts the host instance with the specified <see cref="IWebHostBuilder"/> and an empty <see cref="IFeatureCollection"/>.</remarks>
         internal void EnsureTestServer()
         {
             if (TestServer == null)
