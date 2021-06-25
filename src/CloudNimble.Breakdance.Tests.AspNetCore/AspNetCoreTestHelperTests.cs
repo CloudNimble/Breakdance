@@ -1,5 +1,9 @@
-﻿using CloudNimble.Breakdance.AspNetCore;
+﻿using Breakdance.Tests.AspNetCore.Fakes;
+using CloudNimble.Breakdance.AspNetCore;
+using CloudNimble.Breakdance.Tests.AspNetCore.Fakes;
 using FluentAssertions;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,68 +26,61 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
     public class AspNetCoreTestHelperTests
     {
         /// <summary>
-        /// Tests that the static method properly creates a <see cref="TestServer"/> with expected defaults in its <see cref="IServiceCollection"/>.
+        /// Tests that the static method properly creates a <see cref="TestServer"/>.
         /// </summary>
         [TestMethod]
-        public async Task CanGetTestableHttpServer_WithoutConfiguration()
+        public void GetTestableHttpServer_WithoutConfiguration_CreatesServer()
         {
-            var server = await AspNetCoreTestHelpers.GetTestableHttpServer();
+            var server = AspNetCoreTestHelpers.GetTestableHttpServer();
             server.Should().NotBeNull();
-            server.Services.GetAllServiceDescriptors().Should().HaveCount(43);
+            //server.Services.GetAllServiceDescriptors().Should().HaveCount(43);
         }
 
         /// <summary>
-        /// Tests that the static method properly creates a <see cref="TestServer"/> that can generate an <see cref="HttpClient"/>.
+        /// Tests that the static method can properly pass action delegates to the <see cref="IWebHostBuilder"/>.
         /// </summary>
         [TestMethod]
-        public async Task CanGetTestableHttpClient_FromServer()
+        public void GetTestableHttpServer_WithFullConfiguration_CreatesServer()
         {
-            var server = await AspNetCoreTestHelpers.GetTestableHttpServer();
-            var client = server.CreateClient();
-            client.Should().NotBeNull();
-        }
-
-        /// <summary>
-        /// Tests that the static method can properly pass configuration delegates to the <see cref="IHostBuilder"/>.
-        /// </summary>
-        [TestMethod]
-        public async Task CanGetTestableHttpServer_WithFullConfiguration()
-        {
-            var server = await AspNetCoreTestHelpers.GetTestableHttpServer(
+            var server = AspNetCoreTestHelpers.GetTestableHttpServer(
                 services => {
-                    services.AddScoped<DummyService>();
+                    services.AddScoped<FakeService>();
                 },
                 builder =>
                 {
-                    builder.ServerFeatures.Set(new EmptyFeature());
+                    builder.ServerFeatures.Set(new FakeFeature());
+                },
+                configuration =>
+                {
+                    configuration.Build();
                 });
 
-            server.Services.GetAllServiceDescriptors().Should().HaveCount(44);
-            server.Features.Should().Contain(c => c.Key.Name == nameof(EmptyFeature));
+            //server.Services.GetAllServiceDescriptors().Should().HaveCount(44);
+            server.Features.Should().Contain(c => c.Key.Name == nameof(FakeFeature));
         }
 
         /// <summary>
-        /// Tests that the static method correctly configures and starts up the <see cref="TestServer"/>.
+        /// Tests that the static method correctly configures the <see cref="TestServer"/> to respond to an HTTP Get.
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task CanGetTestableHttpServer_WithFunctioningClient()
+        public async Task GetTestableHttpServer_CanGet()
         {
-            var server = await AspNetCoreTestHelpers.GetTestableHttpServer(
+            var server = AspNetCoreTestHelpers.GetTestableHttpServer(
                 services => {
-                    services.AddScoped<DummyService>();
+                    services.AddMvcCore(setup => setup.EnableEndpointRouting = false)
+                                        .AddApplicationPart(typeof(HomeController).Assembly);
                 },
                 builder =>
                 {
-                    builder.ServerFeatures.Set(new EmptyFeature());
+                    builder.UseMvcWithDefaultRoute();
                 });
 
-            server.Services.GetAllServiceDescriptors().Should().HaveCount(44);
-            server.Features.Should().Contain(c => c.Key.Name == nameof(EmptyFeature));
-
             var client = server.CreateClient();
-            var response = await client.GetAsync("/");
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var response = await server.CreateRequest("/").GetAsync();
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var content = await response.Content.ReadAsStringAsync();
+            content.Should().Be("Hello world!");
         }
 
     }
