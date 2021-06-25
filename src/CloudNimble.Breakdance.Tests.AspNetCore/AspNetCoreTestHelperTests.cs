@@ -6,14 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.AspNetCore
@@ -25,6 +19,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
     [TestClass]
     public class AspNetCoreTestHelperTests
     {
+
         /// <summary>
         /// Tests that the static method properly creates a <see cref="TestServer"/>.
         /// </summary>
@@ -43,7 +38,8 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         public void GetTestableHttpServer_WithFullConfiguration_CreatesServer()
         {
             var server = AspNetCoreTestHelpers.GetTestableHttpServer(
-                services => {
+                services => 
+                {
                     services.AddScoped<FakeService>();
                 },
                 builder =>
@@ -67,9 +63,10 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         public async Task GetTestableHttpServer_CanGet()
         {
             var server = AspNetCoreTestHelpers.GetTestableHttpServer(
-                services => {
+                services => 
+                {
                     services.AddMvcCore(setup => setup.EnableEndpointRouting = false)
-                                        .AddApplicationPart(typeof(HomeController).Assembly);
+                        .AddApplicationPart(typeof(HomeController).Assembly);
                 },
                 builder =>
                 {
@@ -84,4 +81,5 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
     }
+
 }

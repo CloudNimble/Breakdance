@@ -2,7 +2,6 @@ using CloudNimble.Breakdance.AspNetCore;
 using CloudNimble.Breakdance.Tests.AspNetCore.Fakes;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +16,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
     [TestClass]
     public class AspNetCoreBreakdanceTestBase_CoreTests
     {
+
         /// <summary>
         /// Tests wether or not a <see cref="TestServer"/> is created on setup.
         /// </summary>
@@ -93,4 +93,5 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
     }
+
 }

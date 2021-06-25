@@ -8,12 +8,9 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.AspNetCore
@@ -25,6 +22,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
     [TestClass]
     public class AspNetCoreBreakdanceTestBaseTests : AspNetCoreBreakdanceTestBase
     {
+
         #region Test Lifecycle
 
         [TestInitialize]
@@ -146,4 +144,5 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
     }
+
 }
