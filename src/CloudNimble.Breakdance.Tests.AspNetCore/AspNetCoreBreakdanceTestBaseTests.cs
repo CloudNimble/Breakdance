@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using System.Collections;
 
 namespace CloudNimble.Breakdance.Tests.AspNetCore
 {
@@ -28,16 +30,16 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         [TestInitialize]
         public void Setup()
         {
-            RegisterServices = services =>
+            TestHostBuilder.ConfigureServices(services =>
             {
                 services.AddScoped<FakeService>();
 
                 services.AddMvcCore(setup => setup.EnableEndpointRouting = false)
                     .AddApplicationPart(typeof(HomeController).Assembly);
 
-            };
+            });
 
-            ConfigureHost = builder =>
+            TestHostBuilder.Configure(builder =>
             {
                 builder.UseMvcWithDefaultRoute();
                 builder.UseResponseCaching();
@@ -55,7 +57,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
 
                 });
 
-            };
+            });
 
             TestSetup();
         }
@@ -72,10 +74,9 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         public void BlazorBreakdanceTestBase_Setup_CreatesTestServer_WithExpectedServices()
         {
             TestServer.Should().NotBeNull();
-            RegisterServices.Should().NotBeNull();
-            //TestServer.Services.GetAllServiceDescriptors().Should().HaveCount(28);
             GetService<IConfiguration>().Should().NotBeNull();
             GetService<FakeService>().Should().NotBeNull();
+            TestServer.Features.As<IEnumerable>().Should().BeEmpty();
         }
 
         /// <summary>
