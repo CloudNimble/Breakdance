@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -26,9 +27,9 @@ namespace CloudNimble.Breakdance.AspNetCore
         public TestServer TestServer { get; internal set; }
 
         /// <summary>
-        /// A preconfigured <see cref="HttpClient"/> for communicating with the <see cref="TestServer"/>.
+        /// 
         /// </summary>
-        public HttpClient TestClient { get; internal set; }
+        public new IWebHostBuilder TestHostBuilder { get; internal set; }
 
         /// <summary>
         /// An <see cref="Action{IServiceCollection}"/> that lets you register additional services with the <see cref="TestServer"/>.
@@ -44,6 +45,11 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public Action<IApplicationBuilder> ConfigureHost { get; set; }
 
+        /// <summary>
+        /// An <see cref="Action{IConfigurationBuilder}"/> that lets you specify customize the <see cref="IConfiguration"/> for the <see cref="TestServer"/>.
+        /// </summary>
+        public Action<IConfigurationBuilder> BuildConfiguration { get; set; }
+
         #endregion
 
         #region Constructors
@@ -53,7 +59,31 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </summary>
         public AspNetCoreBreakdanceTestBase()
         {
-            // configure the TestHostBuilder in the base class to create a WebHost
+            // replace the TestHostBuilder with one that will generate an IWebHost
+            TestHostBuilder = new WebHostBuilder()
+                                .Configure(appBuilder =>
+                                {
+                                    if (ConfigureHost != null)
+                                    {
+                                        ConfigureHost.Invoke(appBuilder);
+                                    }
+                                })
+                                .ConfigureAppConfiguration(configuration =>
+                                {
+                                    if (BuildConfiguration != null)
+                                    {
+                                        BuildConfiguration.Invoke(configuration);
+                                    }
+                                })
+                                .ConfigureServices(services =>
+                                {
+                                    if (RegisterServices != null)
+                                    {
+                                        RegisterServices.Invoke(services);
+                                    }
+                                });
+
+            /*
             TestHostBuilder
                 .ConfigureWebHost(builder =>
                 {
@@ -73,6 +103,7 @@ namespace CloudNimble.Breakdance.AspNetCore
                             }
                         });
                 });
+            */
         }
 
         #endregion
@@ -104,7 +135,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public override void AssemblySetup()
         {
             base.AssemblySetup();
-            EnsureTestServer().GetAwaiter().GetResult();
+            EnsureTestServer();
         }
 
         /// <summary>
@@ -118,7 +149,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public override void TestSetup()
         {
             base.TestSetup();
-            EnsureTestServer().GetAwaiter().GetResult();
+            EnsureTestServer();
         }
 
         /// <summary>
@@ -142,14 +173,12 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <summary>
         /// Properly instantiates the <see cref="TestServer"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context.
         /// </summary>
-        internal async Task EnsureTestServer()
+        internal void EnsureTestServer()
         {
             if (TestServer == null)
             {
-                EnsureTestHost();
-                await TestHost.StartAsync().ConfigureAwait(false);
-                TestServer = TestHost.GetTestServer();
-                TestClient = TestServer.CreateClient();
+                // the constructor automatically calls the IWebHost.StartAsync() method
+                TestServer = new TestServer(TestHostBuilder);
             }
         }
 
