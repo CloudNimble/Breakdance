@@ -1,7 +1,6 @@
 using CloudNimble.Breakdance.AspNetCore;
 using CloudNimble.Breakdance.Tests.AspNetCore.Fakes;
 using FluentAssertions;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

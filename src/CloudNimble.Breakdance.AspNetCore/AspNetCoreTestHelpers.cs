@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
