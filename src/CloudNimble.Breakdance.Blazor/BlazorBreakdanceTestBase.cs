@@ -14,6 +14,7 @@ namespace CloudNimble.Breakdance.Blazor
     /// </summary>
     public class BlazorBreakdanceTestBase : BreakdanceTestBase
     {
+
         #region Properties
 
         /// <summary>
