@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
@@ -45,12 +45,22 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <returns></returns>
         public static TestServer GetTestableHttpServer(Action<IServiceCollection> registration, Action<IApplicationBuilder> builder, Action<IConfigurationBuilder> configuration)
         {
-            var testBase = new AspNetCoreBreakdanceTestBase
+            var testBase = new AspNetCoreBreakdanceTestBase();
+            if (registration is not null)
             {
-                RegisterServices = registration,
-                ConfigureHost = builder,
-                BuildConfiguration = configuration
-            };
+                testBase.TestHostBuilder.ConfigureServices(services => registration.Invoke(services));
+            }
+
+            if (builder is not null)
+            {
+                testBase.TestHostBuilder.Configure(appBuilder => builder.Invoke(appBuilder));
+            }
+
+            if (configuration is not null)
+            {
+                testBase.TestHostBuilder.ConfigureAppConfiguration(appConfig => configuration.Invoke(appConfig));
+            }
+
             testBase.EnsureTestServer();
             return testBase.TestServer;
         }
