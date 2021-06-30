@@ -22,7 +22,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
     /// Tests the functionality of <see cref="AspNetCoreBreakdanceTestBase"/> when using inheritance.
     /// </summary>
     [TestClass]
-    public class AspNetCoreBreakdanceTestBaseTests : AspNetCoreBreakdanceTestBase
+    public class AspNetCoreBreakdanceDerivedClassTests : AspNetCoreBreakdanceTestBase
     {
 
         #region Test Lifecycle
@@ -71,7 +71,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// Tests that DI works property when configuring the <see cref="TestServer"/>.
         /// </summary>
         [TestMethod]
-        public void BlazorBreakdanceTestBase_Setup_CreatesTestServer_WithExpectedServices()
+        public void AspNetCoreBreakdanceTestBase_Setup_CreatesTestServer_WithExpectedServices()
         {
             TestServer.Should().NotBeNull();
             GetService<IConfiguration>().Should().NotBeNull();
@@ -84,7 +84,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task BlazorBreakdanceTestBase_TestServer_CanCreateClient()
+        public async Task AspNetCoreBreakdanceTestBase_TestServer_CanCreateClient()
         {
             // make a GET request to ensure the pipeline completes (the path does not exist, so the response should be 404)
             var response = await TestServer.CreateClient().GetAsync("/");
@@ -98,7 +98,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task BlazorBreakdanceTestBase_TestServer_CanCreateRequest()
+        public async Task AspNetCoreBreakdanceTestBase_TestServer_CanCreateRequest()
         {
             var response = await TestServer.CreateRequest("/").GetAsync();
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -111,7 +111,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task BlazorBreakdanceTestBase_TestServer_CanPostData()
+        public async Task AspNetCoreBreakdanceTestBase_TestServer_CanPostData()
         {
             var client = TestServer.CreateClient();
 
@@ -136,7 +136,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task BlazorBreakdanceTestBase_Setup_CanConfigureMiddlewares()
+        public async Task AspNetCoreBreakdanceTestBase_Setup_CanConfigureMiddlewares()
         {
             var response = await TestServer.CreateClient().GetAsync("/dummy");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -145,5 +145,4 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
     }
-
 }
