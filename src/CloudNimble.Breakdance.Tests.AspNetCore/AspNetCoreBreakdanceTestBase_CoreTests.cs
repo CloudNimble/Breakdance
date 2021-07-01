@@ -50,6 +50,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
                 services.AddScoped<FakeService>();
             });
 
+            testBase.AddMinimalMvc();
             testBase.EnsureTestServer();
 
             testBase.TestServer.Should().NotBeNull();
