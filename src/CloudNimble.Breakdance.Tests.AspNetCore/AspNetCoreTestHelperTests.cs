@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -24,11 +25,10 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         /// Tests that the static method properly creates a <see cref="TestServer"/>.
         /// </summary>
         [TestMethod]
-        public void GetTestableHttpServer_WithoutConfiguration_CreatesServer()
+        public void GetTestableHttpServer_WithoutConfiguration_ThrowsException()
         {
-            var server = AspNetCoreTestHelpers.GetTestableHttpServer();
-            server.Should().NotBeNull();
-            //server.Services.GetAllServiceDescriptors().Should().HaveCount(43);
+            Action configureService = () => { var server = AspNetCoreTestHelpers.GetTestableHttpServer(); };
+            configureService.Should().Throw<InvalidOperationException>();
         }
 
         /// <summary>
