@@ -31,6 +31,7 @@
   <ItemGroup>
     <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataConstants.cs" Link="ODataConstants.cs" />
     <Compile Include="..\CloudNimble.Breakdance.WebApi\WebApiConstants.cs" Link="WebApiConstants.cs" />
+    <Compile Include="..\CloudNimble.Breakdance.WebApi\HttpClientHelpers.cs" Link="HttpClientHelpers.cs" />
     <Compile Include="..\CloudNimble.Breakdance.WebApi\Extensions\HttpResponseMessageExtensions.cs" Link="Extensions\HttpResponseMessageExtensions.cs" />
   </ItemGroup>
 

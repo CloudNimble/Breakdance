@@ -4,7 +4,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
+#if NET5_0_OR_GREATER
+namespace CloudNimble.Breakdance.AspNetCore
+#else
 namespace CloudNimble.Breakdance.WebApi
+#endif
 {
 
     /// <summary>

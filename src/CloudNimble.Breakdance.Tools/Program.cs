@@ -1,6 +1,7 @@
 using CloudNimble.Breakdance.Assemblies;
 using McMaster.Extensions.CommandLineUtils;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,6 @@ namespace CloudNimble.Breakdance.Tools
             {
                 //ExtendedHelpText = "Starting without a path to a CSX file or a command, starts the REPL (interactive) mode."
             };
-
 
             const string helpOptionTemplate = "-? | -h | --help";
 
@@ -63,22 +63,42 @@ namespace CloudNimble.Breakdance.Tools
         private static async Task Generate(string path, string config, string project)
         {
             ColorConsole.WriteEmbeddedColorLine($"Looking for Tests in path [cyan]{path}[/cyan]...", ConsoleColor.Yellow);
-            var projects = Directory.GetDirectories(path);
+
+            var tests = new List<string>();
+
+            // using the specified path, locate any test project folders
+            var projects = Directory.GetDirectories(path, ".test*");
             //RWM: First find the test folders.
-            var tests = projects.Where(c => !string.IsNullOrWhiteSpace(project) ? c.Contains(project) : c.ToLower().Contains(project ?? ".test")).OrderBy(c => c.Length);
+            tests = projects.Where(c => !string.IsNullOrWhiteSpace(project) ? c.Contains(project) : c.ToLower().Contains(project ?? ".test")).OrderBy(c => c.Length).ToList();
 
             if (!tests.Any())
             {
-                ColorConsole.WriteError($"No tests found.");
-                return;
+                // determine if the current folder is a test project
+                var folderName = Path.GetFileName(path);
+
+                if (folderName.ToLower().Contains(".test"))
+                {
+                    tests.Add(path);
+                    ColorConsole.WriteSuccess("Found a Test project at the root of the specified path.");
+                    ColorConsole.WriteInfo(folderName);
+                    ColorConsole.WriteLine("");
+                }
+                else
+                {
+                    ColorConsole.WriteError($"No tests found.");
+                    return;
+                }
+            }
+            else
+            {
+                ColorConsole.WriteSuccess("The following Test projects were found:");
+                foreach (var test in tests)
+                {
+                    ColorConsole.WriteInfo($"{test}");
+                }
+                ColorConsole.WriteLine("");
             }
 
-            ColorConsole.WriteSuccess("The following Test projects were found:");
-            foreach (var test in tests)
-            {
-                ColorConsole.WriteInfo($"{test}");
-            }
-            ColorConsole.WriteLine("");
 
             //RWM: Then find the tests using Breakdance
             foreach (var testPath in tests)
@@ -188,7 +208,7 @@ namespace CloudNimble.Breakdance.Tools
                                     ColorConsole.WriteError($"Method has too many parameters. Please specify a single string parameter representing the base path for writing files and try again.\nDon't forget to recompile.");
                                     break;
                             }
-                            
+
                         }
 
                     }
@@ -215,7 +235,7 @@ namespace CloudNimble.Breakdance.Tools
                 var instance = Activator.CreateInstance(methodInfo.DeclaringType);
                 //RWM: Handle the Async method case, it needs to be awaited to actually get the result written.
                 //     Taken from https://stackoverflow.com/questions/20350397/how-can-i-tell-if-a-c-sharp-method-is-async-await-via-reflection
-                if (methodInfo.GetCustomAttribute(typeof (AsyncStateMachineAttribute)) != null)
+                if (methodInfo.GetCustomAttribute(typeof(AsyncStateMachineAttribute)) != null)
                 {
                     await (dynamic)methodInfo.Invoke(instance, parameters);
                 }
