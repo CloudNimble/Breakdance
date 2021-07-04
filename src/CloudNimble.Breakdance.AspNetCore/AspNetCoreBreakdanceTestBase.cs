@@ -1,7 +1,9 @@
 ﻿using CloudNimble.Breakdance.Assemblies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -39,8 +41,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public AspNetCoreBreakdanceTestBase()
         {
             // replace the TestHostBuilder with one that will generate an IWebHost
-            TestHostBuilder = new WebHostBuilder()
-                    .Configure(_ => { });
+            TestHostBuilder = new WebHostBuilder();
         }
 
         #endregion
@@ -51,6 +52,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// Adds minimal MVC services to the <see cref="TestHostBuilder"/>.
         /// </summary>
         /// <param name="options"></param>
+        /// <param name="app"></param>
         /// <remarks>
         /// Calls AddMvcCore() on the <see cref="IServiceCollection"/> which does the following, according to the Microsoft docs:
         ///    will register the minimum set of services necessary to route requests and invoke
@@ -59,18 +61,24 @@ namespace CloudNimble.Breakdance.AspNetCore
         ///     Additional configuration using the Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder
         ///     will be required.
         /// </remarks>
-        public void AddMinimalMvc(Action<MvcOptions> options)
+        public void AddMinimalMvc(Action<MvcOptions> options = default, Action<IApplicationBuilder> app = default)
         {
             TestHostBuilder.ConfigureServices(services =>
             {
-                services.AddMvcCore(options);
-            });
+                services.AddMvcCore(options ?? (mvcOptions => { }));
+            })
+            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
+            {
+                appBuilder.UseRouting();
+                appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
+            }));
         }
 
         /// <summary>
         /// Adds Controller services to the <see cref="TestHostBuilder"/>.
         /// </summary>
         /// <param name="options"></param>
+        /// <param name="app"></param>
         /// <remarks>
         /// Calls AddControllers() on the <see cref="IServiceCollection"/> which does the following, according to the Microsoft docs:
         ///     combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
@@ -80,18 +88,24 @@ namespace CloudNimble.Breakdance.AspNetCore
         ///     Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
         ///     and Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
         /// </remarks>
-        public void AddApis(Action<MvcOptions> options)
+        public void AddApis(Action<MvcOptions> options = default, Action<IApplicationBuilder> app = default)
         {
             TestHostBuilder.ConfigureServices(services =>
             {
-                services.AddControllers(options);
-            });
+                services.AddControllers(options ?? (mvcoptions => { }));
+            })
+            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
+            {
+                appBuilder.UseRouting();
+                appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
+            }));
         }
 
         /// <summary>
         /// Adds support for Controllers and Razor views to the <see cref="TestHostBuilder"/>.
         /// </summary>
         /// <param name="options"></param>
+        /// <param name="app"></param>
         /// <remarks>
         /// Calls AddControllersWithViews() on the <see cref="IServiceCollection"/> which does the following, according to the Microsoft docs:
         ///     combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
@@ -104,12 +118,17 @@ namespace CloudNimble.Breakdance.AspNetCore
         ///     Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
         ///     and Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
         /// </remarks>
-        public void AddViews(Action<MvcOptions> options)
+        public void AddViews(Action<MvcOptions> options = default, Action<IApplicationBuilder> app = default)
         {
             TestHostBuilder.ConfigureServices(services =>
             {
-                services.AddControllersWithViews(options);
-            });
+                services.AddControllersWithViews(options ?? (mvcOptions => { }));
+            })
+            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
+            {
+                appBuilder.UseRouting();
+                appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
+            }));
         }
 
         /// <summary>
@@ -123,12 +142,17 @@ namespace CloudNimble.Breakdance.AspNetCore
         ///     Microsoft.Extensions.DependencyInjection.TagHelperServicesExtensions.AddCacheTagHelper(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
         ///     and Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuilderExtensions.AddRazorPages(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
         /// </remarks>
-        public void AddRazorPages()
+        public void AddRazorPages(Action<RazorPagesOptions> options = default, Action<IApplicationBuilder> app = default)
         {
             TestHostBuilder.ConfigureServices(services =>
             {
-                services.AddRazorPages();
-            });
+                services.AddRazorPages(options ?? (razorOptions => { }));
+            })
+            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
+            {
+                appBuilder.UseRouting();
+                appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
+            }));
         }
 
         /// <summary>
@@ -199,8 +223,16 @@ namespace CloudNimble.Breakdance.AspNetCore
         {
             if (TestServer == null)
             {
-                // the constructor automatically calls the IWebHost.StartAsync() method
-                TestServer = new TestServer(TestHostBuilder);
+                try
+                {
+                    // the constructor automatically calls the IWebHost.StartAsync() method
+                    // TODO: JHC: Wrap exception and throw something more helpful.
+                    TestServer = new TestServer(TestHostBuilder);
+                }
+                catch (InvalidOperationException iox)
+                {
+                    throw new InvalidOperationException("You must specify a configuration before calling EnsureTestServer.  Please use one of the helper methods such as AddMinimalMvc() or provide your own configuration directly on the TestHostBuilder.", iox);
+                }
             }
         }
 

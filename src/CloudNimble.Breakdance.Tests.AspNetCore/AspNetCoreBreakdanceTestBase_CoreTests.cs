@@ -1,11 +1,15 @@
 using CloudNimble.Breakdance.AspNetCore;
 using CloudNimble.Breakdance.Tests.AspNetCore.Fakes;
 using FluentAssertions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.AspNetCore
 {
@@ -18,19 +22,17 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
     {
 
         /// <summary>
-        /// Tests that a <see cref="TestServer"/> is created when EnsureTestServer() is called.
+        /// Tests that a an exception is thrown if the <see cref="TestServer"/> does not have the minimal required configuration.
         /// </summary>
         [TestMethod]
-        public void AspNetCoreBreakdanceTestBase_EnsureTestServer_CreatesDefaultConfig()
+        public void AspNetCoreBreakdanceTestBase_EnsureTestServer_ThrowsExceptionWhenUnconfigured()
         {
             var testBase = new AspNetCoreBreakdanceTestBase();
             testBase.TestServer.Should().BeNull();
             testBase.GetService<IConfiguration>().Should().BeNull();
 
-            testBase.EnsureTestServer();
-
-            testBase.GetService<IConfiguration>().Should().NotBeNull();
-            testBase.TestServer.Features.As<IEnumerable>().Should().BeEmpty();
+            Action act = () => { testBase.EnsureTestServer(); };
+            act.Should().Throw<InvalidOperationException>();
         }
 
         /// <summary>
@@ -48,6 +50,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
                 services.AddScoped<FakeService>();
             });
 
+            testBase.AddMinimalMvc();
             testBase.EnsureTestServer();
 
             testBase.TestServer.Should().NotBeNull();
@@ -56,15 +59,15 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
         /// <summary>
-        /// Tests that the <see cref="TestServer"/> has the expected services.
+        /// Tests that the <see cref="TestServer"/> has the expected set of services when calling the helper.
         /// </summary>
         [TestMethod]
-        public void AspNetCoreBreakdanceTestBase_AddMinimalMvc_HasExpectedServices()
+        public void AspNetCoreBreakdanceTestBase_AddMinimalMvc_HasExpectedDefaults()
         {
             var testBase = new AspNetCoreBreakdanceTestBase();
             testBase.TestServer.Should().BeNull();
 
-            testBase.AddMinimalMvc(options => options.EnableEndpointRouting = false);
+            testBase.AddMinimalMvc();
             testBase.EnsureTestServer();
 
             testBase.TestServer.Should().NotBeNull();
@@ -74,10 +77,31 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
         /// <summary>
-        /// Tests that the <see cref="TestServer"/> has the expected services.
+        /// Tests that the helper method on the <see cref="TestServer"/> uses the provided <see cref="IApplicationBuilder"/>.
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task AspNetCoreBreakdanceTestBase_AddMinimalMvc_CanInvokeMiddleware()
+        {
+            var testBase = new AspNetCoreBreakdanceTestBase();
+            testBase.AddMinimalMvc(app: builder =>
+            {
+                builder.UseWelcomePage("/welcome");
+            });
+
+            testBase.EnsureTestServer();
+
+            var response = await testBase.TestServer.CreateRequest("/welcome").GetAsync();
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var content = await response.Content.ReadAsStringAsync();
+            content.Should().Contain("Your ASP.NET Core application has been successfully started.");
+        }
+
+        /// <summary>
+        /// Tests that the <see cref="TestServer"/> has the expected set of services when calling the helper.
         /// </summary>
         [TestMethod]
-        public void AspNetCoreBreakdanceTestBase_AddApis_HasExpectedServices()
+        public void AspNetCoreBreakdanceTestBase_AddApis_HasExpectedDefaults()
         {
             var testBase = new AspNetCoreBreakdanceTestBase();
             testBase.TestServer.Should().BeNull();
@@ -92,10 +116,10 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
         /// <summary>
-        /// Tests that the <see cref="TestServer"/> has the expected services.
+        /// Tests that the <see cref="TestServer"/> has the expected set of services when calling the helper.
         /// </summary>
         [TestMethod]
-        public void AspNetCoreBreakdanceTestBase_AddViews_HasExpectedServices()
+        public void AspNetCoreBreakdanceTestBase_AddViews_HasExpectedDefaults()
         {
             var testBase = new AspNetCoreBreakdanceTestBase();
             testBase.TestServer.Should().BeNull();
@@ -110,10 +134,10 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
         /// <summary>
-        /// Tests that the <see cref="TestServer"/> has the expected services.
+        /// Tests that the <see cref="TestServer"/> has the expected set of services when calling the helper.
         /// </summary>
         [TestMethod]
-        public void AspNetCoreBreakdanceTestBase_AddRazorPages_HasExpectedServices()
+        public void AspNetCoreBreakdanceTestBase_AddRazorPages_HasExpectedDefaults()
         {
             var testBase = new AspNetCoreBreakdanceTestBase();
             testBase.TestServer.Should().BeNull();
@@ -128,5 +152,4 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         }
 
     }
-
 }
