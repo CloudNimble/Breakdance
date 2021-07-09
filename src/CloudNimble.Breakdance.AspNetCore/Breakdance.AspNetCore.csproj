@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>CloudNimble.Breakdance.AspNetCore</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.AspNetCore</AssemblyName>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
@@ -31,12 +31,11 @@
   <ItemGroup>
     <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataConstants.cs" Link="ODataConstants.cs" />
     <Compile Include="..\CloudNimble.Breakdance.WebApi\WebApiConstants.cs" Link="WebApiConstants.cs" />
-    <Compile Include="..\CloudNimble.Breakdance.WebApi\Extensions\HttpResponseMessageExtensions.cs" Link="Extensions\HttpResponseMessageExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.7" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.7" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.16" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
   </ItemGroup>
 
   <ItemGroup>

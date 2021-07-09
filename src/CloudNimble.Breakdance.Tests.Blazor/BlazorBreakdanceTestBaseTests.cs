@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Breakdance.Tests.Blazor
+namespace CloudNimble.Breakdance.Tests.Blazor
 {
 
     /// <summary>

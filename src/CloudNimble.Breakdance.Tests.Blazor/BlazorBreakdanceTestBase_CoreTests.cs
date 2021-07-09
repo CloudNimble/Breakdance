@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Breakdance.Tests.Blazor
+namespace CloudNimble.Breakdance.Tests.Blazor
 {
 
     /// <summary>

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.Tests.Blazor</AssemblyName>
+    <RootNamespace>CloudNimble.Breakdance.Tests.Blazor</RootNamespace>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 

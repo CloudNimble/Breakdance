@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Breakdance.Tests.WebApi
+namespace CloudNimble.Breakdance.Tests.WebApi
 {
 
     /// <summary>
