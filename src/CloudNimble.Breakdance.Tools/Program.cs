@@ -64,41 +64,35 @@ namespace CloudNimble.Breakdance.Tools
         {
             ColorConsole.WriteEmbeddedColorLine($"Looking for Tests in path [cyan]{path}[/cyan]...", ConsoleColor.Yellow);
 
+            var projects = Directory.GetDirectories(path);
             var tests = new List<string>();
+            var isInProjectFolder = projects.Any(c => c.Contains("obj"));
 
-            // using the specified path, locate any test project folders
-            var projects = Directory.GetDirectories(path, ".test*");
-            //RWM: First find the test folders.
-            tests = projects.Where(c => !string.IsNullOrWhiteSpace(project) ? c.Contains(project) : c.ToLower().Contains(project ?? ".test")).OrderBy(c => c.Length).ToList();
-
-            if (!tests.Any())
+            if (isInProjectFolder)
             {
-                // determine if the current folder is a test project
-                var folderName = Path.GetFileName(path);
-
-                if (folderName.ToLower().Contains(".test"))
-                {
-                    tests.Add(path);
-                    ColorConsole.WriteSuccess("Found a Test project at the root of the specified path.");
-                    ColorConsole.WriteInfo(folderName);
-                    ColorConsole.WriteLine("");
-                }
-                else
-                {
-                    ColorConsole.WriteError($"No tests found.");
-                    return;
-                }
+                //RWM: Optionally test if the current folder has .test in it and complain if it doesn't.
+                ColorConsole.WriteWarning($"'obj' folder found in child folders. Assuming {path} is a test project.");
+                tests.Add(path);
             }
             else
             {
-                ColorConsole.WriteSuccess("The following Test projects were found:");
-                foreach (var test in tests)
-                {
-                    ColorConsole.WriteInfo($"{test}");
-                }
-                ColorConsole.WriteLine("");
+                tests = projects
+                          .Where(c => !string.IsNullOrWhiteSpace(project) ? c.Contains(project) : c.ToLower().Contains(project ?? ".test"))
+                          .OrderBy(c => c.Length).ToList();
             }
 
+            if (!tests.Any())
+            {
+                ColorConsole.WriteError($"No tests found.");
+                return;
+            }
+
+            ColorConsole.WriteSuccess("The following Test projects were found:");
+            foreach (var test in tests)
+            {
+                ColorConsole.WriteInfo($"{test}");
+            }
+            ColorConsole.WriteLine("");
 
             //RWM: Then find the tests using Breakdance
             foreach (var testPath in tests)
