@@ -1,31 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
 
     /// <summary>
-    /// 
+    /// Helper methods for dealing with <see cref="HttpRequestMessage"/>.
     /// </summary>
     public static class HttpClientHelpers
     {
 
         /// <summary>
-        /// 
+        /// Sets up serialization options
         /// </summary>
+        /// <remarks>Slightly different implementation between core versions.</remarks>
         private static readonly JsonSerializerOptions JsonSerializerDefaults = new()
         {
+            // ignore all null-value properties when serializing or deserializing (different implementation in net3.1 vs net5+)
+#if NETCOREAPP3_1
+            IgnoreNullValues = true,
+#endif
+#if NET5_0_OR_GREATER
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+#endif
         };
 
-        #region Public Methods
+#region Public Methods
 
         /// <summary>
         /// Gets an <see cref="HttpRequestMessage"/> instance properly configured to be used to make test requests.
@@ -60,7 +64,7 @@ namespace CloudNimble.Breakdance.AspNetCore
             return request;
         }
 
-        #endregion
+#endregion
 
     }
 

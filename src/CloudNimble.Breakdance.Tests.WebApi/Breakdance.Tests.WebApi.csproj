@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.Tests.WebApi</AssemblyName>
+    <RootNamespace>CloudNimble.Breakdance.Tests.WebApi</RootNamespace>
     <TargetFrameworks>net472;net48</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>

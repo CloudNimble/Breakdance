@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.Tests.AspNetCore</AssemblyName>
+    <RootNamespace>CloudNimble.Breakdance.Tests.AspNetCore</RootNamespace>
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>

@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Breakdance.Tests.WebApi
+namespace CloudNimble.Breakdance.Tests.WebApi
 {
 
     /// <summary>

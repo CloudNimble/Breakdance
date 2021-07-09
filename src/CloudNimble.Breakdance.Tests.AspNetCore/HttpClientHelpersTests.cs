@@ -3,7 +3,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
 
-namespace Breakdance.Tests.AspNetCore
+namespace CloudNimble.Breakdance.Tests.AspNetCore
 {
 
     [TestClass]
