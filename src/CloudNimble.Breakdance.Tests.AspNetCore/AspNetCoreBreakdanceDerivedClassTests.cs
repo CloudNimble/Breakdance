@@ -115,7 +115,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
         {
             var client = TestServer.CreateClient();
 
-            var phrase = "Hello from net5!";
+            var phrase = "Hello from netcore!";
             var postData = new Dictionary<string, string>
             {
                 { "saySomething", phrase }

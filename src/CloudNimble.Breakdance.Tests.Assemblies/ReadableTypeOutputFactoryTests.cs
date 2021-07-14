@@ -172,7 +172,12 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         {
             ReadableTypeOutputFactory.GetTypeDeclarationString(typeof(SomeGenericClass<string>))
                 .Should().NotBeNullOrWhiteSpace()
+#if NETCOREAPP3_1
+                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e>");
+#endif
+#if NET5_0_OR_GREATER
                 .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e>");
+#endif
         }
 
 
@@ -212,7 +217,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
                 .And.BeEquivalentTo("string");
         }
 
-        #endregion
+#endregion
 
     }
 

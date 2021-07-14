@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.Tests.Assemblies</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Tests.Assemblies</RootNamespace>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
   </PropertyGroup>

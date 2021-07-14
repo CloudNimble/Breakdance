@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.Tests.AspNetCore</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Tests.AspNetCore</RootNamespace>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
