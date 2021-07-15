@@ -34,6 +34,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(host);
             result.Should().NotBeNullOrWhiteSpace();
 
+            //RWM: If we're in a .NET Core test, remove the Core crap.
+            result = result.Replace("Core", "");
+
             var baseline = File.ReadAllText("..//..//..//Baselines/HostBuilder.txt");
             result.Should().Be(baseline);
         }

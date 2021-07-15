@@ -4,13 +4,14 @@
     <AssemblyName>CloudNimble.Breakdance.Restier</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Restier</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>Breakdance.Restier</PackageId>
     <Title>Breakdance for Restier</Title>
-    <Summary>Restier is a framework for building convention-based, secure, queryable APIs with ASP.NET. This package contains tools to
+    <Summary>
+      Restier is a framework for building convention-based, secure, queryable APIs with ASP.NET. This package contains tools to
       test Restier services in-memory without having to spin up a dedicated website or IIS.
     </Summary>
     <Description>
@@ -21,7 +22,7 @@
     </Description>
     <PackageTags>$(PackageTags)odata;restier;</PackageTags>
     <PackageReleaseNotes>
-      This portion of the project has been transferred to Microsoft, so this package is obsolete. Replace it with Microsoft.Restier.Breakdance. 
+      This portion of the project has been transferred to Microsoft, so this package is obsolete. Replace it with Microsoft.Restier.Breakdance.
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -30,7 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.Breakdance.AspNetCore\Breakdance.AspNetCore.csproj" />
+    <PackageReference Include="Microsoft.Restier.Breakdance" Version="[1.0.0-rc6*, 2.0)" />
   </ItemGroup>
 
 </Project>
