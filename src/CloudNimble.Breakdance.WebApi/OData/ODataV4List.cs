@@ -1,39 +1,27 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace CloudNimble.Breakdance.WebApi
+namespace CloudNimble.Breakdance.WebApi.OData
 {
 
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ODataV4Entity<T>
+    public class ODataV4List<T> : ODataV4ResponseBase
     {
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty("@odata.type")]
-        public string ODataType { get; set; }
+        [JsonProperty("@odata.count")]
+        public long ODataCount { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonProperty("@odata.id")]
-        public string ODataId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("@odata.editLink")]
-        public string ODataEditLink { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("Id@odata.type")]
-        public string ODataIdType { get; set; }
+        [JsonProperty("@odata.nextLink")]
+        public string ODataNextLink { get; set; }
 
         /// <summary>
         /// 

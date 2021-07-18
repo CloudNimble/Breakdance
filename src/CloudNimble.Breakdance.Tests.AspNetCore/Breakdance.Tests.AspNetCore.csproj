@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>CloudNimble.Breakdance.Tests.AspNetCore</AssemblyName>
@@ -6,6 +6,12 @@
     <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CloudNimble.Breakdance.Tests.WebApi\ExtensionsTests\*.cs" LinkBase="ExtensionTests" />
+    <Compile Include="..\CloudNimble.Breakdance.Tests.WebApi\ODataTests\*.cs" LinkBase="ODataTests" />
+
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="1.3.0" />

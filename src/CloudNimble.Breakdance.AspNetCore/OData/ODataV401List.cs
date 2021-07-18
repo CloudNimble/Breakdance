@@ -1,21 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace CloudNimble.Breakdance.AspNetCore
+namespace CloudNimble.Breakdance.AspNetCore.OData
 {
 
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ODataV4List<T>
+    public class ODataV401List<T> : ODataV401ResponseBase
     {
 
         /// <summary>
         /// 
         /// </summary>
-        [JsonPropertyName("@odata.context")]
-        public string ODataContext { get; set; }
+        [JsonPropertyName("@count")]
+        public long ODataCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonPropertyName("@nextLink")]
+        public string ODataNextLink { get; set; }
 
         /// <summary>
         /// 

@@ -28,11 +28,11 @@
       1.0.0-alpha1:
       - Initial release.
     </PackageReleaseNotes>
-    
+
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\CloudNimble.Breakdance.WebApi\ODataConstants.cs" Link="ODataConstants.cs" />
+    <Compile Include="..\CloudNimble.Breakdance.WebApi\OData\ODataConstants.cs" Link="OData\ODataConstants.cs" />
     <Compile Include="..\CloudNimble.Breakdance.WebApi\WebApiConstants.cs" Link="WebApiConstants.cs" />
   </ItemGroup>
 

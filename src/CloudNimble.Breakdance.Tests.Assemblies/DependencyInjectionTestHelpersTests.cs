@@ -16,6 +16,8 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
     public class DependencyInjectionTestHelpersTests
     {
 
+        private const string projectPath = "..//..//..//";
+
         [TestMethod]
         public void DependencyInjection_ServiceCollection_WritesCorrectly()
         {
@@ -23,7 +25,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(collection);
             result.Should().NotBeNullOrWhiteSpace();
 
-            var baseline = File.ReadAllText("..//..//..//Baselines/ServiceCollection.txt");
+            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/ServiceCollection.txt"));
             result.Should().Be(baseline);
         }
 
@@ -35,17 +37,21 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             result.Should().NotBeNullOrWhiteSpace();
 
             //RWM: If we're in a .NET Core test, remove the Core crap.
-            result = result.Replace("Core", "");
+            //result = result.Replace("Core", "");
 
-            var baseline = File.ReadAllText("..//..//..//Baselines/HostBuilder.txt");
+#if NET5_0_OR_GREATER
+            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET5.txt"));
+#else
+            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NETCOREAPP31.txt"));
+#endif
             result.Should().Be(baseline);
         }
 
-        //[TestMethod]
+        //[DataRow(projectPath)]
+        //[DataTestMethod]
         [BreakdanceManifestGenerator]
         public async Task WriteServiceCollectionOutputLog_Async(string projectPath)
         {
-            //var projectPath = "..//..//..//";
             var collection = GetServiceCollection();
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(collection);
             var fullPath = Path.Combine(projectPath, "Baselines//ServiceCollection.txt");
@@ -58,14 +64,18 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             await Task.FromResult(0);
         }
 
-        //[TestMethod]
+        //[DataRow(projectPath)]
+        //[DataTestMethod]
         [BreakdanceManifestGenerator]
         public void WriteHostBuilderOutputLog(string projectPath)
         {
-            //var projectPath = "..//..//..//";
             var host = GetSimpleMessageBusHost();
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(host);
-            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder.txt");
+#if NET5_0_OR_GREATER
+            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET5.txt");
+#else
+            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NETCOREAPP31.txt");
+#endif
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

@@ -1,7 +1,7 @@
 ﻿#if NETCOREAPP3_1_OR_GREATER
-namespace CloudNimble.Breakdance.AspNetCore
+namespace CloudNimble.Breakdance.AspNetCore.OData
 #else
-namespace CloudNimble.Breakdance.WebApi
+namespace CloudNimble.Breakdance.WebApi.OData
 #endif
 {
 
