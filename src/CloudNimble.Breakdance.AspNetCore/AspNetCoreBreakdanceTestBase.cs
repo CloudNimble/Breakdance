@@ -1,4 +1,5 @@
 ﻿using CloudNimble.Breakdance.Assemblies;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
@@ -41,7 +42,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public AspNetCoreBreakdanceTestBase()
         {
             // replace the TestHostBuilder with one that will generate an IWebHost
-            TestHostBuilder = new WebHostBuilder();
+            TestHostBuilder = WebHost.CreateDefaultBuilder();
         }
 
         #endregion
@@ -239,4 +240,5 @@ namespace CloudNimble.Breakdance.AspNetCore
         #endregion
 
     }
+
 }
