@@ -8,14 +8,18 @@
     <IsNetCore Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' ">true</IsNetCore>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+
     <IncludeSource>false</IncludeSource>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>9.0</LangVersion>
     <StrongNamePublicKey>PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</StrongNamePublicKey>
+
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -46,7 +50,7 @@
     <Serviceable>true</Serviceable>
 
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
-    <RepositoryUrl>https://github.com/CloudNimble/Breakdance</RepositoryUrl>
+    <RepositoryUrl>https://github.com/CloudNimble/Breakdance.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
@@ -73,6 +77,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition=" $(IsTestProject) != 'true' and  $(IsSampleProject) != 'true'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.3.1">
       <PrivateAssets>all</PrivateAssets>
