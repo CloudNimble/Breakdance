@@ -4,6 +4,7 @@
     <RootNamespace>CloudNimble.Breakdance.AspNetCore</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.AspNetCore</AssemblyName>
     <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
+    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -4,6 +4,7 @@
     <AssemblyName>CloudNimble.Breakdance.Restier</AssemblyName>
     <RootNamespace>CloudNimble.Breakdance.Restier</RootNamespace>
     <TargetFramework>net472</TargetFramework>
+    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>

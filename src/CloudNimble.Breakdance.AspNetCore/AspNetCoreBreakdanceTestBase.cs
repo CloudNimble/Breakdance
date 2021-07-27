@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
@@ -158,6 +159,40 @@ namespace CloudNimble.Breakdance.AspNetCore
         }
 
         /// <summary>
+        /// Retrieves an <see cref="HttpClient"/> instance from the <see cref="TestServer"/> and properly configures the <see cref="HttpClient.BaseAddress"/>.
+        /// </summary>
+        /// <param name="routePrefix">
+        /// The string to append to the <see cref="HttpClient.BaseAddress"/> for all requests. Defaults to <see cref="WebApiConstants.RoutePrefix"/>.
+        /// </param>
+        /// <returns>A properly configured <see cref="HttpClient"/>instance from the <see cref="TestServer"/>.</returns>
+        public HttpClient GetHttpClient(string routePrefix = WebApiConstants.RoutePrefix)
+        {
+            var client = TestServer.CreateClient();
+            client.BaseAddress = new Uri(WebApiConstants.Localhost + routePrefix);
+            return client;
+        }
+
+        /// <summary>
+        /// Retrieves an <see cref="HttpClient"/> instance from the <see cref="TestServer"/> and properly configures the <see cref="HttpClient.BaseAddress"/>.
+        /// </summary>
+        /// <param name="authHeader"></param>
+        /// <param name="routePrefix">
+        /// The string to append to the <see cref="HttpClient.BaseAddress"/> for all requests. Defaults to <see cref="WebApiConstants.RoutePrefix"/>.
+        /// </param>
+        /// <returns>A properly configured <see cref="HttpClient"/>instance from the <see cref="TestServer"/>.</returns>
+        public HttpClient GetHttpClient(AuthenticationHeaderValue authHeader, string routePrefix = WebApiConstants.RoutePrefix)
+        {
+            if (authHeader is null)
+            {
+                throw new ArgumentNullException(nameof(authHeader));
+            }
+
+            var client = GetHttpClient(routePrefix);
+            client.DefaultRequestHeaders.Authorization = authHeader;
+            return client;
+        }
+
+        /// <summary>
         /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
@@ -185,19 +220,7 @@ namespace CloudNimble.Breakdance.AspNetCore
             EnsureTestServer();
         }
 
-        /// <summary>
-        /// Retrieves an <see cref="HttpClient"/> instance from the <see cref="TestServer"/> and properly configures the <see cref="HttpClient.BaseAddress"/>.
-        /// </summary>
-        /// <param name="routePrefix">
-        /// The string to append to the <see cref="HttpClient.BaseAddress"/> for all requests. Defaults to <see cref="WebApiConstants.RoutePrefix"/>.
-        /// </param>
-        /// <returns>A properly configured <see cref="HttpClient"/>instance from the <see cref="TestServer"/>.</returns>
-        public HttpClient GetHttpClient(string routePrefix = WebApiConstants.RoutePrefix)
-        {
-            var client = TestServer.CreateClient();
-            client.BaseAddress = new Uri(WebApiConstants.Localhost + routePrefix);
-            return client;
-        }
+
 
         /// <summary>
         /// Method used by test classes to setup the environment.

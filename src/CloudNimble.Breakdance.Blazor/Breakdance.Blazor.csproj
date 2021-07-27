@@ -4,6 +4,7 @@
     <RootNamespace>CloudNimble.Breakdance.Blazor</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.Blazor</AssemblyName>
     <TargetFramework>net5.0</TargetFramework>
+    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -5,6 +5,7 @@
     <AssemblyName>CloudNimble.Breakdance.Assemblies</AssemblyName>
     <TargetFrameworks>net472;netstandard2.1;netcoreapp3.1;net5.0</TargetFrameworks>
     <StrongNamePublicKey>$(StrongNamePublicKey)</StrongNamePublicKey>
+    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   
   <PropertyGroup>
