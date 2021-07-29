@@ -71,6 +71,7 @@
     <PackageReference Include="System.Reflection" Version="[4.3.0, 6.0.0)" />
     <PackageReference Include="System.Reflection.Primitives" Version="[4.3.0, 6.0.0)" />
     <PackageReference Include="System.Threading.Tasks" Version="[4.3.0, 6.0.0)" />
+    <PackageReference Include="System.Net.Http" Version="[4.3.0, 6.0.0)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,6 +81,9 @@
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>CloudNimble.Breakdance.AspNetCore, $(StrongNamePublicKey)</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>CloudNimble.Breakdance.Tests.Assemblies, $(StrongNamePublicKey)</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
