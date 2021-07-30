@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -16,6 +13,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
     /// </summary>
     public class TestCacheWriteDelegatingHandler : TestCacheDelegatingHandlerBase
     {
+
         #region Constructors
 
         /// <summary>
@@ -59,7 +57,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             }
 
             // parse the URI into a content file path structure
-            var (DirectoryPath, FilePath) = GetStaticFilePath(request);
+            var (DirectoryPath, FilePath) = GetPathInfo(request);
 
             // make sure the folder exists to store the query file
             var folderPath = Path.Combine(ResponseFilesPath, DirectoryPath);
@@ -80,6 +78,9 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             taskCompletionSource.SetResult(response);
 
             return await taskCompletionSource.Task.ConfigureAwait(false);
+
         }
+
     }
+
 }
