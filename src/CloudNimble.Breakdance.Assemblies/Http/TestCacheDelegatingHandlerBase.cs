@@ -1,12 +1,7 @@
-﻿using Microsoft.Extensions.FileSystemGlobbing.Internal;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Assemblies.Http
 {
@@ -16,6 +11,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
     /// </summary>
     public class TestCacheDelegatingHandlerBase : DelegatingHandler
     {
+
         #region Properties
 
         /// <summary>
@@ -45,21 +41,21 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to parse.</param>
         /// <returns></returns>
-        internal static (string DirectoryPath, string FilePath) GetStaticFilePath(HttpRequestMessage request)
+        internal static (string DirectoryPath, string FilePath) GetPathInfo(HttpRequestMessage request)
         {
             string directory;
             string fileName;
 
-            var segments = request.RequestUri.Segments.Length;
+            var segmentCount = request.RequestUri.Segments.Length;
             var hasQuery = !string.IsNullOrEmpty(request.RequestUri.Query);
 
-            if (segments == 0)
+            if (segmentCount == 0)
             {
                 // an invalid request was provided
                 throw new ArgumentException(nameof(request), "The specified HttpRequestMessage has an invalid RequestUri.");
             }
 
-            if (segments == 1)
+            if (segmentCount == 1)
             {
                 // return the full host as the directory with a root file
                 return (request.RequestUri.DnsSafeHost, "root");
@@ -70,17 +66,17 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             {
                 // extract the last segment as the file name and strip invalid characters
                 fileName = Regex.Replace(request.RequestUri.Query.Replace("%20", "_"), InvalidCharacterPattern, "");
-                directory = JoinSegments(request, segments - 1);
+                directory = JoinSegments(request, segmentCount - 1);
             }
-            else if (request.RequestUri.Segments[segments - 1].StartsWith("$"))
+            else if (request.RequestUri.Segments[segmentCount - 1].StartsWith("$"))
             {
                 // use the final segment as the fileName (e.g. $metadata, $top=10, $count, etc)
-                fileName = Regex.Replace(request.RequestUri.Segments[segments - 1].Replace("%20", "_"), InvalidCharacterPattern, "");
+                fileName = Regex.Replace(request.RequestUri.Segments[segmentCount - 1].Replace("%20", "_"), InvalidCharacterPattern, "");
 
                 // directory may be empty if there are no other segments
-                if (segments > 2)
+                if (segmentCount > 2)
                 {
-                    directory = JoinSegments(request, segments - 2);
+                    directory = JoinSegments(request, segmentCount - 2);
                 }
                 else
                 {
@@ -93,7 +89,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
                 fileName = "root";
 
                 // extract all the inside segments as the directory name
-                directory = JoinSegments(request, segments - 1);
+                directory = JoinSegments(request, segmentCount - 1);
             }
 
             // pre-pend the DNS-save host name and return the components in a tuple

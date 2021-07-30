@@ -82,9 +82,6 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>CloudNimble.Breakdance.AspNetCore, $(StrongNamePublicKey)</_Parameter1>
     </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.Breakdance.Tests.Assemblies, $(StrongNamePublicKey)</_Parameter1>
-    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>

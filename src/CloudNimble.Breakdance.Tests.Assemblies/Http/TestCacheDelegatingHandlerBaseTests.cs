@@ -1,14 +1,9 @@
-﻿using CloudNimble.Breakdance.Assemblies;
-using CloudNimble.Breakdance.Assemblies.Http;
+﻿using CloudNimble.Breakdance.Assemblies.Http;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {
@@ -65,11 +60,12 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         public void GetStaticFilePath_CanParse_Uris(string directoryPath, string fileName, string requestUri)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            var (DirectoryPath, FilePath) = TestCacheDelegatingHandlerBase.GetStaticFilePath(request);
+            var (DirectoryPath, FilePath) = TestCacheDelegatingHandlerBase.GetPathInfo(request);
             Path.GetFileName(FilePath).IndexOfAny(Path.GetInvalidFileNameChars()).Should().BeLessThan(0);
             DirectoryPath.Should().Be(directoryPath);
             FilePath.Should().Be(fileName);
         }
 
     }
+
 }
