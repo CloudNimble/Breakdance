@@ -1,17 +1,12 @@
-﻿using CloudNimble.Breakdance.Assemblies;
-using CloudNimble.Breakdance.Assemblies.Http;
+﻿using CloudNimble.Breakdance.Assemblies.Http;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Http;
-using Microsoft.AspNetCore.TestHost;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {

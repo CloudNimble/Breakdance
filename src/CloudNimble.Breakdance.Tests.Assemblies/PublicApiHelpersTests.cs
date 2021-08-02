@@ -25,7 +25,8 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         {
             var definitions = PublicApiHelpers.GenerateTypeDefinitionsForAssembly("CloudNimble.Breakdance.Assemblies.dll");
             definitions.Should().NotBeNullOrEmpty();
-            definitions.Should().HaveCount(16);
+            // JHC: updated this to add the 3 new classes for the TestCacheDelegatingHandler
+            definitions.Should().HaveCount(19);
         }
 
         [TestMethod]
