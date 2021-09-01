@@ -9,6 +9,7 @@ using CloudNimble.Breakdance.Assemblies.Http;
 using FluentAssertions;
 using System.Threading;
 using System.IO;
+using System.Net.Http.Headers;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {
@@ -48,6 +49,22 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             content.Should().NotBeNullOrEmpty();
 
             File.Exists(Path.Combine(ResponseFilesPath, directoryPath, fileName)).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public async Task TestCacheWriteDelegatingHandler_FileExtension_ReflectsMediaType()
+        {
+            var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath);
+            handler.InnerHandler = new FakeHttpResponseHandler();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/$metadata");
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
+            var response = await handler.SendAsyncInternal(request);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var content = await response.Content.ReadAsStringAsync();
+            content.Should().NotBeNullOrEmpty();
+
+            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "$metadata.xml")).Should().BeTrue();
         }
 
         private class FakeHttpResponseHandler : DelegatingHandler

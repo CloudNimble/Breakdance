@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Http;
 using Microsoft.AspNetCore.TestHost;
 using System.Net;
+using System.Net.Http.Headers;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {
@@ -57,6 +58,21 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/missing-testcache-file");
             Action act = () => handler.SendAsyncInternal(request).GetAwaiter().GetResult();
             act.Should().Throw<InvalidOperationException>().WithMessage("No test cache response file could be found at the path: *");
+        }
+
+        [TestMethod]
+        public async Task TestCacheReadDelegatingHandler_MediaType_ReflectsFileExtension()
+        {
+            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "$metadata.xml")).Should().BeTrue();
+
+            var handler = new TestCacheReadDelegatingHandler(ResponseFilesPath);
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/$metadata");
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
+            var response = await handler.SendAsyncInternal(request);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.Content.Headers.ContentType.ToString().Should().StartWith("text/xml");
+            var content = await response.Content.ReadAsStringAsync();
+            content.Should().NotBeNullOrEmpty();
         }
 
     }
