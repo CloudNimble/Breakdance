@@ -20,6 +20,15 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// </summary>
         internal static string ResponseFilesPath = "..\\..\\..\\ResponseFiles";
 
+        /// <summary>
+        /// Provides a set of URIs for testing functionality of the <see cref="TestCacheDelegatingHandlerBase"/>.
+        /// </summary>
+        /// <remarks>
+        /// PLEASE NOTE: Based on your installation folder and your operating system, you may end up with a file path that
+        ///              exceeds the allowable maximum for your operating system.  If that is the case, you can choose to comment
+        ///              out the longer lines in the data set below or modify the folder specified in the <see cref="ResponseFilesPath"/>
+        ///              variable above to shorten the path.
+        /// </remarks>
         internal static IEnumerable<object[]> GetPathsAndTestUris =>
             new List<object[]>
             {
@@ -55,6 +64,12 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
                 new object[] { "services.odata.org\\TripPinRESTierService\\Airlines\\('AA')", "root", "https://services.odata.org/TripPinRESTierService/Airlines('AA')" },
             };
 
+        /// <summary>
+        /// Tests that the <see cref="TestCacheDelegatingHandlerBase"/> can correctly parse all of the records provided in <see cref="GetPathsAndTestUris"/>.
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <param name="fileName"></param>
+        /// <param name="requestUri"></param>
         [TestMethod]
         [DynamicData(nameof(GetPathsAndTestUris))]
         public void GetStaticFilePath_CanParse_Uris(string directoryPath, string fileName, string requestUri)

@@ -35,6 +35,14 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 
         #endregion
 
+        /// <summary>
+        /// Tests that the <see cref="TestCacheWriteDelegatingHandler"/> can parse the provided set of URIs and read the associated file.
+        /// </summary>
+        /// <param name="directoryPath">Folder containing test cache file.</param>
+        /// <param name="fileName">Test cache file name.</param>
+        /// <param name="requestUri">URI to parse.</param>
+        /// <returns></returns>
+        /// <remarks>If you have not already generated the files for this test, you should run the TestCacheWriteDelegatingHandler_CanWriteFile test first.</remarks>
         [TestMethod]
         [DynamicData(nameof(GetPathsAndTestUris))]
         public async Task TestCacheWriteDelegatingHandler_CanWriteFile(string directoryPath, string fileName, string requestUri)
@@ -51,6 +59,11 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             File.Exists(Path.Combine(ResponseFilesPath, directoryPath, fileName)).Should().BeTrue();
         }
 
+        /// <summary>
+        /// Tests that providing a <see cref="MediaTypeWithQualityHeaderValue"/> in the Accept header will cause the <see cref="TestCacheWriteDelegatingHandler"/>
+        /// to generate a file with a specific extension.
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestCacheWriteDelegatingHandler_FileExtension_ReflectsMediaType()
         {
@@ -67,6 +80,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "$metadata.xml")).Should().BeTrue();
         }
 
+        /// <summary>
+        /// A fake <see cref="DelegatingHandler"/> to provide the required base handler.
+        /// </summary>
         private class FakeHttpResponseHandler : DelegatingHandler
         {
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
