@@ -53,7 +53,8 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             var pathComponents = GetPathInfo(request);
 
             // get the full path for the response file
-            var fullPath = Path.Combine(ResponseFilesPath, pathComponents.DirectoryPath, pathComponents.FilePath);
+            var filePath = $"{pathComponents.FilePath}{GetFileExtensionString(request)}";
+            var fullPath = Path.Combine(ResponseFilesPath, pathComponents.DirectoryPath, filePath);
 
             if (!File.Exists(fullPath))
             {
@@ -68,7 +69,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
 
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(fileContent)
+                Content = new StringContent(fileContent, Encoding.UTF8, GetResponseMediaTypeString(filePath))
             };
 
             var taskCompletionSource = new TaskCompletionSource<HttpResponseMessage>();

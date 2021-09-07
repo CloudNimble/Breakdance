@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MimeTypes;
+using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 
@@ -107,6 +109,35 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         {
             var directory = Regex.Replace(string.Join("\\", request.RequestUri.Segments, 1, index).Replace("(", "\\(").Replace("%20", "_"), InvalidCharacterPattern, "");
             return Path.Combine(request.RequestUri.DnsSafeHost, directory ?? "");
+        }
+
+        /// <summary>
+        /// Maps the file extension in the specified path to a known list of media types.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        protected static string GetResponseMediaTypeString(string filePath)
+        {
+            // get the file extension from the path
+            var extension = Path.GetExtension(filePath);
+            return MimeTypeMap.GetMimeType(extension);
+        }
+
+        /// <summary>
+        /// Maps the MediaType header in the <see cref="HttpRequestMessage"/> to a known list of file extensions.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        protected static string GetFileExtensionString(HttpRequestMessage request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            // get the acceptable content types specified by the request message
+            var acceptHeaders = request.Headers?.Accept;
+            return MimeTypeMap.GetExtension(acceptHeaders.FirstOrDefault()?.MediaType);
         }
 
     }
