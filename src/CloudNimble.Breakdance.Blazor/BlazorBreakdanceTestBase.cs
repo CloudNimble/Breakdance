@@ -40,14 +40,14 @@ namespace CloudNimble.Breakdance.Blazor
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
         /// <returns>A service object of type <typeparamref name="T"/>.</returns>
-        public T GetService<T>() where T : class => BUnitTestContext?.Services.GetService<T>() ?? TestHost?.Services.GetService<T>();
+        public override T GetService<T>() where T : class => BUnitTestContext?.Services.GetService<T>() ?? base.GetService<T>();
 
         /// <summary>
         /// Get an enumeration of services of type <typeparamref name="T"/> from the System.IServiceProvider.
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
         /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
-        public IEnumerable<T> GetServices<T>() where T : class  => BUnitTestContext?.Services.GetServices<T>() ?? TestHost?.Services.GetServices<T>();
+        public override IEnumerable<T> GetServices<T>() where T : class  => BUnitTestContext?.Services.GetServices<T>() ?? base.GetServices<T>();
 
         /// <summary>
         /// Properly instantiates the <see cref="BUnitTestContext"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context.
