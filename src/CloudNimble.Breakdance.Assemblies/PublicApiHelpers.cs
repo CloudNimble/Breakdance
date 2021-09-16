@@ -13,10 +13,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Assemblies
-{ 
+{
     /// <summary>
     /// 
     /// </summary>
+    /// <remarks>
+    /// This type originally lived in Microsoft.VisualStudio.TestTools.UnitTesting but was removed from V2.
+    /// </remarks>
     public partial class PublicApiHelpers
     {
 

@@ -129,3 +129,6 @@ dotnet_style_qualification_for_property = false:suggestion
 
 # CA1031: Do not catch general exception types
 dotnet_diagnostic.CA1031.severity = suggestion
+
+# CA1200: Avoid using cref tags with a prefix
+dotnet_diagnostic.CA1200.severity = silent

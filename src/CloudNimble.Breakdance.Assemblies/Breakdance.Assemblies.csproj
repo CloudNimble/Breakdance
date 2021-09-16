@@ -38,7 +38,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net46|AnyCPU'">
-    <NoWarn>;NU5125;NU5105;NU5048;NU5014;NU5104;CS0649</NoWarn>
+    <NoWarn>;NU5125;NU5105;NU5048;NU5014;NU5104;CS0649;CA1200</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
