@@ -64,7 +64,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             Directory.CreateDirectory(folderPath);
 
             // get the full path for the response file
-            var fullPath = Path.Combine(ResponseFilesPath, DirectoryPath, FilePath);
+            var fullPath = Path.Combine(ResponseFilesPath, DirectoryPath, $"{FilePath}{GetFileExtensionString(request)}");
 
             var fileContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 

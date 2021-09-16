@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <AssemblyName>CloudNimble.Breakdance.Tests.Assemblies</AssemblyName>
-    <RootNamespace>CloudNimble.Breakdance.Tests.Assemblies</RootNamespace>
-    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-    <RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>CloudNimble.Breakdance.Tests.Assemblies</AssemblyName>
+		<RootNamespace>CloudNimble.Breakdance.Tests.Assemblies</RootNamespace>
+		<TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+		<RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.25" />
-    <PackageReference Include="SimpleMessageBus.Dispatch" Version="2.0.0-CI-20201112-223842" />
-    <PackageReference Include="SimpleMessageBus.Hosting" Version="2.0.0-CI-20201112-223842" />
-    <PackageReference Include="SimpleMessageBus.Publish" Version="2.0.0-CI-20201112-223842" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.25" />
+		<PackageReference Include="SimpleMessageBus.Dispatch" Version="2.0.0-CI-20201112-223842" />
+		<PackageReference Include="SimpleMessageBus.Hosting" Version="2.0.0-CI-20201112-223842" />
+		<PackageReference Include="SimpleMessageBus.Publish" Version="2.0.0-CI-20201112-223842" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <AssemblyAttribute Include="CloudNimble.Breakdance.Assemblies.BreakdanceTestAssembly" />
-  </ItemGroup>
+	<ItemGroup>
+		<AssemblyAttribute Include="CloudNimble.Breakdance.Assemblies.BreakdanceTestAssembly" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update=".runsettings">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.*.json">
-      <DependentUpon>appsettings.json</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update=".runsettings">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="appsettings.*.json">
+			<DependentUpon>appsettings.json</DependentUpon>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ResponseFiles\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="ResponseFiles\" />
+	</ItemGroup>
 
 </Project>

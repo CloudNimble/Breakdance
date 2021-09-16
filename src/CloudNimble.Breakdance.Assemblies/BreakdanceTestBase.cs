@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CloudNimble.Breakdance.Assemblies
 {
@@ -99,6 +101,20 @@ namespace CloudNimble.Breakdance.Assemblies
         public virtual void TestTearDown()
         {
         }
+
+        /// <summary>
+        /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
+        /// </summary>
+        /// <typeparam name="T">The type of service object to get.</typeparam>
+        /// <returns>A service object of type <typeparamref name="T"/>.</returns>
+        public virtual T GetService<T>() where T : class => TestHost?.Services.GetService<T>();
+
+        /// <summary>
+        /// Get an enumeration of services of type <typeparamref name="T"/> from the System.IServiceProvider.
+        /// </summary>
+        /// <typeparam name="T">The type of service object to get.</typeparam>
+        /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
+        public virtual IEnumerable<T> GetServices<T>() where T : class => TestHost?.Services.GetServices<T>();
 
         #endregion
 
