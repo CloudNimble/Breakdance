@@ -66,12 +66,10 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public void AddMinimalMvc(Action<MvcOptions> options = default, Action<IApplicationBuilder> app = default)
         {
-            TestHostBuilder.ConfigureServices(services =>
-            {
+            TestHostBuilder.ConfigureServices(services => {
                 services.AddMvcCore(options ?? (mvcOptions => { }));
             })
-            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
-            {
+            .Configure(app ?? ((IApplicationBuilder appBuilder) => {
                 appBuilder.UseRouting();
                 appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
             }));
@@ -93,12 +91,10 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public void AddApis(Action<MvcOptions> options = default, Action<IApplicationBuilder> app = default)
         {
-            TestHostBuilder.ConfigureServices(services =>
-            {
+            TestHostBuilder.ConfigureServices(services => {
                 services.AddControllers(options ?? (mvcoptions => { }));
             })
-            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
-            {
+            .Configure(app ?? ((IApplicationBuilder appBuilder) => {
                 appBuilder.UseRouting();
                 appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
             }));
@@ -123,12 +119,10 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public void AddViews(Action<MvcOptions> options = default, Action<IApplicationBuilder> app = default)
         {
-            TestHostBuilder.ConfigureServices(services =>
-            {
+            TestHostBuilder.ConfigureServices(services => {
                 services.AddControllersWithViews(options ?? (mvcOptions => { }));
             })
-            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
-            {
+            .Configure(app ?? ((IApplicationBuilder appBuilder) => {
                 appBuilder.UseRouting();
                 appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
             }));
@@ -147,12 +141,10 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public void AddRazorPages(Action<RazorPagesOptions> options = default, Action<IApplicationBuilder> app = default)
         {
-            TestHostBuilder.ConfigureServices(services =>
-            {
+            TestHostBuilder.ConfigureServices(services => {
                 services.AddRazorPages(options ?? (razorOptions => { }));
             })
-            .Configure(app ?? ((IApplicationBuilder appBuilder) =>
-            {
+            .Configure(app ?? ((IApplicationBuilder appBuilder) => {
                 appBuilder.UseRouting();
                 appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
             }));
@@ -197,14 +189,14 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
         /// <returns>A service object of type <typeparamref name="T"/>.</returns>
-        public T GetService<T>() where T : class => TestServer?.Services.GetService<T>();
+        public override T GetService<T>() where T : class => TestServer?.Services.GetService<T>() ?? base.GetService<T>();
 
         /// <summary>
         /// Get an enumeration of services of type <typeparamref name="T"/> from the System.IServiceProvider.
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
         /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
-        public IEnumerable<T> GetServices<T>() where T : class => TestServer?.Services.GetServices<T>();
+        public override IEnumerable<T> GetServices<T>() where T : class => TestServer?.Services.GetServices<T>() ?? base.GetServices<T>();
 
         /// <summary>
         /// Method used by test assemblies to setup the environment.
@@ -219,8 +211,6 @@ namespace CloudNimble.Breakdance.AspNetCore
             base.AssemblySetup();
             EnsureTestServer();
         }
-
-
 
         /// <summary>
         /// Method used by test classes to setup the environment.
