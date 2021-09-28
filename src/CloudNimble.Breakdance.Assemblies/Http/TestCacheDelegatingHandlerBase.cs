@@ -21,7 +21,17 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// </summary>
         public string ResponseFilesPath { get; private set; }
 
+        /// <summary>
+        /// Pattern used in RegEx to remove invalid characters from the file path
+        /// </summary>
         private static string InvalidCharacterPattern = @"[\/\?&:]";
+
+        private static string GroupingCharacterPattern = @"[\(\)\,\$]";
+
+        /// <summary>
+        /// Pattern used in RegEx to extract $expand segments for conversion to directories
+        /// </summary>
+        private static string ExpandSegmentPattern = @"(\$expand=[^\$]+)+";
 
         #endregion
 
@@ -42,11 +52,12 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// Parses the RequestUri in the <see cref="HttpRequestMessage"/> into a <see cref="Path"/>-safe string.
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> to parse.</param>
+        /// <param name="responseFilePath">Root folder for storing cache files.</param>
         /// <returns></returns>
-        internal static (string DirectoryPath, string FilePath) GetPathInfo(HttpRequestMessage request)
+        internal static (string DirectoryPath, string FilePath) GetPathInfo(HttpRequestMessage request, string responseFilePath)
         {
             string directory;
-            string fileName;
+            string fileName = string.Empty;
 
             var segmentCount = request.RequestUri.Segments.Length;
             var hasQuery = !string.IsNullOrEmpty(request.RequestUri.Query);
@@ -60,15 +71,27 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             if (segmentCount == 1)
             {
                 // return the full host as the directory with a root file
-                return (request.RequestUri.DnsSafeHost, "root");
+                return (request.RequestUri.DnsSafeHost, $"root{GetFileExtensionString(request)}");
             }
 
             // if the URI includes a query, we will use it as the filename instead of the last segment
             if (hasQuery)
             {
-                // extract the last segment as the file name and strip invalid characters
-                fileName = Regex.Replace(request.RequestUri.Query.Replace("%20", "_"), InvalidCharacterPattern, "");
                 directory = JoinSegments(request, segmentCount - 1);
+
+                // extract the last segment as the file name and strip invalid characters
+                var query = Regex.Replace(request.RequestUri.Query.Replace("%20", "_"), InvalidCharacterPattern, "");
+
+                // parse out any $expand segments
+                var match = Regex.Match(query, ExpandSegmentPattern, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture);
+
+                // the remainder is the filename
+                fileName = match.Length > 0 ? query.Replace(match.Value, "") : query;
+
+                // break up the match into nested folders and remove parens
+                var matchDirectories = match.Value.Replace("$", "\\");
+                directory += matchDirectories;
+
             }
             else if (request.RequestUri.Segments[segmentCount - 1].StartsWith("$"))
             {
@@ -87,15 +110,36 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             }
             else
             {
-                // if there is no query, the file name will always be "root"
-                fileName = "root";
-
                 // extract all the inside segments as the directory name
                 directory = JoinSegments(request, segmentCount - 1);
             }
 
+            // one more pass to clean out extra characters
+            directory = Regex.Replace(directory, GroupingCharacterPattern, "");
+            fileName = Regex.Replace(fileName, GroupingCharacterPattern, "");
+
+            // ensure default fileName
+            fileName = string.IsNullOrEmpty(fileName) ? "root" : fileName;
+
+            // the full path must not exceed 260 characters, so try to reduce the length of the fileName if necessary
+            var fullPath = Path.Combine(Path.GetFullPath(responseFilePath), directory, $"{fileName}{GetFileExtensionString(request)}");
+
+            if (fullPath.Length > 260)
+            {
+                var correction = fullPath.Length - 260;
+
+                if (fileName.Length >= correction)
+                {
+                    fileName = fileName.Substring(0, fileName.Length - correction - 1);
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Unable to convert the specified URI into a path that can be stored on the file system because the path is too long.  Full path = {fullPath}");
+                }
+            }
+
             // pre-pend the DNS-save host name and return the components in a tuple
-            return (directory, fileName);
+            return (directory, $"{fileName}{GetFileExtensionString(request)}");
 
         }
 
@@ -116,7 +160,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        protected static string GetResponseMediaTypeString(string filePath)
+        public static string GetResponseMediaTypeString(string filePath)
         {
             // get the file extension from the path
             var extension = Path.GetExtension(filePath);
@@ -128,7 +172,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected static string GetFileExtensionString(HttpRequestMessage request)
+        public static string GetFileExtensionString(HttpRequestMessage request)
         {
             if (request == null)
             {

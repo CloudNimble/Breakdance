@@ -50,11 +50,10 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             }
 
             // parse the URI into a content file path structure
-            var pathComponents = GetPathInfo(request);
+            var pathComponents = GetPathInfo(request, ResponseFilesPath);
 
             // get the full path for the response file
-            var filePath = $"{pathComponents.FilePath}{GetFileExtensionString(request)}";
-            var fullPath = Path.Combine(ResponseFilesPath, pathComponents.DirectoryPath, filePath);
+            var fullPath = Path.Combine(ResponseFilesPath, pathComponents.DirectoryPath, pathComponents.FilePath);
 
             if (!File.Exists(fullPath))
             {
@@ -69,7 +68,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
 
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(fileContent, Encoding.UTF8, GetResponseMediaTypeString(filePath))
+                Content = new StringContent(fileContent, Encoding.UTF8, GetResponseMediaTypeString(pathComponents.FilePath))
             };
 
             var taskCompletionSource = new TaskCompletionSource<HttpResponseMessage>();
