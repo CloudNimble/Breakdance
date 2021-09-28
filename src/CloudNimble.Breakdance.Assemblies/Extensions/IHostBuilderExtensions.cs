@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
 
     /// <summary>
-    /// 
+    /// A set of enhancements for an <see cref="IHostBuilder"/> instance.
     /// </summary>
     public static class IHostBuilderExtensions
     {
@@ -33,6 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             throw new NotSupportedException($"Type '{builder.GetType()}' is not supported!");
         }
+
     }
 
 }

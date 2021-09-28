@@ -64,7 +64,28 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             Directory.CreateDirectory(folderPath);
 
             // get the full path for the response file
-            var fullPath = Path.Combine(ResponseFilesPath, DirectoryPath, $"{FilePath}{GetFileExtensionString(request)}");
+            var fullPath = Path.Combine(ResponseFilesPath, DirectoryPath, FilePath);
+
+            // fullPath cannot exceed 260 characters
+            if (fullPath.Length > 260)
+            {
+                var filePathWithoutExtension = Path.GetFileNameWithoutExtension(FilePath);
+                var extension = Path.GetExtension(FilePath);
+                var correction = fullPath.Length - 260;
+
+                if (filePathWithoutExtension.Length >= correction)
+                {
+                    filePathWithoutExtension = filePathWithoutExtension.Substring(0, filePathWithoutExtension.Length - correction);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Unable to convert the specified URI into a path that can be stored on the file system.");
+                }
+
+                FilePath = $"{filePathWithoutExtension}{extension}";
+                fullPath = Path.Combine(ResponseFilesPath, DirectoryPath, FilePath);
+            }
+            //fullPath = fullPath.Substring(0, fullPath.Length > 260 ? 260 : fullPath.Length);
 
             var fileContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 

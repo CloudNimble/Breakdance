@@ -23,6 +23,9 @@ namespace CloudNimble.Breakdance.Assemblies.Http
 
         private static string InvalidCharacterPattern = @"[\/\?&:]";
 
+        //private static string ExpandSegmentPattern = @"(?<ex>\$expand=[^\$]+)+(?<rem>.*)";
+        private static string ExpandSegmentPattern = @"(\$expand=[^\$]+)+";
+
         #endregion
 
         #region Constructors
@@ -46,7 +49,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         internal static (string DirectoryPath, string FilePath) GetPathInfo(HttpRequestMessage request)
         {
             string directory;
-            string fileName;
+            string fileName = null;
 
             var segmentCount = request.RequestUri.Segments.Length;
             var hasQuery = !string.IsNullOrEmpty(request.RequestUri.Query);
@@ -60,15 +63,44 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             if (segmentCount == 1)
             {
                 // return the full host as the directory with a root file
-                return (request.RequestUri.DnsSafeHost, "root");
+                return (request.RequestUri.DnsSafeHost, $"root{GetFileExtensionString(request)}");
             }
 
             // if the URI includes a query, we will use it as the filename instead of the last segment
             if (hasQuery)
             {
-                // extract the last segment as the file name and strip invalid characters
-                fileName = Regex.Replace(request.RequestUri.Query.Replace("%20", "_"), InvalidCharacterPattern, "");
                 directory = JoinSegments(request, segmentCount - 1);
+
+                // extract the last segment as the file name and strip invalid characters
+                var query = Regex.Replace(request.RequestUri.Query.Replace("%20", "_"), InvalidCharacterPattern, "");
+
+                // parse out any $expand segments
+                var match = Regex.Match(query, ExpandSegmentPattern, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture);
+
+                // the remainder is the filename
+                fileName = query.Replace(match.Value, "");
+
+                // break up the match into nested folders and remove parens
+                var matchDirectories = match.Value.Replace("$", "\\");
+                directory += matchDirectories;
+
+                /*
+                var matches = Regex.Matches(query, ExpandSegmentPattern, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture);
+                foreach (Match match in matches)
+                {
+                    foreach (Group group in match.Groups)
+                    {
+                        if (group.Name == "ex")
+                        {
+                            directory = Path.Combine(directory, group.ToString());
+                        }
+                        else if (group.Name == "rem")
+                        {
+                            fileName = group.ToString();
+                        }
+                    }
+                }
+                */
             }
             else if (request.RequestUri.Segments[segmentCount - 1].StartsWith("$"))
             {
@@ -87,15 +119,14 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             }
             else
             {
-                // if there is no query, the file name will always be "root"
-                fileName = "root";
-
                 // extract all the inside segments as the directory name
                 directory = JoinSegments(request, segmentCount - 1);
             }
 
+            //fileName = fileName.Substring(0, fileName.Length < 100 ? fileName.Length : 100);
+
             // pre-pend the DNS-save host name and return the components in a tuple
-            return (directory, fileName);
+            return (directory, $"{fileName ?? "root"}{GetFileExtensionString(request)}");
 
         }
 
@@ -116,7 +147,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        protected static string GetResponseMediaTypeString(string filePath)
+        public static string GetResponseMediaTypeString(string filePath)
         {
             // get the file extension from the path
             var extension = Path.GetExtension(filePath);
@@ -128,7 +159,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected static string GetFileExtensionString(HttpRequestMessage request)
+        public static string GetFileExtensionString(HttpRequestMessage request)
         {
             if (request == null)
             {
