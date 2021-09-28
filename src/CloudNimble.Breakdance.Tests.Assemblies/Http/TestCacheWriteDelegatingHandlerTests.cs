@@ -78,7 +78,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             var content = await response.Content.ReadAsStringAsync();
             content.Should().NotBeNullOrEmpty();
 
-            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "$metadata.xml")).Should().BeTrue();
+            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
         }
 
         /// <summary>

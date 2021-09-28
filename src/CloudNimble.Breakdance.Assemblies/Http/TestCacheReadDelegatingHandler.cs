@@ -50,7 +50,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             }
 
             // parse the URI into a content file path structure
-            var pathComponents = GetPathInfo(request);
+            var pathComponents = GetPathInfo(request, ResponseFilesPath);
 
             // get the full path for the response file
             var fullPath = Path.Combine(ResponseFilesPath, pathComponents.DirectoryPath, pathComponents.FilePath);

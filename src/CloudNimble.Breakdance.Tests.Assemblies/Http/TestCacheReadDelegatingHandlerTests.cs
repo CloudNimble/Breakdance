@@ -84,7 +84,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         [TestMethod]
         public async Task TestCacheReadDelegatingHandler_MediaType_ReflectsFileExtension()
         {
-            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "$metadata.xml")).Should().BeTrue();
+            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
             var handler = new TestCacheReadDelegatingHandler(ResponseFilesPath);
             var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/$metadata");
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
