@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>CloudNimble.Breakdance.Blazor</RootNamespace>
     <AssemblyName>CloudNimble.Breakdance.Blazor</AssemblyName>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
     <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
@@ -15,7 +15,9 @@
   <ItemGroup>
     <PackageReference Include="bunit" Version="[1.1.5, 2.0.0)" />
     <PackageReference Include="Flurl.Signed" Version="[3.0.2, 4.0.0)" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="[5.0.0, 6.0.0)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+
   </ItemGroup>
 
   <ItemGroup>

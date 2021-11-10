@@ -33,7 +33,12 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
             RegisterServices.Should().BeNull();
+#if NET6_0_OR_GREATER
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(33);
+#endif
+#if NET5_0
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(32);
+#endif
             BUnitTestContext.Services.Should().HaveCount(13);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             BUnitTestContext.Services.GetService<IConfiguration>().Should().NotBeNull();
@@ -107,7 +112,12 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             RegisterServices.Should().BeNull();
             BUnitTestContext.Services.Should().HaveCount(13);
             BUnitTestContext.Services.GetService<DummyService>().Should().BeNull();
+#if NET6_0_OR_GREATER
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(34);
+#endif
+#if NET5_0
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(33);
+#endif
             TestHost.Services.GetService<DummyService>().Should().NotBeNull();
             GetService<DummyService>().Should().NotBeNull();
         }

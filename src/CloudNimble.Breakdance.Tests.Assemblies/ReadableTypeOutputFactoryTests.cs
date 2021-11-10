@@ -175,15 +175,18 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 #if NETCOREAPP3_1
                 .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e>");
 #endif
-#if NET5_0_OR_GREATER
+#if NET5_0
                 .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e>");
+#endif
+#if NET6_0
+                .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e>");
 #endif
         }
 
 
-        #endregion
+#endregion
 
-        #region GenericTypeName
+#region GenericTypeName
 
         [TestMethod]
         public void ReadableTypeOutputFactory_GetGenericTypeName_List_OfString()

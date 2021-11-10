@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CloudNimble.Breakdance.Assemblies
 {
@@ -6,6 +7,7 @@ namespace CloudNimble.Breakdance.Assemblies
     /// <summary>
     /// 
     /// </summary>
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class TypeDefinition
     {
 
@@ -25,6 +27,12 @@ namespace CloudNimble.Breakdance.Assemblies
         /// 
         /// </summary>
         public List<MemberDefinition> Members { get; private set; }
+
+        /// <summary>
+        /// Returns a string suitable for display in the debugger. Ensures such strings are compiled by the runtime and not interpreted by the currently-executing language.
+        /// </summary>
+        /// <remarks>http://blogs.msdn.com/b/jaredpar/archive/2011/03/18/debuggerdisplay-attribute-best-practices.aspx</remarks>
+        internal string DebuggerDisplay => $"TypeName: {TypeName}, AttributeCount: {Attributes.Count}, MemberCount: {Members.Count}";
 
         #endregion
 

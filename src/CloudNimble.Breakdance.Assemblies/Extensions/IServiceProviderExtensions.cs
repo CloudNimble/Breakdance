@@ -28,8 +28,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (provider is ServiceProvider serviceProvider)
             {
+#if NET6_0_OR_GREATER
+                return GetServicesFromServiceProviderEngine(serviceProvider);
+#endif
+#if NET5_0 || NETCOREAPP3_1 || NETSTANDARD2_0_OR_GREATER || NET472_OR_GREATER
                 var engine = serviceProvider.GetFieldValue("_engine");
                 return GetServicesFromServiceProviderEngine(engine);
+#endif
             }
 
             else if (provider.GetType().Name == "ServiceProviderEngineScope")
