@@ -38,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="ResponseFiles\" />
+	  <Folder Include="ResponseFiles\" />
 	</ItemGroup>
 
 </Project>

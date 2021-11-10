@@ -45,18 +45,19 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// <remarks>If you have not already generated the files for this test, you should run the TestCacheWriteDelegatingHandler_CanWriteFile test first.</remarks>
         [TestMethod]
         [DynamicData(nameof(GetPathsAndTestUris))]
-        public async Task TestCacheWriteDelegatingHandler_CanWriteFile(string directoryPath, string fileName, string requestUri)
+        public async Task TestCacheWriteDelegatingHandler_CanWriteFile(string mediaType, string directoryPath, string fileName, string requestUri)
         {
             var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath);
             handler.InnerHandler = new FakeHttpResponseHandler();
 
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
             var response = await handler.SendAsyncInternal(request);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var content = await response.Content.ReadAsStringAsync();
             content.Should().NotBeNullOrEmpty();
 
-            File.Exists(Path.Combine(ResponseFilesPath, directoryPath, fileName)).Should().BeTrue();
+            File.Exists(Path.Combine(ResponseFilesPath, directoryPath, $"{fileName}{TestCacheDelegatingHandlerBase.GetFileExtensionString(request)}")).Should().BeTrue();
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             var content = await response.Content.ReadAsStringAsync();
             content.Should().NotBeNullOrEmpty();
 
-            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "$metadata.xml")).Should().BeTrue();
+            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
         }
 
         /// <summary>

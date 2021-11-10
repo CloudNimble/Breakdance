@@ -57,14 +57,14 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             }
 
             // parse the URI into a content file path structure
-            var (DirectoryPath, FilePath) = GetPathInfo(request);
+            var (DirectoryPath, FilePath) = GetPathInfo(request, ResponseFilesPath);
 
             // make sure the folder exists to store the query file
             var folderPath = Path.Combine(ResponseFilesPath, DirectoryPath);
             Directory.CreateDirectory(folderPath);
 
             // get the full path for the response file
-            var fullPath = Path.Combine(ResponseFilesPath, DirectoryPath, $"{FilePath}{GetFileExtensionString(request)}");
+            var fullPath = Path.Combine(ResponseFilesPath, DirectoryPath, FilePath);
 
             var fileContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 

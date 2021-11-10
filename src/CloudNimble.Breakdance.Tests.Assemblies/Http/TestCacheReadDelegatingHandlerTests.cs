@@ -48,10 +48,11 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// <remarks>If you have not already generated the files for this test, you should run the TestCacheWriteDelegatingHandler_CanWriteFile test first.</remarks>
         [TestMethod]
         [DynamicData(nameof(GetPathsAndTestUris))]
-        public async Task TestCacheReadDelegatingHandler_CanReadFile(string directoryPath, string fileName, string requestUri)
+        public async Task TestCacheReadDelegatingHandler_CanReadFile(string mediaType, string directoryPath, string fileName, string requestUri)
         {
             var handler = new TestCacheReadDelegatingHandler(ResponseFilesPath);
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
             var response = await handler.SendAsyncInternal(request);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var content = await response.Content.ReadAsStringAsync();
@@ -83,7 +84,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         [TestMethod]
         public async Task TestCacheReadDelegatingHandler_MediaType_ReflectsFileExtension()
         {
-            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "$metadata.xml")).Should().BeTrue();
+            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
             var handler = new TestCacheReadDelegatingHandler(ResponseFilesPath);
             var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/$metadata");
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
