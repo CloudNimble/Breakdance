@@ -33,7 +33,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         internal static IEnumerable<object[]> GetPathsAndTestUris =>
             new List<object[]>
             {
-                new object[] { "application/json", "api-alpha.burnrate.io\\v2\\PricePointJourneyStages\\expand=PricePointJourney\\expand=PricePoint\\expand=Offering\\expand=CompanyTemplateDepartmentJourneyStageType", "orderby", "https://api-alpha.burnrate.io/v2/PricePointJourneyStages?$expand=PricePointJourney($expand=PricePoint($expand=Offering($expand=Company)),Template),Department,JourneyStageType&$orderby=PricePointJourney/PricePoint/Offering/Company/CompanyName,PricePointJourney/PricePoint/Offering/DisplayName,PricePointJourney/PricePoint/DisplayName,SortOrder,PeerSortOrder" },
+                new object[] { "application/json", "test.somewebsite.io\\v2\\TestCaseStages\\expand=TestCase\\expand=Test\\expand=Offering\\expand=CompanyTemplateDepartmentCaseStageType", "orderby=TestCaseTestOfferingCompanyCompanyNameT", "https://test.somewebsite.io/v2/TestCaseStages?$expand=TestCase($expand=Test($expand=Offering($expand=Company)),Template),Department,CaseStageType&$orderby=TestCase/Test/Offering/Company/CompanyName,TestCase/Test/Offering/DisplayName,TestCase/Test/DisplayName,SortOrder,PeerSortOrder" },
                 new object[] { "application/json", "services.odata.org", "root", "https://services.odata.org" },
                 new object[] { "text/xml",         "services.odata.org", "metadata", "https://services.odata.org/$metadata" },
                 new object[] { "application/json", "services.odata.org\\Entity", "filter=query", "https://services.odata.org/Entity?$filter=query" },
