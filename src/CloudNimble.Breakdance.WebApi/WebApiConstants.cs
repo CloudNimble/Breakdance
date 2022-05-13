@@ -29,8 +29,11 @@ namespace CloudNimble.Breakdance.WebApi
         /// <summary>
         /// Specifies the default prefix that should be appended to the host to route the request to the API.
         /// </summary>
+#if NETCOREAPP3_1_OR_GREATER
+        public const string RoutePrefix = "api/tests/";
+#else
         public const string RoutePrefix = "api/tests";
-
+#endif
         /// <summary>
         /// The default name of the route for the ASP.NET route dictionary.
         /// </summary>
