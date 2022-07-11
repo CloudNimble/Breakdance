@@ -30,7 +30,7 @@ namespace CloudNimble.Breakdance.AspNetCore
 #endif
         };
 
-#region Public Methods
+        #region Public Methods
 
         /// <summary>
         /// Gets an <see cref="HttpRequestMessage"/> instance properly configured to be used to make test requests.
@@ -55,7 +55,7 @@ namespace CloudNimble.Breakdance.AspNetCore
                 throw new ArgumentNullException(nameof(httpMethod));
             }
 
-            var request = new HttpRequestMessage(httpMethod, new Uri(host).AppendPathSegments(routePrefix, resource));
+            var request = new HttpRequestMessage(httpMethod, Url.Combine(host, routePrefix, resource));
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             if (httpMethod.Method.StartsWith("P") && payload != null)
             {
@@ -65,7 +65,7 @@ namespace CloudNimble.Breakdance.AspNetCore
             return request;
         }
 
-#endregion
+        #endregion
 
     }
 

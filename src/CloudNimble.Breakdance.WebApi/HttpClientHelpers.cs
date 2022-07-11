@@ -53,7 +53,7 @@ namespace CloudNimble.Breakdance.WebApi
                 throw new ArgumentNullException(nameof(httpMethod));
             }
 
-            var request = new HttpRequestMessage(httpMethod, new Uri(host).AppendPathSegments(routePrefix, resource));
+            var request = new HttpRequestMessage(httpMethod, Url.Combine(host, routePrefix, resource));
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             if (httpMethod.Method.StartsWith("P") && payload != null)
             {
