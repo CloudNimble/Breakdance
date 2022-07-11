@@ -55,6 +55,7 @@ namespace CloudNimble.Breakdance.AspNetCore
                 throw new ArgumentNullException(nameof(httpMethod));
             }
 
+            // RWM: Using Url.Combine from Flurl, thanks to https://stackoverflow.com/a/23438417
             var request = new HttpRequestMessage(httpMethod, Url.Combine(host, routePrefix, resource));
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             if (httpMethod.Method.StartsWith("P") && payload != null)

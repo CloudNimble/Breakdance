@@ -5,11 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-#if NETCOREAPP3_1_OR_GREATER
-namespace CloudNimble.Breakdance.AspNetCore
-#else
 namespace CloudNimble.Breakdance.WebApi
-#endif
 {
 
     /// <summary>
@@ -40,7 +36,7 @@ namespace CloudNimble.Breakdance.WebApi
         /// <param name="routePrefix">
         /// The routePrefix corresponding to the route already mapped in MapRestierRoute or GetTestableConfiguration. Defaults to "api/test", only change it if absolutely necessary.
         /// </param>
-        /// <param name="resource">The resource on the API to be requested.</param>
+        /// <param name="resource">The resource on the API to be requested. Defaults to an empty string.</param>
         /// <param name="acceptHeader">The inbound MIME types to accept. Defaults to "application/json".</param>
         /// <param name="payload"></param>
         /// <param name="jsonSerializerSettings"></param>
@@ -53,6 +49,7 @@ namespace CloudNimble.Breakdance.WebApi
                 throw new ArgumentNullException(nameof(httpMethod));
             }
 
+            // RWM: Using Url.Combine from Flurl, thanks to https://stackoverflow.com/a/23438417
             var request = new HttpRequestMessage(httpMethod, Url.Combine(host, routePrefix, resource));
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             if (httpMethod.Method.StartsWith("P") && payload != null)

@@ -1,6 +1,7 @@
 ﻿using Flurl;
 using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 
 namespace CloudNimble.Breakdance.Blazor
 {
@@ -67,10 +68,14 @@ namespace CloudNimble.Breakdance.Blazor
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="forceLoad"></param>
+        /// <remarks>
+        /// This changed to <see cref="Url.Combine" /> due to the issue with <see cref="HttpClient.BaseAddress"/> requiring trailing slashes.
+        /// See <see href="https://stackoverflow.com/a/23438417" /> for more details.
+        /// </remarks>
         protected override void NavigateToCore(string uri, bool forceLoad)
         {
             NavigationResult = uri;
-            Uri = _baseUrl.AppendPathSegment(uri);
+            Uri = Url.Combine(_baseUrl, uri);
         }
 
         #endregion

@@ -1,4 +1,6 @@
 ﻿#if NETCOREAPP3_1_OR_GREATER
+using System.Net.Http;
+
 namespace CloudNimble.Breakdance.AspNetCore
 #else
 namespace CloudNimble.Breakdance.WebApi
@@ -29,6 +31,10 @@ namespace CloudNimble.Breakdance.WebApi
         /// <summary>
         /// Specifies the default prefix that should be appended to the host to route the request to the API.
         /// </summary>
+        /// <remarks>
+        /// Due to https://stackoverflow.com/a/23438417, this value requires a trailing slash for HttpClient.BaseAddress to work properly 
+        /// with relative URLs.
+        /// </remarks>
         public const string RoutePrefix = "api/tests/";
 
         /// <summary>
