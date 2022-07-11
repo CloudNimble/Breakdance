@@ -1,4 +1,5 @@
 ﻿using CloudNimble.Breakdance.Assemblies;
+using Flurl;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -160,7 +161,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public HttpClient GetHttpClient(string routePrefix = WebApiConstants.RoutePrefix)
         {
             var client = TestServer.CreateClient();
-            client.BaseAddress = new Uri(WebApiConstants.Localhost + routePrefix);
+            client.BaseAddress = new Uri(Url.Combine(WebApiConstants.Localhost, routePrefix));
             return client;
         }
 
