@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Flurl;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,7 +22,7 @@ namespace CloudNimble.Breakdance.WebApi
 
         private static readonly JsonSerializerSettings JsonSerializerDefaults = new JsonSerializerSettings
         {
-            NullValueHandling = NullValueHandling.Ignore,
+            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
             DateFormatString = "yyyy-MM-ddTHH:mm:ssZ",
         };
 
@@ -52,7 +53,7 @@ namespace CloudNimble.Breakdance.WebApi
                 throw new ArgumentNullException(nameof(httpMethod));
             }
 
-            var request = new HttpRequestMessage(httpMethod, $"{host}{routePrefix}{resource}");
+            var request = new HttpRequestMessage(httpMethod, new Uri(host).AppendPathSegments(routePrefix, resource));
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse(acceptHeader));
             if (httpMethod.Method.StartsWith("P") && payload != null)
             {

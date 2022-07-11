@@ -74,7 +74,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <StandardTestTfms>net6.0;net5.0;net472</StandardTestTfms>
+    <StandardTestTfms>net6.0;net472</StandardTestTfms>
   </PropertyGroup>
 
   <ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">

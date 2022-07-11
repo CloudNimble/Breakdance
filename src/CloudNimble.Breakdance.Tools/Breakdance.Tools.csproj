@@ -5,18 +5,16 @@
     <ToolCommandName>dotnet-breakdance</ToolCommandName>
     <PackAsTool>True</PackAsTool>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
     <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ben.Demystifier" Version="0.3.0" />
+    <PackageReference Include="Ben.Demystifier" Version="0.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)' == 'net5.0'" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)' == 'net5.0'" />
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="5.0.2" />
-    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="5.*" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.*" />
   </ItemGroup>
 
   <ItemGroup>

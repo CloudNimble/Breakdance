@@ -1,58 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <AssemblyName>CloudNimble.Breakdance.WebApi</AssemblyName>
-    <RootNamespace>CloudNimble.Breakdance.WebApi</RootNamespace>
-    <TargetFrameworks>net472;net48</TargetFrameworks>
-    <StrongNamePublicKey>$(StrongNamePublicKey)</StrongNamePublicKey>
-    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>CloudNimble.Breakdance.WebApi</AssemblyName>
+		<RootNamespace>CloudNimble.Breakdance.WebApi</RootNamespace>
+		<TargetFrameworks>net472;net48</TargetFrameworks>
+		<StrongNamePublicKey>$(StrongNamePublicKey)</StrongNamePublicKey>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>Breakdance.WebApi</PackageId>
-    <Title>Breakdance for WebApi 2</Title>
-    <Summary>
-      Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes
-      for testing any WebAPI endpoint. These classes make it super easy to craft HTTP requests to your API at test time.
-    </Summary>
-    <Description>
-      $(Summary)
+	<PropertyGroup>
+		<PackageId>Breakdance.WebApi</PackageId>
+		<Title>Breakdance for WebApi 2</Title>
+		<Summary>
+			Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes
+			for testing any WebAPI endpoint. These classes make it super easy to craft HTTP requests to your API at test time.
+		</Summary>
+		<Description>
+			$(Summary)
 
-      Commonly used types:
-      System.Net.Http.HttpClient
-    </Description>
-    <PackageTags>$(PackageTags)webapi;</PackageTags>
-    <PackageReleaseNotes>
-      1.0.0-beta1:
-      - Under new management. Namespace changes, usability improvements, more docs.
-      1.0.0-alpha1:
-      - Initial release.
-    </PackageReleaseNotes>
-  </PropertyGroup>
+			Commonly used types:
+			System.Net.Http.HttpClient
+		</Description>
+		<PackageTags>$(PackageTags)webapi;</PackageTags>
+		<PackageReleaseNotes>
+			1.0.0-beta1:
+			- Under new management. Namespace changes, usability improvements, more docs.
+			1.0.0-alpha1:
+			- Initial release.
+		</PackageReleaseNotes>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="[5.2.7, 5.3.0)" />
-    <PackageReference Include="System.ValueTuple" Version="[4.5.0, 5.0.0)" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Flurl.Signed" Version="[3.0.2, 4.0.0)" />
+		<PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="[5.2.7, 5.3.0)" />
+		<PackageReference Include="System.ValueTuple" Version="[4.5.0, 5.0.0)" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
-    <PackageReference Include="System.Net.Http" Version="[4.3.4, 5.0.0)" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
+		<PackageReference Include="System.Net.Http" Version="[4.3.4, 5.0.0)" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Microsoft.Restier.Breakdance, PublicKey=0024000004800000940000000602000000240000525341310004000001000100f1fcc0061e7ed7476808f86fdecd6a9585915f329fc6312d08331c971da86230330e42ed8ffbd528c523fa023d92c3db1123b5d044b3aad9e04fd3877ffca8e4ba836a740ec3074f0fcbef770ff14d2fa1b5a8403ab16f398ac14998bd011c35505b6bc555326037a7ab7dcca118000a19a5475377358e9dea38df76452b01c9</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.Breakdance.Tests.WebApi, $(StrongNamePublicKey)</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Microsoft.Restier.Tests.Breakdance, PublicKey=0024000004800000940000000602000000240000525341310004000001000100f1fcc0061e7ed7476808f86fdecd6a9585915f329fc6312d08331c971da86230330e42ed8ffbd528c523fa023d92c3db1123b5d044b3aad9e04fd3877ffca8e4ba836a740ec3074f0fcbef770ff14d2fa1b5a8403ab16f398ac14998bd011c35505b6bc555326037a7ab7dcca118000a19a5475377358e9dea38df76452b01c9</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>Microsoft.Restier.Breakdance, PublicKey=0024000004800000940000000602000000240000525341310004000001000100f1fcc0061e7ed7476808f86fdecd6a9585915f329fc6312d08331c971da86230330e42ed8ffbd528c523fa023d92c3db1123b5d044b3aad9e04fd3877ffca8e4ba836a740ec3074f0fcbef770ff14d2fa1b5a8403ab16f398ac14998bd011c35505b6bc555326037a7ab7dcca118000a19a5475377358e9dea38df76452b01c9</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CloudNimble.Breakdance.Tests.WebApi, $(StrongNamePublicKey)</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>Microsoft.Restier.Tests.Breakdance, PublicKey=0024000004800000940000000602000000240000525341310004000001000100f1fcc0061e7ed7476808f86fdecd6a9585915f329fc6312d08331c971da86230330e42ed8ffbd528c523fa023d92c3db1123b5d044b3aad9e04fd3877ffca8e4ba836a740ec3074f0fcbef770ff14d2fa1b5a8403ab16f398ac14998bd011c35505b6bc555326037a7ab7dcca118000a19a5475377358e9dea38df76452b01c9</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+	</ItemGroup>
 
 </Project>
