@@ -54,8 +54,18 @@ namespace CloudNimble.Breakdance.Blazor
         /// </summary>
         public override void TestSetup()
         {
+            TestSetup(JSRuntimeMode.Loose);
+        }
+
+        /// <summary>
+        /// Properly instantiates the <see cref="BUnitTestContext"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context
+        /// and allows you to set the bUnit JSInterop mode
+        /// </summary>
+        public void TestSetup(JSRuntimeMode jSRuntimeMode)
+        {
             base.TestSetup();
             BUnitTestContext = new TestContext();
+            BUnitTestContext.JSInterop.Mode = jSRuntimeMode;
             if (RegisterServices != null)
             {
                 RegisterServices.Invoke(BUnitTestContext.Services);
