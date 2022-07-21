@@ -6,9 +6,9 @@
 		<TargetFrameworks>net6.0</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
-	
-	
-	
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="6.*" />
+	</ItemGroup>
 
 </Project>
