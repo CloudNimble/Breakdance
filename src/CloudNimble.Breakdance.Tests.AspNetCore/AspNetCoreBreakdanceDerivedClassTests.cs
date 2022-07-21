@@ -76,7 +76,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore
             TestServer.Should().NotBeNull();
             GetService<IConfiguration>().Should().NotBeNull();
             GetService<FakeService>().Should().NotBeNull();
-            TestServer.Features.As<IEnumerable>().Should().BeEmpty();
+            TestServer.Features.Should().BeEmpty();
         }
 
         /// <summary>

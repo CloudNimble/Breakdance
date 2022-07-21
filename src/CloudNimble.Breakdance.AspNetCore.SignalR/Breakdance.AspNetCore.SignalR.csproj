@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<RootNamespace>CloudNimble.Breakdance.AspNetCore.SignalR</RootNamespace>
+		<AssemblyName>CloudNimble.Breakdance.AspNetCore.SignalR</AssemblyName>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+	
+	
+	
+
+
+</Project>
