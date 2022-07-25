@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace CloudNimble.Breakdance.AspNetCore.SignalR
 {
@@ -19,6 +20,22 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         #region Private Members
 
         private object _state;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Dictionary of the method names that have been registered and their parameter types.
+        /// </summary>
+        public Dictionary<string, Type[]> RegisteredHandlers { get; set; } = new();
+
+#nullable enable
+        /// <summary>
+        /// Dictionary of the method names that have been invoked and their arguments.
+        /// </summary>
+        public Dictionary<string, object?[]> InvokedMethods { get; set; } = new();
+#nullable disable
 
         #endregion
 
@@ -40,11 +57,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
                 .SetValue(_state, HubConnectionState.Disconnected, null);
         }
 
-        /// <summary>
-        /// Starts a connection to the server.
-        /// </summary>
-        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None" />.</param>
-        /// <returns>A <see cref="Task"/> that represents the asynchronous start.</returns>
+        /// <inheritdoc />
         public override async Task StartAsync(CancellationToken cancellationToken = default)
         {
             _state.GetType()
@@ -54,38 +67,37 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
             await Task.CompletedTask;
         }
 
-        /*
-            JHC Note:  I copied some of the base implementations for the HubConnection here as an example.
-                       We need to find a good pattern for overriding methods to support tests for both the client
-                       to monitor events on the hub and also to invoke signals on the hub.
 
-        // If the registered callback blocks it can cause the client to stop receiving messages. If you need to block, get off the current thread first.
-        /// <summary>
-        /// Registers a handler that will be invoked when the hub method with the specified method name is invoked.
-        /// </summary>
-        /// <param name="methodName">The name of the hub method to define.</param>
-        /// <param name="parameterTypes">The parameters types expected by the hub method.</param>
-        /// <param name="handler">The handler that will be raised when the hub method is invoked.</param>
-        /// <param name="state">A state object that will be passed to the handler.</param>
-        /// <returns>A subscription that can be disposed to unsubscribe from the hub method.</returns>
-        /// <remarks>
-        /// This is a low level method for registering a handler. Using an <see cref="HubConnectionExtensions"/> <c>On</c> extension method is recommended.
-        /// </remarks>
+        /// <inheritdoc />
         public override IDisposable On(string methodName, Type[] parameterTypes, Func<object[], object, Task> handler, object state)
         {
+            RegisteredHandlers.Add(methodName, parameterTypes);
+            return default;
         }
 
-        /// <summary>
-        /// Invokes a hub method on the server using the specified method name and arguments.
-        /// </summary>
-        /// <param name="methodName">The name of the server method to invoke.</param>
-        /// <param name="args"></param>
-        public async Task InvokeAsync(string methodName, params object[] args)
+#nullable enable
+        /// <inheritdoc />
+        public override async Task SendCoreAsync(string methodName, object?[] args, CancellationToken cancellationToken = default)
         {
+            InvokedMethods.Add(methodName, args);
             await Task.CompletedTask;
         }
-        */
 
+        /// <inheritdoc />
+        public override async Task<object?> InvokeCoreAsync(string methodName, Type returnType, object?[] args, CancellationToken cancellationToken = default)
+        {
+            InvokedMethods.Add(methodName, args);
+            await Task.CompletedTask;
+            if (returnType == typeof(object))
+            {
+                return null;
+            }
+            else if (returnType.IsValueType)
+            {
+                return Activator.CreateInstance(returnType);
+            }
+            return null;
+        }
+#nullable disable
     }
-
 }
