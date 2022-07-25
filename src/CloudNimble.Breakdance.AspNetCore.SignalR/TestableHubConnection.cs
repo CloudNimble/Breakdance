@@ -6,6 +6,7 @@ using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace CloudNimble.Breakdance.AspNetCore.SignalR
 {
@@ -15,19 +16,28 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
     /// </summary>
     public class TestableHubConnection : HubConnection
     {
+        #region Private Members
 
-        /// <summary>
-        /// Indicates the state of the <see cref="HubConnection"/> to the server.
-        /// </summary>
-        public new HubConnectionState State { get; set; }
+        private object _state;
+
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestableHubConnection"/> class.
         /// </summary>
-        public TestableHubConnection(IConnectionFactory connectionFactory, IHubProtocol hubProtocol, EndPoint endPoint, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
-            : base(connectionFactory, hubProtocol, endPoint, serviceProvider, loggerFactory)
+        public TestableHubConnection(IConnectionFactory connectionFactory,
+                             IHubProtocol protocol,
+                             EndPoint endPoint,
+                             IServiceProvider serviceProvider,
+                             ILoggerFactory loggerFactory) : base(connectionFactory, protocol, endPoint, serviceProvider, loggerFactory)
         {
-            State = HubConnectionState.Disconnected;
+            _state = typeof(HubConnection)
+                .GetField("_state", BindingFlags.NonPublic | BindingFlags.Instance)
+                .GetValue(this);
+
+            _state.GetType()
+                .GetProperty("OverallState", BindingFlags.Public | BindingFlags.Instance)
+                .SetValue(_state, HubConnectionState.Disconnected, null);
         }
 
         /// <summary>
@@ -35,9 +45,12 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         /// </summary>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None" />.</param>
         /// <returns>A <see cref="Task"/> that represents the asynchronous start.</returns>
-        public async override Task StartAsync(CancellationToken cancellationToken = default)
+        public override async Task StartAsync(CancellationToken cancellationToken = default)
         {
-            State = HubConnectionState.Connected;
+            _state.GetType()
+                .GetProperty("OverallState", BindingFlags.Public | BindingFlags.Instance)
+                .SetValue(_state, HubConnectionState.Connected, null);
+
             await Task.CompletedTask;
         }
 

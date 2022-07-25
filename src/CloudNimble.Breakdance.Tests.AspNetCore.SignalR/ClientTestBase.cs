@@ -22,18 +22,14 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
             TestHostBuilder.ConfigureServices((builder, services) => 
             {
                 // create a testable hub connection
-                services.AddSingleton(serviceProviders => 
+                services.AddSingleton<HubConnection>(serviceProviders => 
                 {
-                    return new TestableHubConnectionBuilder()
-                        //JHC Note: we need to enable this line, but it is creating a build error right now
-                        //          and I'm not sure why.  The extension should exist.
-                        //.WithUrl(new Uri("http://localhost/Hub"))
-                        .WithAutomaticReconnect()
-                        .Build();
+                    return new HubConnectionBuilder()
+                        .WithUrl(new Uri("http://localhost/MyHub"))
+                        .BuildTestable();
                 });
 
             });
-
         }
 
     }

@@ -33,8 +33,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
             hubConnection.Should().NotBeNull();
             hubConnection.State.Should().Be(HubConnectionState.Disconnected);
             await hubConnection.StartAsync();
-            //JHC Note: can't assert this test because our class does not change the State value
-            //hubConnection.State.Should().Be(HubConnectionState.Connected);
+            hubConnection.State.Should().Be(HubConnectionState.Connected);
         }
 
     }
