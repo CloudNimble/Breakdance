@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.Tests.AspNetCore.SignalR</AssemblyName>
@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\CloudNimble.Breakdance.AspNetCore.SignalR\Breakdance.AspNetCore.SignalR.csproj" />
+	  <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
 	</ItemGroup>
 
 </Project>
