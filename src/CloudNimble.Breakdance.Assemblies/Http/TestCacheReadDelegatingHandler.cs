@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudNimble.EasyAF.Core;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -44,10 +45,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// <returns></returns>
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (request is null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            Ensure.ArgumentNotNull(request, nameof(request));
 
             // parse the URI into a content file path structure
             var pathComponents = GetPathInfo(request, ResponseFilesPath);

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.Tests.Assemblies</AssemblyName>
 		<RootNamespace>CloudNimble.Breakdance.Tests.Assemblies</RootNamespace>
-		<TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
+		<TargetFrameworks>netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 		<RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
 		<NoWarn>$(NoWarn);NU1605</NoWarn>
@@ -11,11 +11,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.30" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0-preview.*" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
-		<PackageReference Include="SimpleMessageBus.Dispatch" Version="2.1.0-CI-20211109-200006" />
-		<PackageReference Include="SimpleMessageBus.Hosting" Version="2.1.0-CI-20211109-200006" />
-		<PackageReference Include="SimpleMessageBus.Publish" Version="2.1.0-CI-20211109-200006" />
+		<PackageReference Include="SimpleMessageBus.Dispatch" Version="2.1.0-CI-*" />
+		<PackageReference Include="SimpleMessageBus.Hosting" Version="2.1.0-CI-*" />
+		<PackageReference Include="SimpleMessageBus.Publish" Version="2.1.0-CI-*" />
 	</ItemGroup>
 
 	<ItemGroup>

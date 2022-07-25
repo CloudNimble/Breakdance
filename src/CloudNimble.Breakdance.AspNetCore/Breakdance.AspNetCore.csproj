@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>CloudNimble.Breakdance.AspNetCore</RootNamespace>
 		<AssemblyName>CloudNimble.Breakdance.AspNetCore</AssemblyName>
-		<TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
+		<TargetFrameworks>netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
@@ -32,13 +32,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="..\CloudNimble.Breakdance.WebApi\OData\ODataConstants.cs" Link="OData\ODataConstants.cs" />
 		<Compile Include="..\CloudNimble.Breakdance.WebApi\WebApiConstants.cs" Link="WebApiConstants.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Flurl.Signed" Version="[3.0.2, 4.0.0)" />
-
+		<PackageReference Include="EasyAF.Core" Version="2.0.0-CI-*" />
+		<PackageReference Include="EasyAF.Http" Version="2.0.0-CI-*" />
+		<PackageReference Include="EasyAF.Http.SystemTextJson" Version="2.0.0-CI-*" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="[6.0.0, 8.0.0)" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="[3.1.0, 4.0.0)" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
 	</ItemGroup>

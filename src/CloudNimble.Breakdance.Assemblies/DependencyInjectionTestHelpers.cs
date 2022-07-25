@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CloudNimble.EasyAF.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <param name="collection"></param>
         public static string GetContainerContentsLog(ServiceCollection collection)
         {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
+            Ensure.ArgumentNotNull(collection, nameof(collection));
 
             return collection.ToList().ToDetailedString();
         }
@@ -35,10 +33,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <param name="provider"></param>
         public static string GetContainerContentsLog(IServiceProvider provider)
         {
-            if (provider == null)
-            {
-                throw new ArgumentNullException(nameof(provider));
-            }
+            Ensure.ArgumentNotNull(@provider, nameof(provider));
 
             var dictionary = provider.GetAllServiceDescriptors();
             return dictionary.Select(c => c.Value).ToList().ToDetailedString();
@@ -50,10 +45,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <param name="hostBuilder"></param>
         public static string GetContainerContentsLog(IHostBuilder hostBuilder)
         {
-            if (hostBuilder == null)
-            {
-                throw new ArgumentNullException(nameof(hostBuilder));
-            }
+            Ensure.ArgumentNotNull(hostBuilder, nameof(hostBuilder));
 
             var dictionary = hostBuilder.GetAllServiceDescriptors();
             return dictionary.Select(c => c.Value).ToList().ToDetailedString();

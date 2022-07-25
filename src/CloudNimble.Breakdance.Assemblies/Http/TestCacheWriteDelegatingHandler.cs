@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudNimble.EasyAF.Core;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -43,10 +44,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         /// <returns></returns>
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (request is null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            Ensure.ArgumentNotNull(request, nameof(request));
 
             // allow the request to complete
             var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>CloudNimble.Breakdance.AspNetCore.SignalR</RootNamespace>
 		<AssemblyName>CloudNimble.Breakdance.AspNetCore.SignalR</AssemblyName>
-		<TargetFrameworks>net6.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	

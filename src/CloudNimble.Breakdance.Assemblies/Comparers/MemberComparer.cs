@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Licensed under the MIT License.  See License.txt in the project root for license information.
 
+using CloudNimble.EasyAF.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,8 +21,8 @@ namespace CloudNimble.Breakdance.Assemblies
 
         #region Private Members
 
-        static private readonly Hashtable _memberType;
-        private Hashtable hash;
+        private static readonly Hashtable _memberType;
+        private readonly Hashtable hash;
 
         #endregion
 
@@ -32,7 +33,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// </summary>
         static MemberComparer()
         {
-            Hashtable memberType = new Hashtable
+            var memberType = new Hashtable
                 {
                     { MemberTypes.Field, 1 },
                     { MemberTypes.Constructor, 2 },
@@ -82,15 +83,8 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         public int Compare(MemberInfo x, MemberInfo y)
         {
-            if (x == null)
-            {
-                throw new ArgumentNullException(nameof(x));
-            }
-
-            if (y == null)
-            {
-                throw new ArgumentNullException(nameof(y));
-            }
+            Ensure.ArgumentNotNull(x, nameof(x));
+            Ensure.ArgumentNotNull(y, nameof(y));
 
             if (x.MemberType == y.MemberType)
             {

@@ -1,4 +1,5 @@
-﻿using Flurl;
+﻿using CloudNimble.EasyAF.Core;
+using Flurl;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,13 +22,8 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <remarks>Slightly different implementation between core versions.</remarks>
         private static readonly JsonSerializerOptions JsonSerializerDefaults = new()
         {
-            // ignore all null-value properties when serializing or deserializing (different implementation in net3.1 vs net5+)
-#if NETCOREAPP3_1
-            IgnoreNullValues = true,
-#endif
-#if NET5_0_OR_GREATER
+            // ignore all null-value properties when serializing or deserializing.
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-#endif
         };
 
         #region Public Methods
@@ -50,10 +46,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public static HttpRequestMessage GetTestableHttpRequestMessage(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routePrefix = WebApiConstants.RoutePrefix,
             string resource = "", string acceptHeader = WebApiConstants.DefaultAcceptHeader, object payload = null, JsonSerializerOptions jsonSerializerSettings = null)
         {
-            if (httpMethod == null)
-            {
-                throw new ArgumentNullException(nameof(httpMethod));
-            }
+            Ensure.ArgumentNotNull(httpMethod, nameof(httpMethod));
 
             // RWM: Using Url.Combine from Flurl, thanks to https://stackoverflow.com/a/23438417
             var request = new HttpRequestMessage(httpMethod, Url.Combine(host, routePrefix, resource));
