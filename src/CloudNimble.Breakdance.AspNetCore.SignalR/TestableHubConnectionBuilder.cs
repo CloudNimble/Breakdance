@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.ComponentModel;
 using System.Net;
 
 namespace CloudNimble.Breakdance.AspNetCore.SignalR
