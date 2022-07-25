@@ -48,15 +48,15 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="[7.0.0-preview.6.22330.3, 8.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[7.0.0-preview.*, 8.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[7.0.0-preview.*, 8.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="[7.0.0-preview.*, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 7.0.0)" />
-		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[6.0.0, 7.0.0)" />
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 8.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[6.0.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="[6.0.0, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
