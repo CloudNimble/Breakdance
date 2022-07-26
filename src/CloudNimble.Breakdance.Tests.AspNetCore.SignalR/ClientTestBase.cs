@@ -22,13 +22,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
             TestHostBuilder.ConfigureServices((builder, services) => 
             {
                 // create a testable hub connection
-                services.AddSingleton<HubConnection>(serviceProviders => 
-                {
-                    return new HubConnectionBuilder()
-                        .WithUrl(new Uri("http://localhost/MyHub"))
-                        .BuildTestable();
-                });
-
+                services.AddSingleton<HubConnection>(new HubConnectionBuilder().BuildTestable());
             });
         }
 

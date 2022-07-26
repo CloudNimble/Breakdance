@@ -22,6 +22,8 @@ public static class HubConnectionBuilderExtensions
     {
         hubConnectionBuilder.Services.AddSingleton<TestableHubConnection>();
 
+        hubConnectionBuilder.WithUrl(SignalRConstants.HubUrl);
+
         // The service provider is disposed by the HubConnection
         var serviceProvider = hubConnectionBuilder.Services.BuildServiceProvider();
 
