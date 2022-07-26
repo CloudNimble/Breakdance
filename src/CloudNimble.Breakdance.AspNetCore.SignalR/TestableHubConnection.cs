@@ -28,7 +28,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         /// <summary>
         /// Dictionary of the method names that have been registered and their parameter types.
         /// </summary>
-        public Dictionary<string, Type[]> RegisteredHandlers { get; set; } = new();
+        public Dictionary<string, (Type[] parameterTypes, Func<object[], object, Task> handler, object state)> RegisteredHandlers { get; set; } = new();
 
 #nullable enable
         /// <summary>
@@ -38,6 +38,8 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
 #nullable disable
 
         #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TestableHubConnection"/> class.
@@ -57,6 +59,10 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
                 .SetValue(_state, HubConnectionState.Disconnected, null);
         }
 
+        #endregion
+
+        #region Public Methods
+
         /// <inheritdoc />
         public override async Task StartAsync(CancellationToken cancellationToken = default)
         {
@@ -67,11 +73,10 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
             await Task.CompletedTask;
         }
 
-
         /// <inheritdoc />
         public override IDisposable On(string methodName, Type[] parameterTypes, Func<object[], object, Task> handler, object state)
         {
-            RegisteredHandlers.Add(methodName, parameterTypes);
+            RegisteredHandlers.Add(methodName, (parameterTypes, handler, state));
             return default;
         }
 
@@ -98,6 +103,34 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
             }
             return null;
         }
+
+        /// <summary>
+        /// Method added to test activating a handler that has been registered with a specific set of arguments
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <param name="args"></param>
+        public async Task InvokeHandlerFromHubAsync(string methodName, params object?[] args)
+        {
+            if (!RegisteredHandlers.ContainsKey(methodName))
+            {
+                throw new InvalidOperationException($"The {nameof(methodName)} '{methodName}' has not been registered");
+            }
+
+            var (parameterTypes, handler, state) = RegisteredHandlers[methodName];
+
+            if (parameterTypes.Length != args?.Length)
+            {
+                throw new InvalidOperationException(
+                    $"Tried to invoke {nameof(methodName)} '{methodName}' from the hub with the wrong number of arguments. " +
+                    $"Expected {parameterTypes.Length} but got {(args is not null ? args.Length : 0)}"
+                    );
+            }
+
+            await handler.Invoke(args, state);
+        }
+
 #nullable disable
+
+        #endregion
     }
 }

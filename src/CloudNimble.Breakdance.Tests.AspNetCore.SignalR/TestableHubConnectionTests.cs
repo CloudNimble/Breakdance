@@ -93,6 +93,81 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
             public string Name { get; set; }
             public string Description { get; set; }
         }
+
+        /// <summary>
+        /// Tests that the <see cref="TestableHubConnection"/> can invoke a handler that had been registered for a methodName.
+        /// </summary>
+        [TestMethod]
+        public async Task CanInvokeHandler()
+        {
+            var hubConnection = GetService<HubConnection>();
+
+            await hubConnection.StartAsync();
+
+            var result = "not set";
+
+            hubConnection.On("HubMethod1", () => { result = "1"; });
+            hubConnection.On("HubMethod2", (bool b) => { result = "2"; });
+            hubConnection.On("HubMethod3", (string s, bool b) => { result = "3"; });
+
+            var testabelHubConnection = (TestableHubConnection)hubConnection;
+
+            await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod1");
+
+            result.Should().Be("1");
+
+            await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod2", true);
+
+            result.Should().Be("2");
+
+            await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod3", "test", true);
+
+            result.Should().Be("3");
+        }
+
+        /// <summary>
+        /// Tests that the <see cref="TestableHubConnection"/> throws exception
+        /// if we try to invoke a method which has no handler from the hub.
+        /// </summary>
+        [TestMethod]
+        public async Task HandlerNotRegistered_ThrowsException()
+        {
+            var hubConnection = GetService<HubConnection>();
+
+            await hubConnection.StartAsync();
+
+            var testabelHubConnection = (TestableHubConnection)hubConnection;
+
+            var action = async () => await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod");
+
+            await action.Should().ThrowExactlyAsync<InvalidOperationException>()
+                .WithMessage(
+                    "The methodName 'HubMethod' has not been registered",
+                    null);
+        }
+
+        /// <summary>
+        /// Tests that the <see cref="TestableHubConnection"/> throws exception
+        /// if we try to invoke a method with wrong number of arguments from the hub.
+        /// </summary>
+        [TestMethod]
+        public async Task WrongArguments_ThrowsException()
+        {
+            var hubConnection = GetService<HubConnection>();
+
+            await hubConnection.StartAsync();
+
+            hubConnection.On("HubMethod", () => { });
+
+            var testabelHubConnection = (TestableHubConnection)hubConnection;
+
+            var action = async () => await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod", true);
+
+            await action.Should().ThrowAsync<InvalidOperationException>()
+                .WithMessage(
+                    "Tried to invoke methodName 'HubMethod' from the hub with the wrong number of arguments. Expected 0 but got 1",
+                    null);
+        }
     }
 
 }
