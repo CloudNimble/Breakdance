@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Collections.Generic;
+using CloudNimble.EasyAF.SignalR;
 
 namespace CloudNimble.Breakdance.AspNetCore.SignalR
 {
@@ -15,7 +16,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
     /// <summary>
     /// A class for emulating a SignalR <see cref="HubConnection"/> with minimal functionality.
     /// </summary>
-    public class TestableHubConnection : HubConnection
+    public class TestableNamedHubConnection : NamedHubConnection
     {
         #region Private Members
 
@@ -42,9 +43,9 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestableHubConnection"/> class.
+        /// Initializes a new instance of the <see cref="TestableNamedHubConnection"/> class.
         /// </summary>
-        public TestableHubConnection(IConnectionFactory connectionFactory,
+        public TestableNamedHubConnection(IConnectionFactory connectionFactory,
                              IHubProtocol protocol,
                              EndPoint endPoint,
                              IServiceProvider serviceProvider,

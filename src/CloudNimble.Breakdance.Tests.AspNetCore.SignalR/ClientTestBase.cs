@@ -8,7 +8,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
 {
 
     /// <summary>
-    /// A base class for configuring SignalR clients using the <see cref="TestableHubConnection"/>.
+    /// A base class for configuring SignalR clients using the <see cref="TestableNamedHubConnection"/>.
     /// </summary>
     public class ClientTestBase : BreakdanceTestBase
     {

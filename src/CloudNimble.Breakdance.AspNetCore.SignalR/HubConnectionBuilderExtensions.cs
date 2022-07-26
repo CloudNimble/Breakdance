@@ -18,9 +18,9 @@ public static class HubConnectionBuilderExtensions
     /// It is a normal use case for the someone to add another build method as a part of the builder pattern.
     /// </remarks>
     /// <returns></returns>
-    public static TestableHubConnection BuildTestable(this IHubConnectionBuilder hubConnectionBuilder)
+    public static TestableNamedHubConnection BuildTestable(this IHubConnectionBuilder hubConnectionBuilder)
     {
-        hubConnectionBuilder.Services.AddSingleton<TestableHubConnection>();
+        hubConnectionBuilder.Services.AddSingleton<TestableNamedHubConnection>();
 
         hubConnectionBuilder.WithUrl(SignalRConstants.HubUrl);
 
@@ -28,11 +28,11 @@ public static class HubConnectionBuilderExtensions
         var serviceProvider = hubConnectionBuilder.Services.BuildServiceProvider();
 
         var connectionFactory = serviceProvider.GetService<IConnectionFactory>() ??
-            throw new InvalidOperationException($"Cannot create {nameof(TestableHubConnection)} instance. An {nameof(IConnectionFactory)} was not configured.");
+            throw new InvalidOperationException($"Cannot create {nameof(TestableNamedHubConnection)} instance. An {nameof(IConnectionFactory)} was not configured.");
 
         var endPoint = serviceProvider.GetService<EndPoint>() ??
-            throw new InvalidOperationException($"Cannot create {nameof(TestableHubConnection)} instance. An {nameof(EndPoint)} was not configured.");
+            throw new InvalidOperationException($"Cannot create {nameof(TestableNamedHubConnection)} instance. An {nameof(EndPoint)} was not configured.");
 
-        return serviceProvider.GetRequiredService<TestableHubConnection>();
+        return serviceProvider.GetRequiredService<TestableNamedHubConnection>();
     }
 }
