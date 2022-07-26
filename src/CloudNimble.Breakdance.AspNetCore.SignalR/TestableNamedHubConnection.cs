@@ -133,5 +133,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
 #nullable disable
 
         #endregion
+
     }
+
 }

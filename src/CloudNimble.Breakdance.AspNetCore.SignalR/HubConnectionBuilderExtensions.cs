@@ -22,7 +22,7 @@ public static class HubConnectionBuilderExtensions
     {
         hubConnectionBuilder.Services.AddSingleton<TestableNamedHubConnection>();
 
-        hubConnectionBuilder.WithUrl(SignalRConstants.HubUrl);
+        hubConnectionBuilder.WithUrl("https://localhost/TestHub");
 
         // The service provider is disposed by the HubConnection
         var serviceProvider = hubConnectionBuilder.Services.BuildServiceProvider();
