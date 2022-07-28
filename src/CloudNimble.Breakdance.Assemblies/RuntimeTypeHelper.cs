@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using CloudNimble.EasyAF.Core;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -114,10 +115,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns>Matching method. Null if none matches.</returns>
         internal static MethodBase SelectMethod(MethodBase[] match, Type[] types)
         {
-            if (match == null)
-            {
-                throw new ArgumentNullException(nameof(match));
-            }
+            Ensure.ArgumentNotNull(match, nameof(match));
 
             int i;
             int j;

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CloudNimble.EasyAF.Core;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -23,15 +23,8 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
         /// </remarks>
         public static async Task<string> LogAndReturnMessageContentAsync(this TestContext testContext, HttpResponseMessage message, bool nullIsExpected = false)
         {
-            if (testContext == null)
-            {
-                throw new ArgumentNullException(nameof(testContext));
-            }
-
-            if (message == null)
-            {
-                throw new ArgumentNullException(nameof(message));
-            }
+            Ensure.ArgumentNotNull(testContext, nameof(testContext));
+            Ensure.ArgumentNotNull(message, nameof(message));
 
             if (message.Content != null)
             {

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using CloudNimble.EasyAF.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -40,10 +41,7 @@ namespace CloudNimble.Breakdance.Assemblies
 #pragma warning restore CA1062 // Validate arguments of public methods
 
             PrivateObject temp = obj as PrivateObject;
-            if (temp == null)
-            {
-                temp = new PrivateObject(obj);
-            }
+            temp ??= new PrivateObject(obj);
 
             // Split The access string
             var arr = memberToAccess.Split(new char[] { '.' });
@@ -103,10 +101,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <param name="args">Argmenets to pass to the constructor</param>
         public PrivateObject(Type type, Type[] parameterTypes, object[] args)
         {
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            Ensure.ArgumentNotNull(type, nameof(type));
 
             object o;
             if (parameterTypes != null)
@@ -147,10 +142,8 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <param name="obj">object to wrap</param>
         public PrivateObject(object obj)
         {
-            if (obj is null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            Ensure.ArgumentNotNull(obj, nameof(obj));
+
             ConstructFrom(obj);
         }
 
@@ -162,10 +155,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <param name="type">PrivateType object</param>
         public PrivateObject(object obj, PrivateType type)
         {
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            Ensure.ArgumentNotNull(type, nameof(type));
 
             target = obj;
             originalType = type.ReferencedType;
@@ -183,10 +173,8 @@ namespace CloudNimble.Breakdance.Assemblies
 
             set
             {
-                if (value is null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
+                Ensure.ArgumentNotNull(value, nameof(value));
+
                 target = value;
                 originalType = value.GetType();
             }

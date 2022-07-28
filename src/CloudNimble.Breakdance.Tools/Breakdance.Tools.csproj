@@ -1,24 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <PackageId>Breakdance.Tools</PackageId>
-    <ToolCommandName>dotnet-breakdance</ToolCommandName>
-    <PackAsTool>True</PackAsTool>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
-    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>Breakdance.Tools</PackageId>
+		<ToolCommandName>dotnet-breakdance</ToolCommandName>
+		<PackAsTool>True</PackAsTool>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Ben.Demystifier" Version="0.*" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="5.*" />
-    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.*" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Ben.Demystifier" Version="0.*" />
+		<PackageReference Include="Microsoft.NETCore.Platforms" Version="5.*" />
+		<PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.*" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 7.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[7.0.0-preview.6.22324.4, 7.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[7.0.0-preview.6.22324.4, 7.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+	</ItemGroup>
 
 </Project>

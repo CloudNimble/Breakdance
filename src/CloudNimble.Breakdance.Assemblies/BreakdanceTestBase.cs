@@ -125,10 +125,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// </summary>
         internal void EnsureTestHost()
         {
-            if (TestHost == null)
-            {
-                TestHost = TestHostBuilder.Build();
-            }
+            TestHost ??= TestHostBuilder.Build();
         }
 
         /// <summary>

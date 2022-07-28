@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<RootNamespace>CloudNimble.Breakdance.AspNetCore.SignalR</RootNamespace>
+		<AssemblyName>CloudNimble.Breakdance.AspNetCore.SignalR</AssemblyName>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="EasyAF.SignalR" Version="[2.*-*, 3.0.0)" />
+	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="[6.0.0, 8.0.0)" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<PackageId>Breakdance.AspNetCore.SignalR</PackageId>
+		<Title>Breakdance for SignalR on AspNetCore</Title>
+		<PackageVersion>1.0.1</PackageVersion>
+		<Summary>
+			Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes
+			for testing SignalR HubConnections on AspNetCore IHub endpoints. These classes make it super easy to test SignalR invocations without having to wire up SignalR in the unit test.
+		</Summary>
+		<Description>
+			$(Summary)
+
+			Commonly used types:
+			CloudNimble.Breakdance.AspNetCore.SignalR.TestableHubConnection
+			CloudNimble.Breakdance.AspNetCore.AspNetCoreTestHelpers
+			CloudNimble.Breakdance.AspNetCore.HttpClientHelpers
+		</Description>
+		<PackageTags>$(PackageTags)aspnetcore;</PackageTags>
+		<PackageReleaseNotes>
+			1.0.0-alpha1:
+			- Initial release.
+		</PackageReleaseNotes>
+
+	</PropertyGroup>
+
+</Project>

@@ -1,4 +1,6 @@
-﻿namespace System.Reflection
+﻿using CloudNimble.EasyAF.Core;
+
+namespace System.Reflection
 {
 
     /// <summary>
@@ -15,10 +17,7 @@
         /// <returns></returns>
         public static bool IsProtected(this ConstructorInfo info, Type type)
         {
-            if (info == null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
+            Ensure.ArgumentNotNull(info, nameof(info));
             return IsProtectedInternal(info, type);
         }
 
@@ -30,15 +29,8 @@
         /// <returns></returns>
         public static bool IsProtected(this FieldInfo info, Type type)
         {
-            if (info == null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
-
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            Ensure.ArgumentNotNull(info, nameof(info));
+            Ensure.ArgumentNotNull(type, nameof(type));
 
             return !type.IsSealedClass() && (info.IsFamily || info.IsFamilyAndAssembly || info.IsFamilyOrAssembly);
         }
@@ -51,11 +43,7 @@
         /// <returns></returns>
         public static bool IsProtected(this MethodInfo info, Type type)
         {
-            if (info == null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
-
+            Ensure.ArgumentNotNull(info, nameof(info));
             return IsProtectedInternal(info, type);
         }
 

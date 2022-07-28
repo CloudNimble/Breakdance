@@ -123,7 +123,7 @@ namespace CloudNimble.Breakdance.Assemblies
         {
             if (info == null)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             var getter = GetPropertyAccessorString(type, info.GetAddMethod(), AssemblyConstants.Add);

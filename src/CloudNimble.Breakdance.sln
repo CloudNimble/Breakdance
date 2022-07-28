@@ -21,13 +21,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5ED113B8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tools", "CloudNimble.Breakdance.Tools\Breakdance.Tools.csproj", "{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Restier", "CloudNimble.Breakdance.Restier\Breakdance.Restier.csproj", "{3080C14F-FE27-4A11-A11E-7DF1FCF40511}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Blazor", "CloudNimble.Breakdance.Blazor\Breakdance.Blazor.csproj", "{AE74754E-CF06-4624-AD95-739CD72FC771}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.Blazor", "CloudNimble.Breakdance.Tests.Blazor\Breakdance.Tests.Blazor.csproj", "{9696C698-FEB7-4521-B006-447B7B6FA10C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.AspNetCore", "CloudNimble.Breakdance.AspNetCore\Breakdance.AspNetCore.csproj", "{D67BB829-3B0F-4343-9860-AA47E5B3CAA1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.AspNetCore", "CloudNimble.Breakdance.Tests.AspNetCore\Breakdance.Tests.AspNetCore.csproj", "{88BF2786-A37B-4131-A954-49F7CB2C222F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{BD57E88E-69C4-4A8C-BCC6-C76304844707}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Extensions.MSTest2", "CloudNimble.Breakdance.Extensions.MSTest2\Breakdance.Extensions.MSTest2.csproj", "{BD567DC8-0B00-4B66-8708-A529A5CA7F1C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.AspNetCore.SignalR", "CloudNimble.Breakdance.AspNetCore.SignalR\Breakdance.AspNetCore.SignalR.csproj", "{FA0A1022-EDBA-4AD3-BECF-5E0422D1BB97}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.AspNetCore.SignalR", "CloudNimble.Breakdance.Tests.AspNetCore.SignalR\Breakdance.Tests.AspNetCore.SignalR.csproj", "{CD7C8ADF-B2A0-4927-992B-A42545CA5244}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4D52396-C8E7-45A4-86AE-A3B626CC80EA}"
 	ProjectSection(SolutionItems) = preProject
@@ -38,12 +46,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 		..\README.md = ..\README.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Tests.AspNetCore", "CloudNimble.Breakdance.Tests.AspNetCore\Breakdance.Tests.AspNetCore.csproj", "{88BF2786-A37B-4131-A954-49F7CB2C222F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{BD57E88E-69C4-4A8C-BCC6-C76304844707}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Breakdance.Extensions.MSTest2", "CloudNimble.Breakdance.Extensions.MSTest2\Breakdance.Extensions.MSTest2.csproj", "{BD567DC8-0B00-4B66-8708-A529A5CA7F1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +73,6 @@ Global
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3080C14F-FE27-4A11-A11E-7DF1FCF40511}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE74754E-CF06-4624-AD95-739CD72FC771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE74754E-CF06-4624-AD95-739CD72FC771}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE74754E-CF06-4624-AD95-739CD72FC771}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -95,6 +93,14 @@ Global
 		{BD567DC8-0B00-4B66-8708-A529A5CA7F1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD567DC8-0B00-4B66-8708-A529A5CA7F1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD567DC8-0B00-4B66-8708-A529A5CA7F1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA0A1022-EDBA-4AD3-BECF-5E0422D1BB97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0A1022-EDBA-4AD3-BECF-5E0422D1BB97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0A1022-EDBA-4AD3-BECF-5E0422D1BB97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0A1022-EDBA-4AD3-BECF-5E0422D1BB97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7C8ADF-B2A0-4927-992B-A42545CA5244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7C8ADF-B2A0-4927-992B-A42545CA5244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7C8ADF-B2A0-4927-992B-A42545CA5244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7C8ADF-B2A0-4927-992B-A42545CA5244}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,12 +111,13 @@ Global
 		{6A4813C0-9630-4EED-AA94-22DFEBC634F3} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
 		{73AD8F91-91B4-4BB9-9371-2AC0030F842B} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
 		{6011B313-B5BE-4EB1-85EA-B5033C4EBDA4} = {5ED113B8-216E-48A0-80E4-1C8ACC2297D7}
-		{3080C14F-FE27-4A11-A11E-7DF1FCF40511} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
 		{AE74754E-CF06-4624-AD95-739CD72FC771} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
 		{9696C698-FEB7-4521-B006-447B7B6FA10C} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
 		{D67BB829-3B0F-4343-9860-AA47E5B3CAA1} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
 		{88BF2786-A37B-4131-A954-49F7CB2C222F} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
 		{BD567DC8-0B00-4B66-8708-A529A5CA7F1C} = {BD57E88E-69C4-4A8C-BCC6-C76304844707}
+		{FA0A1022-EDBA-4AD3-BECF-5E0422D1BB97} = {70D0E0A0-E3D6-438B-82CC-E29149BF1DA1}
+		{CD7C8ADF-B2A0-4927-992B-A42545CA5244} = {15CDAB18-5ADD-4473-9919-2CF4C0CEF1D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3411FFE-2016-4EC3-B613-9C6ADDE2CB59}

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using CloudNimble.EasyAF.Core;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 
@@ -20,10 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </remarks>
         public static Dictionary<Type, ServiceDescriptor> GetAllServiceDescriptors(this IHostBuilder builder)
         {
-            if (builder == null)
-            {
-                throw new ArgumentNullException(nameof(builder));
-            }
+            Ensure.ArgumentNotNull(builder, nameof(builder));
 
             if (builder is HostBuilder hostBuilder)
             {

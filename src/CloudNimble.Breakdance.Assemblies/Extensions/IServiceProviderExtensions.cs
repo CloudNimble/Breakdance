@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudNimble.EasyAF.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -20,11 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </remarks>
         public static Dictionary<Type, ServiceDescriptor> GetAllServiceDescriptors(this IServiceProvider provider)
         {
-            if (provider == null)
-            {
-                throw new ArgumentNullException(nameof(provider));
-            }
-
+            Ensure.ArgumentNotNull(provider, nameof(provider));
 
             if (provider is ServiceProvider serviceProvider)
             {

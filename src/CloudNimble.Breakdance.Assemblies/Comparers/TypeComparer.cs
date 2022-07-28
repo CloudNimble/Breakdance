@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // Licensed under the MIT License.  See License.txt in the project root for license information.
 
+using CloudNimble.EasyAF.Core;
 using System;
 using System.Collections;
 using System.Globalization;
@@ -24,7 +25,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <summary>
         /// 
         /// </summary>
-        public static readonly TypeComparer Default = new TypeComparer();
+        public static readonly TypeComparer Default = new();
 
         /// <summary>
         /// 
@@ -34,15 +35,8 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <returns></returns>
         public int Compare(object x, object y)
         {
-            if (x == null)
-            {
-                throw new ArgumentNullException(nameof(x));
-            }
-
-            if (y == null)
-            {
-                throw new ArgumentNullException(nameof(y));
-            }
+            Ensure.ArgumentNotNull(x, nameof(x));
+            Ensure.ArgumentNotNull(y, nameof(y));
 
             Type a = x as Type;
             Type b = y as Type;

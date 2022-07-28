@@ -1,25 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>CloudNimble.Breakdance.Blazor</RootNamespace>
-    <AssemblyName>CloudNimble.Breakdance.Blazor</AssemblyName>
-    <TargetFrameworks>net6.0</TargetFrameworks>
-    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>CloudNimble.Breakdance.Blazor</RootNamespace>
+		<AssemblyName>CloudNimble.Breakdance.Blazor</AssemblyName>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>Breakdance.Blazor</PackageId>
-    <Title>Breakdance for Blazor</Title>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>Breakdance.Blazor</PackageId>
+		<Title>Breakdance for Blazor</Title>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="bunit" Version="[1.1.5, 2.0.0)" />
-    <PackageReference Include="Flurl.Signed" Version="[3.0.2, 4.0.0)" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="bunit" Version="[1.1.5, 2.0.0)" />
+		<PackageReference Include="Flurl.Signed" Version="[3.0.2, 4.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="[7.0.0-preview.6.22330.3, 8.0.0)" Condition="'$(TargetFramework)'=='net7.0'" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+	</ItemGroup>
 
 </Project>

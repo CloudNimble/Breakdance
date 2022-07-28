@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudNimble.EasyAF.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -750,9 +751,7 @@ namespace MimeTypes
         /// <exception cref="ArgumentNullException" />
         public static bool TryGetMimeType(string str, out string mimeType) 
         {
-            if (str == null) {
-                throw new ArgumentNullException(nameof(str));
-            }
+            Ensure.ArgumentNotNull(str, nameof(str));
 
             var indexQuestionMark = str.IndexOf(QuestionMark, StringComparison.Ordinal);
             if (indexQuestionMark != -1)

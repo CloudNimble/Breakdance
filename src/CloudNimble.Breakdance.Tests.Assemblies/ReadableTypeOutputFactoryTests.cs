@@ -181,6 +181,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 #if NET6_0
                 .And.BeEquivalentTo("public class CloudNimble.Breakdance.Tests.Assemblies.SampleApis.SomeGenericClass`1<System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e>");
 #endif
+            ;
         }
 
 

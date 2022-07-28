@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CloudNimble.Breakdance.WebApi;
+using CloudNimble.EasyAF.Core;
 using Newtonsoft.Json;
 
 namespace System.Net.Http
@@ -50,10 +51,7 @@ namespace System.Net.Http
             string routePrefix = WebApiConstants.RoutePrefix, string resource = null, string acceptHeader = WebApiConstants.DefaultAcceptHeader, object payload = null, 
             JsonSerializerSettings jsonSerializerSettings = null)
         {
-            if (httpClient == null)
-            {
-                throw new ArgumentNullException(nameof(httpClient));
-            }
+            Ensure.ArgumentNotNull(httpClient, nameof(httpClient));
 
             var request = HttpClientHelpers.GetTestableHttpRequestMessage(httpMethod, host, routePrefix, resource, acceptHeader, payload, jsonSerializerSettings);
             return await httpClient.SendAsync(request).ConfigureAwait(false);

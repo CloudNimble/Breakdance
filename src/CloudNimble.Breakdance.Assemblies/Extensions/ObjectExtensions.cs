@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using CloudNimble.EasyAF.Core;
+using System.Reflection;
 
 namespace System
 {
@@ -23,10 +24,8 @@ namespace System
         /// <returns></returns>
         public static object GetFieldValue(this object obj, string fieldName, bool throwIfNull = true)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            Ensure.ArgumentNotNull(obj, nameof(obj));
+
             var objType = obj.GetType();
             var fieldInfo = GetFieldInfo(objType, fieldName);
             if (fieldInfo == null && throwIfNull)
@@ -44,10 +43,8 @@ namespace System
         /// <param name="val"></param>
         public static void SetFieldValue(this object obj, string fieldName, object val)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            Ensure.ArgumentNotNull(obj, nameof(obj));
+
             var objType = obj.GetType();
             var fieldInfo = GetFieldInfo(objType, fieldName);
             if (fieldInfo == null)
@@ -66,10 +63,8 @@ namespace System
         /// <returns></returns>
         public static object GetPropertyValue(this object obj, string propertyName, bool throwIfNull = true)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            Ensure.ArgumentNotNull(obj, nameof(obj));
+
             var objType = obj.GetType();
             var propertyInfo = GetPropertyInfo(objType, propertyName);
             if (propertyInfo == null && throwIfNull)
@@ -87,10 +82,8 @@ namespace System
         /// <param name="val"></param>
         public static void SetPropertyValue(this object obj, string propertyName, object val)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            Ensure.ArgumentNotNull(obj, nameof(obj));
+
             var objType = obj.GetType();
             var propertyInfo = GetPropertyInfo(objType, propertyName);
             if (propertyInfo == null)
