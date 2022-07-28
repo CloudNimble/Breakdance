@@ -52,6 +52,27 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
         }
 
         /// <summary>
+        /// Tests that the <see cref="TestableNamedHubConnection"/> can register two handlers for same method.
+        /// </summary>
+        [TestMethod]
+        public async Task CanRegisterHandlers()
+        {
+            var hubConnection = GetService<HubConnection>();
+
+            await hubConnection.StartAsync();
+
+            hubConnection.On("HubMethod", () => { });
+
+            hubConnection.On<bool>("HubMethod", (b) => { });
+
+            var testabelHubConnection = (TestableNamedHubConnection)hubConnection;
+
+            testabelHubConnection.RegisteredHandlers.Keys.Should().Contain("HubMethod");
+            testabelHubConnection.RegisteredHandlers.Keys.Should().HaveCount(1);
+            testabelHubConnection.RegisteredHandlers["HubMethod"].Should().HaveCount(2);
+        }
+
+        /// <summary>
         /// Tests that the <see cref="TestableNamedHubConnection"/> can send.
         /// </summary>
         [TestMethod]
@@ -107,8 +128,8 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
             var result = "not set";
 
             hubConnection.On("HubMethod1", () => { result = "1"; });
-            hubConnection.On("HubMethod2", (bool b) => { result = "2"; });
-            hubConnection.On("HubMethod3", (string s, bool b) => { result = "3"; });
+            hubConnection.On<bool>("HubMethod2", (b) => { result = "2"; });
+            hubConnection.On<string, bool>("HubMethod3", (s, b) => { result = "3"; });
 
             var testabelHubConnection = (TestableNamedHubConnection)hubConnection;
 
@@ -123,6 +144,27 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
             await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod3", "test", true);
 
             result.Should().Be("3");
+        }
+
+        /// <summary>
+        /// Tests that the <see cref="TestableNamedHubConnection"/> can invoke all handlera that had been registered for a methodName.
+        /// </summary>
+        [TestMethod]
+        public async Task CanInvokeHandlers()
+        {
+            var hubConnection = GetService<HubConnection>();
+
+            await hubConnection.StartAsync();
+
+            var result = 0;
+
+            hubConnection.On("HubMethod", () => { result++; });
+            hubConnection.On("HubMethod", () => { result++; });
+
+            var testabelHubConnection = (TestableNamedHubConnection)hubConnection;
+
+            await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod");
+            result.Should().Be(2);
         }
 
         /// <summary>
@@ -159,13 +201,17 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
 
             hubConnection.On("HubMethod", () => { });
 
+            hubConnection.On<bool>("HubMethod", (b) => { });
+
+            hubConnection.On<bool, string>("HubMethod", (b, s) => { });
+
             var testabelHubConnection = (TestableNamedHubConnection)hubConnection;
 
-            var action = async () => await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod", true);
+            var action = async () => await testabelHubConnection.InvokeHandlerFromHubAsync("HubMethod", true, "test", 1);
 
             await action.Should().ThrowAsync<InvalidOperationException>()
                 .WithMessage(
-                    "Tried to invoke methodName 'HubMethod' from the hub with the wrong number of arguments. Expected 0 but got 1",
+                    "Tried to invoke methodName 'HubMethod' from the hub with the wrong number of arguments. Expected 0, 1, or 2 but got 3",
                     null);
         }
     }

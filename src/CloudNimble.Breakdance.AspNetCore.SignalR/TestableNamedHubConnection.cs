@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Connections;
+﻿using CloudNimble.EasyAF.SignalR;
+using Humanizer;
+using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Reflection;
-using System.Collections.Generic;
-using CloudNimble.EasyAF.SignalR;
 
 namespace CloudNimble.Breakdance.AspNetCore.SignalR
 {
@@ -29,7 +31,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         /// <summary>
         /// Dictionary of the method names that have been registered and their parameter types.
         /// </summary>
-        public Dictionary<string, (Type[] parameterTypes, Func<object[], object, Task> handler, object state)> RegisteredHandlers { get; set; } = new();
+        public Dictionary<string, List<InvocationHandle>> RegisteredHandlers { get; set; } = new();
 
 #nullable enable
         /// <summary>
@@ -77,7 +79,14 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         /// <inheritdoc />
         public override IDisposable On(string methodName, Type[] parameterTypes, Func<object[], object, Task> handler, object state)
         {
-            RegisteredHandlers.Add(methodName, (parameterTypes, handler, state));
+            if (RegisteredHandlers.ContainsKey(methodName))
+            {
+                RegisteredHandlers[methodName].Add(new(parameterTypes, handler, state));
+            }
+            else
+            {
+                RegisteredHandlers.Add(methodName, new() { new(parameterTypes, handler, state) });
+            }
             return default;
         }
 
@@ -117,17 +126,24 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
                 throw new InvalidOperationException($"The {nameof(methodName)} '{methodName}' has not been registered");
             }
 
-            var (parameterTypes, handler, state) = RegisteredHandlers[methodName];
+            var invocationHandlers = RegisteredHandlers[methodName];
 
-            if (parameterTypes.Length != args?.Length)
+            var validInvocationHandlers = invocationHandlers.Where(h => h.ParameterTypes.Length == args?.Length);
+
+            if (validInvocationHandlers.Count() is 0)
             {
                 throw new InvalidOperationException(
                     $"Tried to invoke {nameof(methodName)} '{methodName}' from the hub with the wrong number of arguments. " +
-                    $"Expected {parameterTypes.Length} but got {(args is not null ? args.Length : 0)}"
+                    $"Expected {invocationHandlers.Select(h => h.ParameterTypes.Length).Humanize("or")} but got {(args is not null ? args.Length : 0)}"
                     );
             }
-
-            await handler.Invoke(args, state);
+            else
+            {
+                foreach(var invocationHandler in validInvocationHandlers)
+                {
+                    await invocationHandler.Handler.Invoke(args, invocationHandler.State);
+                }
+            }
         }
 
 #nullable disable
