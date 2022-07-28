@@ -52,7 +52,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
         }
 
         /// <summary>
-        /// Tests that the <see cref="TestableNamedHubConnection"/> can register two handlers for same method.
+        /// Tests that the <see cref="TestableNamedHubConnection"/> can register two handlers for same methodName.
         /// </summary>
         [TestMethod]
         public async Task CanRegisterHandlers()
@@ -62,7 +62,6 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
             await hubConnection.StartAsync();
 
             hubConnection.On("HubMethod", () => { });
-
             hubConnection.On<bool>("HubMethod", (b) => { });
 
             var testabelHubConnection = (TestableNamedHubConnection)hubConnection;
@@ -147,7 +146,7 @@ namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
         }
 
         /// <summary>
-        /// Tests that the <see cref="TestableNamedHubConnection"/> can invoke all handlera that had been registered for a methodName.
+        /// Tests that the <see cref="TestableNamedHubConnection"/> can invoke all handlers that had been registered for a methodName.
         /// </summary>
         [TestMethod]
         public async Task CanInvokeHandlers()
