@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// A set of enhancements for an <see cref="IHostBuilder"/> instance.
     /// </summary>
-    public static class IHostBuilderExtensions
+    public static class Breakdance_Assemblies_IHostBuilderExtensions
     {
         /// <summary>
         /// Get all registered <see cref="ServiceDescriptor">ServiceDescriptors</see> for a given container.

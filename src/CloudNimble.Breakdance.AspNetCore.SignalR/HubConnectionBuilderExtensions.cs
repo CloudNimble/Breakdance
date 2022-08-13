@@ -9,8 +9,9 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR;
 /// <summary>
 /// Extensions for HubConnectionBuilder
 /// </summary>
-public static class HubConnectionBuilderExtensions
+public static class Breakdance_SignalR_HubConnectionBuilderExtensions
 {
+
     /// <summary>
     /// Builds testable HubConnection.
     /// </summary>
@@ -35,4 +36,5 @@ public static class HubConnectionBuilderExtensions
 
         return serviceProvider.GetRequiredService<TestableNamedHubConnection>();
     }
+
 }

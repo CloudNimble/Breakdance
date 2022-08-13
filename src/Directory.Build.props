@@ -1,107 +1,107 @@
 <Project>
 
-  <PropertyGroup>
-    <IsBenchmarkProject Condition="$(MSBuildProjectName.EndsWith('.Performance'))">true</IsBenchmarkProject>
-    <IsTestProject Condition="$(MSBuildProjectName.ToLower().Contains('.tests.'))">true</IsTestProject>
-    <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
-    <IsSampleProject Condition="$(MSBuildProjectName.ToLower().Contains('.samples.'))">true</IsSampleProject>
-    <IsNetCore Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0' ">true</IsNetCore>
-    <IsPrimaryProject Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' ">true</IsPrimaryProject>
-    
-    <IncludeSource>false</IncludeSource>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
-    <StrongNamePublicKey>PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</StrongNamePublicKey>
+	<PropertyGroup>
+		<IsBenchmarkProject Condition="$(MSBuildProjectName.EndsWith('.Performance'))">true</IsBenchmarkProject>
+		<IsTestProject Condition="$(MSBuildProjectName.ToLower().Contains('.tests.'))">true</IsTestProject>
+		<IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
+		<IsSampleProject Condition="$(MSBuildProjectName.ToLower().Contains('.samples.'))">true</IsSampleProject>
+		<IsNetCore Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0' ">true</IsNetCore>
+		<IsPrimaryProject Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' ">true</IsPrimaryProject>
 
-    <LangVersion>10.0</LangVersion>
-  </PropertyGroup>
+		<IncludeSource>false</IncludeSource>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-  <PropertyGroup>
-    <Product>Breakdance</Product>
-    <PackageVersion>4.0.0</PackageVersion>
-    <Authors>CloudNimble</Authors>
-    <Company>CloudNimble, Inc.</Company>
-    <RpmPackageVendor>CloudNimble</RpmPackageVendor>
-    <Copyright>Copyright © 2017-2022 CloudNimble, Inc. All rights reserved.</Copyright>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <!--
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
+		<StrongNamePublicKey>PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</StrongNamePublicKey>
+
+		<LangVersion>10.0</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Product>Breakdance</Product>
+		<PackageVersion>4.0.0</PackageVersion>
+		<Authors>CloudNimble</Authors>
+		<Company>CloudNimble, Inc.</Company>
+		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
+		<Copyright>Copyright © 2017-2022 CloudNimble, Inc. All rights reserved.</Copyright>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<!--
       Suppress a warning about upcoming deprecation of PackageLicenseUrl. When embedding licenses are supported,
       replace PackageLicenseUrl with PackageLicenseExpression.
     -->
-    <NoWarn>$(NoWarn);NU5125</NoWarn>
-    <!-- Suppress warnings about using SemVer 2.0. -->
-    <NoWarn>$(NoWarn);NU5104;NU5105;NU5048;NU5014</NoWarn>
+		<NoWarn>$(NoWarn);NU5125</NoWarn>
+		<!-- Suppress warnings about using SemVer 2.0. -->
+		<NoWarn>$(NoWarn);NU5104;NU5105;NU5048;NU5014</NoWarn>
 
-    <!-- Contact email address for NuGet packages and Linux installers. -->
-    <MaintainerEmail>opensource@nimbleapps.cloud</MaintainerEmail>
+		<!-- Contact email address for NuGet packages and Linux installers. -->
+		<MaintainerEmail>opensource@nimbleapps.cloud</MaintainerEmail>
 
-    <PackageIconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>unit tests;breakdance;nunit;xunit;mstest;fluentassertions</PackageTags>
-    <Serviceable>true</Serviceable>
+		<PackageIconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</PackageIconUrl>
+		<PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageTags>unit tests;breakdance;nunit;xunit;mstest;fluentassertions</PackageTags>
+		<Serviceable>true</Serviceable>
 
-    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
-    <RepositoryUrl>https://github.com/CloudNimble/Breakdance.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
+		<RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+		<RepositoryUrl>https://github.com/CloudNimble/Breakdance.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
 
-  <!-- Compilation options -->
-  <PropertyGroup>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	<ImplicitUsings>disable</ImplicitUsings>
-	<Nullable>disable</Nullable>
+	<!-- Compilation options -->
+	<PropertyGroup>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
 
-	  <!-- Instructs the compiler to use SHA256 instead of SHA1 when adding file hashes to PDBs. -->
-    <ChecksumAlgorithm>SHA256</ChecksumAlgorithm>
+		<!-- Instructs the compiler to use SHA256 instead of SHA1 when adding file hashes to PDBs. -->
+		<ChecksumAlgorithm>SHA256</ChecksumAlgorithm>
 
-    <!-- Fixes a common error in targets implementing a NoBuild mode. -->
-    <BuildProjectReferences Condition=" '$(NoBuild)' == 'true' ">false</BuildProjectReferences>
-  </PropertyGroup>
+		<!-- Fixes a common error in targets implementing a NoBuild mode. -->
+		<BuildProjectReferences Condition=" '$(NoBuild)' == 'true' ">false</BuildProjectReferences>
+	</PropertyGroup>
 
-  <PropertyGroup Condition=" $(IsTestProject) == 'true' ">
-    <NoWarn>$(NoWarn);CA1001;CA1707;CA2007;CA1801;CS1591</NoWarn>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition=" $(IsPrimaryProject) == 'true' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)</DocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup Condition=" $(IsTestProject) == 'true' ">
+		<NoWarn>$(NoWarn);CA1001;CA1707;CA2007;CA1801;CS1591</NoWarn>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <StandardTestTfms>net6.0;net472</StandardTestTfms>
-  </PropertyGroup>
+	<PropertyGroup Condition=" $(IsPrimaryProject) == 'true' ">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)</DocumentationFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" />
-    <!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
-    <!--<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.*">
+	<PropertyGroup>
+		<StandardTestTfms>net6.0;net472</StandardTestTfms>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" />
+		<!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
+		<!--<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.*">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>-->
 
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>$(AssemblyName.Replace("Breakdance", "Breakdance.Tests")), $(StrongNamePublicKey)</_Parameter1>
-    </AssemblyAttribute>
-    
-  </ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>$(AssemblyName.Replace("Breakdance", "Breakdance.Tests")), $(StrongNamePublicKey)</_Parameter1>
+		</AssemblyAttribute>
 
-  <ItemGroup Condition=" $(IsTestProject) == 'true' and $(IsSampleProject) != 'true' ">
-    <PackageReference Include="FluentAssertions" Version="6.*" PrivateAssets="All" />
-    <PackageReference Include="FluentAssertions.Analyzers" Version="0.*" PrivateAssets="All" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.*" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
-  </ItemGroup>
+	</ItemGroup>
 
-  <!-- RWM: Uncomment this to enable SourceLink debugging in your projects (Make sure you set RepositoryUrl and RepositoryType). -->
-  <!--<ItemGroup>
+	<ItemGroup Condition=" $(IsTestProject) == 'true' and $(IsSampleProject) != 'true' ">
+		<PackageReference Include="FluentAssertions" Version="6.*" PrivateAssets="All" />
+		<PackageReference Include="FluentAssertions.Analyzers" Version="0.*" PrivateAssets="All" />
+		<PackageReference Include="MSTest.TestAdapter" Version="2.*" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.*" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+	</ItemGroup>
+
+	<!-- RWM: Uncomment this to enable SourceLink debugging in your projects (Make sure you set RepositoryUrl and RepositoryType). -->
+	<!--<ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>-->
 </Project>

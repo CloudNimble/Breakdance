@@ -6,7 +6,7 @@ namespace System.Reflection
     /// <summary>
     /// 
     /// </summary>
-    public static class MethodBaseExtensions
+    public static class Breakdance_Assemblies_MethodBaseExtensions
     {
 
         /// <summary>

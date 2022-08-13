@@ -9,7 +9,7 @@ namespace System.Net.Http
     /// <summary>
     /// Extension methods for making <see cref="HttpClient"/> a little more test-friendly.
     /// </summary>
-    public static class HttpClientExtensions
+    public static class Breakdance_WebApi_HttpClientExtensions
     {
 
         /// <summary>

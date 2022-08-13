@@ -9,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     /// 
     /// </summary>
-    public static class IServiceProviderExtensions
+    public static class Breakdance_Assemblies_IServiceProviderExtensions
     {
         /// <summary>
         /// Get all registered <see cref="ServiceDescriptor">ServiceDescriptors</see> for a given container.

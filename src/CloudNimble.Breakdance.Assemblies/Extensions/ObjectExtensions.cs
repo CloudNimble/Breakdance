@@ -10,7 +10,7 @@ namespace System
     /// <remarks>
     /// Taken from https://stackoverflow.com/a/60529530/403765
     /// </remarks>
-    public static class ObjectExtensions
+    public static class Breakdance_Assemblies_ObjectExtensions
     {
 
         #region Public Methods

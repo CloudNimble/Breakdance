@@ -8,7 +8,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
     /// <summary>
     /// Contains methods to extend <see cref="TestContext"/>.
     /// </summary>
-    public static class TestContextExtensions
+    public static class Breakdance_MsTest2_TestContextExtensions
     {
 
         /// <summary>
