@@ -187,7 +187,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 
 #endregion
 
-#region GenericTypeName
+        #region GenericTypeName
 
         [TestMethod]
         public void ReadableTypeOutputFactory_GetGenericTypeName_List_OfString()
@@ -221,7 +221,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
                 .And.BeEquivalentTo("string");
         }
 
-#endregion
+        #endregion
 
     }
 

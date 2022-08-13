@@ -6,7 +6,7 @@ namespace System.Web.Http
     /// <summary>
     /// Extension methods for making <see cref="HttpConfiguration"/> a little more test-friendly.
     /// </summary>
-    public static class HttpConfigurationExtensions
+    public static class Breakdance_WebApi_HttpConfigurationExtensions
     {
 
         /// <summary>
