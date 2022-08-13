@@ -76,7 +76,7 @@
 		<PackageReference Include="System.Threading.Tasks" Version="[4.3.0, 7.0.0)" />
 		<PackageReference Include="System.Threading.Tasks.Parallel" Version="[4.3.0, 7.0.0)" />
 	</ItemGroup>
-	
+
 
 	<ItemGroup>
 		<None Include="..\.editorconfig" Link=".editorconfig" />
