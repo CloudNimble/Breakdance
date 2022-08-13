@@ -85,7 +85,9 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0-preview*">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-
+		<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.3.*-*">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>$(AssemblyName.Replace("Breakdance", "Breakdance.Tests")), $(StrongNamePublicKey)</_Parameter1>
 		</AssemblyAttribute>
