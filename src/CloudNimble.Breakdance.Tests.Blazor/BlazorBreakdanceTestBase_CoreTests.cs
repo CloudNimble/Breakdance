@@ -1,5 +1,6 @@
 ﻿using Bunit.TestDoubles;
 using CloudNimble.Breakdance.Blazor;
+using CloudNimble.Breakdance.Tests.Blazor.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
@@ -33,12 +34,8 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
             RegisterServices.Should().BeNull();
-#if NET6_0_OR_GREATER
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(33);
-#endif
-#if NET5_0
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(32);
-#endif
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(34);
+
             BUnitTestContext.Services.Should().HaveCount(13);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             BUnitTestContext.Services.GetService<IConfiguration>().Should().NotBeNull();
@@ -112,14 +109,35 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             RegisterServices.Should().BeNull();
             BUnitTestContext.Services.Should().HaveCount(13);
             BUnitTestContext.Services.GetService<DummyService>().Should().BeNull();
-#if NET6_0_OR_GREATER
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(34);
-#endif
-#if NET5_0
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(33);
-#endif
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
             TestHost.Services.GetService<DummyService>().Should().NotBeNull();
             GetService<DummyService>().Should().NotBeNull();
+        }
+
+        /// <summary>
+        /// Tests that services registered specifically on the <see cref="IHost"/> will not be registered on the <see cref="Bunit.TestContext"/>.
+        /// </summary>
+        [TestMethod]
+        public void BlazorBreakdanceTestBase_DI_InjectsIJSRuntime_FromTestHost()
+        {
+            //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
+            TestHost.Should().BeNull();
+            BUnitTestContext.Should().BeNull();
+            RegisterServices.Should().BeNull();
+
+            TestHostBuilder.ConfigureServices((context, services) => services.AddSingleton<TestJavaScriptService>());
+            TestSetup();
+
+            TestHost.Should().NotBeNull();
+            BUnitTestContext.Should().NotBeNull();
+            RegisterServices.Should().BeNull();
+            BUnitTestContext.Services.Should().HaveCount(13);
+            BUnitTestContext.Services.GetService<TestJavaScriptService>().Should().BeNull();
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
+            TestHost.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
+            var service = GetService<TestJavaScriptService>();
+            service.Should().NotBeNull();
+            service.JSRuntime.Should().NotBeNull();
         }
 
     }

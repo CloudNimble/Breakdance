@@ -40,14 +40,16 @@ namespace CloudNimble.Breakdance.Blazor
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
         /// <returns>A service object of type <typeparamref name="T"/>.</returns>
-        public override T GetService<T>() where T : class => BUnitTestContext?.Services.GetService<T>() ?? base.GetService<T>();
+        public override T GetService<T>() where T : class => 
+            BUnitTestContext?.Services.GetService<T>() ?? base.GetService<T>();
 
         /// <summary>
         /// Get an enumeration of services of type <typeparamref name="T"/> from the System.IServiceProvider.
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
         /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
-        public override IEnumerable<T> GetServices<T>() where T : class  => BUnitTestContext?.Services.GetServices<T>() ?? base.GetServices<T>();
+        public override IEnumerable<T> GetServices<T>() where T : class => 
+            BUnitTestContext?.Services.GetServices<T>() ?? base.GetServices<T>();
 
         /// <summary>
         /// Properly instantiates the <see cref="BUnitTestContext"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context.
@@ -63,15 +65,12 @@ namespace CloudNimble.Breakdance.Blazor
         /// </summary>
         public void TestSetup(JSRuntimeMode jSRuntimeMode)
         {
-            base.TestSetup();
             BUnitTestContext = new TestContext();
             BUnitTestContext.JSInterop.Mode = jSRuntimeMode;
-            if (RegisterServices != null)
-            {
-                RegisterServices.Invoke(BUnitTestContext.Services);
-            }
-            var configuration = TestHost.Services.GetService<IConfiguration>();
-            BUnitTestContext.Services.AddSingleton(configuration);
+            TestHostBuilder.ConfigureServices(services => services.AddSingleton((sp) => BUnitTestContext.JSInterop.JSRuntime));
+            base.TestSetup();
+            RegisterServices?.Invoke(BUnitTestContext.Services);
+            BUnitTestContext.Services.AddSingleton(sp => TestHost.Services.GetService<IConfiguration>());
         }
 
         /// <summary>
