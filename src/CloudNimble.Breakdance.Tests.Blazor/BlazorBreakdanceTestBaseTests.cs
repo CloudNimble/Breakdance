@@ -2,7 +2,6 @@
 using CloudNimble.Breakdance.Blazor;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CloudNimble.Breakdance.Tests.Blazor
@@ -19,9 +18,6 @@ namespace CloudNimble.Breakdance.Tests.Blazor
         [TestInitialize]
         public void Setup()
         {
-            RegisterServices = services => {
-                services.AddScoped<TestableNavigationManager>();
-            };
             TestSetup();
         }
 
@@ -37,11 +33,9 @@ namespace CloudNimble.Breakdance.Tests.Blazor
         public void BlazorBreakdanceTestBase_Setup_CreatesTestContext_ConflictingServices()
         {
             BUnitTestContext.Should().NotBeNull();
-            RegisterServices.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(14);
+            BUnitTestContext.Services.Should().HaveCount(12);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             GetServices<NavigationManager>().Should().HaveCount(1);
-            GetService<TestableNavigationManager>().Should().NotBeNull();
         }
 
     }

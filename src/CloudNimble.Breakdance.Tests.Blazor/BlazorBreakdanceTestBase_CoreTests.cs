@@ -26,17 +26,15 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
             BUnitTestContext.Should().BeNull();
-            RegisterServices.Should().BeNull();
             GetService<IConfiguration>().Should().BeNull();
 
             TestSetup();
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            RegisterServices.Should().BeNull();
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(34);
 
-            BUnitTestContext.Services.Should().HaveCount(13);
+            BUnitTestContext.Services.Should().HaveCount(12);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             BUnitTestContext.Services.GetService<IConfiguration>().Should().NotBeNull();
         }
@@ -50,20 +48,14 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
             BUnitTestContext.Should().BeNull();
-            RegisterServices.Should().BeNull();
 
-            RegisterServices = services => {
-                services.AddScoped<TestableNavigationManager>();
-            };
             TestSetup();
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            RegisterServices.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(14);
+            BUnitTestContext.Services.Should().HaveCount(12);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             GetServices<NavigationManager>().Should().HaveCount(1);
-            GetService<TestableNavigationManager>().Should().NotBeNull();
         }
 
         /// <summary>
@@ -75,19 +67,13 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
             BUnitTestContext.Should().BeNull();
-            RegisterServices.Should().BeNull();
 
-            RegisterServices = services => {
-                services.AddScoped<NavigationManager>(sp => new TestableNavigationManager());
-            };
             TestSetup();
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            RegisterServices.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(14);
-            GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(TestableNavigationManager));
-            GetServices<NavigationManager>().Should().HaveCount(2);
+            BUnitTestContext.Services.Should().HaveCount(12);
+            GetServices<NavigationManager>().Should().HaveCount(1);
         }
 
         /// <summary>
@@ -99,16 +85,14 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
             BUnitTestContext.Should().BeNull();
-            RegisterServices.Should().BeNull();
 
             TestHostBuilder.ConfigureServices((context, services) => services.AddSingleton<DummyService>());
             TestSetup();
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            RegisterServices.Should().BeNull();
-            BUnitTestContext.Services.Should().HaveCount(13);
-            BUnitTestContext.Services.GetService<DummyService>().Should().BeNull();
+            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.GetService<DummyService>().Should().NotBeNull();
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
             TestHost.Services.GetService<DummyService>().Should().NotBeNull();
             GetService<DummyService>().Should().NotBeNull();
@@ -123,16 +107,14 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             //RWM: We're not *quite* setting this up properly, because we want to test the state both before and after calling TestSetup();
             TestHost.Should().BeNull();
             BUnitTestContext.Should().BeNull();
-            RegisterServices.Should().BeNull();
 
             TestHostBuilder.ConfigureServices((context, services) => services.AddSingleton<TestJavaScriptService>());
             TestSetup();
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            RegisterServices.Should().BeNull();
-            BUnitTestContext.Services.Should().HaveCount(13);
-            BUnitTestContext.Services.GetService<TestJavaScriptService>().Should().BeNull();
+            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
             TestHost.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
             var service = GetService<TestJavaScriptService>();
