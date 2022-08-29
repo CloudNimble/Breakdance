@@ -116,6 +116,28 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             configuration.GetValue<string>("ApplicationName").Should().Be("Alpha Tests");
         }
 
+        [TestMethod]
+        public void BreakdanceTestBase_GetScopedService_DefaultScope()
+        {
+            var testBase = new TestBase();
+            testBase.TestHostBuilder.ConfigureServices((services) => services.AddScoped(_ => new DummyScopedService()));
+            testBase.TestSetup();
+            testBase.TestHost.Services.Should().NotBeNull();
+            testBase.GetScopedService<DummyScopedService>().Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void BreakdanceTestBase_GetScopedService_ExistingScope()
+        {
+            var testBase = new TestBase();
+            testBase.TestHostBuilder.ConfigureServices((services) => services.AddScoped(_ => new DummyScopedService()));
+            testBase.TestSetup();
+            testBase.TestHost.Services.Should().NotBeNull();
+            var manualScope = testBase.TestHost.Services.CreateScope();
+            manualScope.Should().NotBeNull();
+            testBase.GetScopedService<DummyScopedService>(manualScope).Should().NotBeNull();
+        }
+
     }
 
     /// <summary>
@@ -123,6 +145,14 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
     /// </summary>
     internal class TestBase : BreakdanceTestBase
     {
+    }
+
+    /// <summary>
+    /// A fake class for testing methods that use the <see cref="IServiceScope"/>.
+    /// </summary>
+    internal class DummyScopedService
+    {
+
     }
 
 }
