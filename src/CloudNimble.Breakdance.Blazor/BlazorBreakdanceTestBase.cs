@@ -1,6 +1,5 @@
 ﻿using Bunit;
 using CloudNimble.Breakdance.Assemblies;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -21,15 +20,6 @@ namespace CloudNimble.Breakdance.Blazor
         /// The bUnit <see cref="TestContext"/> for the currently-executing test.
         /// </summary>
         public TestContext BUnitTestContext { get; set; }
-
-        /// <summary>
-        /// An <see cref="Action{IServiceCollection}"/> that lets you register additional services with the <see cref="BUnitTestContext"/>.
-        /// </summary>
-        /// <remarks>
-        /// To register services with the TestHost, call <see cref="IHostBuilder.ConfigureServices(Action{HostBuilderContext, IServiceCollection})"/> on 
-        /// <see cref="BreakdanceTestBase.TestHostBuilder">TestHostBuilder</see> instead.
-        /// </remarks>
-        public Action<IServiceCollection> RegisterServices { get; set; }
 
         #endregion
 
@@ -52,7 +42,8 @@ namespace CloudNimble.Breakdance.Blazor
             BUnitTestContext?.Services.GetServices<T>() ?? base.GetServices<T>();
 
         /// <summary>
-        /// Properly instantiates the <see cref="BUnitTestContext"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context.
+        /// Properly instantiates the <see cref="BUnitTestContext"/> and registers the <see cref="BreakdanceTestBase.TestHost">TestHost's</see> 
+        /// <see cref="IHost.Services"/> as a "fallback" <see cref="IServiceProvider"/>.
         /// </summary>
         public override void TestSetup()
         {
@@ -60,17 +51,17 @@ namespace CloudNimble.Breakdance.Blazor
         }
 
         /// <summary>
-        /// Properly instantiates the <see cref="BUnitTestContext"/> and if <see cref="RegisterServices"/> is not null, properly registers additional services with the context
-        /// and allows you to set the bUnit JSInterop mode
+        /// Properly instantiates the <see cref="BUnitTestContext"/> and registers the <see cref="BreakdanceTestBase.TestHost">TestHost's</see> 
+        /// <see cref="IHost.Services"/> as a "fallback" <see cref="IServiceProvider"/> and allows you to set the bUnit JSInterop mode.
         /// </summary>
         public void TestSetup(JSRuntimeMode jSRuntimeMode)
         {
             BUnitTestContext = new TestContext();
             BUnitTestContext.JSInterop.Mode = jSRuntimeMode;
+            // RWM: Make the BUnit JSRuntime available to the TestHost services (in case a service that requires it is materialized from the base container.
             TestHostBuilder.ConfigureServices(services => services.AddSingleton((sp) => BUnitTestContext.JSInterop.JSRuntime));
             base.TestSetup();
-            RegisterServices?.Invoke(BUnitTestContext.Services);
-            BUnitTestContext.Services.AddSingleton(sp => TestHost.Services.GetService<IConfiguration>());
+            BUnitTestContext.Services.AddFallbackServiceProvider(TestHost.Services);
         }
 
         /// <summary>
