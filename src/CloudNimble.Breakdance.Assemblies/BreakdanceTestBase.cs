@@ -68,6 +68,32 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
+        /// Method used by test classes to setup the environment.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [ClassInitialize].
+        /// With NUnit, use [OneTimeSetup].
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual void ClassSetup()
+        {
+            EnsureTestHost();
+        }
+
+        /// <summary>
+        /// Method used by test classes to clean up the environment.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [ClassCleanup].
+        /// With NUnit, use [OneTimeTearDown].
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual void ClassTearDown()
+        {
+            Dispose();
+        }
+
+        /// <summary>
         /// Clean up disposable objects in the environment.
         /// </summary>
         public void Dispose()

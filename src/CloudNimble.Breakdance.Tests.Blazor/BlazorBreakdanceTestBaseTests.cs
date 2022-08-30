@@ -13,6 +13,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
     [TestClass]
     public class BlazorBreakdanceTestBaseTests : BlazorBreakdanceTestBase
     {
+
         #region Test Lifecycle
 
         [TestInitialize]
