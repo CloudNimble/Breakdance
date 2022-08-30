@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
+using CloudNimble.EasyAF.Core;
 
 namespace CloudNimble.Breakdance.Assemblies
 {
@@ -24,6 +25,11 @@ namespace CloudNimble.Breakdance.Assemblies
         /// The <see cref="IHostBuilder"/> instance used to configure the test host.
         /// </summary>
         public IHostBuilder TestHostBuilder { get; internal set; }
+
+        /// <summary>
+        /// Provides a default <see cref="IServiceScope"/> implementation to contain scoped services.
+        /// </summary>
+        public IServiceScope DefaultScope { get; set; }
 
         #endregion
 
@@ -141,6 +147,28 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <typeparam name="T">The type of service object to get.</typeparam>
         /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
         public virtual IEnumerable<T> GetServices<T>() where T : class => TestHost?.Services.GetServices<T>();
+
+        /// <summary>
+        /// Get the requested service from the specified <see cref="IServiceScope"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetScopedService<T>(IServiceScope scope) where T : class
+        {
+            Ensure.ArgumentNotNull(scope, nameof(scope));
+            return scope.ServiceProvider.GetRequiredService<T>();
+        }
+
+        /// <summary>
+        /// Get the requested service from the default <see cref="IServiceScope"/> provided by Breakdance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetScopedService<T>() where T : class
+        {
+            DefaultScope ??= TestHost.Services.CreateScope();
+            return GetScopedService<T>(DefaultScope);
+        }
 
         #endregion
 
