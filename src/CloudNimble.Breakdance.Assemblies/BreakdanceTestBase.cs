@@ -170,6 +170,28 @@ namespace CloudNimble.Breakdance.Assemblies
             return GetScopedService<T>(DefaultScope);
         }
 
+        /// <summary>
+        /// Get the requested service from the specified <see cref="IServiceScope"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IEnumerable<T> GetScopedServices<T>(IServiceScope scope) where T : class
+        {
+            Ensure.ArgumentNotNull(scope, nameof(scope));
+            return scope.ServiceProvider.GetServices<T>();
+        }
+
+        /// <summary>
+        /// Get the requested service from the default <see cref="IServiceScope"/> provided by Breakdance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IEnumerable<T> GetScopedServices<T>() where T : class
+        {
+            DefaultScope ??= TestHost.Services.CreateScope();
+            return GetScopedServices<T>(DefaultScope);
+        }
+
         #endregion
 
         #region Private Methods
