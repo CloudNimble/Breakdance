@@ -123,7 +123,8 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             testBase.TestHostBuilder.ConfigureServices((services) => services.AddScoped(_ => new DummyScopedService()));
             testBase.TestSetup();
             testBase.TestHost.Services.Should().NotBeNull();
-            testBase.GetScopedService<DummyScopedService>().Should().NotBeNull();
+            var dummyService = testBase.GetScopedService<DummyScopedService>();
+            dummyService.Should().NotBeNull();
         }
 
         [TestMethod]
@@ -135,7 +136,24 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             testBase.TestHost.Services.Should().NotBeNull();
             var manualScope = testBase.TestHost.Services.CreateScope();
             manualScope.Should().NotBeNull();
-            testBase.GetScopedService<DummyScopedService>(manualScope).Should().NotBeNull();
+            var dummyService = testBase.GetScopedService<DummyScopedService>(manualScope);
+            dummyService.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void BreakdanceTestBase_GetScopedServices_ReturnsExpectedImplementations()
+        {
+            var testBase = new TestBase();
+            testBase.TestHostBuilder.ConfigureServices((services) => {
+                services
+                    .AddScoped<DummyBaseService, DummyScopedService>(_ => new DummyScopedService())
+                    .AddScoped<DummyBaseService, BackupDummyScopedService>(_ => new BackupDummyScopedService());
+            });
+            testBase.TestSetup();
+            testBase.TestHost.Services.Should().NotBeNull();
+            var implementations = testBase.GetScopedServices<DummyBaseService>();
+            implementations.Should().NotBeNull();
+            implementations.Should().HaveCount(2);
         }
 
         [TestMethod]
