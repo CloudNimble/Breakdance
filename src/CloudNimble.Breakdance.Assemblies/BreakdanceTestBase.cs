@@ -156,7 +156,7 @@ namespace CloudNimble.Breakdance.Assemblies
         public T GetScopedService<T>(IServiceScope scope) where T : class
         {
             Ensure.ArgumentNotNull(scope, nameof(scope));
-            return scope.ServiceProvider.GetRequiredService<T>();
+            return scope.ServiceProvider.GetService<T>();
         }
 
         /// <summary>
