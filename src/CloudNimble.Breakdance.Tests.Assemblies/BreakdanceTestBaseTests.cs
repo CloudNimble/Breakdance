@@ -156,22 +156,6 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             implementations.Should().HaveCount(2);
         }
 
-        [TestMethod]
-        public void BreakdanceTestBase_GetScopedServices_ReturnsExpectedImplementations()
-        {
-            var testBase = new TestBase();
-            testBase.TestHostBuilder.ConfigureServices((services) => {
-                services
-                    .AddScoped<DummyBaseService, DummyScopedService>(_ => new DummyScopedService())
-                    .AddScoped<DummyBaseService, BackupDummyScopedService>(_ => new BackupDummyScopedService());
-            });
-            testBase.TestSetup();
-            testBase.TestHost.Services.Should().NotBeNull();
-            var implementations = testBase.GetScopedServices<DummyBaseService>();
-            implementations.Should().NotBeNull();
-            implementations.Should().HaveCount(2);
-        }
-
     }
 
     #region Fakes
