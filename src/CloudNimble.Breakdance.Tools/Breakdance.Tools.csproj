@@ -16,13 +16,13 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 7.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[7.0.0-preview.6.22324.4, 7.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[7.0.0-preview.6.22324.4, 7.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[7.0.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[7.0.0, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -46,14 +46,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Core" Version="[2.0.*-*, 3.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3.1.0, 7.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[3.1.0, 7.0.0)" />
+		<PackageReference Include="EasyAF.Core" Version="[2.*-*, 3.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3.1.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[3.1.0, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[7.*-*, 8.0.0)" />
-		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[7.*-*, 8.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[7.0.0, 8.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[7.0.0, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
@@ -65,20 +65,20 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[1.1.0, 7.0.0)" />
-		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.3.0, 7.0.0)" />
-		<PackageReference Include="System.Runtime.Serialization.Formatters" Version="[4.3.0, 7.0.0)" />
-		<PackageReference Include="System.Collections.NonGeneric" Version="[4.3.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[1.1.0, 8.0.0)" />
+		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="System.Runtime.Serialization.Formatters" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="System.Collections.NonGeneric" Version="[4.3.0, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48'">
-		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[3.1.3, 7.0.0)" />
-		<PackageReference Include="System.Net.Http" Version="[4.3.0, 7.0.0)" />
-		<PackageReference Include="System.Reflection" Version="[4.3.0, 7.0.0)" />
-		<PackageReference Include="System.Reflection.Primitives" Version="[4.3.0, 7.0.0)" />
-		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.7.0, 7.0.0)" />
-		<PackageReference Include="System.Threading.Tasks" Version="[4.3.0, 7.0.0)" />
-		<PackageReference Include="System.Threading.Tasks.Parallel" Version="[4.3.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[3.1.3, 8.0.0)" />
+		<PackageReference Include="System.Net.Http" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="System.Reflection" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="System.Reflection.Primitives" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.7.0, 8.0.0)" />
+		<PackageReference Include="System.Threading.Tasks" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="System.Threading.Tasks.Parallel" Version="[4.3.0, 8.0.0)" />
 	</ItemGroup>
 
 

@@ -17,7 +17,7 @@
 		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>
 		<StrongNamePublicKey>PublicKey=002400000480000094000000060200000024000052534131000400000100010019716104c2a5bbd61d08e1c8ece3d4c8f1ed31e923438d04be62e6be757659457ba97931e75d3182ae93c5bf2259e5804e4d71c4b333648ef1e56bdb8b83391c6ddcea54fbc74474832789c38c7c208298006805721bf5ac6907491d4f1189d06564aa4f7f5e1ca9ad6ce766e8f10b70e2cecc52ce4d42feee42552b1fdd7fad</StrongNamePublicKey>
 
-		<LangVersion>10.0</LangVersion>
+		<LangVersion>11.0</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -80,7 +80,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<StandardTestTfms>net6.0;net472</StandardTestTfms>
+		<StandardTestTfms>net7.0;net472</StandardTestTfms>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
