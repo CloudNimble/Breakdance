@@ -1,8 +1,19 @@
-# Breakdance by CloudNimble
-![breakdance-small](https://cloud.githubusercontent.com/assets/1657085/26813617/6489768e-4a4d-11e7-8a49-3864333ebde9.png)
-A testing framework for managing the dangerous dance of shipping public APIs.
+<h1 align="center">Breakdance - by CloudNimble</h1> <br>
+<p align="center">
+  A testing framework for managing the dangerous dance of shipping public APIs. Built by @CloudNimble.
+</p>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/4oac97kfh85t9f7e?svg=true)](https://ci.appveyor.com/project/robertmclaws/breakdance-wcgrd)
+<div align="center">
+
+<img src="https://cloud.githubusercontent.com/assets/1657085/26813617/6489768e-4a4d-11e7-8a49-3864333ebde9.png" alt="Breakdance Logo">
+
+[Releases](https://github.com/CloudNimble/Breakdance/releases)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Documentation&nbsp;&nbsp;&nbsp;
+
+[![Build Status][devops-build-img]][devops-build]
+[![Release Status][devops-release-img]][devops-release]
+[![Twitter][twitter-img]][twitter-intent]
+
+</div>
 
 ## Introduction
 Managing breakage in public APIs is a HUGE pain in the ass. With the current tools, you never really know when you're going to break someone. And with NuGet
@@ -88,3 +99,18 @@ The included unit tests show how to take this information, and build tests that 
 
  - Testier can't currently map OData functions that are bound to datasets. If you know how to do this, please feel free to submit a PR.
 
+## Feedback
+
+Feel free to send us feedback on [Twitter](https://twitter.com/cloud_nimble) or [file an issue](https://github.com/CloudNimble/Breakdance/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
+
+<!--
+Link References
+-->
+
+[devops-build]:https://dev.azure.com/cloudnimble/Breakdance/_build/latest?definitionId=10
+[devops-release]:https://dev.azure.com/cloudnimble/Breakdance/_release?view=all&definitionId=2
+[twitter-intent]:https://twitter.com/intent/tweet?via=cloud_nimble&text=Check%20out%20Breakdance%2C%20a%20testing%20framework%20for%20managing%20the%20dangerous%20dance%20of%20shipping%20public%20APIs.&hashtags=API%2Ctesting
+
+[devops-build-img]:https://img.shields.io/azure-devops/build/cloudnimble/breakdance/10.svg?style=for-the-badge&logo=azuredevops
+[devops-release-img]:https://img.shields.io/azure-devops/release/cloudnimble/7f9e2e9c-c38f-43dd-a5f2-0b909c883db2/2/2.svg?style=for-the-badge&logo=azuredevops
+[twitter-img]:https://img.shields.io/badge/share-on%20twitter-55acee.svg?style=for-the-badge&logo=twitter
