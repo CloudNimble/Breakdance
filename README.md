@@ -9,8 +9,8 @@
 
 [Releases](https://github.com/CloudNimble/Breakdance/releases)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Documentation&nbsp;&nbsp;&nbsp;
 
-[![Build status](https://dev.azure.com/cloudnimble/Breakdance/_apis/build/status/Breakdance-RTM)](https://dev.azure.com/cloudnimble/Breakdance/_build/latest?definitionId=10)
-[![Release Status](https://vsrm.dev.azure.com/cloudnimble/_apis/public/Release/badge/7f9e2e9c-c38f-43dd-a5f2-0b909c883db2/2/2)](https://dev.azure.com/cloudnimble/Breakdance/_release?_a=releases&view=mine&definitionId=2)
+[![Build Status][devops-build-img]][devops-build]
+[![Release Status][devops-release-img]][devops-release]
 [![Twitter][twitter-img]][twitter-intent]
 
 </div>
@@ -107,5 +107,10 @@ Feel free to send us feedback on [Twitter](https://twitter.com/cloud_nimble) or 
 Link References
 -->
 
+[devops-build]:https://dev.azure.com/cloudnimble/Breakdance/_build/latest?definitionId=10
+[devops-release]:https://dev.azure.com/cloudnimble/Breakdance/_release?view=all&definitionId=2
 [twitter-intent]:https://twitter.com/intent/tweet?via=cloud_nimble&text=Check%20out%20Breakdance%2C%20a%20testing%20framework%20for%20managing%20the%20dangerous%20dance%20of%20shipping%20public%20APIs.&hashtags=API%2Ctesting
+
+[devops-build-img]:https://img.shields.io/azure-devops/build/cloudnimble/breakdance/10.svg?style=for-the-badge&logo=azuredevops
+[devops-release-img]:https://img.shields.io/azure-devops/release/cloudnimble/7f9e2e9c-c38f-43dd-a5f2-0b909c883db2/2/2.svg?style=for-the-badge&logo=azuredevops
 [twitter-img]:https://img.shields.io/badge/share-on%20twitter-55acee.svg?style=for-the-badge&logo=twitter
