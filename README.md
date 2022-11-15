@@ -38,9 +38,8 @@ It's time to change all that. Breakdance integrates surface testing into your bu
 | [Breakdance.Assemblies][bd-assemblies-nuget]    | [![bd-assemblies][bd-assemblies-nuget-img]][bd-assemblies-nuget] | .NET assemblies.
 | [Breakdance.Blazor][bd-blazor-nuget]    | [![bd-blazor][bd-blazor-nuget-img]][bd-blazor-nuget] | Blazor assemblies.
 | [Breakdance.Extensions.MSTest2][bd-mstest-nuget]    | [![bd-mstest][bd-mstest-nuget-img]][bd-mstest-nuget] | Microsoft Test assemblies.
-| [Breakdance.Tools][bd-tools-nuget]    | [![bd-tools][bd-tools-nuget-img]][bd-tools-nuget] | CLI tools  for
-| [Breakdance.WebApi][bd-webapi-nuget]    | [![bd-webapi][bd-webapi-nuget-img]][bd-webapi-nuget] |
-
+| [Breakdance.Tools][bd-tools-nuget]    | [![bd-tools][bd-tools-nuget-img]][bd-tools-nuget] | CLI tools  for Breakdance.
+| [Breakdance.WebApi][bd-webapi-nuget]    | [![bd-webapi][bd-webapi-nuget-img]][bd-webapi-nuget] | WebApi services.
 
 ## Installation
 
@@ -112,7 +111,7 @@ The included unit tests show how to take this information, and build tests that 
 
 ## Known Issues
 
- - Testier can't currently map OData functions that are bound to datasets. If you know how to do this, please feel free to submit a PR.
+- Testier can't currently map OData functions that are bound to datasets. If you know how to do this, please feel free to submit a PR.
 
 ## Feedback
 
