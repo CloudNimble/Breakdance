@@ -22,10 +22,25 @@ making weak references mainstream, even Microsoft breaks people... sometimes wit
 It's time to change all that. Breakdance integrates surface testing into your build and deployment process, in just a few lines of code. Instead of waiting until GitHub issues break your inbox, Breakdance will break YOUR build first, forcing you to make critical decisions about how to keep your customers happy BEFORE they grab their pitchforks.
 
 ### Components
-- **Breakdance.Assemblies:**   .NET assemblies.
-- **Breakdance.WebApi:**       WebApi services.
-- **Breakdance.OData:**        OData services.
-- **Breakdance.Restier:**      Restier-based OData services.
+- **Breakdance.AspNetCore:**     ASP.NET Core assemblies.
+- **Breakdance.Assemblies:**     .NET assemblies.
+- **Breakdance.Blazor:**         Blazor assemblies.
+- **Breakdance.WebApi:**         WebApi services.
+- **Breakdance.OData:**          OData services.
+- **Breakdance.Restier:**        Restier-based OData services.
+
+### Ecosystem
+
+| Project | Status | Description |
+|---------|--------|-------------|
+| [Breakdance.AspNetCore][bd-aspnetcore-nuget]    | [![bd-aspnetcore][bd-aspnetcore-nuget-img]][bd-aspnetcore-nuget] | ASP.NET Core assemblies.
+| [Breakdance.AspNetCore.SignalR][bd-aspnetcore-sigr-nuget]    | [![bd-aspnetcore-sigr][bd-aspnetcore-sigr-nuget-img]][bd-aspnetcore-sigr-nuget] | ASP.NET Core assemblies for SignalR
+| [Breakdance.Assemblies][bd-assemblies-nuget]    | [![bd-assemblies][bd-assemblies-nuget-img]][bd-assemblies-nuget] | .NET assemblies.
+| [Breakdance.Blazor][bd-blazor-nuget]    | [![bd-blazor][bd-blazor-nuget-img]][bd-blazor-nuget] | Blazor assemblies.
+| [Breakdance.Extensions.MSTest2][bd-mstest-nuget]    | [![bd-mstest][bd-mstest-nuget-img]][bd-mstest-nuget] | Microsoft Test assemblies.
+| [Breakdance.Tools][bd-tools-nuget]    | [![bd-tools][bd-tools-nuget-img]][bd-tools-nuget] | CLI tools  for
+| [Breakdance.WebApi][bd-webapi-nuget]    | [![bd-webapi][bd-webapi-nuget-img]][bd-webapi-nuget] |
+
 
 ## Installation
 
@@ -103,6 +118,13 @@ The included unit tests show how to take this information, and build tests that 
 
 Feel free to send us feedback on [Twitter](https://twitter.com/cloud_nimble) or [file an issue](https://github.com/CloudNimble/Breakdance/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
 
+## Contributors
+
+Thank you to all the people who have contributed to the project.
+
+<a href="https://github.com/CloudNimble/Breakdance/graphs/contributors">Source code Contributors</a>
+
+
 <!--
 Link References
 -->
@@ -114,3 +136,23 @@ Link References
 [devops-build-img]:https://img.shields.io/azure-devops/build/cloudnimble/breakdance/10.svg?style=for-the-badge&logo=azuredevops
 [devops-release-img]:https://img.shields.io/azure-devops/release/cloudnimble/7f9e2e9c-c38f-43dd-a5f2-0b909c883db2/2/2.svg?style=for-the-badge&logo=azuredevops
 [twitter-img]:https://img.shields.io/badge/share-on%20twitter-55acee.svg?style=for-the-badge&logo=twitter
+
+<!--
+Ecosystem Link References
+-->
+
+[bd-aspnetcore-nuget]: https://www.nuget.org/packages/Breakdance.AspNetCore
+[bd-aspnetcore-sigr-nuget]: https://www.nuget.org/packages/Breakdance.AspNetCore.SignalR
+[bd-assemblies-nuget]: https://www.nuget.org/packages/Breakdance.Assemblies
+[bd-blazor-nuget]: https://www.nuget.org/packages/Breakdance.Blazor
+[bd-mstest-nuget]: https://www.nuget.org/packages/Breakdance.Extensions.MSTest2
+[bd-tools-nuget]: https://www.nuget.org/packages/Breakdance.Tools
+[bd-webapi-nuget]: https://www.nuget.org/packages/Breakdance.WebApi
+
+[bd-aspnetcore-nuget-img]: https://img.shields.io/nuget/v/Breakdance.AspNetCore?label=NuGet&logo=NuGet&style=for-the-badge
+[bd-aspnetcore-sigr-nuget-img]: https://img.shields.io/nuget/v/Breakdance.AspNetCore.SignalR?label=NuGet&logo=NuGet&style=for-the-badge
+[bd-assemblies-nuget-img]: https://img.shields.io/nuget/v/Breakdance.Assemblies?label=NuGet&logo=NuGet&style=for-the-badge
+[bd-blazor-nuget-img]: https://img.shields.io/nuget/v/Breakdance.Blazor?label=NuGet&logo=NuGet&style=for-the-badge
+[bd-mstest-nuget-img]: https://img.shields.io/nuget/v/Breakdance.Extensions.MSTest2?label=NuGet&logo=NuGet&style=for-the-badge
+[bd-tools-nuget-img]: https://img.shields.io/nuget/v/Breakdance.Tools?label=NuGet&logo=NuGet&style=for-the-badge
+[bd-webapi-nuget-img]: https://img.shields.io/nuget/v/Breakdance.WebApi?label=NuGet&logo=NuGet&style=for-the-badge

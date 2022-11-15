@@ -23,13 +23,15 @@
 	<PropertyGroup>
 		<Product>Breakdance</Product>
 		<PackageVersion>4.0.0</PackageVersion>
+		
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble, Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
-		<Copyright>Copyright © 2017-2022 CloudNimble, Inc. All rights reserved.</Copyright>
+		<Copyright>Copyright © 2017-2023 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/CloudNimble/Breakdance/master/LICENSE</PackageLicenseUrl>
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseType>MIT</PackageLicenseType>
 		<!--
       Suppress a warning about upcoming deprecation of PackageLicenseUrl. When embedding licenses are supported,
       replace PackageLicenseUrl with PackageLicenseExpression.

@@ -12,10 +12,30 @@
 		<Title>Breakdance for Blazor</Title>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<Summary>
+			Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package helps generate
+			public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the
+			API surface changed, the unit test will fail.
+		</Summary>
+		<Description>
+			$(Summary)
+		</Description>
+		<PackageTags>$(PackageTags)blazor;netcore;netstandard;csharp;</PackageTags>
+		<PackageReleaseNotes>
+		</PackageReleaseNotes>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="bunit" Version="[1.1.5, 2.0.0)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="[7.0.0, 8.0.0)" Condition="'$(TargetFramework)'=='net7.0'" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="[7.0.0, 8.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="[6.0.0, 7.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>
