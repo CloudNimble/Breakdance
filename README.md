@@ -117,12 +117,18 @@ The included unit tests show how to take this information, and build tests that 
 
 Feel free to send us feedback on [Twitter](https://twitter.com/cloud_nimble) or [file an issue](https://github.com/CloudNimble/Breakdance/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
 
+## Code of Conduct
+
+Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) during any interactions with 
+CloudNimble team members and community members. It is strictly enforced on all official CloudNimble
+repositories, websites, and resources. If you encounter someone violating
+these terms, please let us know via DM on [Twitter](https://twitter.com/cloud_nimble) or via email at opensource@nimbleapps.cloud and we will address it as soon as possible.
+
 ## Contributors
 
 Thank you to all the people who have contributed to the project.
 
 <a href="https://github.com/CloudNimble/Breakdance/graphs/contributors">Source code Contributors</a>
-
 
 <!--
 Link References
