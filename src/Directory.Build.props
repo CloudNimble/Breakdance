@@ -29,7 +29,7 @@
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
 		<Copyright>Copyright © 2017-2023 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/CloudNimble/Breakdance/master/LICENSE</PackageLicenseUrl>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/CloudNimble/Breakdance/main/LICENSE</PackageLicenseUrl>
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
 		<PackageLicenseType>MIT</PackageLicenseType>
 		<!--
