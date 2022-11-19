@@ -7,7 +7,7 @@
 
 <img src="https://cloud.githubusercontent.com/assets/1657085/26813617/6489768e-4a4d-11e7-8a49-3864333ebde9.png" alt="Breakdance Logo">
 
-[Releases](https://github.com/CloudNimble/Breakdance/releases)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Documentation&nbsp;&nbsp;&nbsp;
+[Releases][release-link]&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[Documentation][doc-link]&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Site &nbsp;&nbsp;&nbsp;
 
 [![Build Status][devops-build-img]][devops-build]
 [![Release Status][devops-release-img]][devops-release]
@@ -115,36 +115,41 @@ The included unit tests show how to take this information, and build tests that 
 
 ## Feedback
 
-Feel free to send us feedback on [Twitter](https://twitter.com/cloud_nimble) or [file an issue](https://github.com/CloudNimble/Breakdance/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
+Feel free to send us feedback on [Twitter][twitter-link] or [file an issue][issues-link]. Feature requests are always welcome. If you wish to contribute, please take a quick look at the [contribution guidelines](./.github/CONTRIBUTING.md).
 
 ## Code of Conduct
 
 Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) during any interactions with 
 CloudNimble team members and community members. It is strictly enforced on all official CloudNimble
 repositories, websites, and resources. If you encounter someone violating
-these terms, please let us know via DM on [Twitter](https://twitter.com/cloud_nimble) or via email at opensource@nimbleapps.cloud and we will address it as soon as possible.
+these terms, please let us know via DM on [Twitter][twitter-link] or via email at opensource@nimbleapps.cloud and we will address it as soon as possible.
 
 ## Contributors
 
-Thank you to all the people who have contributed to the project.
+Thank you to all the people who have contributed to the project: [Source code Contributors][contri-link]
 
-<a href="https://github.com/CloudNimble/Breakdance/graphs/contributors">Source code Contributors</a>
+Please visit our [Contribution](./.github/CONTRIBUTING.md) document to start contributing to our project.
 
-<!--
-Link References
--->
+<!-- Base Link References -->
+[project-link]: https://github.com/CloudNimble/Breakdance/
+[release-link]: https://github.com/CloudNimble/Breakdance/releases
+[doc-link]: https://github.com/CloudNimble/Breakdance/tree/main/docs
+[contri-link]: https://github.com/CloudNimble/Breakdance/graphs/contributors
+[issues-link]: https://github.com/CloudNimble/Breakdance/issues
+
+[twitter-link]: https://twitter.com/cloud_nimble
+[twitter-intent]:https://twitter.com/intent/tweet?via=cloud_nimble&text=Check%20out%20Breakdance%2C%20the%20framework%20for%20reliable%2C%20distributed%2C%20scalable%2C%20cross-platform%20event%20processing%20on%20.NET.&hashtags=dotnetcore%2Cazure
+[twitter-img]:https://img.shields.io/badge/share-on%20twitter-55acee.svg?style=for-the-badge&logo=twitter
+
+<!-- CI/CD Link References -->
 
 [devops-build]:https://dev.azure.com/cloudnimble/Breakdance/_build/latest?definitionId=10
 [devops-release]:https://dev.azure.com/cloudnimble/Breakdance/_release?view=all&definitionId=2
-[twitter-intent]:https://twitter.com/intent/tweet?via=cloud_nimble&text=Check%20out%20Breakdance%2C%20a%20testing%20framework%20for%20managing%20the%20dangerous%20dance%20of%20shipping%20public%20APIs.&hashtags=API%2Ctesting
 
 [devops-build-img]:https://img.shields.io/azure-devops/build/cloudnimble/breakdance/10.svg?style=for-the-badge&logo=azuredevops
 [devops-release-img]:https://img.shields.io/azure-devops/release/cloudnimble/7f9e2e9c-c38f-43dd-a5f2-0b909c883db2/2/2.svg?style=for-the-badge&logo=azuredevops
-[twitter-img]:https://img.shields.io/badge/share-on%20twitter-55acee.svg?style=for-the-badge&logo=twitter
 
-<!--
-Ecosystem Link References
--->
+<!-- Ecosystem Link References -->
 
 [bd-aspnetcore-nuget]: https://www.nuget.org/packages/Breakdance.AspNetCore
 [bd-aspnetcore-sigr-nuget]: https://www.nuget.org/packages/Breakdance.AspNetCore.SignalR
