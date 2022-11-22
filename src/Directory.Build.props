@@ -22,23 +22,20 @@
 
 	<PropertyGroup>
 		<Product>Breakdance</Product>
-		<PackageVersion>4.0.0</PackageVersion>
+		<Version>5.0.0</Version>
+		<PackageVersion>5.0.2</PackageVersion>
 		
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble, Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
 		<Copyright>Copyright © 2017-2023 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/CloudNimble/Breakdance/main/LICENSE</PackageLicenseUrl>
+		
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
-		<PackageLicenseType>MIT</PackageLicenseType>
-		<!--
-      Suppress a warning about upcoming deprecation of PackageLicenseUrl. When embedding licenses are supported,
-      replace PackageLicenseUrl with PackageLicenseExpression.
-    -->
-		<NoWarn>$(NoWarn);NU5125</NoWarn>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		
 		<!-- Suppress warnings about using SemVer 2.0. -->
-		<NoWarn>$(NoWarn);NU5104;NU5105;NU5048;NU5014</NoWarn>
+		<NoWarn>$(NoWarn);NU5048</NoWarn>
 
 		<!-- Contact email address for NuGet packages and Linux installers. -->
 		<MaintainerEmail>opensource@nimbleapps.cloud</MaintainerEmail>
