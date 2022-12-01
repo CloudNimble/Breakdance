@@ -11,9 +11,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.33" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.*" Condition="'$(TargetFramework)' == 'net7.0'" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" Condition="'$(TargetFramework)' == 'net6.0'" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
 		<PackageReference Include="SimpleMessageBus.Dispatch" Version="*-*" />
 		<PackageReference Include="SimpleMessageBus.Hosting" Version="*-*" />
 		<PackageReference Include="SimpleMessageBus.Publish" Version="*-*" />
@@ -25,6 +22,18 @@
 
 	<ItemGroup>
 		<AssemblyAttribute Include="CloudNimble.Breakdance.Assemblies.BreakdanceTestAssembly" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.*" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" />
 	</ItemGroup>
 
 	<ItemGroup>

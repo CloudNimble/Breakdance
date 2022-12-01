@@ -10,11 +10,16 @@
 	<ItemGroup>
 		<PackageReference Include="coverlet.collector" Version="1.*" />
 		<PackageReference Include="EasyAF.Http" Version="*-*" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 8.0.0)" Condition="'$(TargetFramework)' == 'net6.0'" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[7.0.0, 8.0.0)" Condition="'$(TargetFramework)' == 'net7.0'" />
-
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[7.0.0, 8.0.0)" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 8.0.0)" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\CloudNimble.Breakdance.AspNetCore\Breakdance.AspNetCore.csproj" />
 	</ItemGroup>
