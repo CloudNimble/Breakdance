@@ -60,7 +60,8 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         [TestMethod]
         public void TestCacheReadDelegatingHandler_ThrowsException_OnFileMissing()
         {
-            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "missing-testcache-file")).Should().BeFalse();
+            var path = Path.Combine(ResponseFilesPath, "services.odata.org", "missing-testcache-file");
+            File.Exists(path).Should().BeFalse();
             var handler = new TestCacheReadDelegatingHandler(ResponseFilesPath);
             var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/missing-testcache-file");
             Action act = () => handler.SendAsyncInternal(request).GetAwaiter().GetResult();
@@ -79,7 +80,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         [TestMethod]
         public async Task TestCacheReadDelegatingHandler_MediaType_ReflectsFileExtension()
         {
-            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
+            var path = Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml");
+            var dir = Directory.GetCurrentDirectory();
+            File.Exists(path).Should().BeTrue();
             var handler = new TestCacheReadDelegatingHandler(ResponseFilesPath);
             var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/$metadata");
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));

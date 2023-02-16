@@ -19,7 +19,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// <summary>
         /// Root directory for storing response files.
         /// </summary>
-        internal static string ResponseFilesPath = "..\\..\\..\\ResponseFiles";
+        internal static string ResponseFilesPath = "..\\..\\..\\..\\CloudNimble.Breakdance.Tests.Assemblies\\ResponseFiles";
 
         /// <summary>
         /// Provides a set of URIs for testing functionality of the <see cref="TestCacheDelegatingHandlerBase"/>.

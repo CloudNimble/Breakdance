@@ -5,7 +5,7 @@
 		<ToolCommandName>dotnet-breakdance</ToolCommandName>
 		<PackAsTool>True</PackAsTool>
 		<OutputType>Exe</OutputType>
-		<TargetFrameworks>netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 

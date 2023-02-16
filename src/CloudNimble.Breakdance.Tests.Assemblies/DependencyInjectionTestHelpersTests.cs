@@ -42,14 +42,11 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 #if NET6_0_OR_GREATER
             var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET6.txt"));
 #endif
-#if NETCOREAPP3_1
-            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NETCOREAPP31.txt"));
-#endif
             result.Should().Be(baseline);
         }
 
-        //[DataRow(projectPath)]
-        //[DataTestMethod]
+        [DataRow(projectPath)]
+        [DataTestMethod]
         [BreakdanceManifestGenerator]
         public async Task WriteServiceCollectionOutputLog_Async(string projectPath)
         {
@@ -74,9 +71,6 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(host);
 #if NET6_0_OR_GREATER
             var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET6.txt");
-#endif
-#if NETCOREAPP3_1
-            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NETCOREAPP31.txt");
 #endif
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
             {

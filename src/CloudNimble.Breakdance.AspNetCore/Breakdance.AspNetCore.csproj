@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>CloudNimble.Breakdance.AspNetCore</RootNamespace>
 		<AssemblyName>CloudNimble.Breakdance.AspNetCore</AssemblyName>
-		<TargetFrameworks>net7.0;net6.0;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net7.0;net6.0;</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
@@ -36,9 +36,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="Flurl.Signed" Version="[3.0.2, 4.0.0)" />
-		<PackageReference Include="EasyAF.Core" Version="[2.*-*, 3.0.0)" />
-		<PackageReference Include="EasyAF.Http" Version="[2.*-*, 3.0.0)" />
-		<PackageReference Include="EasyAF.Http.SystemTextJson" Version="[2.*-*, 3.0.0)" />
+		<PackageReference Include="EasyAF.Core" Version="[2.*, 3.0.0)" />
+		<PackageReference Include="EasyAF.Http" Version="[2.*, 3.0.0)" />
+		<PackageReference Include="EasyAF.Http.SystemTextJson" Version="[2.*, 3.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
@@ -47,10 +47,6 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="[6.0.0, 8.0.0)"/>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="[3.1.0, 4.0.0)" />
 	</ItemGroup>
 	
 	<ItemGroup>

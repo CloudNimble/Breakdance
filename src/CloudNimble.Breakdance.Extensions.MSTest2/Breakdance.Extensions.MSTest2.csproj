@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>CloudNimble.Breakdance.Extensions.MSTest2</RootNamespace>
 		<AssemblyName>CloudNimble.Breakdance.Extensions.MSTest2</AssemblyName>
-		<TargetFrameworks>netcoreapp3.1;net6.0;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
@@ -31,8 +31,8 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Core" Version="[2.*-*, 3.0.0)" />
-		<PackageReference Include="MSTest.TestFramework" Version="[2.*, 3.0.0)" />
+		<PackageReference Include="EasyAF.Core" Version="[2.*, 3.0.0)" />
+		<PackageReference Include="MSTest.TestFramework" Version="[2.0.0, 4.0.0)" />
 	</ItemGroup>
 
 </Project>

@@ -3,12 +3,12 @@
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.Tests.AspNetCore</AssemblyName>
 		<RootNamespace>CloudNimble.Breakdance.Tests.AspNetCore</RootNamespace>
-		<TargetFrameworks>netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="coverlet.collector" Version="1.*" />
+		<PackageReference Include="coverlet.collector" Version="3.*" />
 		<PackageReference Include="EasyAF.Http" Version="*-*" />
 	</ItemGroup>
 
