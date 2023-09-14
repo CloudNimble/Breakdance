@@ -38,15 +38,16 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 
             //RWM: If we're in a .NET Core test, remove the Core crap.
             //result = result.Replace("Core", "");
-
-#if NET6_0_OR_GREATER
+#if NET8_0_OR_GREATER
+            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET8.txt"));
+#elif NET6_0_OR_GREATER
             var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET6.txt"));
 #endif
             result.Should().Be(baseline);
         }
 
-        [DataRow(projectPath)]
-        [DataTestMethod]
+        //[DataRow(projectPath)]
+        //[DataTestMethod]
         [BreakdanceManifestGenerator]
         public async Task WriteServiceCollectionOutputLog_Async(string projectPath)
         {
@@ -69,7 +70,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         {
             var host = GetSimpleMessageBusHost();
             var result = DependencyInjectionTestHelpers.GetContainerContentsLog(host);
-#if NET6_0_OR_GREATER
+#if NET8_0_OR_GREATER
+            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET8.txt");
+#elif NET6_0_OR_GREATER
             var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET6.txt");
 #endif
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))

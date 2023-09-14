@@ -62,6 +62,9 @@
 
 		<!-- Fixes a common error in targets implementing a NoBuild mode. -->
 		<BuildProjectReferences Condition=" '$(NoBuild)' == 'true' ">false</BuildProjectReferences>
+		
+		<!-- Suppress warnings about pre-release packages -->
+		<NoWarn>$(NoWarn);NU5104</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
@@ -79,7 +82,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<StandardTestTfms>net7.0;net472</StandardTestTfms>
+		<StandardTestTfms>net8.0;net7.0;net472</StandardTestTfms>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">

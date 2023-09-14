@@ -5,24 +5,29 @@
 		<ToolCommandName>dotnet-breakdance</ToolCommandName>
 		<PackAsTool>True</PackAsTool>
 		<OutputType>Exe</OutputType>
-		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Ben.Demystifier" Version="0.*" />
 		<PackageReference Include="Microsoft.NETCore.Platforms" Version="5.*" />
-		<PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.*" />
+		<PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.*" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.*-*" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.*-*" />
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[7.0.0, 8.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[7.0.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.*" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.*" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 8.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.*" />
 	</ItemGroup>
 
 	<ItemGroup>

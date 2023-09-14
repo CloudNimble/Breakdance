@@ -57,7 +57,11 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 foreach (DictionaryEntry entry in dictionary)
                 {
+#if NET8_0_OR_GREATER
+                    result.Add((Type)entry.Key.GetPropertyValue("ServiceType"), (ServiceDescriptor)entry.Value.GetPropertyValue("Last"));
+#else
                     result.Add((Type)entry.Key, (ServiceDescriptor)entry.Value.GetPropertyValue("Last"));
+#endif
                 }
             }
 

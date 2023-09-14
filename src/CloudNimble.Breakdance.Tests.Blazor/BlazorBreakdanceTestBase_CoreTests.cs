@@ -1,4 +1,5 @@
 ﻿using Bunit.TestDoubles;
+using CloudNimble.Breakdance.Assemblies;
 using CloudNimble.Breakdance.Blazor;
 using CloudNimble.Breakdance.Tests.Blazor.Models;
 using FluentAssertions;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace CloudNimble.Breakdance.Tests.Blazor
 {
@@ -17,6 +19,9 @@ namespace CloudNimble.Breakdance.Tests.Blazor
     [TestClass]
     public class BlazorBreakdanceTestBase_CoreTests : BlazorBreakdanceTestBase
     {
+
+        private const string projectPath = "..//..//..//";
+
         /// <summary>
         /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup.
         /// </summary>
@@ -32,8 +37,11 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
+#if NET8_0_OR_GREATER
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(43);
+#else
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(34);
-
+#endif
             BUnitTestContext.Services.Should().HaveCount(12);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             BUnitTestContext.Services.GetService<IConfiguration>().Should().NotBeNull();
@@ -93,7 +101,11 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             BUnitTestContext.Should().NotBeNull();
             BUnitTestContext.Services.Should().HaveCount(12);
             BUnitTestContext.Services.GetService<DummyService>().Should().NotBeNull();
+#if NET8_0_OR_GREATER
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);
+#else
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
+#endif
             TestHost.Services.GetService<DummyService>().Should().NotBeNull();
             GetService<DummyService>().Should().NotBeNull();
         }
@@ -115,11 +127,36 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             BUnitTestContext.Should().NotBeNull();
             BUnitTestContext.Services.Should().HaveCount(12);
             BUnitTestContext.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
+#if NET8_0_OR_GREATER
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);
+#else
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
+#endif
             TestHost.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
             var service = GetService<TestJavaScriptService>();
             service.Should().NotBeNull();
             service.JSRuntime.Should().NotBeNull();
+        }
+
+        //[DataRow(projectPath)]
+        //[DataTestMethod]
+        [BreakdanceManifestGenerator]
+        public void WriteHostBuilderOutputLog(string projectPath)
+        {
+            TestHostBuilder.ConfigureServices((context, services) => services.AddSingleton<TestJavaScriptService>());
+            TestSetup();
+
+            var result = DependencyInjectionTestHelpers.GetContainerContentsLog(TestHost.Services);
+#if NET8_0_OR_GREATER
+            var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET8.txt");
+#elif NET6_0_OR_GREATER
+            var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET6.txt");
+#endif
+            if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            }
+            File.WriteAllText(fullPath, result);
         }
 
     }

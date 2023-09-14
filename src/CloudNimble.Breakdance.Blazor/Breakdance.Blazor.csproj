@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>CloudNimble.Breakdance.Blazor</RootNamespace>
 		<AssemblyName>CloudNimble.Breakdance.Blazor</AssemblyName>
-		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net7.0;net6.0;</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
@@ -28,6 +28,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="bunit" Version="[1.1.5, 2.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="[8.*-*, 9.0.0)" />
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
