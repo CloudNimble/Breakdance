@@ -146,7 +146,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             TestHostBuilder.ConfigureServices((context, services) => services.AddSingleton<TestJavaScriptService>());
             TestSetup();
 
-            var result = DependencyInjectionTestHelpers.GetContainerContentsLog(TestHost.Services);
+            var result = TestHost.Services.GetContainerContentsLog();
 #if NET8_0_OR_GREATER
             var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET8.txt");
 #elif NET6_0_OR_GREATER

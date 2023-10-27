@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using CloudNimble.EasyAF.Core;
+using System.Security.Claims;
+using System.Threading;
 
 namespace CloudNimble.Breakdance.Assemblies
 {
@@ -110,45 +112,6 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
-        /// Method used by test classes to setup the environment.
-        /// </summary>
-        /// <remarks>
-        /// With MSTest, use [TestInitialize].
-        /// With NUnit, use [Setup].
-        /// With xUnit, good luck: https://xunit.net/docs/shared-context
-        /// </remarks>
-        public virtual void TestSetup()
-        {
-            EnsureTestHost();
-        }
-
-        /// <summary>
-        /// Method used by test classes to clean up the environment.
-        /// </summary>
-        /// <remarks>
-        /// With MSTest, use [TestCleanup].
-        /// With NUnit, use [TearDown].
-        /// With xUnit, good luck: https://xunit.net/docs/shared-context
-        /// </remarks>
-        public virtual void TestTearDown()
-        {
-        }
-
-        /// <summary>
-        /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
-        /// </summary>
-        /// <typeparam name="T">The type of service object to get.</typeparam>
-        /// <returns>A service object of type <typeparamref name="T"/>.</returns>
-        public virtual T GetService<T>() where T : class => TestHost?.Services.GetService<T>();
-
-        /// <summary>
-        /// Get an enumeration of services of type <typeparamref name="T"/> from the System.IServiceProvider.
-        /// </summary>
-        /// <typeparam name="T">The type of service object to get.</typeparam>
-        /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
-        public virtual IEnumerable<T> GetServices<T>() where T : class => TestHost?.Services.GetServices<T>();
-
-        /// <summary>
         /// Get the requested service from the specified <see cref="IServiceScope"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -190,6 +153,118 @@ namespace CloudNimble.Breakdance.Assemblies
         {
             DefaultScope ??= TestHost.Services.CreateScope();
             return GetScopedServices<T>(DefaultScope);
+        }
+
+        /// <summary>
+        /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
+        /// </summary>
+        /// <typeparam name="T">The type of service object to get.</typeparam>
+        /// <returns>A service object of type <typeparamref name="T"/>.</returns>
+        public virtual T GetService<T>() where T : class => TestHost?.Services.GetService<T>();
+
+        /// <summary>
+        /// Get an enumeration of services of type <typeparamref name="T"/> from the System.IServiceProvider.
+        /// </summary>
+        /// <typeparam name="T">The type of service object to get.</typeparam>
+        /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
+        public virtual IEnumerable<T> GetServices<T>() where T : class => TestHost?.Services.GetServices<T>();
+
+        /// <summary>
+        /// Sets the <see cref="ClaimsPrincipal.ClaimsPrincipalSelector"/> to the <see cref="Thread.CurrentPrincipal" />.
+        /// </summary>
+        /// <remarks>
+        /// This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+        /// </remarks>
+        public static void SetClaimsPrincipalSelectorToThreadPrincipal()
+        {
+            ClaimsPrincipal.ClaimsPrincipalSelector = () => (ClaimsPrincipal)Thread.CurrentPrincipal;
+        }
+
+        /// <summary>
+        /// Sets the <see cref="ClaimsPrincipal.ClaimsPrincipalSelector"/> to the <see cref="Thread.CurrentPrincipal" /> and sets the latter to a new ClaimsIdentity with the specified claims.
+        /// </summary>
+        /// <param name="claims">The Claims to set for the test run.</param>
+        /// <param name="authenticationType">If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests".</param>
+        /// <param name="nameType">The ClaimType to specify for the Name claim. Defaults to <see cref="ClaimTypes.NameIdentifier"/>.</param>
+        /// <param name="roleType">The ClaimType to specify for Role claims. Defaults to <see cref="ClaimTypes.Role"/>.</param>
+        /// <remarks>
+        /// This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+        /// </remarks>
+        public static void SetClaimsPrincipalSelectorToThreadPrincipal(List<Claim> claims, string authenticationType = "BreakdanceTests", string nameType = ClaimTypes.NameIdentifier, string roleType = ClaimTypes.Role)
+        {
+            SetClaimsPrincipalSelectorToThreadPrincipal();
+            SetThreadPrincipal(claims, authenticationType, nameType, roleType);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="ClaimsPrincipal.ClaimsPrincipalSelector"/> to the <see cref="Thread.CurrentPrincipal" /> and sets the latter to a new ClaimsIdentity with the specified claim.
+        /// </summary>
+        /// <param name="claim">The Claims to set for the test run.</param>
+        /// <param name="authenticationType">If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests".</param>
+        /// <param name="nameType">The ClaimType to specify for the Name claim. Defaults to <see cref="ClaimTypes.NameIdentifier"/>.</param>
+        /// <param name="roleType">The ClaimType to specify for Role claims. Defaults to <see cref="ClaimTypes.Role"/>.</param>
+        /// <remarks>
+        /// This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+        /// </remarks>
+        public static void SetClaimsPrincipalSelectorToThreadPrincipal(Claim claim, string authenticationType = "BreakdanceTests", string nameType = ClaimTypes.NameIdentifier, string roleType = ClaimTypes.Role)
+        {
+            SetClaimsPrincipalSelectorToThreadPrincipal();
+            SetThreadPrincipal(claim, authenticationType, nameType, roleType);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="ClaimsPrincipal.ClaimsPrincipalSelector"/> to a new ClaimsIdentity with the specified claims.
+        /// </summary>
+        /// <param name="claims">The Claims to set for the test run.</param>
+        /// <param name="authenticationType">If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests".</param>
+        /// <param name="nameType">The ClaimType to specify for the Name claim. Defaults to <see cref="ClaimTypes.NameIdentifier"/>.</param>
+        /// <param name="roleType">The ClaimType to specify for Role claims. Defaults to <see cref="ClaimTypes.Role"/>.</param>
+        /// <remarks>
+        /// This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+        /// </remarks>
+        public static void SetThreadPrincipal(List<Claim> claims, string authenticationType = "BreakdanceTests", string nameType = ClaimTypes.NameIdentifier, string roleType = ClaimTypes.Role)
+        {
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, authenticationType, nameType, roleType));
+        }
+
+        /// <summary>
+        /// Sets the <see cref="ClaimsPrincipal.ClaimsPrincipalSelector"/> to a new ClaimsIdentity with the specified claim.
+        /// </summary>
+        /// <param name="claim">The Claims to set for the test run.</param>
+        /// <param name="authenticationType">If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests".</param>
+        /// <param name="nameType">The ClaimType to specify for the Name claim. Defaults to <see cref="ClaimTypes.NameIdentifier"/>.</param>
+        /// <param name="roleType">The ClaimType to specify for Role claims. Defaults to <see cref="ClaimTypes.Role"/>.</param>
+        /// <remarks>
+        /// This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+        /// </remarks>
+        public static void SetThreadPrincipal(Claim claim, string authenticationType = "BreakdanceTests", string nameType = ClaimTypes.NameIdentifier, string roleType = ClaimTypes.Role)
+        {
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim> { claim }, authenticationType, nameType, roleType));
+        }
+
+        /// <summary>
+        /// Method used by test classes to setup the environment.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [TestInitialize].
+        /// With NUnit, use [Setup].
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual void TestSetup()
+        {
+            EnsureTestHost();
+        }
+
+        /// <summary>
+        /// Method used by test classes to clean up the environment.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [TestCleanup].
+        /// With NUnit, use [TearDown].
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual void TestTearDown()
+        {
         }
 
         #endregion

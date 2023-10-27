@@ -22,7 +22,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         public void DependencyInjection_ServiceCollection_WritesCorrectly()
         {
             var collection = GetServiceCollection();
-            var result = DependencyInjectionTestHelpers.GetContainerContentsLog(collection);
+            var result = collection.GetContainerContentsLog();
             result.Should().NotBeNullOrWhiteSpace();
 
             var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/ServiceCollection.txt"));
@@ -33,7 +33,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         public void DependencyInjection_HostBuilder_WritesCorrectly()
         {
             var host = GetSimpleMessageBusHost();
-            var result = DependencyInjectionTestHelpers.GetContainerContentsLog(host);
+            var result = host.GetContainerContentsLog();
             result.Should().NotBeNullOrWhiteSpace();
 
             //RWM: If we're in a .NET Core test, remove the Core crap.
@@ -52,7 +52,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         public async Task WriteServiceCollectionOutputLog_Async(string projectPath)
         {
             var collection = GetServiceCollection();
-            var result = DependencyInjectionTestHelpers.GetContainerContentsLog(collection);
+            var result = collection.GetContainerContentsLog();
             var fullPath = Path.Combine(projectPath, "Baselines//ServiceCollection.txt");
 
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
@@ -69,7 +69,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         public void WriteHostBuilderOutputLog(string projectPath)
         {
             var host = GetSimpleMessageBusHost();
-            var result = DependencyInjectionTestHelpers.GetContainerContentsLog(host);
+            var result = host.GetContainerContentsLog();
 #if NET8_0_OR_GREATER
             var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET8.txt");
 #elif NET6_0_OR_GREATER

@@ -1,7 +1,9 @@
-﻿using CloudNimble.EasyAF.Core;
+﻿using CloudNimble.Breakdance.Assemblies;
+using CloudNimble.EasyAF.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -11,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class Breakdance_Assemblies_IServiceProviderExtensions
     {
+
         /// <summary>
         /// Get all registered <see cref="ServiceDescriptor">ServiceDescriptors</see> for a given container.
         /// </summary>
@@ -66,6 +69,18 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
+        public static string GetContainerContentsLog(this IServiceProvider provider)
+        {
+            Ensure.ArgumentNotNull(provider, nameof(provider));
+
+            var dictionary = provider.GetAllServiceDescriptors();
+            return dictionary.Select(c => c.Value).ToList().ToDetailedString();
         }
 
     }

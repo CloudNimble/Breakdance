@@ -1,7 +1,9 @@
-﻿using CloudNimble.EasyAF.Core;
+﻿using CloudNimble.Breakdance.Assemblies;
+using CloudNimble.EasyAF.Core;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -11,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class Breakdance_Assemblies_IHostBuilderExtensions
     {
+
         /// <summary>
         /// Get all registered <see cref="ServiceDescriptor">ServiceDescriptors</see> for a given container.
         /// </summary>
@@ -30,6 +33,19 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             throw new NotSupportedException($"Type '{builder.GetType()}' is not supported!");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hostBuilder"></param>
+        /// <returns></returns>
+        public static string GetContainerContentsLog(this IHostBuilder hostBuilder)
+        {
+            Ensure.ArgumentNotNull(hostBuilder, nameof(hostBuilder));
+
+            var dictionary = hostBuilder.GetAllServiceDescriptors();
+            return dictionary.Select(c => c.Value).ToList().ToDetailedString();
         }
 
     }
