@@ -3,6 +3,7 @@ using CloudNimble.Breakdance.AspNetCore;
 using CloudNimble.Breakdance.Tests.AspNetCore.Fakes;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +13,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using System.Collections;
 
 namespace CloudNimble.Breakdance.Tests.AspNetCore
 {

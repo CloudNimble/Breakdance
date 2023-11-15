@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>CloudNimble.Breakdance.Assemblies</RootNamespace>
 		<AssemblyName>CloudNimble.Breakdance.Assemblies</AssemblyName>
-		<TargetFrameworks>net472;net48;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net7.0;net6.0;netstandard2.1;net48;net472;</TargetFrameworks>
 		<StrongNamePublicKey>$(StrongNamePublicKey)</StrongNamePublicKey>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
@@ -46,38 +46,41 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Core" Version="[2.*, 3.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 8.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 9.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 9.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[8.*-*, 9.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[8.*-*, 9.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[7.0.0, 8.0.0)" />
-		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[7.0.0, 8.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[7.0.0, 9.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[7.0.0, 9.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 8.0.0)" />
-		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[6.0.0, 8.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 9.0.0)" />
+		<PackageReference Update="Microsoft.Extensions.Hosting" Version="[6.0.0, 9.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[1.1.0, 8.0.0)" />
-		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.3.0, 8.0.0)" />
-		<PackageReference Include="System.Runtime.Serialization.Formatters" Version="[4.3.0, 8.0.0)" />
-		<PackageReference Include="System.Collections.NonGeneric" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[1.1.0, 9.0.0)" />
+		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.3.0, 9.0.0)" />
+		<PackageReference Include="System.Runtime.Serialization.Formatters" Version="[4.3.0, 9.0.0)" />
+		<PackageReference Include="System.Collections.NonGeneric" Version="[4.3.0, 9.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48'">
-		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[6.*, 8.0.0)" />
-		<PackageReference Include="System.Net.Http" Version="[4.3.0, 8.0.0)" />
-		<PackageReference Include="System.Reflection" Version="[4.3.0, 8.0.0)" />
-		<PackageReference Include="System.Reflection.Primitives" Version="[4.3.0, 8.0.0)" />
-		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.7.0, 8.0.0)" />
-		<PackageReference Include="System.Threading.Tasks" Version="[4.3.0, 8.0.0)" />
-		<PackageReference Include="System.Threading.Tasks.Parallel" Version="[4.3.0, 8.0.0)" />
+		<PackageReference Include="Microsoft.NETCore.Platforms" Version="[6.*, 9.0.0)" />
+		<PackageReference Include="System.Net.Http" Version="[4.*, 9.0.0)" />
+		<PackageReference Include="System.Reflection" Version="[4.*, 9.0.0)" />
+		<PackageReference Include="System.Reflection.Primitives" Version="[4.*, 9.0.0)" />
+		<PackageReference Include="System.Reflection.TypeExtensions" Version="[4.*, 9.0.0)" />
+		<PackageReference Include="System.Threading.Tasks" Version="[4.*, 9.0.0)" />
+		<PackageReference Include="System.Threading.Tasks.Parallel" Version="[4.*, 9.0.0)" />
 	</ItemGroup>
-
 
 	<ItemGroup>
 		<None Include="..\.editorconfig" Link=".editorconfig" />
@@ -86,6 +89,14 @@
 	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
 			<_Parameter1>CloudNimble.Breakdance.AspNetCore, $(StrongNamePublicKey)</_Parameter1>
+		</AssemblyAttribute>
+		
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CloudNimble.Breakdance.WebApi, $(StrongNamePublicKey)</_Parameter1>
+		</AssemblyAttribute>
+
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CloudNimble.Breakdance.Extensions.MSTest2, $(StrongNamePublicKey)</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
 

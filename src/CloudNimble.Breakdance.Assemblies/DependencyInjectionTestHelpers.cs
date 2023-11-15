@@ -1,5 +1,4 @@
-﻿using CloudNimble.EasyAF.Core;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -11,44 +10,39 @@ namespace CloudNimble.Breakdance.Assemblies
 {
 
     /// <summary>
-    /// A set of utilities for Breakdance that help you verify Dependency Injection configurations, especially in architrectures sensitive to injection order.
-    /// </summary>
+    /// A set of utilities for Breakdance that help you verify Dependency Injection configurations, especially in architectures sensitive to injection order.
+    /// </summary>   
     public static class DependencyInjectionTestHelpers
     {
-         
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="collection"></param>
+        [Obsolete("Use the ServiceCollection.GetContainerContentsLog() extension method instead.", false)]
         public static string GetContainerContentsLog(ServiceCollection collection)
         {
-            Ensure.ArgumentNotNull(collection, nameof(collection));
-
-            return collection.ToList().ToDetailedString();
+            return collection.GetContainerContentsLog();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="provider"></param>
+        [Obsolete("Use the IServiceProvider.GetContainerContentsLog() extension method instead.", false)]
         public static string GetContainerContentsLog(IServiceProvider provider)
         {
-            Ensure.ArgumentNotNull(@provider, nameof(provider));
-
-            var dictionary = provider.GetAllServiceDescriptors();
-            return dictionary.Select(c => c.Value).ToList().ToDetailedString();
+            return provider.GetContainerContentsLog();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="hostBuilder"></param>
+        [Obsolete("Use the IHostBuilder.GetContainerContentsLog() extension method instead.", false)]
         public static string GetContainerContentsLog(IHostBuilder hostBuilder)
         {
-            Ensure.ArgumentNotNull(hostBuilder, nameof(hostBuilder));
-
-            var dictionary = hostBuilder.GetAllServiceDescriptors();
-            return dictionary.Select(c => c.Value).ToList().ToDetailedString();
+            return hostBuilder.GetContainerContentsLog();
         }
 
         /// <summary>
@@ -71,9 +65,9 @@ namespace CloudNimble.Breakdance.Assemblies
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        private static string ToDetailedString(this List<ServiceDescriptor> list)
+        internal static string ToDetailedString(this List<ServiceDescriptor> list)
         {
-            if (list == null || !list.Any())
+            if (list == null || list.Count == 0)
             {
                 return string.Empty;
             }

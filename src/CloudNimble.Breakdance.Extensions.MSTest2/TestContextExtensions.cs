@@ -1,4 +1,4 @@
-﻿using CloudNimble.EasyAF.Core;
+﻿using CloudNimble.Breakdance.Assemblies;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -18,7 +18,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
         /// <param name="message"></param>
         /// <param name="nullIsExpected">Specifies whether the <see cref="HttpResponseMessage.Content"/> in <paramref name="message"/> is expected to be null.</param>
         /// <remarks>
-        /// This exists in order to safely allow the tests to continue in the absense of correct content. This is because the tests should log 
+        /// This exists in order to safely allow the tests to continue in the absence of correct content. This is because the tests should log 
         /// the response content BEFORE failing the test for an incorrect <see cref="HttpResponseMessage.StatusCode"/>.
         /// </remarks>
         public static async Task<string> LogAndReturnMessageContentAsync(this TestContext testContext, HttpResponseMessage message, bool nullIsExpected = false)

@@ -25,7 +25,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         {
             var definitions = PublicApiHelpers.GenerateTypeDefinitionsForAssembly("CloudNimble.Breakdance.Assemblies.dll");
             definitions.Should().NotBeNullOrEmpty();
-            definitions.Should().HaveCount(22);
+            definitions.Should().HaveCount(23);
         }
 
         [TestMethod]

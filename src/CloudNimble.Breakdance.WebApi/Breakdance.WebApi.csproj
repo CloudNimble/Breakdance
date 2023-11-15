@@ -31,9 +31,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Core" Version="[2.*, 3.0.0)" />
-		<PackageReference Include="EasyAF.Http" Version="[2.*, 3.0.0)" />
-		<PackageReference Include="EasyAF.Http.NewtonsoftJson" Version="[2.*, 3.0.0)" />
 		<PackageReference Include="Flurl.Signed" Version="[3.0.2, 4.0.0)" />
 		<PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="[5.2.7, 5.3.0)" />
 		<PackageReference Include="System.ValueTuple" Version="[4.5.0, 5.0.0)" />

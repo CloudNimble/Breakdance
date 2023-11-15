@@ -2,13 +2,12 @@
 using CloudNimble.Breakdance.Assemblies;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace CloudNimble.Breakdance.Tests.AspNetCore.SignalR
 {
 
     /// <summary>
-    /// A base class for configuring SignalR clients using the <see cref="TestableNamedHubConnection"/>.
+    /// A base class for configuring SignalR clients using the <see cref="TestableHubConnection"/>.
     /// </summary>
     public class ClientTestBase : BreakdanceTestBase
     {
