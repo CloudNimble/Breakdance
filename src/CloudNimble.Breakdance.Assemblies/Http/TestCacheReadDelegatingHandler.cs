@@ -1,5 +1,4 @@
-﻿using CloudNimble.EasyAF.Core;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -28,7 +27,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
         #endregion
 
         /// <summary>
-        /// This internal method is here just to allow the test projects to call the otherwise inaccessibile SendAsync() method
+        /// This internal method is here just to allow the test projects to call the otherwise inaccessible SendAsync() method
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/> that is being intercepted by the <see cref="DelegatingHandler"/>.</param>
         /// <returns></returns>

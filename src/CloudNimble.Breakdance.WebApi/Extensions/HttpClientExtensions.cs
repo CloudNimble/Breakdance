@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using CloudNimble.Breakdance.Assemblies;
 using CloudNimble.Breakdance.WebApi;
-using CloudNimble.EasyAF.Core;
 using Newtonsoft.Json;
 
 namespace System.Net.Http

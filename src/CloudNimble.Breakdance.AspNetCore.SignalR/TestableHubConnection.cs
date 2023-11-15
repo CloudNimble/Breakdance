@@ -1,5 +1,4 @@
-﻿using CloudNimble.EasyAF.SignalR;
-using Humanizer;
+﻿using Humanizer;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.SignalR.Protocol;
@@ -18,7 +17,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
     /// <summary>
     /// A class for emulating a SignalR <see cref="HubConnection"/> with minimal functionality.
     /// </summary>
-    public class TestableNamedHubConnection : NamedHubConnection
+    public class TestableHubConnection : HubConnection
     {
         #region Private Members
 
@@ -45,9 +44,9 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestableNamedHubConnection"/> class.
+        /// Initializes a new instance of the <see cref="TestableHubConnection"/> class.
         /// </summary>
-        public TestableNamedHubConnection(IConnectionFactory connectionFactory,
+        public TestableHubConnection(IConnectionFactory connectionFactory,
                              IHubProtocol protocol,
                              EndPoint endPoint,
                              IServiceProvider serviceProvider,
@@ -67,7 +66,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
         #region Public Methods
 
         /// <inheritdoc />
-        public override async Task StartAsync(CancellationToken cancellationToken = default)
+        public async override Task StartAsync(CancellationToken cancellationToken = default)
         {
             _state.GetType()
                 .GetProperty("OverallState", BindingFlags.Public | BindingFlags.Instance)
@@ -92,7 +91,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
 
 #nullable enable
         /// <inheritdoc />
-        public override async Task SendCoreAsync(string methodName, object?[] args, CancellationToken cancellationToken = default)
+        public async override Task SendCoreAsync(string methodName, object?[] args, CancellationToken cancellationToken = default)
         {
             InvokedMethods.Add(methodName, args);
             await Task.CompletedTask;

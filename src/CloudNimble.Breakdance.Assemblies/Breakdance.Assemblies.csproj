@@ -46,7 +46,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Core" Version="[2.*, 4.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6.0.0, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0, 9.0.0)" />
 	</ItemGroup>
@@ -90,6 +89,14 @@
 	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
 			<_Parameter1>CloudNimble.Breakdance.AspNetCore, $(StrongNamePublicKey)</_Parameter1>
+		</AssemblyAttribute>
+		
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CloudNimble.Breakdance.WebApi, $(StrongNamePublicKey)</_Parameter1>
+		</AssemblyAttribute>
+
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CloudNimble.Breakdance.Extensions.MSTest2, $(StrongNamePublicKey)</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
 

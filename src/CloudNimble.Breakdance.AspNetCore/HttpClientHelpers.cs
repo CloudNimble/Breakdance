@@ -1,5 +1,4 @@
-﻿using CloudNimble.EasyAF.Core;
-using Flurl;
+﻿using Flurl;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -46,7 +45,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         public static HttpRequestMessage GetTestableHttpRequestMessage(HttpMethod httpMethod, string host = WebApiConstants.Localhost, string routePrefix = WebApiConstants.RoutePrefix,
             string resource = "", string acceptHeader = WebApiConstants.DefaultAcceptHeader, object payload = null, JsonSerializerOptions jsonSerializerSettings = null)
         {
-            Ensure.ArgumentNotNull(httpMethod, nameof(httpMethod));
+            ArgumentNullException.ThrowIfNull(httpMethod, nameof(httpMethod));
 
             // RWM: Using Url.Combine from Flurl, thanks to https://stackoverflow.com/a/23438417
             var request = new HttpRequestMessage(httpMethod, Url.Combine(host, routePrefix, resource));

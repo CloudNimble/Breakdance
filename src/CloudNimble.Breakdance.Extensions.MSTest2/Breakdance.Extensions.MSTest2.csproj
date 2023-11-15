@@ -29,10 +29,12 @@
 
 	</PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="MSTest.TestFramework" Version="[2.0.0, 4.0.0)" />
+	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Core" Version="[2.*, 3.0.0)" />
-		<PackageReference Include="MSTest.TestFramework" Version="[2.0.0, 4.0.0)" />
+	  <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
 	</ItemGroup>
 
 </Project>

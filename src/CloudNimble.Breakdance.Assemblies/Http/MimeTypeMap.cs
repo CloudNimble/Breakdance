@@ -1,10 +1,11 @@
-﻿using CloudNimble.EasyAF.Core;
+﻿using CloudNimble.Breakdance.Assemblies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MimeTypes
 {
+
     /// <summary>
     /// Class MimeTypeMap.
     /// </summary>
