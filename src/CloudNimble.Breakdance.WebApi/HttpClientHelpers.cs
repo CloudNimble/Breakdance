@@ -1,4 +1,4 @@
-﻿using CloudNimble.Breakdance.Assemblies;
+﻿using CloudNimble.EasyAF.Core;
 using Flurl;
 using Newtonsoft.Json;
 using System.Net.Http;

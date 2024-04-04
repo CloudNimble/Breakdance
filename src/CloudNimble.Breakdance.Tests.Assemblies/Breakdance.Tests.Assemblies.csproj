@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.Tests.Assemblies</AssemblyName>
 		<RootNamespace>CloudNimble.Breakdance.Tests.Assemblies</RootNamespace>
-		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net7.0</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 		<RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
 		<NoWarn>$(NoWarn);NU1605</NoWarn>
@@ -30,14 +30,6 @@
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.*" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" />
 	</ItemGroup>
 
 	<ItemGroup>

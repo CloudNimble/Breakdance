@@ -19,6 +19,7 @@ namespace CloudNimble.Breakdance.AspNetCore.SignalR
     /// </summary>
     public class TestableHubConnection : HubConnection
     {
+
         #region Private Members
 
         private object _state;

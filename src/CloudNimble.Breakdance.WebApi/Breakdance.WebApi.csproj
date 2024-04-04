@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.WebApi</AssemblyName>
 		<RootNamespace>CloudNimble.Breakdance.WebApi</RootNamespace>
-		<TargetFrameworks>net472;net48</TargetFrameworks>
+		<TargetFrameworks>net48;</TargetFrameworks>
 		<StrongNamePublicKey>$(StrongNamePublicKey)</StrongNamePublicKey>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>

@@ -18,6 +18,11 @@ namespace CloudNimble.Breakdance.Assemblies
         #region Properties
 
         /// <summary>
+        /// Provides a default <see cref="IServiceScope"/> implementation to contain scoped services.
+        /// </summary>
+        public IServiceScope DefaultScope { get; set; }
+
+        /// <summary>
         /// The <see cref="IHost"/> instance containing the test host.
         /// </summary>
         public IHost TestHost { get; internal set; }
@@ -26,11 +31,6 @@ namespace CloudNimble.Breakdance.Assemblies
         /// The <see cref="IHostBuilder"/> instance used to configure the test host.
         /// </summary>
         public IHostBuilder TestHostBuilder { get; internal set; }
-
-        /// <summary>
-        /// Provides a default <see cref="IServiceScope"/> implementation to contain scoped services.
-        /// </summary>
-        public IServiceScope DefaultScope { get; set; }
 
         #endregion
 

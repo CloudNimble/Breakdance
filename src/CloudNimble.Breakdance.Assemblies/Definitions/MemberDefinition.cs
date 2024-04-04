@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CloudNimble.Breakdance.Assemblies
 {
@@ -13,7 +12,7 @@ namespace CloudNimble.Breakdance.Assemblies
         #region Properties
 
         /// <summary>
-        /// A <see cref="List{String}"/> containging the full name of each attribute on the type member.
+        /// A <see cref="List{String}"/> containing the full name of each attribute on the type member.
         /// </summary>
         public List<string> Attributes { get; private set; }
 
