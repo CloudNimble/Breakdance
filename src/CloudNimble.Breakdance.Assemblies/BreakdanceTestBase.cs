@@ -110,6 +110,24 @@ namespace CloudNimble.Breakdance.Assemblies
             GC.SuppressFinalize(this);
         }
 
+#if NET8_0_OR_GREATER
+
+        /// <summary>
+        /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
+        /// </summary>
+        /// <typeparam name="T">The type of service object to get.</typeparam>
+        /// <returns>A service object of type <typeparamref name="T"/>.</returns>
+        public virtual T GetKeyedService<T>(string key) where T : class => TestHost?.Services.GetKeyedService<T>(key);
+
+        /// <summary>
+        /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
+        /// </summary>
+        /// <typeparam name="T">The type of service object to get.</typeparam>
+        /// <returns>A service object of type <typeparamref name="T"/>.</returns>
+        public virtual IEnumerable<T> GetKeyedServices<T>(string key) where T : class => TestHost?.Services.GetKeyedServices<T>(key);
+
+#endif
+
         /// <summary>
         /// Get the requested service from the specified <see cref="IServiceScope"/>.
         /// </summary>

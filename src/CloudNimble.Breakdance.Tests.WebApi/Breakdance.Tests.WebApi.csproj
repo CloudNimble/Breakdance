@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <AssemblyName>CloudNimble.Breakdance.Tests.WebApi</AssemblyName>
-    <RootNamespace>CloudNimble.Breakdance.Tests.WebApi</RootNamespace>
-    <TargetFrameworks>net48;</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>CloudNimble.Breakdance.Tests.WebApi</AssemblyName>
+		<RootNamespace>CloudNimble.Breakdance.Tests.WebApi</RootNamespace>
+		<TargetFrameworks>net48;</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EasyAF.Http" Version="2.*-*" />
-    <PackageReference Include="System.ValueTuple" Version="4.*" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.*" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EasyAF.Http" Version="2.*-*" />
+		<PackageReference Include="System.ValueTuple" Version="4.*" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.*" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.Breakdance.WebApi\Breakdance.WebApi.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.Breakdance.WebApi\Breakdance.WebApi.csproj" />
+	</ItemGroup>
 
 </Project>

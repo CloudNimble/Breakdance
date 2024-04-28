@@ -74,7 +74,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// <param name="assemblyName">Name of the assembly</param>
         /// <param name="typeName">fully qualified name</param>
         /// <param name="parameterTypes">An array of <see cref="T:System.Type"/> objects representing the number, order, and type of the parameters for the constructor to get</param>
-        /// <param name="args">Argmenets to pass to the constructor</param>
+        /// <param name="args">Arguments to pass to the constructor</param>
         public PrivateObject(string assemblyName, string typeName, Type[] parameterTypes, object[] args)
             : this(Type.GetType(string.Format(CultureInfo.InvariantCulture, "{0}, {1}", typeName, assemblyName), false), parameterTypes, args)
         {
@@ -85,7 +85,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// specified type.
         /// </summary>
         /// <param name="type">type of the object to create</param>
-        /// <param name="args">Argmenets to pass to the constructor</param>
+        /// <param name="args">Arguments to pass to the constructor</param>
         public PrivateObject(Type type, params object[] args)
             : this(type, null, args)
         {
@@ -97,7 +97,7 @@ namespace CloudNimble.Breakdance.Assemblies
         /// </summary>
         /// <param name="type">type of the object to create</param>
         /// <param name="parameterTypes">An array of <see cref="T:System.Type"/> objects representing the number, order, and type of the parameters for the constructor to get</param>
-        /// <param name="args">Argmenets to pass to the constructor</param>
+        /// <param name="args">Arguments to pass to the constructor</param>
         public PrivateObject(Type type, Type[] parameterTypes, object[] args)
         {
             Ensure.ArgumentNotNull(type, nameof(type));
