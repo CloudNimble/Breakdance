@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.Tests.AspNetCore</AssemblyName>
 		<RootNamespace>CloudNimble.Breakdance.Tests.AspNetCore</RootNamespace>
-		<TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0;net6.0</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
@@ -12,12 +12,16 @@
 		<PackageReference Include="EasyAF.Http" Version="*-*" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[8.0.0, 9.0.0)" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[9.*-*, 10.0.0)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[7.0.0, 8.0.0)" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[8.*, 10.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.*, 10.0.0)" />
 	</ItemGroup>
 	
 	<ItemGroup>

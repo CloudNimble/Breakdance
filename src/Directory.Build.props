@@ -28,7 +28,7 @@
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble, Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
-		<Copyright>Copyright © 2017-2023 CloudNimble, Inc. All rights reserved.</Copyright>
+		<Copyright>Copyright © 2017-2025 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
@@ -89,7 +89,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.*" PrivateAssets="All" />
 		<!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
 		<!--<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0-preview1.22310.1">
 			<PrivateAssets>all</PrivateAssets>

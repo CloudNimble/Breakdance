@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
+
 	<PropertyGroup>
 		<RootNamespace>CloudNimble.Breakdance.AspNetCore.SignalR</RootNamespace>
 		<AssemblyName>CloudNimble.Breakdance.AspNetCore.SignalR</AssemblyName>
 		<TargetFrameworks>net7.0</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
-	  <PackageReference Include="EasyAF.SignalR" Version="[2.*, 3.0.0)" />
+		<PackageReference Include="EasyAF.SignalR" Version="[2.*, 3.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="[7.0.0, 9.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="[7.*, 10.0.0)" />
+		<PackageReference Include="System.Text.Json" Version="[8.*, 10.0.0)" NoWarn="NU1608" />
 	</ItemGroup>
 
 	<PropertyGroup>

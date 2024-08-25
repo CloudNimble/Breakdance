@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.Tests.Assemblies</AssemblyName>
 		<RootNamespace>CloudNimble.Breakdance.Tests.Assemblies</RootNamespace>
-		<TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0;net6.0</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 		<RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
 		<NoWarn>$(NoWarn);NU1605</NoWarn>
@@ -11,9 +11,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.33" />
-		<PackageReference Include="SimpleMessageBus.Dispatch" Version="*-*" />
+		<PackageReference Include="SimpleMessageBus.Dispatch.Azure" Version="*-*" />
 		<PackageReference Include="SimpleMessageBus.Hosting" Version="*-*" />
-		<PackageReference Include="SimpleMessageBus.Publish" Version="*-*" />
+		<PackageReference Include="SimpleMessageBus.Publish.Azure" Version="*-*" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -24,12 +24,16 @@
 		<AssemblyAttribute Include="CloudNimble.Breakdance.Assemblies.BreakdanceTestAssembly" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.*-*" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.*-*" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.*" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.*" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.*" />
 	</ItemGroup>
 
 	<ItemGroup>
