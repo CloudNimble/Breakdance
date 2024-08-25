@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="coverlet.collector" Version="3.*" />
-		<PackageReference Include="EasyAF.Http" Version="*-*" />
+		<PackageReference Include="EasyAF.Http" Version="*-*" NoWarn="NU1605" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
