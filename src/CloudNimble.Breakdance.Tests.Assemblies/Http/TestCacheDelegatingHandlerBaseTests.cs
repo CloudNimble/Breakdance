@@ -73,7 +73,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// <param name="fileName"></param>
         /// <param name="requestUri"></param>
         [TestMethod]
+#pragma warning disable MSTEST0018 // DynamicData should be valid
         [DynamicData(nameof(GetPathsAndTestUris))]
+#pragma warning restore MSTEST0018 // DynamicData should be valid
         public void GetStaticFilePath_CanParse_Uris(string mediaType, string directoryPath, string fileName, string requestUri)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);

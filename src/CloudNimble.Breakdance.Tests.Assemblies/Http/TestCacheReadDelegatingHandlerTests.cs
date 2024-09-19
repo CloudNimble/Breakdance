@@ -42,7 +42,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// <returns></returns>
         /// <remarks>If you have not already generated the files for this test, you should run the TestCacheWriteDelegatingHandler_CanWriteFile test first.</remarks>
         [TestMethod]
+#pragma warning disable MSTEST0018 // DynamicData should be valid
         [DynamicData(nameof(GetPathsAndTestUris))]
+#pragma warning restore MSTEST0018 // DynamicData should be valid
         public async Task TestCacheReadDelegatingHandler_CanReadFile(string mediaType, string directoryPath, string fileName, string requestUri)
         {
             var handler = new TestCacheReadDelegatingHandler(ResponseFilesPath);

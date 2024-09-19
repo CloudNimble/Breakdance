@@ -9,6 +9,7 @@ using FluentAssertions;
 using System.Threading;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {
@@ -30,7 +31,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// <summary>
         /// Local reference to test data is needed here or MSTest will choke.
         /// </summary>
-        private static IEnumerable<object[]> GetPathsAndTestUris => TestCacheDelegatingHandlerBaseTests.GetPathsAndTestUris;
+        internal static IEnumerable<object[]> GetPathsAndTestUris => TestCacheDelegatingHandlerBaseTests.GetPathsAndTestUris;
 
         #endregion
 
@@ -43,7 +44,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         /// <returns></returns>
         /// <remarks>If you have not already generated the files for this test, you should run the TestCacheWriteDelegatingHandler_CanWriteFile test first.</remarks>
         [TestMethod]
+#pragma warning disable MSTEST0018 // DynamicData should be valid
         [DynamicData(nameof(GetPathsAndTestUris))]
+#pragma warning restore MSTEST0018 // DynamicData should be valid
         public async Task TestCacheWriteDelegatingHandler_CanWriteFile(string mediaType, string directoryPath, string fileName, string requestUri)
         {
             var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath);

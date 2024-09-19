@@ -116,14 +116,16 @@ namespace CloudNimble.Breakdance.Assemblies
         /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
+        /// <param name="key">The key of the service to get.</param>
         /// <returns>A service object of type <typeparamref name="T"/>.</returns>
         public virtual T GetKeyedService<T>(string key) where T : class => TestHost?.Services.GetKeyedService<T>(key);
 
         /// <summary>
-        /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
+        /// Get services of type <typeparamref name="T"/> from the System.IServiceProvider.
         /// </summary>
         /// <typeparam name="T">The type of service object to get.</typeparam>
-        /// <returns>A service object of type <typeparamref name="T"/>.</returns>
+        /// <param name="key">The </param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of type <typeparamref name="T"/>.</returns>
         public virtual IEnumerable<T> GetKeyedServices<T>(string key) where T : class => TestHost?.Services.GetKeyedServices<T>(key);
 
 #endif
