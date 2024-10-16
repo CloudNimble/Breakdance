@@ -45,6 +45,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="[9.*-*, 10.0.0)"/>
 		<PackageReference Include="System.Text.Json" Version="[9.*-*, 10.0.0)"/>
 		<!-- Transient package fixes to deal with .NET 9.0 RCs -->
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[9.*-*, 10.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[9.*-*, 10.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="[9.*-*, 10.0.0)" />
 		<PackageReference Include="System.Net.Http.Json" Version="[9.*-*, 10.0.0)" />
