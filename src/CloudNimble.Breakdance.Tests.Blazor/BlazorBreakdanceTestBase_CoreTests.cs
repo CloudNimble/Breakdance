@@ -42,7 +42,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 #else
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(34);
 #endif
-            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.Should().HaveCount(27);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             BUnitTestContext.Services.GetService<IConfiguration>().Should().NotBeNull();
         }
@@ -61,7 +61,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.Should().HaveCount(27);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             GetServices<NavigationManager>().Should().HaveCount(1);
         }
@@ -80,7 +80,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.Should().HaveCount(27);
             GetServices<NavigationManager>().Should().HaveCount(1);
         }
 
@@ -99,7 +99,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.Should().HaveCount(27);
             BUnitTestContext.Services.GetService<DummyService>().Should().NotBeNull();
 #if NET8_0_OR_GREATER
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);
@@ -125,7 +125,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.Should().HaveCount(27);
             BUnitTestContext.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
 #if NET8_0_OR_GREATER
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);

@@ -34,7 +34,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
         public void BlazorBreakdanceTestBase_Setup_CreatesTestContext_ConflictingServices()
         {
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(12);
+            BUnitTestContext.Services.Should().HaveCount(27);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
             GetServices<NavigationManager>().Should().HaveCount(1);
         }
