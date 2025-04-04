@@ -189,6 +189,17 @@ namespace CloudNimble.Breakdance.Assemblies
         public virtual IEnumerable<T> GetServices<T>() where T : class => TestHost?.Services.GetServices<T>();
 
         /// <summary>
+        /// Resets the test host by disposing of the current TestHost and initializing a new default TestHostBuilder.
+        /// This prepares the environment for a fresh test setup.
+        /// </summary>
+        public void ResetTestHostBuilder()
+        {
+            TestHost?.Dispose();
+            TestHost = null;
+            TestHostBuilder = Host.CreateDefaultBuilder();
+        }
+
+        /// <summary>
         /// Sets the <see cref="ClaimsPrincipal.ClaimsPrincipalSelector"/> to the <see cref="Thread.CurrentPrincipal" />.
         /// </summary>
         /// <remarks>

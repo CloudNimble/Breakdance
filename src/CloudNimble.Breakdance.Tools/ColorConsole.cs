@@ -3,11 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace CloudNimble.Breakdance.Tools
 {
+
     /// <summary>
     /// Console Color Helper class that provides coloring to individual commands
     /// </summary>
-    public static class ColorConsole
+    public static partial class ColorConsole
     {
+
         /// <summary>
         /// WriteLine with color
         /// </summary>
@@ -15,20 +17,23 @@ namespace CloudNimble.Breakdance.Tools
         /// <param name="color"></param>
         public static void WriteLine(string text, ConsoleColor? color = null)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                Console.WriteLine();
+                return;
+            }
+
             if (color.HasValue)
             {
                 var oldColor = Console.ForegroundColor;
-                if (color == oldColor)
-                    Console.WriteLine(text);
-                else
-                {
-                    Console.ForegroundColor = color.Value;
-                    Console.WriteLine(text);
-                    Console.ForegroundColor = oldColor;
-                }
+                Console.ForegroundColor = color.Value;
+                Console.WriteLine(text);
+                Console.ForegroundColor = oldColor;
             }
             else
+            {
                 Console.WriteLine(text);
+            }
         }
 
         /// <summary>
@@ -38,19 +43,25 @@ namespace CloudNimble.Breakdance.Tools
         /// <param name="color">A console color. Must match ConsoleColors collection names (case insensitive)</param>
         public static void WriteLine(string text, string color)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                WriteLine(text);
+                return;
+            }
+
             if (string.IsNullOrEmpty(color))
             {
                 WriteLine(text);
                 return;
             }
 
-            if (!Enum.TryParse(color, true, out ConsoleColor col))
+            if (Enum.TryParse(color, true, out ConsoleColor col))
             {
-                WriteLine(text);
+                WriteLine(text, col);
             }
             else
             {
-                WriteLine(text, col);
+                WriteLine(text);
             }
         }
 
@@ -61,20 +72,22 @@ namespace CloudNimble.Breakdance.Tools
         /// <param name="color"></param>
         public static void Write(string text, ConsoleColor? color = null)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
             if (color.HasValue)
             {
                 var oldColor = Console.ForegroundColor;
-                if (color == oldColor)
-                    Console.Write(text);
-                else
-                {
-                    Console.ForegroundColor = color.Value;
-                    Console.Write(text);
-                    Console.ForegroundColor = oldColor;
-                }
+                Console.ForegroundColor = color.Value;
+                Console.Write(text);
+                Console.ForegroundColor = oldColor;
             }
             else
+            {
                 Console.Write(text);
+            }
         }
 
         /// <summary>
@@ -84,30 +97,34 @@ namespace CloudNimble.Breakdance.Tools
         /// <param name="color">A console color. Must match ConsoleColors collection names (case insensitive)</param>
         public static void Write(string text, string color)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
             if (string.IsNullOrEmpty(color))
             {
                 Write(text);
                 return;
             }
 
-            if (!ConsoleColor.TryParse(color, true, out ConsoleColor col))
+            if (Enum.TryParse(color, true, out ConsoleColor col))
             {
-                Write(text);
+                Write(text, col);
             }
             else
             {
-                Write(text, col);
+                Write(text);
             }
         }
 
         #region Wrappers and Templates
 
-
         /// <summary>
         /// Writes a line of header text wrapped in a in a pair of lines of dashes:
-        /// -----------
-        /// Header Text
-        /// -----------
+        /// ----------- 
+        /// Header Text 
+        /// ----------- 
         /// and allows you to specify a color for the header. The dashes are colored
         /// </summary>
         /// <param name="headerText">Header text to display</param>
@@ -119,8 +136,7 @@ namespace CloudNimble.Breakdance.Tools
                                                 ConsoleColor headerColor = ConsoleColor.Yellow,
                                                 ConsoleColor dashColor = ConsoleColor.DarkGray)
         {
-            if (string.IsNullOrEmpty(headerText))
-                return;
+            if (string.IsNullOrEmpty(headerText)) return;
 
             string line = new(wrapperChar, headerText.Length);
 
@@ -128,10 +144,6 @@ namespace CloudNimble.Breakdance.Tools
             WriteLine(headerText, headerColor);
             WriteLine(line, dashColor);
         }
-
-        private static Lazy<Regex> colorBlockRegEx = new(
-            () => new Regex("\\[(?<color>.*?)\\](?<text>[^[]*)\\[/\\k<color>\\]", RegexOptions.IgnoreCase),
-            isThreadSafe: true);
 
         /// <summary>
         /// Allows a string to be written with embedded color values using:
@@ -141,8 +153,7 @@ namespace CloudNimble.Breakdance.Tools
         /// <param name="baseTextColor">Base text color</param>
         public static void WriteEmbeddedColorLine(string text, ConsoleColor? baseTextColor = null)
         {
-            if (baseTextColor == null)
-                baseTextColor = Console.ForegroundColor;
+            baseTextColor ??= Console.ForegroundColor;
 
             if (string.IsNullOrEmpty(text))
             {
@@ -150,8 +161,8 @@ namespace CloudNimble.Breakdance.Tools
                 return;
             }
 
-            int at = text.IndexOf("[");
-            int at2 = text.IndexOf("]");
+            var at = text.IndexOf('[');
+            var at2 = text.IndexOf(']');
             if (at == -1 || at2 <= at)
             {
                 WriteLine(text, baseTextColor);
@@ -160,7 +171,7 @@ namespace CloudNimble.Breakdance.Tools
 
             while (true)
             {
-                var match = colorBlockRegEx.Value.Match(text);
+                var match = ColorBlockRegEx().Match(text);
                 if (match.Length < 1)
                 {
                     Write(text, baseTextColor);
@@ -168,16 +179,16 @@ namespace CloudNimble.Breakdance.Tools
                 }
 
                 // write up to expression
-                Write(text.Substring(0, match.Index), baseTextColor);
+                Write(text.AsSpan(0, match.Index).ToString(), baseTextColor);
 
                 // strip out the expression
-                string highlightText = match.Groups["text"].Value;
-                string colorVal = match.Groups["color"].Value;
+                var highlightText = match.Groups["text"].Value;
+                var colorVal = match.Groups["color"].Value;
 
                 Write(highlightText, colorVal);
 
                 // remainder of string
-                text = text.Substring(match.Index + match.Value.Length);
+                text = text[(match.Index + match.Value.Length)..];
             }
 
             Console.WriteLine();
@@ -214,7 +225,6 @@ namespace CloudNimble.Breakdance.Tools
             WriteLine(text, ConsoleColor.DarkYellow);
         }
 
-
         /// <summary>
         /// Write a Info Line - dark cyan
         /// </summary>
@@ -224,6 +234,11 @@ namespace CloudNimble.Breakdance.Tools
             WriteLine(text, ConsoleColor.DarkCyan);
         }
 
+        [GeneratedRegex("\\[(?<color>.*?)\\](?<text>[^[]*)\\[/\\k<color>\\]", RegexOptions.IgnoreCase, "en-US")]
+        private static partial Regex ColorBlockRegEx();
+
         #endregion
+
     }
+
 }
