@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Http" Version="3.*-*" />
+		<PackageReference Include="EasyAF.Http" Version="3.*" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.*" />
 		<PackageReference Include="Newtonsoft.Json" Version="[13.*, 14.0.0)" />
 		<PackageReference Include="System.ValueTuple" Version="4.*" />
