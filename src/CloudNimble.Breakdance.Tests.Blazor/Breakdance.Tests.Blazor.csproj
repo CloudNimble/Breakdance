@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>CloudNimble.Breakdance.Tests.Blazor</AssemblyName>
 		<RootNamespace>CloudNimble.Breakdance.Tests.Blazor</RootNamespace>
-		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net10.0;net9.0;net8.0;</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>

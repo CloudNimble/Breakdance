@@ -5,11 +5,12 @@
 		<IsTestProject Condition="$(MSBuildProjectName.ToLower().Contains('.tests.'))">true</IsTestProject>
 		<IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
 		<IsSampleProject Condition="$(MSBuildProjectName.ToLower().Contains('.samples.'))">true</IsSampleProject>
-		<IsNetCore Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0' ">true</IsNetCore>
-		<IsPrimaryProject Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' ">true</IsPrimaryProject>
+        <IsNetCore Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net([8-9]|[1-3][0-9])\.'))">true</IsNetCore>
+        <IsPrimaryProject Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' ">true</IsPrimaryProject>
 		<IncludeReadmeFile Condition="Exists('$(MSBuildProjectDirectory)\readme.md')">true</IncludeReadmeFile>
+        <IncludePackageIcon Condition="Exists('$(MSBuildThisFileDirectory)\breakdance-logo.png')">true</IncludePackageIcon>
 
-		<IncludeSource>false</IncludeSource>
+        <IncludeSource>false</IncludeSource>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -23,19 +24,20 @@
 
 	<PropertyGroup>
 		<Product>Breakdance</Product>
-		<Version>5.0.0</Version>
-		<PackageVersion>5.0.2</PackageVersion>
+		<Version>7.0.0</Version>
+		<PackageVersion>7.0-alpha.1</PackageVersion>
 		
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble, Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
 		<Copyright>Copyright © 2017-2025 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
-		
-		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		
-		<!-- Suppress warnings about using SemVer 2.0. -->
+        <PackageReadmeFile Condition="$(IncludeReadmeFile) == 'true'">readme.md</PackageReadmeFile>
+        <PackageIcon Condition="$(IncludePackageIcon) == 'true'">breakdance-logo.png</PackageIcon>
+
+
+        <!-- Suppress warnings about using SemVer 2.0. -->
 		<NoWarn>$(NoWarn);NU5048</NoWarn>
 
 		<!-- Suppress warnings about Pre-Release packages in Release builds. -->
@@ -68,7 +70,7 @@
 		<BuildProjectReferences Condition=" '$(NoBuild)' == 'true' ">false</BuildProjectReferences>
 		
 		<!-- Suppress warnings about pre-release packages -->
-		<NoWarn>$(NoWarn);NU5104</NoWarn>
+		<NoWarn>$(NoWarn);NU5104;NU1510</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" $(IsTestProject) == 'true' ">
@@ -98,7 +100,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<None Include="$(MSBuildThisFileDirectory)easyaf-logo.png" Pack="true" PackagePath="\" Condition="'$(IsTestProject)' != 'true'" />-->
+		<None Include="$(MSBuildThisFileDirectory)breakdance-logo.png" Pack="true" PackagePath="\" Condition=" $(IncludePackageIcon) == 'true' And $(IsTestProject) != 'true' " />
 		<None Include="readme.md" Pack="true" PackagePath="\" Condition="$(IncludeReadmeFile) == 'true'" />
 	</ItemGroup>
 	

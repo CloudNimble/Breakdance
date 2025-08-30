@@ -191,7 +191,7 @@ namespace CloudNimble.Breakdance.Tools
                                     //RWM: No warning necessary.
                                     if (parameterInfo[0].ParameterType == typeof(string))
                                     {
-                                        await InvokeMethod(methodInfo, new object[] { testPath }).ConfigureAwait(false);
+                                        await InvokeMethod(methodInfo, [testPath]).ConfigureAwait(false);
                                     }
                                     else
                                     {
