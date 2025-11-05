@@ -1,0 +1,838 @@
+---
+title: PrivateType
+description: "This class represents a private class for the Private Accessor functionality."
+icon: file-brackets-curly
+keywords: ['PrivateType', 'CloudNimble.Breakdance.Assemblies.PrivateType', 'CloudNimble.Breakdance.Assemblies', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Assemblies.dll
+
+**Namespace:** CloudNimble.Breakdance.Assemblies
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Assemblies.PrivateType
+```
+
+## Summary
+
+This class represents a private class for the Private Accessor functionality.
+
+## Remarks
+
+This type originally lived in Microsoft.VisualStudio.TestTools.UnitTesting but was removed from V2.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateType](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateType) class that contains the private type.
+
+#### Syntax
+
+```csharp
+public PrivateType(string assemblyName, string typeName)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `assemblyName` | `string` | Assembly name |
+| `typeName` | `string` | fully qualified name of the |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateType](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateType) class that contains
+            the private type from the type object
+
+#### Syntax
+
+```csharp
+public PrivateType(System.Type type)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | `System.Type` | The wrapped Type to create. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferencedType
+
+Gets the referenced type
+
+#### Syntax
+
+```csharp
+public System.Type ReferencedType { get; }
+```
+
+#### Property Value
+
+Type: `System.Type`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticArrayElement
+
+Gets the element in static array
+
+#### Syntax
+
+```csharp
+public object GetStaticArrayElement(string name, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the array |
+| `indices` | `int[]` | A one-dimensional array of 32-bit integers that represent the indexes specifying
+            the position of the element to get. For instance, to access a[10][11] the indices would be {10,11} |
+
+#### Returns
+
+Type: `object`
+element at the specified location
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticArrayElement
+
+Gets the element in satatic array
+
+#### Syntax
+
+```csharp
+public object GetStaticArrayElement(string name, System.Reflection.BindingFlags bindingFlags, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the array |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional InvokeHelper attributes |
+| `indices` | `int[]` | A one-dimensional array of 32-bit integers that represent the indexes specifying
+            the position of the element to get. For instance, to access a[10][11] the array would be {10,11} |
+
+#### Returns
+
+Type: `object`
+element at the spcified location
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticField
+
+Gets the static field
+
+#### Syntax
+
+```csharp
+public object GetStaticField(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+
+#### Returns
+
+Type: `object`
+The static field.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticField
+
+Gets the static field using specified InvokeHelper attributes
+
+#### Syntax
+
+```csharp
+public object GetStaticField(string name, System.Reflection.BindingFlags bindingFlags)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+
+#### Returns
+
+Type: `object`
+The static field.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticFieldOrProperty
+
+Gets the static field or property
+
+#### Syntax
+
+```csharp
+public object GetStaticFieldOrProperty(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+
+#### Returns
+
+Type: `object`
+The static field or property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticFieldOrProperty
+
+Gets the static field or property using specified InvokeHelper attributes
+
+#### Syntax
+
+```csharp
+public object GetStaticFieldOrProperty(string name, System.Reflection.BindingFlags bindingFlags)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+
+#### Returns
+
+Type: `object`
+The static field or property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticProperty
+
+Gets the static property
+
+#### Syntax
+
+```csharp
+public object GetStaticProperty(string name, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+| `args` | `object[]` | Arguements to the invocation |
+
+#### Returns
+
+Type: `object`
+The static property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticProperty
+
+Gets the static property
+
+#### Syntax
+
+```csharp
+public object GetStaticProperty(string name, System.Reflection.BindingFlags bindingFlags, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+The static property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetStaticProperty
+
+Gets the static property
+
+#### Syntax
+
+```csharp
+public object GetStaticProperty(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes. |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the indexed property. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+The static property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes static member
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member to InvokeHelper |
+| `args` | `object[]` | Arguements to the invoction |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes static member
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member to InvokeHelper |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to invoke |
+| `args` | `object[]` | Arguements to the invoction |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes static member
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Type[] parameterTypes, object[] args, System.Type[] typeArguments)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member to InvokeHelper |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to invoke |
+| `args` | `object[]` | Arguements to the invoction |
+| `typeArguments` | `System.Type[]` | An array of types corresponding to the types of the generic arguments. |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes the static method
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `args` | `object[]` | Arguements to the invocation |
+| `culture` | `System.Globalization.CultureInfo` | Culture |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes the static method
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Type[] parameterTypes, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to invoke |
+| `args` | `object[]` | Arguements to the invocation |
+| `culture` | `System.Globalization.CultureInfo` | Culture info |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes the static method
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Reflection.BindingFlags bindingFlags, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+| `args` | `object[]` | Arguements to the invocation |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes the static method
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to invoke |
+| `args` | `object[]` | Arguements to the invocation |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes the static method
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Reflection.BindingFlags bindingFlags, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+| `args` | `object[]` | Arguements to the invocation |
+| `culture` | `System.Globalization.CultureInfo` | Culture |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes the static method
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to invoke |
+| `args` | `object[]` | Arguements to the invocation |
+| `culture` | `System.Globalization.CultureInfo` | Culture |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeStatic
+
+Invokes the static method
+
+#### Syntax
+
+```csharp
+public object InvokeStatic(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args, System.Globalization.CultureInfo culture, System.Type[] typeArguments)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to invoke |
+| `args` | `object[]` | Arguements to the invocation |
+| `culture` | `System.Globalization.CultureInfo` | Culture |
+| `typeArguments` | `System.Type[]` | An array of types corresponding to the types of the generic arguments. |
+
+#### Returns
+
+Type: `object`
+Result of invocation
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticArrayElement
+
+Sets the memeber of the static array
+
+#### Syntax
+
+```csharp
+public void SetStaticArrayElement(string name, object value, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the array |
+| `value` | `object` | value to set |
+| `indices` | `int[]` | A one-dimensional array of 32-bit integers that represent the indexes specifying
+            the position of the element to set. For instance, to access a[10][11] the array would be {10,11} |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticArrayElement
+
+Sets the memeber of the static array
+
+#### Syntax
+
+```csharp
+public void SetStaticArrayElement(string name, System.Reflection.BindingFlags bindingFlags, object value, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the array |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional InvokeHelper attributes |
+| `value` | `object` | value to set |
+| `indices` | `int[]` | A one-dimensional array of 32-bit integers that represent the indexes specifying
+            the position of the element to set. For instance, to access a[10][11] the array would be {10,11} |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticField
+
+Sets the static field
+
+#### Syntax
+
+```csharp
+public void SetStaticField(string name, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+| `value` | `object` | Arguement to the invocation |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticField
+
+Sets the static field using binding attributes
+
+#### Syntax
+
+```csharp
+public void SetStaticField(string name, System.Reflection.BindingFlags bindingFlags, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional InvokeHelper attributes |
+| `value` | `object` | Arguement to the invocation |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticFieldOrProperty
+
+Sets the static field or property
+
+#### Syntax
+
+```csharp
+public void SetStaticFieldOrProperty(string name, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+| `value` | `object` | Value to be set to field or property |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticFieldOrProperty
+
+Sets the static field or property using binding attributes
+
+#### Syntax
+
+```csharp
+public void SetStaticFieldOrProperty(string name, System.Reflection.BindingFlags bindingFlags, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes |
+| `value` | `object` | Value to be set to field or property |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticProperty
+
+Sets the static property
+
+#### Syntax
+
+```csharp
+public void SetStaticProperty(string name, object value, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `value` | `object` | Value to be set to field or property |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticProperty
+
+Sets the static property
+
+#### Syntax
+
+```csharp
+public void SetStaticProperty(string name, object value, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `value` | `object` | Value to be set to field or property |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the indexed property. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticProperty
+
+Sets the static property
+
+#### Syntax
+
+```csharp
+public void SetStaticProperty(string name, System.Reflection.BindingFlags bindingFlags, object value, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes. |
+| `value` | `object` | Value to be set to field or property |
+| `args` | `object[]` | Optional index values for indexed properties. The indexes of indexed properties are zero-based. This value should be null for non-indexed properties. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetStaticProperty
+
+Sets the static property
+
+#### Syntax
+
+```csharp
+public void SetStaticProperty(string name, System.Reflection.BindingFlags bindingFlags, object value, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | Additional invocation attributes. |
+| `value` | `object` | Value to be set to field or property |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the indexed property. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

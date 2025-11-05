@@ -1,0 +1,77 @@
+---
+title: IServiceProvider
+description: "Extension methods for IServiceProvider from System.ComponentModel"
+icon: file-brackets-curly
+keywords: ['IServiceProvider', 'System.IServiceProvider', 'System', 'error']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** System.ComponentModel.dll
+
+**Namespace:** System
+
+## Syntax
+
+```csharp
+System.IServiceProvider
+```
+
+## Summary
+
+This type is defined in System.ComponentModel.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/system.iserviceprovider) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllServiceDescriptors <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.Extensions.DependencyInjection.Breakdance_Assemblies_IServiceProviderExtensions`</Note>
+
+Get all registered [ServiceDescriptor](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.servicedescriptor)ServiceDescriptors&lt;/see&gt; for a given container.
+
+#### Syntax
+
+```csharp
+public static System.Collections.Generic.Dictionary<System.Type, Microsoft.Extensions.DependencyInjection.ServiceDescriptor> GetAllServiceDescriptors(System.IServiceProvider provider)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `provider` | `System.IServiceProvider` | - |
+
+#### Returns
+
+Type: `System.Collections.Generic.Dictionary<System.Type, Microsoft.Extensions.DependencyInjection.ServiceDescriptor>`
+
+#### Remarks
+
+Taken from https://stackoverflow.com/a/60529530/403765
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetContainerContentsLog <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.Extensions.DependencyInjection.Breakdance_Assemblies_IServiceProviderExtensions`</Note>
+
+#### Syntax
+
+```csharp
+public static string GetContainerContentsLog(System.IServiceProvider provider)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `provider` | `System.IServiceProvider` | - |
+
+#### Returns
+
+Type: `string`
+

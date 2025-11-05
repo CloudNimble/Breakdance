@@ -1,0 +1,1002 @@
+---
+title: PrivateObject
+description: "This class represents the live NON public INTERNAL object in the system"
+icon: file-brackets-curly
+keywords: ['PrivateObject', 'CloudNimble.Breakdance.Assemblies.PrivateObject', 'CloudNimble.Breakdance.Assemblies', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Assemblies.dll
+
+**Namespace:** CloudNimble.Breakdance.Assemblies
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Assemblies.PrivateObject
+```
+
+## Summary
+
+This class represents the live NON public INTERNAL object in the system
+
+## Remarks
+
+This type originally lived in Microsoft.VisualStudio.TestTools.UnitTesting but was removed from V2.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateObject](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateObject) class that contains
+            the already existing object of the private class
+
+#### Syntax
+
+```csharp
+public PrivateObject(object obj, string memberToAccess)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object` | object that serves as starting point to reach the private members |
+| `memberToAccess` | `string` | the derefrencing string using . that points to the object to be retrived as in m_X.m_Y.m_Z |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateObject](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateObject) class that wraps the
+            specified type.
+
+#### Syntax
+
+```csharp
+public PrivateObject(string assemblyName, string typeName, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `assemblyName` | `string` | Name of the assembly |
+| `typeName` | `string` | fully qualified name |
+| `args` | `object[]` | Argmenets to pass to the constructor |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateObject](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateObject) class that wraps the
+            specified type.
+
+#### Syntax
+
+```csharp
+public PrivateObject(string assemblyName, string typeName, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `assemblyName` | `string` | Name of the assembly |
+| `typeName` | `string` | fully qualified name |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the constructor to get |
+| `args` | `object[]` | Arguments to pass to the constructor |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateObject](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateObject) class that wraps the
+            specified type.
+
+#### Syntax
+
+```csharp
+public PrivateObject(System.Type type, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | `System.Type` | type of the object to create |
+| `args` | `object[]` | Arguments to pass to the constructor |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateObject](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateObject) class that wraps the
+            specified type.
+
+#### Syntax
+
+```csharp
+public PrivateObject(System.Type type, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `type` | `System.Type` | type of the object to create |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the constructor to get |
+| `args` | `object[]` | Arguments to pass to the constructor |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateObject](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateObject) class that wraps
+            the given object.
+
+#### Syntax
+
+```csharp
+public PrivateObject(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object` | object to wrap |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Initializes a new instance of the [PrivateObject](/api-reference/CloudNimble/Breakdance/Assemblies/PrivateObject) class that wraps
+            the given object.
+
+#### Syntax
+
+```csharp
+public PrivateObject(object obj, CloudNimble.Breakdance.Assemblies.PrivateType type)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object` | object to wrap |
+| `type` | `CloudNimble.Breakdance.Assemblies.PrivateType` | PrivateType object |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  RealType
+
+Gets the type of underlying object
+
+#### Syntax
+
+```csharp
+public System.Type RealType { get; }
+```
+
+#### Property Value
+
+Type: `System.Type`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Target
+
+Gets or sets the target
+
+#### Syntax
+
+```csharp
+public object Target { get; set; }
+```
+
+#### Property Value
+
+Type: `object`
+
+## Methods
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Override" variant="info" />
+
+Equals
+
+#### Syntax
+
+```csharp
+public override bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object` | Object with whom to compare |
+
+#### Returns
+
+Type: `bool`
+returns true if the objects are equal.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetArrayElement
+
+Gets the array element using array of subsrcipts for each dimension
+
+#### Syntax
+
+```csharp
+public object GetArrayElement(string name, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `indices` | `int[]` | the indices of array |
+
+#### Returns
+
+Type: `object`
+An arrya of elements.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetArrayElement
+
+Gets the array element using array of subsrcipts for each dimension
+
+#### Syntax
+
+```csharp
+public object GetArrayElement(string name, System.Reflection.BindingFlags bindingFlags, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `indices` | `int[]` | the indices of array |
+
+#### Returns
+
+Type: `object`
+An arrya of elements.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetField
+
+Get the field
+
+#### Syntax
+
+```csharp
+public object GetField(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+
+#### Returns
+
+Type: `object`
+The field.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetField
+
+Gets the field
+
+#### Syntax
+
+```csharp
+public object GetField(string name, System.Reflection.BindingFlags bindingFlags)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+
+#### Returns
+
+Type: `object`
+The field.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetFieldOrProperty
+
+Get the field or property
+
+#### Syntax
+
+```csharp
+public object GetFieldOrProperty(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+
+#### Returns
+
+Type: `object`
+The field or property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetFieldOrProperty
+
+Gets the field or property
+
+#### Syntax
+
+```csharp
+public object GetFieldOrProperty(string name, System.Reflection.BindingFlags bindingFlags)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+
+#### Returns
+
+Type: `object`
+The field or property.
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Override" variant="info" />
+
+returns the hash code of the target object
+
+#### Syntax
+
+```csharp
+public override int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+int representing hashcode of the target object
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetProperty
+
+Gets the property
+
+#### Syntax
+
+```csharp
+public object GetProperty(string name, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+The property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetProperty
+
+Gets the property
+
+#### Syntax
+
+```csharp
+public object GetProperty(string name, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the indexed property. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+The property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetProperty
+
+Gets the property
+
+#### Syntax
+
+```csharp
+public object GetProperty(string name, System.Reflection.BindingFlags bindingFlags, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+The property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetProperty
+
+Gets the property
+
+#### Syntax
+
+```csharp
+public object GetProperty(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the indexed property. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+The property.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to get. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Type[] parameterTypes, object[] args, System.Type[] typeArguments)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to get. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+| `typeArguments` | `System.Type[]` | An array of types corresponding to the types of the generic arguments. |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+| `culture` | `System.Globalization.CultureInfo` | Culture info |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Type[] parameterTypes, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to get. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+| `culture` | `System.Globalization.CultureInfo` | Culture info |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Reflection.BindingFlags bindingFlags, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to get. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Reflection.BindingFlags bindingFlags, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+| `culture` | `System.Globalization.CultureInfo` | Culture info |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args, System.Globalization.CultureInfo culture)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to get. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+| `culture` | `System.Globalization.CultureInfo` | Culture info |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Invoke
+
+Invokes the specified method
+
+#### Syntax
+
+```csharp
+public object Invoke(string name, System.Reflection.BindingFlags bindingFlags, System.Type[] parameterTypes, object[] args, System.Globalization.CultureInfo culture, System.Type[] typeArguments)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the method |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the method to get. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+| `culture` | `System.Globalization.CultureInfo` | Culture info |
+| `typeArguments` | `System.Type[]` | An array of types corresponding to the types of the generic arguments. |
+
+#### Returns
+
+Type: `object`
+Result of method call
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetArrayElement
+
+Sets the array element using array of subsrcipts for each dimension
+
+#### Syntax
+
+```csharp
+public void SetArrayElement(string name, object value, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `value` | `object` | Value to set |
+| `indices` | `int[]` | the indices of array |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetArrayElement
+
+Sets the array element using array of subsrcipts for each dimension
+
+#### Syntax
+
+```csharp
+public void SetArrayElement(string name, System.Reflection.BindingFlags bindingFlags, object value, params int[] indices)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the member |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `value` | `object` | Value to set |
+| `indices` | `int[]` | the indices of array |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetField
+
+Sets the field
+
+#### Syntax
+
+```csharp
+public void SetField(string name, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+| `value` | `object` | value to set |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetField
+
+Sets the field
+
+#### Syntax
+
+```csharp
+public void SetField(string name, System.Reflection.BindingFlags bindingFlags, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `value` | `object` | value to set |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetFieldOrProperty
+
+Sets the field or property
+
+#### Syntax
+
+```csharp
+public void SetFieldOrProperty(string name, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+| `value` | `object` | value to set |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetFieldOrProperty
+
+Sets the field or property
+
+#### Syntax
+
+```csharp
+public void SetFieldOrProperty(string name, System.Reflection.BindingFlags bindingFlags, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the field or property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `value` | `object` | value to set |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetProperty
+
+Set the property
+
+#### Syntax
+
+```csharp
+public void SetProperty(string name, object value, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `value` | `object` | value to set |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetProperty
+
+Set the property
+
+#### Syntax
+
+```csharp
+public void SetProperty(string name, System.Type[] parameterTypes, object value, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the indexed property. |
+| `value` | `object` | value to set |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetProperty
+
+Sets the property
+
+#### Syntax
+
+```csharp
+public void SetProperty(string name, System.Reflection.BindingFlags bindingFlags, object value, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `value` | `object` | value to set |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetProperty
+
+Sets the property
+
+#### Syntax
+
+```csharp
+public void SetProperty(string name, System.Reflection.BindingFlags bindingFlags, object value, System.Type[] parameterTypes, object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Name of the property |
+| `bindingFlags` | `System.Reflection.BindingFlags` | A bitmask comprised of one or more [BindingFlags](https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags) that specify how the search is conducted. |
+| `value` | `object` | value to set |
+| `parameterTypes` | `System.Type[]` | An array of [Type](https://learn.microsoft.com/dotnet/api/system.type) objects representing the number, order, and type of the parameters for the indexed property. |
+| `args` | `object[]` | Arguments to pass to the member to invoke. |
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

@@ -1,0 +1,103 @@
+---
+title: TestCacheDelegatingHandlerBase
+description: "Base class for implementation of TestCache handlers for unit testing."
+icon: file-brackets-curly
+keywords: ['TestCacheDelegatingHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http', 'class', 'System.Net.Http.DelegatingHandler']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Assemblies.dll
+
+**Namespace:** CloudNimble.Breakdance.Assemblies.Http
+
+**Inheritance:** System.Net.Http.DelegatingHandler
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase
+```
+
+## Summary
+
+Base class for implementation of TestCache handlers for unit testing.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Constructor overload for specifying the root folder path.
+
+#### Syntax
+
+```csharp
+public TestCacheDelegatingHandlerBase(string responseFilesPath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `responseFilesPath` | `string` | Root folder path for storing static response files. |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ResponseFilesPath
+
+Stores the root folder for reading/writing static response files.
+
+#### Syntax
+
+```csharp
+public string ResponseFilesPath { get; private set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetFileExtensionString
+
+Maps the MediaType header in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to a known list of file extensions.
+
+#### Syntax
+
+```csharp
+public static string GetFileExtensionString(System.Net.Http.HttpRequestMessage request)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `request` | `System.Net.Http.HttpRequestMessage` | - |
+
+#### Returns
+
+Type: `string`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetResponseMediaTypeString
+
+Maps the file extension in the specified path to a known list of media types.
+
+#### Syntax
+
+```csharp
+public static string GetResponseMediaTypeString(string filePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filePath` | `string` | - |
+
+#### Returns
+
+Type: `string`
+

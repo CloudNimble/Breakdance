@@ -1,0 +1,203 @@
+---
+title: ColorConsole
+description: "Console Color Helper class that provides coloring to individual commands"
+icon: bolt
+tag: "STATIC"
+keywords: ['ColorConsole', 'CloudNimble.Breakdance.Tools.ColorConsole', 'CloudNimble.Breakdance.Tools', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** Breakdance.Tools.dll
+
+**Namespace:** CloudNimble.Breakdance.Tools
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Tools.ColorConsole
+```
+
+## Summary
+
+Console Color Helper class that provides coloring to individual commands
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Write
+
+Write with color
+
+#### Syntax
+
+```csharp
+public static void Write(string text, System.Nullable<System.ConsoleColor> color = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | - |
+| `color` | `System.Nullable<System.ConsoleColor>` | - |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Write
+
+Writes out a line with color specified as a string
+
+#### Syntax
+
+```csharp
+public static void Write(string text, string color)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Text to write |
+| `color` | `string` | A console color. Must match ConsoleColors collection names (case insensitive) |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteEmbeddedColorLine
+
+Allows a string to be written with embedded color values using:
+            This is [red]Red[/red] text and this is [cyan]Blue[/cyan] text
+
+#### Syntax
+
+```csharp
+public static void WriteEmbeddedColorLine(string text, System.Nullable<System.ConsoleColor> baseTextColor = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Text to display |
+| `baseTextColor` | `System.Nullable<System.ConsoleColor>` | Base text color |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteError
+
+Write a Error Line - Red
+
+#### Syntax
+
+```csharp
+public static void WriteError(string text)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Text to write out |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteInfo
+
+Write a Info Line - dark cyan
+
+#### Syntax
+
+```csharp
+public static void WriteInfo(string text)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Text to write out |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteLine
+
+WriteLine with color
+
+#### Syntax
+
+```csharp
+public static void WriteLine(string text, System.Nullable<System.ConsoleColor> color = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | - |
+| `color` | `System.Nullable<System.ConsoleColor>` | - |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteLine
+
+Writes out a line with a specific color as a string
+
+#### Syntax
+
+```csharp
+public static void WriteLine(string text, string color)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Text to write |
+| `color` | `string` | A console color. Must match ConsoleColors collection names (case insensitive) |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteSuccess
+
+Write a Success Line - green
+
+#### Syntax
+
+```csharp
+public static void WriteSuccess(string text)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Text to write out |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteWarning
+
+Write a Warning Line - Yellow
+
+#### Syntax
+
+```csharp
+public static void WriteWarning(string text)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `text` | `string` | Text to Write out |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  WriteWrappedHeader
+
+Writes a line of header text wrapped in a in a pair of lines of dashes:
+            ----------- 
+            Header Text 
+            ----------- 
+            and allows you to specify a color for the header. The dashes are colored
+
+#### Syntax
+
+```csharp
+public static void WriteWrappedHeader(string headerText, char wrapperChar = '-', System.ConsoleColor headerColor = 14, System.ConsoleColor dashColor = 8)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `headerText` | `string` | Header text to display |
+| `wrapperChar` | `char` | wrapper character (-) |
+| `headerColor` | `System.ConsoleColor` | Color for header text (yellow) |
+| `dashColor` | `System.ConsoleColor` | Color for dashes (gray) |
+

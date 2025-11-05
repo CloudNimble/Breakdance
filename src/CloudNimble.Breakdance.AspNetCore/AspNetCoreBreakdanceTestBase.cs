@@ -1,17 +1,17 @@
 ﻿using CloudNimble.Breakdance.Assemblies;
 using Flurl;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.AspNetCore
 {
@@ -30,9 +30,9 @@ namespace CloudNimble.Breakdance.AspNetCore
         public TestServer TestServer { get; internal set; }
 
         /// <summary>
-        /// Replaces the <see cref="TestHostBuilder"/> from the <see cref="BreakdanceTestBase"/> with an <see cref="IWebHostBuilder"/> implementation.
+        /// Replaces the <see cref="TestHostBuilder"/> from the <see cref="BreakdanceTestBase"/> with an <see cref="IHostBuilder"/> implementation configured for web hosting.
         /// </summary>
-        public new IWebHostBuilder TestHostBuilder { get; internal set; }
+        public new IHostBuilder TestHostBuilder { get; internal set; }
 
         #endregion
 
@@ -41,11 +41,11 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <summary>
         /// Creates a new <see cref="AspNetCoreBreakdanceTestBase"/> instance.
         /// </summary>
-        /// <remarks>The call to .Configure() with no content is required to get a minimal, empty <see cref="IWebHost"/>.</remarks>
+        /// <remarks>Uses the modern <see cref="IHostBuilder"/> pattern for web hosting instead of the deprecated WebHostBuilder.</remarks>
         public AspNetCoreBreakdanceTestBase()
         {
-            // replace the TestHostBuilder with one that will generate an IWebHost
-            TestHostBuilder = WebHost.CreateDefaultBuilder();
+            // Use the modern HostBuilder pattern instead of deprecated WebHost.CreateDefaultBuilder()
+            TestHostBuilder = new HostBuilder();
         }
 
         #endregion
@@ -230,7 +230,21 @@ namespace CloudNimble.Breakdance.AspNetCore
         public override void AssemblySetup()
         {
             base.AssemblySetup();
-            EnsureTestServer();
+            EnsureTestServerAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Method used by test assemblies to setup the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [AssemblyInitialize].
+        /// With NUnit, use [OneTimeSetUp].
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual async Task AssemblySetupAsync()
+        {
+            base.AssemblySetup();
+            await EnsureTestServerAsync();
         }
 
         /// <summary>
@@ -244,7 +258,21 @@ namespace CloudNimble.Breakdance.AspNetCore
         public override void TestSetup()
         {
             base.TestSetup();
-            EnsureTestServer();
+            EnsureTestServerAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Method used by test classes to setup the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [TestInitialize].
+        /// With NUnit, use [SetUp].
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual async Task TestSetupAsync()
+        {
+            base.TestSetup();
+            await EnsureTestServerAsync();
         }
 
         /// <summary>
@@ -263,25 +291,44 @@ namespace CloudNimble.Breakdance.AspNetCore
 
         #endregion
 
-        #region Private Methods
+        #region Internal Methods
 
         /// <summary>
         /// Ensures that the <see cref="TestServer"/> has been constructed.
         /// </summary>
-        /// <remarks>The constructor used below builds and starts the host instance with the specified <see cref="IWebHostBuilder"/> and an empty <see cref="IFeatureCollection"/>.</remarks>
+        /// <remarks>Builds the host using <see cref="IHostBuilder"/>, starts it, and retrieves the <see cref="TestServer"/> from the host services.</remarks>
+        [Obsolete("Please use EnsureTestServerAsync instead.", false)]
         internal void EnsureTestServer()
         {
-            if (TestServer == null)
+            EnsureTestServerAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Ensures that the <see cref="TestServer"/> has been constructed asynchronously.
+        /// </summary>
+        /// <remarks>Builds the host using <see cref="IHostBuilder"/>, starts it, and retrieves the <see cref="TestServer"/> from the host services.</remarks>
+        internal async Task EnsureTestServerAsync()
+        {
+            if (TestServer is null)
             {
                 try
                 {
-                    // the constructor automatically calls the IWebHost.StartAsync() method
-                    // TODO: JHC: Wrap exception and throw something more helpful.
-                    TestServer = new TestServer(TestHostBuilder);
+                    // Configure the host to use TestServer
+                    TestHostBuilder.ConfigureWebHost(webBuilder =>
+                    {
+                        webBuilder.UseTestServer();
+                    });
+
+                    // Build and start the host
+                    var host = TestHostBuilder.Build();
+                    await host.StartAsync();
+
+                    // Get the TestServer from the host services
+                    TestServer = host.GetTestServer();
                 }
                 catch (InvalidOperationException iox)
                 {
-                    throw new InvalidOperationException("You must specify a configuration before calling EnsureTestServer.  Please use one of the helper methods such as AddMinimalMvc() or provide your own configuration directly on the TestHostBuilder.", iox);
+                    throw new InvalidOperationException("You must specify a configuration before calling EnsureTestServer. Please use one of the helper methods such as AddMinimalMvc() or provide your own configuration directly on the TestHostBuilder.", iox);
                 }
             }
         }

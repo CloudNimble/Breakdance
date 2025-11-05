@@ -1,0 +1,34 @@
+---
+title: WebApiConstants
+description: "A set of constants used by BreakDance.WebApi to simplify the configuration of test runs."
+icon: bolt
+tag: "STATIC"
+keywords: ['WebApiConstants', 'CloudNimble.Breakdance.WebApi.WebApiConstants', 'CloudNimble.Breakdance.WebApi', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.WebApi.dll
+
+**Namespace:** CloudNimble.Breakdance.WebApi
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.WebApi.WebApiConstants
+```
+
+## Summary
+
+A set of constants used by BreakDance.WebApi to simplify the configuration of test runs.
+
+## Remarks
+
+Since unit testing a WebApi should not require knowledge of a *specific* endpoint Url to execute (that's required in *integration* testing),
+            these constants allow the test to run in a way that abstracts the details of configuring the API away from the developer. That allows the
+            developer to focus on what is being tested, not on messing with configuration.
+

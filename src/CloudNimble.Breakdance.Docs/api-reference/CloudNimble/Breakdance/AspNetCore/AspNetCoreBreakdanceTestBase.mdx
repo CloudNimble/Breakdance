@@ -1,0 +1,493 @@
+---
+title: AspNetCoreBreakdanceTestBase
+description: "A base class for building unit tests for AspNetCore APIs that automatically maintains a [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetc..."
+icon: code-branch
+keywords: ['AspNetCoreBreakdanceTestBase', 'CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase<TStartup>', 'CloudNimble.Breakdance.AspNetCore', 'class', 'CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.AspNetCore.dll
+
+**Namespace:** CloudNimble.Breakdance.AspNetCore
+
+**Inheritance:** CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase<TStartup>
+```
+
+## Summary
+
+A base class for building unit tests for AspNetCore APIs that automatically maintains a [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with configuration and a Dependency Injection containers for you.
+
+## Type Parameters
+
+- `TStartup` - 
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Creates a new [AspNetCoreBreakdanceTestBase](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase) instance.
+
+#### Syntax
+
+```csharp
+public AspNetCoreBreakdanceTestBase()
+```
+
+#### Remarks
+
+The call to .Configure() with no content is required to get a minimal, empty [IWebHost](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iwebhost).
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Creates a new [AspNetCoreBreakdanceTestBase](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase) instance.
+
+#### Syntax
+
+```csharp
+public AspNetCoreBreakdanceTestBase()
+```
+
+#### Remarks
+
+Uses the modern [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) pattern for web hosting instead of the deprecated WebHostBuilder.
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestHostBuilder <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Replaces the [AspNetCoreBreakdanceTestBase.TestHostBuilder](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testhostbuilder) from the [BreakdanceTestBase](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase) with an [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) implementation configured for web hosting.
+
+#### Syntax
+
+```csharp
+public Microsoft.Extensions.Hosting.IHostBuilder TestHostBuilder { get; internal set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.Extensions.Hosting.IHostBuilder`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestServer <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+The [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) for handling requests.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.TestHost.TestServer TestServer { get; internal set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.TestHost.TestServer`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddApis <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Adds Controller services to the [AspNetCoreBreakdanceTestBase.TestHostBuilder](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testhostbuilder).
+
+#### Syntax
+
+```csharp
+public void AddApis(System.Action<Microsoft.AspNetCore.Mvc.MvcOptions> options = null, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> app = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `options` | `System.Action<Microsoft.AspNetCore.Mvc.MvcOptions>` | - |
+| `app` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | - |
+
+#### Remarks
+
+Calls AddControllers() on the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) which does the following, according to the Microsoft docs:
+                combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
+                Microsoft.Extensions.DependencyInjection.MvcApiExplorerMvcCoreBuilderExtensions.AddApiExplorer(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                and Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddMinimalMvc <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Adds minimal MVC services to the [AspNetCoreBreakdanceTestBase.TestHostBuilder](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testhostbuilder).
+
+#### Syntax
+
+```csharp
+public void AddMinimalMvc(System.Action<Microsoft.AspNetCore.Mvc.MvcOptions> options = null, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> app = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `options` | `System.Action<Microsoft.AspNetCore.Mvc.MvcOptions>` | - |
+| `app` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | - |
+
+#### Remarks
+
+Calls AddMvcCore() on the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) which does the following, according to the Microsoft docs:
+               will register the minimum set of services necessary to route requests and invoke
+                controllers. It is not expected that any application will satisfy its requirements
+                with just a call to Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection).
+                Additional configuration using the Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder
+                will be required.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddRazorPages <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Adds support for Controllers and Razor views to the [AspNetCoreBreakdanceTestBase.TestHostBuilder](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testhostbuilder).
+
+#### Syntax
+
+```csharp
+public void AddRazorPages(System.Action<Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions> options = null, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> app = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `options` | `System.Action<Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions>` | - |
+| `app` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | - |
+
+#### Remarks
+
+Calls AddRazorPages() on the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) which does the following, according to the Microsoft docs:
+                combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
+                Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.TagHelperServicesExtensions.AddCacheTagHelper(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                and Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuilderExtensions.AddRazorPages(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddViews <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Adds support for Controllers and Razor views to the [AspNetCoreBreakdanceTestBase.TestHostBuilder](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testhostbuilder).
+
+#### Syntax
+
+```csharp
+public void AddViews(System.Action<Microsoft.AspNetCore.Mvc.MvcOptions> options = null, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> app = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `options` | `System.Action<Microsoft.AspNetCore.Mvc.MvcOptions>` | - |
+| `app` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | - |
+
+#### Remarks
+
+Calls AddControllersWithViews() on the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) which does the following, according to the Microsoft docs:
+                combines the effects of Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection),
+                Microsoft.Extensions.DependencyInjection.MvcApiExplorerMvcCoreBuilderExtensions.AddApiExplorer(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.TagHelperServicesExtensions.AddCacheTagHelper(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
+                and Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetup <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Method used by test assemblies to setup the environment.
+
+#### Syntax
+
+```csharp
+public override void AssemblySetup()
+```
+
+#### Remarks
+
+With MSTest, use [AssemblyInitialize].
+            With NUnit, use [OneTimeSetup].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Method used by test assemblies to setup the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task AssemblySetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [AssemblyInitialize].
+            With NUnit, use [OneTimeSetUp].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  EnsureTestServer <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Ensures that the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) has been constructed.
+
+#### Syntax
+
+```csharp
+internal void EnsureTestServer()
+```
+
+#### Remarks
+
+Builds the host using [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder), starts it, and retrieves the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) from the host services.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  EnsureTestServerAsync <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Ensures that the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) has been constructed asynchronously.
+
+#### Syntax
+
+```csharp
+internal System.Threading.Tasks.Task EnsureTestServerAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+Builds the host using [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder), starts it, and retrieves the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) from the host services.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHttpClient <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Retrieves an [HttpClient](/api-reference/System/Net/Http/HttpClient) instance from the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) and properly configures the [BaseAddress](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient.baseaddress).
+
+#### Syntax
+
+```csharp
+public System.Net.Http.HttpClient GetHttpClient(string routePrefix = "api/tests/")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `routePrefix` | `string` | The string to append to the [BaseAddress](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient.baseaddress) for all requests. Defaults to [WebApiConstants.RoutePrefix](/api-reference/CloudNimble/Breakdance/AspNetCore/WebApiConstants#routeprefix). |
+
+#### Returns
+
+Type: `System.Net.Http.HttpClient`
+A properly configured [HttpClient](/api-reference/System/Net/Http/HttpClient)instance from the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver).
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHttpClient <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Retrieves an [HttpClient](/api-reference/System/Net/Http/HttpClient) instance from the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) and properly configures the [BaseAddress](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient.baseaddress).
+
+#### Syntax
+
+```csharp
+public System.Net.Http.HttpClient GetHttpClient(System.Net.Http.Headers.AuthenticationHeaderValue authHeader, string routePrefix = "api/tests/")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `authHeader` | `System.Net.Http.Headers.AuthenticationHeaderValue` | - |
+| `routePrefix` | `string` | The string to append to the [BaseAddress](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient.baseaddress) for all requests. Defaults to [WebApiConstants.RoutePrefix](/api-reference/CloudNimble/Breakdance/AspNetCore/WebApiConstants#routeprefix). |
+
+#### Returns
+
+Type: `System.Net.Http.HttpClient`
+A properly configured [HttpClient](/api-reference/System/Net/Http/HttpClient)instance from the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver).
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedService <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Get service of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public override T GetKeyedService<T>(string key) where T : class
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `string` | The key of the service to get. |
+
+#### Returns
+
+Type: `T`
+A service object of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedServices <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Get services of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public override System.Collections.Generic.IEnumerable<T> GetKeyedServices<T>(string key) where T : class
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `string` | The |
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<T>`
+An [IEnumerable`1](https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetService <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Get service of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public override T GetService<T>() where T : class
+```
+
+#### Returns
+
+Type: `T`
+A service object of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetServices <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Get an enumeration of services of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public override System.Collections.Generic.IEnumerable<T> GetServices<T>() where T : class
+```
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<T>`
+An enumeration of services of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Method used by test classes to setup the environment.
+
+#### Syntax
+
+```csharp
+public override void TestSetup()
+```
+
+#### Remarks
+
+With MSTest, use [TestInitialize].
+            With NUnit, use [Setup].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Method used by test classes to setup the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task TestSetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [TestInitialize].
+            With NUnit, use [SetUp].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestTearDown <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
+
+Method used by test classes to clean up the environment.
+
+#### Syntax
+
+```csharp
+public override void TestTearDown()
+```
+
+#### Remarks
+
+With MSTest, use [TestCleanup].
+            With NUnit, use [TearDown].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+

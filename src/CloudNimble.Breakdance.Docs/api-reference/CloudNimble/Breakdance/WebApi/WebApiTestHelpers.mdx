@@ -1,0 +1,79 @@
+---
+title: WebApiTestHelpers
+description: "A set of methods that make it easier to pull out WebApi runtime components for unit testing."
+icon: bolt
+tag: "STATIC"
+keywords: ['WebApiTestHelpers', 'CloudNimble.Breakdance.WebApi.WebApiTestHelpers', 'CloudNimble.Breakdance.WebApi', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.WebApi.dll
+
+**Namespace:** CloudNimble.Breakdance.WebApi
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.WebApi.WebApiTestHelpers
+```
+
+## Summary
+
+A set of methods that make it easier to pull out WebApi runtime components for unit testing.
+
+## Remarks
+
+See WebApiTestHelperTests.cs for more examples of how to use these methods.
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableConfiguration
+
+Gets a new [HttpConfiguration](/api-reference/System/Web/Http/HttpConfiguration) using the default AttributeRouting mapping engine, suitable for use in unit tests.
+
+#### Syntax
+
+```csharp
+public static System.Web.Http.HttpConfiguration GetTestableConfiguration()
+```
+
+#### Returns
+
+Type: `System.Web.Http.HttpConfiguration`
+A new [HttpConfiguration](/api-reference/System/Web/Http/HttpConfiguration) instance.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpClient
+
+Gets a new [HttpClient](/api-reference/System/Net/Http/HttpClient) instance using the default AttributeRouting mapping engine, suitable for use in unit tests
+
+#### Syntax
+
+```csharp
+public static System.Net.Http.HttpClient GetTestableHttpClient()
+```
+
+#### Returns
+
+Type: `System.Net.Http.HttpClient`
+a new [HttpClient](/api-reference/System/Net/Http/HttpClient) instance.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServer
+
+Gets a new [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver) using the default AttributeRouting mapping engine, suitable for use in unit tests.
+
+#### Syntax
+
+```csharp
+public static System.Web.Http.HttpServer GetTestableHttpServer()
+```
+
+#### Returns
+
+Type: `System.Web.Http.HttpServer`
+A new [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver) instance.
+

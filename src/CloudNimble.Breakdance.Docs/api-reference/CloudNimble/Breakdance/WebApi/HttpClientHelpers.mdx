@@ -1,0 +1,52 @@
+---
+title: HttpClientHelpers
+icon: bolt
+tag: "STATIC"
+keywords: ['HttpClientHelpers', 'CloudNimble.Breakdance.WebApi.HttpClientHelpers', 'CloudNimble.Breakdance.WebApi', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.WebApi.dll
+
+**Namespace:** CloudNimble.Breakdance.WebApi
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.WebApi.HttpClientHelpers
+```
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpRequestMessage
+
+Gets an [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) instance properly configured to be used to make test requests.
+
+#### Syntax
+
+```csharp
+public static System.Net.Http.HttpRequestMessage GetTestableHttpRequestMessage(System.Net.Http.HttpMethod httpMethod, string host = "http://localhost/", string routePrefix = "api/tests/", string resource = "", string acceptHeader = "application/json", object payload = null, Newtonsoft.Json.JsonSerializerSettings jsonSerializerSettings = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `httpMethod` | `System.Net.Http.HttpMethod` | The [HttpMethod](https://learn.microsoft.com/dotnet/api/system.net.http.httpmethod) to use for the request. |
+| `host` | `string` | The hostname to use for this request. Defaults to "http://localhost", only change it if that collides with other services running on the local machine. |
+| `routePrefix` | `string` | The routePrefix corresponding to the route already mapped in MapRestierRoute or GetTestableConfiguration. Defaults to "api/test", only change it if absolutely necessary. |
+| `resource` | `string` | The resource on the API to be requested. Defaults to an empty string. |
+| `acceptHeader` | `string` | The inbound MIME types to accept. Defaults to "application/json". |
+| `payload` | `object` | - |
+| `jsonSerializerSettings` | `Newtonsoft.Json.JsonSerializerSettings` | - |
+
+#### Returns
+
+Type: `System.Net.Http.HttpRequestMessage`
+An [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) that is ready to be sent through an HttpClient instance configured for the test.
+

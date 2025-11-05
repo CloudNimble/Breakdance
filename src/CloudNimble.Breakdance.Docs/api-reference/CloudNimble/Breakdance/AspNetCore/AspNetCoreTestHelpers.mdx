@@ -1,0 +1,184 @@
+---
+title: AspNetCoreTestHelpers
+description: "Helper methods for creating testable resources for AspNetCore."
+icon: bolt
+tag: "STATIC"
+keywords: ['AspNetCoreTestHelpers', 'CloudNimble.Breakdance.AspNetCore.AspNetCoreTestHelpers', 'CloudNimble.Breakdance.AspNetCore', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.AspNetCore.dll
+
+**Namespace:** CloudNimble.Breakdance.AspNetCore
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.AspNetCore.AspNetCoreTestHelpers
+```
+
+## Summary
+
+Helper methods for creating testable resources for AspNetCore.
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServer
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with default services.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.TestHost.TestServer GetTestableHttpServer()
+```
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.TestHost.TestServer`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServer
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with the provided service registration.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.TestHost.TestServer GetTestableHttpServer(System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `registration` | `System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>` | Delegate for customizing the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) of services available to the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.TestHost.TestServer`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServer
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with the provided service registration and application builder.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.TestHost.TestServer GetTestableHttpServer(System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> builder)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `registration` | `System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>` | Delegate for customizing the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) of services available to the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+| `builder` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | Delegate for customizing the [IApplicationBuilder](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder)&lt;/see&gt; used to configure the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.TestHost.TestServer`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServer
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with the provided service registration, application builder and configuration builder.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.TestHost.TestServer GetTestableHttpServer(System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> builder, System.Action<Microsoft.Extensions.Configuration.IConfigurationBuilder> configuration)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `registration` | `System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>` | Delegate for customizing the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) of services available to the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+| `builder` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | Delegate for customizing the [IApplicationBuilder](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder)&lt;/see&gt; used to configure the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+| `configuration` | `System.Action<Microsoft.Extensions.Configuration.IConfigurationBuilder>` | Delegate for providing an [IConfigurationBuilder](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationbuilder) used to generate an [IConfiguration](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration) for the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.TestHost.TestServer`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServerAsync
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with default services asynchronously.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer> GetTestableHttpServerAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer>`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServerAsync
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with the provided service registration asynchronously.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer> GetTestableHttpServerAsync(System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `registration` | `System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>` | Delegate for customizing the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) of services available to the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer>`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServerAsync
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with the provided service registration and application builder asynchronously.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer> GetTestableHttpServerAsync(System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> builder)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `registration` | `System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>` | Delegate for customizing the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) of services available to the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+| `builder` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | Delegate for customizing the [IApplicationBuilder](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder)&lt;/see&gt; used to configure the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer>`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServerAsync
+
+Gets a new [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver) with the provided service registration, application builder and configuration builder asynchronously.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer> GetTestableHttpServerAsync(System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection> registration, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> builder, System.Action<Microsoft.Extensions.Configuration.IConfigurationBuilder> configuration)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `registration` | `System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>` | Delegate for customizing the [IServiceCollection](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) of services available to the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+| `builder` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | Delegate for customizing the [IApplicationBuilder](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder)&lt;/see&gt; used to configure the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+| `configuration` | `System.Action<Microsoft.Extensions.Configuration.IConfigurationBuilder>` | Delegate for providing an [IConfigurationBuilder](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfigurationbuilder) used to generate an [IConfiguration](https://learn.microsoft.com/dotnet/api/microsoft.extensions.configuration.iconfiguration) for the [TestServer](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.testhost.testserver). |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<Microsoft.AspNetCore.TestHost.TestServer>`
+

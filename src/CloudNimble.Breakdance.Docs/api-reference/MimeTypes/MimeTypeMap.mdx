@@ -1,0 +1,114 @@
+---
+title: MimeTypeMap
+description: "Class MimeTypeMap."
+icon: bolt
+tag: "STATIC"
+keywords: ['MimeTypeMap', 'MimeTypes.MimeTypeMap', 'MimeTypes', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Assemblies.dll
+
+**Namespace:** MimeTypes
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+MimeTypes.MimeTypeMap
+```
+
+## Summary
+
+Class MimeTypeMap.
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetExtension
+
+Gets the extension from the provided MINE type.
+
+#### Syntax
+
+```csharp
+public static string GetExtension(string mimeType, bool throwErrorIfNotFound = true)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `mimeType` | `string` | Type of the MIME. |
+| `throwErrorIfNotFound` | `bool` | if set to `true`, throws error if extension's not found. |
+
+#### Returns
+
+Type: `string`
+The extension.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` |  |
+| `ArgumentException` |  |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetMimeType
+
+Gets the type of the MIME from the provided string.
+
+#### Syntax
+
+```csharp
+public static string GetMimeType(string str)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `str` | `string` | The filename or extension. |
+
+#### Returns
+
+Type: `string`
+The MIME type.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` |  |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TryGetMimeType
+
+Tries to get the type of the MIME from the provided string.
+
+#### Syntax
+
+```csharp
+public static bool TryGetMimeType(string str, out string mimeType)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `str` | `string` | The filename or extension. |
+| `mimeType` | `string` | The variable to store the MIME type. |
+
+#### Returns
+
+Type: `bool`
+The MIME type.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` |  |
+

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="CloudNimble.Breakdance.AspNetCore/Breakdance.AspNetCore.csproj" />
+    <Project Path="CloudNimble.Breakdance.Assemblies/Breakdance.Assemblies.csproj" />
+    <Project Path="CloudNimble.Breakdance.Blazor/Breakdance.Blazor.csproj" />
+    <Project Path="CloudNimble.Breakdance.WebApi/Breakdance.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/Docs/">
+    <Project Path="CloudNimble.Breakdance.Docs/Breakdance.Docs.docsproj" Type="C#" />
+  </Folder>
+  <Folder Name="/Extensions/">
+    <Project Path="CloudNimble.Breakdance.Extensions.MSTest2/Breakdance.Extensions.MSTest2.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="../README.md" />
+    <File Path=".editorconfig" />
+    <File Path=".runsettings" />
+    <File Path="breakdance.snk" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+  </Folder>
+  <Folder Name="/Templates/" />
+  <Folder Name="/Tests/">
+    <Project Path="CloudNimble.Breakdance.Tests.AspNetCore/Breakdance.Tests.AspNetCore.csproj" />
+    <Project Path="CloudNimble.Breakdance.Tests.Assemblies/Breakdance.Tests.Assemblies.csproj" />
+    <Project Path="CloudNimble.Breakdance.Tests.Blazor/Breakdance.Tests.Blazor.csproj" />
+    <Project Path="CloudNimble.Breakdance.Tests.WebApi/Breakdance.Tests.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/Tools/">
+    <Project Path="CloudNimble.Breakdance.Tools/Breakdance.Tools.csproj" />
+  </Folder>
+</Solution>

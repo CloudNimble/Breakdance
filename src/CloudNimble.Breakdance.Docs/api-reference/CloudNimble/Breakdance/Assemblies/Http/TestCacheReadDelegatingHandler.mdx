@@ -1,0 +1,150 @@
+---
+title: TestCacheReadDelegatingHandler
+description: "Handler for mocking the HttpResponse returned by an HttpRequest using a UTF-8 encoded file."
+icon: file-brackets-curly
+keywords: ['TestCacheReadDelegatingHandler', 'CloudNimble.Breakdance.Assemblies.Http.TestCacheReadDelegatingHandler', 'CloudNimble.Breakdance.Assemblies.Http', 'class', 'CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Assemblies.dll
+
+**Namespace:** CloudNimble.Breakdance.Assemblies.Http
+
+**Inheritance:** CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Assemblies.Http.TestCacheReadDelegatingHandler
+```
+
+## Summary
+
+Handler for mocking the HttpResponse returned by an HttpRequest using a UTF-8 encoded file.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Constructor overload for specifying the root folder path.
+
+#### Syntax
+
+```csharp
+public TestCacheReadDelegatingHandler(string responseFilesPath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `responseFilesPath` | `string` | Root folder path for storing static response files. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase`</Note>
+
+Constructor overload for specifying the root folder path.
+
+#### Syntax
+
+```csharp
+public TestCacheDelegatingHandlerBase(string responseFilesPath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `responseFilesPath` | `string` | Root folder path for storing static response files. |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ResponseFilesPath <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase`</Note>
+
+Stores the root folder for reading/writing static response files.
+
+#### Syntax
+
+```csharp
+public string ResponseFilesPath { get; private set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetFileExtensionString <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase`</Note>
+
+Maps the MediaType header in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to a known list of file extensions.
+
+#### Syntax
+
+```csharp
+public static string GetFileExtensionString(System.Net.Http.HttpRequestMessage request)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `request` | `System.Net.Http.HttpRequestMessage` | - |
+
+#### Returns
+
+Type: `string`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetPathInfo <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase`</Note>
+
+Parses the RequestUri in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) into a [Path](https://learn.microsoft.com/dotnet/api/system.io.path)-safe string.
+
+#### Syntax
+
+```csharp
+internal static (string, string) GetPathInfo(System.Net.Http.HttpRequestMessage request, string responseFilePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `request` | `System.Net.Http.HttpRequestMessage` | The [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to parse. |
+| `responseFilePath` | `string` | Root folder for storing cache files. |
+
+#### Returns
+
+Type: `(string, string)`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetResponseMediaTypeString <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase`</Note>
+
+Maps the file extension in the specified path to a known list of media types.
+
+#### Syntax
+
+```csharp
+public static string GetResponseMediaTypeString(string filePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filePath` | `string` | - |
+
+#### Returns
+
+Type: `string`
+

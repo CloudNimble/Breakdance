@@ -1,0 +1,5 @@
+D:\GitHub\Breakdance\src\CloudNimble.Breakdance.AspNetCore\bin\Debug\net10.0\CloudNimble.Breakdance.AspNetCore.dll
+D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Assemblies\bin\Debug\net10.0\CloudNimble.Breakdance.Assemblies.dll
+D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Blazor\bin\Debug\net10.0\CloudNimble.Breakdance.Blazor.dll
+D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Tools\bin\Debug\net10.0\Breakdance.Tools.dll
+D:\GitHub\Breakdance\src\CloudNimble.Breakdance.WebApi\bin\Debug\net48\CloudNimble.Breakdance.WebApi.dll

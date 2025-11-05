@@ -1,0 +1,613 @@
+---
+title: BreakdanceTestBase
+description: "A base class for unit tests that maintains an [IHost](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost) with configuration and a Dep..."
+icon: shapes
+tag: "ABSTRACT"
+keywords: ['BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies', 'class', 'System.Object', 'System.IDisposable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Assemblies.dll
+
+**Namespace:** CloudNimble.Breakdance.Assemblies
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Assemblies.BreakdanceTestBase
+```
+
+## Summary
+
+A base class for unit tests that maintains an [IHost](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost) with configuration and a Dependency Injection container.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Creates a new [BreakdanceTestBase](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase) instance.
+
+#### Syntax
+
+```csharp
+public BreakdanceTestBase()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DefaultScope
+
+Provides a default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) implementation to contain scoped services.
+
+#### Syntax
+
+```csharp
+public Microsoft.Extensions.DependencyInjection.IServiceScope DefaultScope { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.Extensions.DependencyInjection.IServiceScope`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestHost
+
+The [IHost](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost) instance containing the test host.
+
+#### Syntax
+
+```csharp
+public Microsoft.Extensions.Hosting.IHost TestHost { get; internal set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.Extensions.Hosting.IHost`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestHostBuilder
+
+The [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) instance used to configure the test host.
+
+#### Syntax
+
+```csharp
+public Microsoft.Extensions.Hosting.IHostBuilder TestHostBuilder { get; internal set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.Extensions.Hosting.IHostBuilder`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetup <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test assemblies to setup the environment.
+
+#### Syntax
+
+```csharp
+public virtual void AssemblySetup()
+```
+
+#### Remarks
+
+With MSTest, use [AssemblyInitialize].
+            With NUnit, use [OneTimeSetup].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblyTearDown <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test assemblies to clean up the environment.
+
+#### Syntax
+
+```csharp
+public virtual void AssemblyTearDown()
+```
+
+#### Remarks
+
+With MSTest, use [AssemblyCleanup].
+            With NUnit, use [OneTimeTearDown].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to setup the environment.
+
+#### Syntax
+
+```csharp
+public virtual void ClassSetup()
+```
+
+#### Remarks
+
+With MSTest, use [ClassInitialize].
+            With NUnit, use [OneTimeSetup].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassTearDown <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to clean up the environment.
+
+#### Syntax
+
+```csharp
+public virtual void ClassTearDown()
+```
+
+#### Remarks
+
+With MSTest, use [ClassCleanup].
+            With NUnit, use [OneTimeTearDown].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Dispose
+
+Clean up disposable objects in the environment.
+
+#### Syntax
+
+```csharp
+public void Dispose()
+```
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedService <DocsBadge text="Virtual" variant="warning" />
+
+Get service of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public virtual T GetKeyedService<T>(string key) where T : class
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `string` | The key of the service to get. |
+
+#### Returns
+
+Type: `T`
+A service object of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedServices <DocsBadge text="Virtual" variant="warning" />
+
+Get services of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public virtual System.Collections.Generic.IEnumerable<T> GetKeyedServices<T>(string key) where T : class
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `string` | The |
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<T>`
+An [IEnumerable`1](https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1) of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedService
+
+Get the requested service from the specified [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope).
+
+#### Syntax
+
+```csharp
+public T GetScopedService<T>(Microsoft.Extensions.DependencyInjection.IServiceScope scope) where T : class
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `scope` | `Microsoft.Extensions.DependencyInjection.IServiceScope` | - |
+
+#### Returns
+
+Type: `T`
+
+#### Type Parameters
+
+- `T` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedService
+
+Get the requested service from the default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) provided by Breakdance.
+
+#### Syntax
+
+```csharp
+public T GetScopedService<T>() where T : class
+```
+
+#### Returns
+
+Type: `T`
+
+#### Type Parameters
+
+- `T` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedServices
+
+Get the requested service from the specified [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope).
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.IEnumerable<T> GetScopedServices<T>(Microsoft.Extensions.DependencyInjection.IServiceScope scope) where T : class
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `scope` | `Microsoft.Extensions.DependencyInjection.IServiceScope` | - |
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<T>`
+
+#### Type Parameters
+
+- `T` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedServices
+
+Get the requested service from the default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) provided by Breakdance.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.IEnumerable<T> GetScopedServices<T>() where T : class
+```
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<T>`
+
+#### Type Parameters
+
+- `T` - 
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetService <DocsBadge text="Virtual" variant="warning" />
+
+Get service of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public virtual T GetService<T>() where T : class
+```
+
+#### Returns
+
+Type: `T`
+A service object of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetServices <DocsBadge text="Virtual" variant="warning" />
+
+Get an enumeration of services of type *T* from the System.IServiceProvider.
+
+#### Syntax
+
+```csharp
+public virtual System.Collections.Generic.IEnumerable<T> GetServices<T>() where T : class
+```
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<T>`
+An enumeration of services of type *T*.
+
+#### Type Parameters
+
+- `T` - The type of service object to get.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ResetTestHostBuilder
+
+Resets the test host by disposing of the current TestHost and initializing a new default TestHostBuilder.
+            This prepares the environment for a fresh test setup.
+
+#### Syntax
+
+```csharp
+public void ResetTestHostBuilder()
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetClaimsPrincipalSelectorToThreadPrincipal
+
+Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal).
+
+#### Syntax
+
+```csharp
+public static void SetClaimsPrincipalSelectorToThreadPrincipal()
+```
+
+#### Remarks
+
+This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetClaimsPrincipalSelectorToThreadPrincipal
+
+Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal) and sets the latter to a new ClaimsIdentity with the specified claims.
+
+#### Syntax
+
+```csharp
+public static void SetClaimsPrincipalSelectorToThreadPrincipal(System.Collections.Generic.List<System.Security.Claims.Claim> claims, string authenticationType = "BreakdanceTests", string nameType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", string roleType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `claims` | `System.Collections.Generic.List<System.Security.Claims.Claim>` | The Claims to set for the test run. |
+| `authenticationType` | `string` | If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests". |
+| `nameType` | `string` | The ClaimType to specify for the Name claim. Defaults to [NameIdentifier](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.nameidentifier). |
+| `roleType` | `string` | The ClaimType to specify for Role claims. Defaults to [Role](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.role). |
+
+#### Remarks
+
+This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetClaimsPrincipalSelectorToThreadPrincipal
+
+Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal) and sets the latter to a new ClaimsIdentity with the specified claim.
+
+#### Syntax
+
+```csharp
+public static void SetClaimsPrincipalSelectorToThreadPrincipal(System.Security.Claims.Claim claim, string authenticationType = "BreakdanceTests", string nameType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", string roleType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `claim` | `System.Security.Claims.Claim` | The Claims to set for the test run. |
+| `authenticationType` | `string` | If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests". |
+| `nameType` | `string` | The ClaimType to specify for the Name claim. Defaults to [NameIdentifier](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.nameidentifier). |
+| `roleType` | `string` | The ClaimType to specify for Role claims. Defaults to [Role](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.role). |
+
+#### Remarks
+
+This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetThreadPrincipal
+
+Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to a new ClaimsIdentity with the specified claims.
+
+#### Syntax
+
+```csharp
+public static void SetThreadPrincipal(System.Collections.Generic.List<System.Security.Claims.Claim> claims, string authenticationType = "BreakdanceTests", string nameType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", string roleType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `claims` | `System.Collections.Generic.List<System.Security.Claims.Claim>` | The Claims to set for the test run. |
+| `authenticationType` | `string` | If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests". |
+| `nameType` | `string` | The ClaimType to specify for the Name claim. Defaults to [NameIdentifier](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.nameidentifier). |
+| `roleType` | `string` | The ClaimType to specify for Role claims. Defaults to [Role](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.role). |
+
+#### Remarks
+
+This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetThreadPrincipal
+
+Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to a new ClaimsIdentity with the specified claim.
+
+#### Syntax
+
+```csharp
+public static void SetThreadPrincipal(System.Security.Claims.Claim claim, string authenticationType = "BreakdanceTests", string nameType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", string roleType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `claim` | `System.Security.Claims.Claim` | The Claims to set for the test run. |
+| `authenticationType` | `string` | If needed, the AuthenticationType of the ClaimsIdentity. Defaults to "BreakdanceTests". |
+| `nameType` | `string` | The ClaimType to specify for the Name claim. Defaults to [NameIdentifier](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.nameidentifier). |
+| `roleType` | `string` | The ClaimType to specify for Role claims. Defaults to [Role](https://learn.microsoft.com/dotnet/api/system.security.claims.claimtypes.role). |
+
+#### Remarks
+
+This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to setup the environment.
+
+#### Syntax
+
+```csharp
+public virtual void TestSetup()
+```
+
+#### Remarks
+
+With MSTest, use [TestInitialize].
+            With NUnit, use [Setup].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestTearDown <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to clean up the environment.
+
+#### Syntax
+
+```csharp
+public virtual void TestTearDown()
+```
+
+#### Remarks
+
+With MSTest, use [TestCleanup].
+            With NUnit, use [TearDown].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Related APIs
+
+- System.IDisposable
+

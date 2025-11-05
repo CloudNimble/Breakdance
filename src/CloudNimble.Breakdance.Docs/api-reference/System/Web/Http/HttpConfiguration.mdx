@@ -1,0 +1,78 @@
+---
+title: HttpConfiguration
+description: "Extension methods for HttpConfiguration from System.Web.Http"
+icon: file-brackets-curly
+keywords: ['HttpConfiguration', 'System.Web.Http.HttpConfiguration', 'System.Web.Http', 'error']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** System.Web.Http.dll
+
+**Namespace:** System.Web.Http
+
+## Syntax
+
+```csharp
+System.Web.Http.HttpConfiguration
+```
+
+## Summary
+
+This type is defined in System.Web.Http.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/system.web.http.httpconfiguration) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpClient <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `System.Web.Http.Breakdance_WebApi_HttpConfigurationExtensions`</Note>
+
+Creates a new [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver) for a given [HttpConfiguration](/api-reference/System/Web/Http/HttpConfiguration), and returns a new [HttpClient](/api-reference/System/Net/Http/HttpClient) that uses said [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver).
+
+#### Syntax
+
+```csharp
+public static System.Net.Http.HttpClient GetTestableHttpClient(System.Web.Http.HttpConfiguration config)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `config` | `System.Web.Http.HttpConfiguration` | The [HttpConfiguration](/api-reference/System/Web/Http/HttpConfiguration) to use with the internal [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver). |
+
+#### Returns
+
+Type: `System.Net.Http.HttpClient`
+An [HttpClient](/api-reference/System/Net/Http/HttpClient) whose configuration is bonded to an [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver) so developers don't have to manually configure all of the elements required to
+            successfully test the API.
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetTestableHttpServer <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `System.Web.Http.Breakdance_WebApi_HttpConfigurationExtensions`</Note>
+
+Gets a new [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver) instance for a given [HttpConfiguration](/api-reference/System/Web/Http/HttpConfiguration), suitable for use in unit tests.
+
+#### Syntax
+
+```csharp
+public static System.Web.Http.HttpServer GetTestableHttpServer(System.Web.Http.HttpConfiguration config)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `config` | `System.Web.Http.HttpConfiguration` | - |
+
+#### Returns
+
+Type: `System.Web.Http.HttpServer`
+A new [HttpServer](https://learn.microsoft.com/dotnet/api/system.web.http.httpserver) instance whose InnerHandler allows for automatic HTTP redirects.
+
