@@ -1,4 +1,4 @@
-<Project Sdk="DotNetDocs.Sdk/1.1.0-preview.5">
+<Project Sdk="DotNetDocs.Sdk/1.1.0-preview.7">
 
 	<PropertyGroup>
 		<DocumentationType>Mintlify</DocumentationType>
@@ -18,7 +18,17 @@
 				<Dark>#3CD0E2</Dark>
 			</Colors>
             <Navigation Mode="Unified">
-			</Navigation>
+                <Pages>
+                    <Groups>
+                        <Group Name="Getting Started" Icon="stars">
+                            <Pages>index;why-breakdance;quickstart</Pages>
+                        </Group>
+                        <!--<Group Name="Guides" Icon="dog-leashed">
+                            <Pages>guides/index;guides/pipeline;guides/conceptual-docs;guides/deployment</Pages>
+                        </Group>-->
+                    </Groups>
+                </Pages>
+            </Navigation>
 		</MintlifyTemplate>
 	</PropertyGroup>
 
