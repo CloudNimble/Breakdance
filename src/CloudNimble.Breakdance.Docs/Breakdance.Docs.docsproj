@@ -1,4 +1,4 @@
-<Project Sdk="DotNetDocs.Sdk/1.1.0-preview.2">
+<Project Sdk="DotNetDocs.Sdk/1.1.0-preview.5">
 
 	<PropertyGroup>
 		<DocumentationType>Mintlify</DocumentationType>
@@ -6,9 +6,8 @@
 		<NamespaceMode>Folder</NamespaceMode>
 		<ShowDocumentationStats>true</ShowDocumentationStats>
 
-		<ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		<ConceptualDocsEnabled>true</ConceptualDocsEnabled>
 		<ShowPlaceholders>false</ShowPlaceholders>
-		<MintlifyNavigationMode>Unified</MintlifyNavigationMode>
 
 		<MintlifyTemplate>
 			<Name>Breakdance</Name>
@@ -18,12 +17,9 @@
 				<Light>#419AC5</Light>
 				<Dark>#3CD0E2</Dark>
 			</Colors>
+            <Navigation Mode="Unified">
+			</Navigation>
 		</MintlifyTemplate>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <None Include="index.mdx" />
-	  <None Include="quickstart.mdx" />
-	</ItemGroup>
 
 </Project>
