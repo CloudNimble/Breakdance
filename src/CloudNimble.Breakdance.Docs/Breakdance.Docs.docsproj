@@ -32,4 +32,8 @@
 		</MintlifyTemplate>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Folder Include="guides\" />
+	</ItemGroup>
+
 </Project>

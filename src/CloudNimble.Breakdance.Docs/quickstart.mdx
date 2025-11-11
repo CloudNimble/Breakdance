@@ -1,0 +1,427 @@
+---
+title: Better Docs in 5 Minutes with DotNetDocs
+sidebarTitle: Quickstart
+description: Get up and running quickly is as easy as 1-2-3.
+icon: play
+---
+
+<Steps>
+  <Step title="Install" titleSize="h2" iconType="duotone">
+
+    ### Install the DotNetDocs CLI
+
+    <CodeGroup>
+
+    ```bash Major Releases
+    dotnet tool install DotNetDocs --global
+    ```
+
+    ```bash Previews
+    dotnet tool install DotNetDocs --global --prerelease
+    ```
+
+    </CodeGroup>
+
+    ### Add DotNetDocs to your Solution
+
+    Navigate to your solution folder and create a new documentation project:
+
+    ```bash
+    dotnet docs add
+    ```
+
+    By default, this creates a Mintlify documentation project using the latest stable SDK version from NuGet. To use a different documentation type or prerelease SDK:
+
+    ```bash
+    # Use a different documentation type
+    dotnet docs add --type DocFX
+
+    # Use the latest prerelease SDK version
+    dotnet docs add --prerelease
+    ```
+
+    <Note>The CLI automatically queries NuGet.org for the latest SDK version. See more options in the [CLI Reference](/guides/cli-reference) docs.</Note>
+
+    This automatically:
+
+    - locates the solution
+    - creates a new `{SolutionName}.Docs\{SolutionName}.Docs.docsproj` file that centralizes your documentation
+    - adds the new project to your solution
+
+    The new project is pre-configured with sensible defaults. For Mintlify projects, it looks like this:
+
+    <CodeGroup>
+
+    <Tabs>
+      <Tab title="Current (1.0.2)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.0.2">
+
+	        <PropertyGroup>
+		        <DocumentationType>Mintlify</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+
+		        <MintlifyNavigationMode>Unified</MintlifyNavigationMode>
+		        <MintlifyTemplate>
+			        <Name>{solutionName}</Name>
+			        <Theme>maple</Theme>
+			        <Colors>
+				        <Primary>#419AC5</Primary>
+				        <Light>#419AC5</Light>
+				        <Dark>#3CD0E2</Dark>
+			        </Colors>
+		        </MintlifyTemplate>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+
+      <Tab title="Preview (1.1.0-preview.1)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+
+	        <PropertyGroup>
+		        <DocumentationType>Mintlify</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+
+		        <MintlifyNavigationMode>Unified</MintlifyNavigationMode>
+		        <MintlifyTemplate>
+			        <Name>{solutionName}</Name>
+			        <Theme>maple</Theme>
+			        <Colors>
+				        <Primary>#419AC5</Primary>
+				        <Light>#419AC5</Light>
+				        <Dark>#3CD0E2</Dark>
+			        </Colors>
+		        </MintlifyTemplate>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+    </Tabs>
+
+    <Tabs>
+      <Tab title="Current (1.0.2)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.0.2">
+
+	        <PropertyGroup>
+		        <DocumentationType>DocFX</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+
+      <Tab title="Preview (1.1.0-preview.1)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+
+	        <PropertyGroup>
+		        <DocumentationType>DocFX</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+    </Tabs>
+
+    <Tabs>
+      <Tab title="Current (1.0.2)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.0.2">
+
+	        <PropertyGroup>
+		        <DocumentationType>MkDocs</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+
+      <Tab title="Preview (1.1.0-preview.1)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+
+	        <PropertyGroup>
+		        <DocumentationType>MkDocs</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+    </Tabs>
+
+    <Tabs>
+      <Tab title="Current (1.0.2)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.0.2">
+
+	        <PropertyGroup>
+		        <DocumentationType>Jekyll</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+
+      <Tab title="Preview (1.1.0-preview.1)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+
+	        <PropertyGroup>
+		        <DocumentationType>Jekyll</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+    </Tabs>
+
+    <Tabs>
+      <Tab title="Current (1.0.2)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.0.2">
+
+	        <PropertyGroup>
+		        <DocumentationType>Hugo</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+
+      <Tab title="Preview (1.1.0-preview.1)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+
+	        <PropertyGroup>
+		        <DocumentationType>Hugo</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+    </Tabs>
+
+    <Tabs>
+      <Tab title="Current (1.0.2)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.0.2">
+
+	        <PropertyGroup>
+		        <DocumentationType>Generic</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+
+      <Tab title="Preview (1.1.0-preview.1)">
+        ```xml
+        <Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+
+	        <PropertyGroup>
+		        <DocumentationType>Generic</DocumentationType>
+		        <GenerateDocumentation>true</GenerateDocumentation>
+		        <NamespaceMode>Folder</NamespaceMode>
+		        <ShowDocumentationStats>true</ShowDocumentationStats>
+
+		        <ConceptualDocsEnabled>false</ConceptualDocsEnabled>
+		        <ShowPlaceholders>false</ShowPlaceholders>
+	        </PropertyGroup>
+
+        </Project>
+        ```
+      </Tab>
+    </Tabs>
+
+    </CodeGroup>
+
+    <Note>You can see more of how to configure your .docsproj file in the [.docsproj Reference](/guides/docsproj) docs.</Note>
+
+    Now your documentation lives right next to your code - no more context switching! Edit your doc files in Visual Studio with full IntelliSense support.
+
+    <Check>
+      Your documentation project is now part of your solution and will stay in sync with your codebase.
+    </Check>
+  </Step>
+
+  <Step title="Integrate" titleSize="h2">
+
+    ### Adjust your .docsproj settings
+
+    Change the documentation type, shut off API Reference generation, turn off conceptual docs, and adjust any other settings as necessary.
+    
+    ### Enable XML Documentation Comment compilation
+
+    Add this to the projects where you want to extract the XML Documentation comments from your code:
+
+    ```xml
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+    ```
+
+    ### Exclude unnecessary projects
+
+    Test projects are excluded by default. If there are other projects you'd like to exclude, update your `.docsproj` with the following property:
+
+    ```xml
+    <PropertyGroup>
+        <ExcludePatterns>pattern1;pattern2</ExcludePatterns>
+    </PropertyGroup>
+    ```
+
+    ### Generate API Documentation
+
+    Run the documentation generator:
+
+    ```bash
+    dotnet build
+    ```
+
+    DotNetDocs will:
+    - Parse your assembly XML documentation
+    - Extract all public types, methods, properties, and events
+    - Combine it with any conceptual docs you've written
+    - Render files in the format of your choice in the folder you specified
+
+    <Check>
+        Your API documentation now stays in sync with every build - no more stale docs!
+    </Check>
+  </Step>
+
+  <Step title="Deploy" titleSize="h2">
+
+    ### Local Development with Mintlify
+
+    Preview your docs locally with Mintlify's dev server:
+
+    ```bash
+    npm i mint -g
+    cd {SolutionName}.Docs
+    mint dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) to see your docs with hot-reload.
+
+    ### Deploy to Mintlify
+
+    Connect your GitHub repository to Mintlify for automatic deployments:
+
+    1. Push your docs to GitHub
+    2. Go to [mintlify.com](https://mintlify.com) and connect your repo
+    3. Mintlify automatically deploys on every push to main
+
+    ### Deploy to GitHub Pages
+
+    Add a GitHub Actions workflow (`.github/workflows/docs.yml`):
+
+    ```yaml
+    name: Deploy Docs
+    on:
+      push:
+        branches: [main]
+
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+          - uses: actions/setup-dotnet@v3
+            with:
+              dotnet-version: '9.0'
+          - name: Generate Docs
+            run: |
+              dotnet tool restore
+              dotnet docs generate
+          - name: Deploy to GitHub Pages
+            uses: peaceiris/actions-gh-pages@v3
+            with:
+              github_token: ${{ secrets.GITHUB_TOKEN }}
+              publish_dir: ./MyProject.Docs
+    ```
+
+    ### CI/CD Integration
+
+    DotNetDocs integrates with your existing build pipeline:
+
+    ```bash
+    # In your CI/CD pipeline
+    dotnet restore
+    dotnet build --configuration Release
+    ```
+
+    <Check>
+        Your documentation is now deployed and accessible to your users!
+    </Check>
+  </Step>
+</Steps>

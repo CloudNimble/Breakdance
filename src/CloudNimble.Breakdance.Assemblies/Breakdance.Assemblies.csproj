@@ -56,9 +56,9 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-        <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[10.*-*, 11.0.0)" />
-        <PackageReference Update="Microsoft.Extensions.Hosting" Version="[10.*-*, 11.0.0)" />
-        <PackageReference Include="System.Text.Json" Version="[10.*-*, 11.0.0)"/>
+        <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="[10.*, 11.0.0)" />
+        <PackageReference Update="Microsoft.Extensions.Hosting" Version="[10.*, 11.0.0)" />
+        <PackageReference Include="System.Text.Json" Version="[10.*, 11.0.0)" NoWarn="NU1608" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
