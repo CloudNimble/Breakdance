@@ -1,15 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using CloudNimble.Breakdance.Assemblies.Http;
+﻿using CloudNimble.Breakdance.Assemblies.Http;
 using FluentAssertions;
-using System.Threading;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {
@@ -18,10 +17,14 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
     /// Tests the functionality of the <see cref="TestCacheWriteDelegatingHandler"/>.
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     public class TestCacheWriteDelegatingHandlerTests
     {
 
         #region Private Properties
+
+        public TestContext TestContext { get; set; }
+
 
         /// <summary>
         /// Root directory for storing response files.
@@ -49,14 +52,16 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 #pragma warning restore MSTEST0018 // DynamicData should be valid
         public async Task TestCacheWriteDelegatingHandler_CanWriteFile(string mediaType, string directoryPath, string fileName, string requestUri)
         {
-            var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath);
-            handler.InnerHandler = new FakeHttpResponseHandler();
+            var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath)
+            {
+                InnerHandler = new FakeHttpResponseHandler()
+            };
 
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
             var response = await handler.SendAsyncInternal(request);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var content = await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync(TestContext.CancellationToken);
             content.Should().NotBeNullOrEmpty();
 
             File.Exists(Path.Combine(ResponseFilesPath, directoryPath, $"{fileName}{TestCacheDelegatingHandlerBase.GetFileExtensionString(request)}")).Should().BeTrue();
@@ -70,14 +75,16 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         [TestMethod]
         public async Task TestCacheWriteDelegatingHandler_FileExtension_ReflectsMediaType()
         {
-            var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath);
-            handler.InnerHandler = new FakeHttpResponseHandler();
+            var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath)
+            {
+                InnerHandler = new FakeHttpResponseHandler()
+            };
 
             var request = new HttpRequestMessage(HttpMethod.Get, "https://services.odata.org/$metadata");
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
             var response = await handler.SendAsyncInternal(request);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            var content = await response.Content.ReadAsStringAsync();
+            var content = await response.Content.ReadAsStringAsync(TestContext.CancellationToken);
             content.Should().NotBeNullOrEmpty();
 
             File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
@@ -90,11 +97,14 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
         {
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
-                var response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new StringContent("{ }", Encoding.UTF8);
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{ }", Encoding.UTF8)
+                };
                 return Task.FromResult(response);
             }
         }
 
-    }
+    
+
 }

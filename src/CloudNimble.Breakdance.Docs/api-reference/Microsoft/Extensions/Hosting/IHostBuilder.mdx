@@ -29,31 +29,6 @@ See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/microsoft.e
 
 ## Methods
 
-### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Configure <DocsBadge text="Extension" variant="success" />
-
-<Note>Extension method from `Microsoft.Extensions.Hosting.BreakdanceHostBuilderExtensions`</Note>
-
-Configures the application request pipeline for the web host.
-            This is a convenience wrapper around ConfigureWebHost for Breakdance test scenarios.
-
-#### Syntax
-
-```csharp
-public static Microsoft.Extensions.Hosting.IHostBuilder Configure(Microsoft.Extensions.Hosting.IHostBuilder builder, System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> configure)
-```
-
-#### Parameters
-
-| Name | Type | Description |
-|------|------|-------------|
-| `builder` | `Microsoft.Extensions.Hosting.IHostBuilder` | The [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) to configure. |
-| `configure` | `System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder>` | The delegate to configure the [IApplicationBuilder](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder). |
-
-#### Returns
-
-Type: `Microsoft.Extensions.Hosting.IHostBuilder`
-The [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) for chaining.
-
 ### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllServiceDescriptors <DocsBadge text="Extension" variant="success" />
 
 <Note>Extension method from `Microsoft.Extensions.DependencyInjection.Breakdance_Assemblies_IHostBuilderExtensions`</Note>
@@ -99,32 +74,4 @@ public static string GetContainerContentsLog(Microsoft.Extensions.Hosting.IHostB
 #### Returns
 
 Type: `string`
-
-### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  UseStartup <DocsBadge text="Extension" variant="success" />
-
-<Note>Extension method from `Microsoft.Extensions.Hosting.BreakdanceHostBuilderExtensions`</Note>
-
-Specifies the startup type to be used by the web host.
-            This is a convenience wrapper around ConfigureWebHost for Breakdance test scenarios.
-
-#### Syntax
-
-```csharp
-public static Microsoft.Extensions.Hosting.IHostBuilder UseStartup<TStartup>(Microsoft.Extensions.Hosting.IHostBuilder builder) where TStartup : class
-```
-
-#### Parameters
-
-| Name | Type | Description |
-|------|------|-------------|
-| `builder` | `Microsoft.Extensions.Hosting.IHostBuilder` | The [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) to configure. |
-
-#### Returns
-
-Type: `Microsoft.Extensions.Hosting.IHostBuilder`
-The [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) for chaining.
-
-#### Type Parameters
-
-- `TStartup` - The startup type.
 

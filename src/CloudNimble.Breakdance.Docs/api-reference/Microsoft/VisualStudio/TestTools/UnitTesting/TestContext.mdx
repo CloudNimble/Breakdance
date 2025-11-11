@@ -1,0 +1,60 @@
+---
+title: TestContext
+description: "Extension methods for TestContext from Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions"
+icon: file-brackets-curly
+keywords: ['TestContext', 'Microsoft.VisualStudio.TestTools.UnitTesting.TestContext', 'Microsoft.VisualStudio.TestTools.UnitTesting', 'error']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+
+**Namespace:** Microsoft.VisualStudio.TestTools.UnitTesting
+
+## Syntax
+
+```csharp
+Microsoft.VisualStudio.TestTools.UnitTesting.TestContext
+```
+
+## Summary
+
+This type is defined in Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/microsoft.visualstudio.testtools.unittesting.testcontext) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LogAndReturnMessageContentAsync <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.VisualStudio.TestTools.UnitTesting.Breakdance_MsTest2_TestContextExtensions`</Note>
+
+Attempts to unwrap the [Content](https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage.content) and log it to the *testContext* if possible.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task<string> LogAndReturnMessageContentAsync(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext, System.Net.Http.HttpResponseMessage message, bool nullIsExpected = false)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `testContext` | `Microsoft.VisualStudio.TestTools.UnitTesting.TestContext` | - |
+| `message` | `System.Net.Http.HttpResponseMessage` | - |
+| `nullIsExpected` | `bool` | Specifies whether the [Content](https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage.content) in *message* is expected to be null. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<string>`
+
+#### Remarks
+
+This exists in order to safely allow the tests to continue in the absence of correct content. This is because the tests should log 
+            the response content BEFORE failing the test for an incorrect [StatusCode](https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage.statuscode).
+

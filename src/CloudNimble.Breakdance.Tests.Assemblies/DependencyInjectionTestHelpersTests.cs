@@ -38,7 +38,9 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 
             //RWM: If we're in a .NET Core test, remove the Core crap.
             //result = result.Replace("Core", "");
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
+            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET10.txt"));
+#elif NET8_0_OR_GREATER
             var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET8.txt"));
 #elif NET6_0_OR_GREATER
             var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET6.txt"));
@@ -47,7 +49,7 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         }
 
         //[DataRow(projectPath)]
-        //[DataTestMethod]
+        //[TestMethod]
         [BreakdanceManifestGenerator]
         public async Task WriteServiceCollectionOutputLog_Async(string projectPath)
         {
@@ -64,13 +66,15 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         }
 
         //[DataRow(projectPath)]
-        //[DataTestMethod]
+        //[TestMethod]
         [BreakdanceManifestGenerator]
         public void WriteHostBuilderOutputLog(string projectPath)
         {
             var host = GetSimpleMessageBusHost();
             var result = host.GetContainerContentsLog();
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
+            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET10.txt");
+#elif NET8_0_OR_GREATER
             var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET8.txt");
 #elif NET6_0_OR_GREATER
             var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET6.txt");

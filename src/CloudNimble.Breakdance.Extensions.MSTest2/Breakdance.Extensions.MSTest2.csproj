@@ -1,44 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<RootNamespace>CloudNimble.Breakdance.Extensions.MSTest2</RootNamespace>
-		<AssemblyName>CloudNimble.Breakdance.Extensions.MSTest2</AssemblyName>
-		<TargetFrameworks>net10.0;net9.0;net8.0;netstandard2.0</TargetFrameworks>
-		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+    <PropertyGroup>
+        <RootNamespace>CloudNimble.Breakdance.Extensions.MSTest2</RootNamespace>
+        <AssemblyName>CloudNimble.Breakdance.Extensions.MSTest2</AssemblyName>
+        <TargetFrameworks>net10.0;net9.0;net8.0;netstandard2.0</TargetFrameworks>
+        <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
         <IsTestProject>false</IsTestProject>
-	</PropertyGroup>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<PackageId>Breakdance.Extensions.MSTest2</PackageId>
-		<Title>Breakdance Extensions for MSTest2</Title>
-		<Summary>
-			Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package 
-			contains helper classes for testing your code with MSTest2.
-		</Summary>
-		<Description>
-			$(Summary)
+    <PropertyGroup>
+        <PackageId>Breakdance.Extensions.MSTest2</PackageId>
+        <Title>Breakdance Extensions for MSTest2</Title>
+        <Summary>
+            Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package
+            contains helper classes for testing your code with MSTest2.
+        </Summary>
+        <Description>
+            $(Summary)
 
-			Commonly used types:
-			Microsoft.VisualStudio.TestTools.UnitTesting.TestContextExtensions
-		</Description>
-		<PackageTags>$(PackageTags)mstest2;</PackageTags>
-		<PackageReleaseNotes>
-			1.0.0-alpha1:
-			- Initial release.
-		</PackageReleaseNotes>
+            Commonly used types:
+            Microsoft.VisualStudio.TestTools.UnitTesting.TestContextExtensions
+        </Description>
+        <PackageTags>$(PackageTags)mstest2;</PackageTags>
+        <PackageReleaseNotes>
+            1.0.0-alpha1:
+            - Initial release.
+        </PackageReleaseNotes>
 
-	</PropertyGroup>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MSTest" Version="[3.*, 4.0.0)" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MSTest" Version="[3.*, 5.0.0)" />
+    </ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="System.Net.Http" Version="[4.*, 11.0.0)" />
-	</ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <PackageReference Include="System.Net.Http" Version="[4.*, 11.0.0)" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+    </ItemGroup>
 
 </Project>

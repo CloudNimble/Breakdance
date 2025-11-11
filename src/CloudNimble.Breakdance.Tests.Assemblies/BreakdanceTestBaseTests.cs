@@ -1,9 +1,9 @@
 ﻿using CloudNimble.Breakdance.Assemblies;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CloudNimble.Breakdance.Tests.Assemblies
 {
@@ -37,7 +37,11 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             testBase.TestHost.Services.Should().NotBeNull();
             var configuration = testBase.TestHost.Services.GetService<IConfiguration>();
             configuration.Should().NotBeNull();
+#if NET10_0_OR_GREATER
+            (configuration as ConfigurationRoot).Providers.Should().HaveCount(6);
+#else
             (configuration as ConfigurationRoot).Providers.Should().HaveCount(4);
+#endif
             var environment = testBase.TestHost.Services.GetService<IHostEnvironment>();
             environment.Should().NotBeNull();
         }
@@ -84,7 +88,11 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
             testBase.TestHost.Services.Should().NotBeNull();
             var configuration = testBase.TestHost.Services.GetService<IConfiguration>();
             configuration.Should().NotBeNull();
+#if NET10_0_OR_GREATER
+            (configuration as ConfigurationRoot).Providers.Should().HaveCount(6);
+#else
             (configuration as ConfigurationRoot).Providers.Should().HaveCount(4);
+#endif
             var environment = testBase.TestHost.Services.GetService<IHostEnvironment>();
             environment.Should().NotBeNull();
         }
