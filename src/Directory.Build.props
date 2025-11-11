@@ -46,8 +46,7 @@
 		<!-- Contact email address for NuGet packages and Linux installers. -->
 		<MaintainerEmail>opensource@nimbleapps.cloud</MaintainerEmail>
 
-		<PackageIconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</PackageIconUrl>
-		<PackageProjectUrl>https://github.com/CloudNimble/Breakdance</PackageProjectUrl>
+		<PackageProjectUrl>https://easyaf.dev/breakdance</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageTags>unit tests;breakdance;nunit;xunit;mstest;fluentassertions</PackageTags>
 		<Serviceable>true</Serviceable>

@@ -10,7 +10,6 @@
 	<PropertyGroup>
 		<PackageId>Breakdance.AspNetCore</PackageId>
 		<Title>Breakdance for AspNetCore</Title>
-		<PackageVersion>1.0.1</PackageVersion>
 		<Summary>
 			Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes
 			for testing AspNetCore endpoints. These classes make it super easy to craft HTTP requests to your API at test time.
