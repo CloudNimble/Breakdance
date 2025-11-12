@@ -56,6 +56,14 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "group": "Tools",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/Breakdance/Tools/index",
+                      "api-reference/CloudNimble/Breakdance/Tools/ColorConsole"
+                    ]
                   }
                 ]
               }

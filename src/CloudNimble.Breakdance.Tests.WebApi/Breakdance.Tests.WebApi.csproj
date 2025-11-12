@@ -5,6 +5,7 @@
 		<RootNamespace>CloudNimble.Breakdance.Tests.WebApi</RootNamespace>
 		<TargetFrameworks>net48;</TargetFrameworks>
 		<IsPackable>false</IsPackable>
+		<OutputType>Exe</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
