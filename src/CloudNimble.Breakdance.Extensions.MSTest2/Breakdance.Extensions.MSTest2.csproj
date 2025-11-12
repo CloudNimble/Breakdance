@@ -7,6 +7,8 @@
         <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
         <IsTestProject>false</IsTestProject>
         <IsPackable>true</IsPackable>
+        <!-- Suppress test parallelization warning MSTEST0001 for non-test library projects -->
+        <NoWarn>$(NoWarn);MSTEST0001</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -30,8 +32,14 @@
 
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="MSTest" Version="[3.*, 5.0.0)" />
+    <!-- MSTest 4.x for modern frameworks (net8.0+) -->
+    <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
+        <PackageReference Include="MSTest" Version="[4.*, 5.0.0)" />
+    </ItemGroup>
+
+    <!-- MSTest 3.x for legacy framework (netstandard2.0) -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <PackageReference Include="MSTest" Version="[3.*, 4.0.0)" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
