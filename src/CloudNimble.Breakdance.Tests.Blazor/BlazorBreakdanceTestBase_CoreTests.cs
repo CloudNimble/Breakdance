@@ -39,11 +39,9 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             BUnitTestContext.Should().NotBeNull();
 #if NET8_0_OR_GREATER
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(43);
-#else
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(34);
 #endif
-            BUnitTestContext.Services.Should().HaveCount(27);
-            GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
+            BUnitTestContext.Services.Should().HaveCount(26);
+            GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(BunitNavigationManager));
             BUnitTestContext.Services.GetService<IConfiguration>().Should().NotBeNull();
         }
 
@@ -61,8 +59,8 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(27);
-            GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(FakeNavigationManager));
+            BUnitTestContext.Services.Should().HaveCount(26);
+            GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(BunitNavigationManager));
             GetServices<NavigationManager>().Should().HaveCount(1);
         }
 
@@ -80,7 +78,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(27);
+            BUnitTestContext.Services.Should().HaveCount(26);
             GetServices<NavigationManager>().Should().HaveCount(1);
         }
 
@@ -99,12 +97,10 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(27);
+            BUnitTestContext.Services.Should().HaveCount(26);
             BUnitTestContext.Services.GetService<DummyService>().Should().NotBeNull();
 #if NET8_0_OR_GREATER
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);
-#else
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
 #endif
             TestHost.Services.GetService<DummyService>().Should().NotBeNull();
             GetService<DummyService>().Should().NotBeNull();
@@ -125,12 +121,10 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-            BUnitTestContext.Services.Should().HaveCount(27);
+            BUnitTestContext.Services.Should().HaveCount(26);
             BUnitTestContext.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
 #if NET8_0_OR_GREATER
             TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);
-#else
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(35);
 #endif
             TestHost.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
             var service = GetService<TestJavaScriptService>();
@@ -139,7 +133,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
         }
 
         //[DataRow(projectPath)]
-        //[DataTestMethod]
+        //[TestMethod]
         [BreakdanceManifestGenerator]
         public void WriteHostBuilderOutputLog(string projectPath)
         {
@@ -149,8 +143,6 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             var result = TestHost.Services.GetContainerContentsLog();
 #if NET8_0_OR_GREATER
             var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET8.txt");
-#elif NET6_0_OR_GREATER
-            var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET6.txt");
 #endif
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
             {

@@ -17,9 +17,9 @@ namespace CloudNimble.Breakdance.Blazor
         #region Properties
 
         /// <summary>
-        /// The bUnit <see cref="TestContext"/> for the currently-executing test.
+        /// The bUnit <see cref="BunitContext"/> for the currently-executing test.
         /// </summary>
-        public TestContext BUnitTestContext { get; set; }
+        public BunitContext BUnitTestContext { get; set; }
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace CloudNimble.Breakdance.Blazor
         /// </summary>
         public void TestSetup(JSRuntimeMode jSRuntimeMode)
         {
-            BUnitTestContext = new TestContext();
+            BUnitTestContext = new BunitContext();
             BUnitTestContext.JSInterop.Mode = jSRuntimeMode;
             // RWM: Make the BUnit JSRuntime available to the TestHost services (in case a service that requires it is materialized from the base container.
             TestHostBuilder.ConfigureServices(services => services.AddSingleton((sp) => BUnitTestContext.JSInterop.JSRuntime));

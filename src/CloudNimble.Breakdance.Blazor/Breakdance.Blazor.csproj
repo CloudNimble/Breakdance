@@ -27,7 +27,7 @@
 	</PropertyGroup>
 
 	<ItemGroup> 
-		<PackageReference Include="bunit" Version="[1.*, 2.0.0)" />
+		<PackageReference Include="bunit" Version="[2.*, 3.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
