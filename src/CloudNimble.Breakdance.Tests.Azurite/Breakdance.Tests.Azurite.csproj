@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+        <RootNamespace>CloudNimble.Breakdance.Tests.Azurite</RootNamespace>
+        <AssemblyName>CloudNimble.Breakdance.Tests.Azurite</AssemblyName>
+        <EnableMSTestRunner>true</EnableMSTestRunner>
+        <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CloudNimble.Breakdance.Azurite\Breakdance.Azurite.csproj" />
+        <ProjectReference Include="..\CloudNimble.Breakdance.Extensions.MSTest2\Breakdance.Extensions.MSTest2.csproj" />
+    </ItemGroup>
+
+</Project>

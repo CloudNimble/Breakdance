@@ -1,0 +1,34 @@
+<Project>
+
+	<!-- Ensure Azurite is globally installed before running tests -->
+	<Target Name="EnsureAzuriteInstalled" BeforeTargets="Build">
+
+		<!-- Check if npm is installed -->
+		<Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true" ConsoleToMSBuild="true">
+			<Output TaskParameter="ExitCode" PropertyName="NpmExitCode" />
+		</Exec>
+
+		<!-- Warn if npm is not available -->
+		<Warning Condition="'$(NpmExitCode)' != '0'" Text="npm is not installed or not in PATH. Azurite requires Node.js and npm. Please install from https://nodejs.org/" />
+
+		<!-- Only proceed if npm is available -->
+		<PropertyGroup Condition="'$(NpmExitCode)' == '0'">
+			<AzuriteCheckPassed>true</AzuriteCheckPassed>
+		</PropertyGroup>
+
+		<!-- Check if Azurite is globally installed -->
+		<Exec Condition="'$(AzuriteCheckPassed)' == 'true'" Command="npm list -g azurite --depth=0" ContinueOnError="true" IgnoreExitCode="true" ConsoleToMSBuild="true">
+			<Output TaskParameter="ExitCode" PropertyName="AzuriteInstalledExitCode" />
+		</Exec>
+
+		<!-- Install Azurite globally if not found -->
+		<Message Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' != '0'" Importance="high" Text="Azurite not found globally. Installing azurite globally via npm..." />
+		<Exec Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' != '0'" Command="npm install -g azurite" />
+
+		<!-- Confirm installation -->
+		<Message Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' == '0'" Importance="high" Text="Azurite is already installed globally." />
+		<Message Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' != '0'" Importance="high" Text="Azurite has been installed globally." />
+
+	</Target>
+
+</Project>

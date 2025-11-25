@@ -27,7 +27,7 @@ A base class for building BUnit unit tests for Blazor apps that automatically ha
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
 
 #### Syntax
 
@@ -37,23 +37,23 @@ public BlazorBreakdanceTestBase()
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BUnitTestContext
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BUnitTestContext
 
-The bUnit `TestContext` for the currently-executing test.
+The bUnit `BunitContext` for the currently-executing test.
 
 #### Syntax
 
 ```csharp
-public Bunit.TestContext BUnitTestContext { get; set; }
+public Bunit.BunitContext BUnitTestContext { get; set; }
 ```
 
 #### Property Value
 
-Type: `Bunit.TestContext`
+Type: `Bunit.BunitContext`
 
 ## Methods
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetService <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetService <DocsBadge text="Override" variant="info" />
 
 Get service of type *T* from the System.IServiceProvider.
 
@@ -72,7 +72,7 @@ A service object of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetServices <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetServices <DocsBadge text="Override" variant="info" />
 
 Get an enumeration of services of type *T* from the System.IServiceProvider.
 
@@ -91,7 +91,7 @@ An enumeration of services of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetup <DocsBadge text="Override" variant="info" />
 
 Properly instantiates the [BlazorBreakdanceTestBase.BUnitTestContext](/api-reference/CloudNimble/Breakdance/Blazor/BlazorBreakdanceTestBase#bunittestcontext) and registers the [BreakdanceTestBase.TestHost](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#testhost)TestHost's&lt;/see&gt;[Services](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost.services) as a "fallback" [IServiceProvider](/api-reference/System/IServiceProvider).
 
@@ -101,7 +101,7 @@ Properly instantiates the [BlazorBreakdanceTestBase.BUnitTestContext](/api-refer
 public override void TestSetup()
 ```
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetup
 
 Properly instantiates the [BlazorBreakdanceTestBase.BUnitTestContext](/api-reference/CloudNimble/Breakdance/Blazor/BlazorBreakdanceTestBase#bunittestcontext) and registers the [BreakdanceTestBase.TestHost](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#testhost)TestHost's&lt;/see&gt;[Services](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost.services) as a "fallback" [IServiceProvider](/api-reference/System/IServiceProvider) and allows you to set the bUnit JSInterop mode.
 
@@ -117,7 +117,7 @@ public void TestSetup(Bunit.JSRuntimeMode jSRuntimeMode)
 |------|------|-------------|
 | `jSRuntimeMode` | `Bunit.JSRuntimeMode` | - |
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestTearDown <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDown <DocsBadge text="Override" variant="info" />
 
 Disposes of the [BlazorBreakdanceTestBase.BUnitTestContext](/api-reference/CloudNimble/Breakdance/Blazor/BlazorBreakdanceTestBase#bunittestcontext).
 

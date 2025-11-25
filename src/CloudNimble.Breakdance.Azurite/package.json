@@ -1,0 +1,13 @@
+{
+  "name": "cloudnimble-breakdance-azurite",
+  "version": "1.0.0",
+  "description": "Azurite wrapper for CloudNimble.Breakdance testing framework",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CloudNimble/Breakdance.git"
+  },
+  "dependencies": {
+    "azurite": "^3.12.0"
+  }
+}

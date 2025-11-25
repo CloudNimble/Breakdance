@@ -241,7 +241,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// With NUnit, use [OneTimeSetUp].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
         /// </remarks>
-        public virtual async Task AssemblySetupAsync()
+        public async override Task AssemblySetupAsync()
         {
             base.AssemblySetup();
             await EnsureTestServerAsync();
@@ -269,7 +269,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// With NUnit, use [SetUp].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
         /// </remarks>
-        public virtual async Task TestSetupAsync()
+        public async override Task TestSetupAsync()
         {
             base.TestSetup();
             await EnsureTestServerAsync();

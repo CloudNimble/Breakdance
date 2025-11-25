@@ -1,0 +1,38 @@
+---
+title: AzuriteServiceType
+description: "Specifies which Azurite services to start."
+icon: list-ol
+tag: "ENUM"
+keywords: ['AzuriteServiceType', 'CloudNimble.Breakdance.Azurite.AzuriteServiceType', 'CloudNimble.Breakdance.Azurite', 'class', 'System.Enum']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Azurite.dll
+
+**Namespace:** CloudNimble.Breakdance.Azurite
+
+**Inheritance:** System.Enum
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Azurite.AzuriteServiceType
+```
+
+## Summary
+
+Specifies which Azurite services to start.
+
+## Values
+
+| Name | Value | Description |
+|------|-------|-------------|
+| `None` | 0 | No services (invalid). |
+| `Blob` | 1 | Azure Blob Storage emulator. |
+| `Queue` | 2 | Azure Queue Storage emulator. |
+| `Table` | 4 | Azure Table Storage emulator. |
+| `All` | 7 | All services (Blob, Queue, and Table). |
+

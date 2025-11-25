@@ -1,0 +1,356 @@
+---
+title: AzuriteConfiguration
+description: "Configuration options for an Azurite instance."
+icon: file-brackets-curly
+keywords: ['AzuriteConfiguration', 'CloudNimble.Breakdance.Azurite.AzuriteConfiguration', 'CloudNimble.Breakdance.Azurite', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Azurite.dll
+
+**Namespace:** CloudNimble.Breakdance.Azurite
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Azurite.AzuriteConfiguration
+```
+
+## Summary
+
+Configuration options for an Azurite instance.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
+
+#### Syntax
+
+```csharp
+public AzuriteConfiguration()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobPort
+
+Gets or sets the optional blob service port.
+            If null, Azurite will use its default port and we'll parse the actual port from output.
+
+#### Syntax
+
+```csharp
+public System.Nullable<int> BlobPort { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<int>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DebugLogPath
+
+Gets or sets the debug log file path. Null means no debug logging.
+
+#### Syntax
+
+```csharp
+public string DebugLogPath { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DisableTelemetry
+
+Gets or sets whether to disable telemetry. Defaults to true.
+
+#### Syntax
+
+```csharp
+public bool DisableTelemetry { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ExtentMemoryLimitMB
+
+Gets or sets the maximum memory limit in MB for in-memory storage.
+            Null means unlimited. Only applies when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is true.
+
+#### Syntax
+
+```csharp
+public System.Nullable<int> ExtentMemoryLimitMB { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<int>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> InMemoryPersistence
+
+Gets or sets whether to use in-memory persistence (no disk storage). Defaults to true.
+
+#### Syntax
+
+```csharp
+public bool InMemoryPersistence { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Location
+
+Gets or sets the workspace location for disk persistence.
+            Only used when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is false.
+
+#### Syntax
+
+```csharp
+public string Location { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> LooseMode
+
+Gets or sets whether to enable loose mode (ignore unsupported headers/parameters). Defaults to false.
+
+#### Syntax
+
+```csharp
+public bool LooseMode { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueuePort
+
+Gets or sets the optional queue service port.
+            If null, Azurite will use its default port and we'll parse the actual port from output.
+
+#### Syntax
+
+```csharp
+public System.Nullable<int> QueuePort { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<int>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Services
+
+Gets or sets which services to start. Defaults to [AzuriteServiceType.All](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteServiceType#all).
+
+#### Syntax
+
+```csharp
+public CloudNimble.Breakdance.Azurite.AzuriteServiceType Services { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.Breakdance.Azurite.AzuriteServiceType`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Silent
+
+Gets or sets whether to run in silent mode (no access logs). Defaults to true.
+
+#### Syntax
+
+```csharp
+public bool Silent { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SkipApiVersionCheck
+
+Gets or sets whether to skip API version checking. Defaults to true.
+
+#### Syntax
+
+```csharp
+public bool SkipApiVersionCheck { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StartupTimeoutSeconds
+
+Gets or sets the timeout in seconds to wait for Azurite to start. Defaults to 30 seconds.
+
+#### Syntax
+
+```csharp
+public int StartupTimeoutSeconds { get; set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TablePort
+
+Gets or sets the optional table service port.
+            If null, Azurite will use its default port and we'll parse the actual port from output.
+
+#### Syntax
+
+```csharp
+public System.Nullable<int> TablePort { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<int>`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

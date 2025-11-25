@@ -1,0 +1,373 @@
+---
+title: AzuriteInstance
+description: "Represents a running Azurite instance with process lifecycle management."
+icon: file-brackets-curly
+keywords: ['AzuriteInstance', 'CloudNimble.Breakdance.Azurite.AzuriteInstance', 'CloudNimble.Breakdance.Azurite', 'class', 'System.Object', 'System.IDisposable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Azurite.dll
+
+**Namespace:** CloudNimble.Breakdance.Azurite
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Azurite.AzuriteInstance
+```
+
+## Summary
+
+Represents a running Azurite instance with process lifecycle management.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
+
+Creates a new [AzuriteInstance](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteInstance) with the specified configuration.
+
+#### Syntax
+
+```csharp
+public AzuriteInstance(CloudNimble.Breakdance.Azurite.AzuriteConfiguration configuration = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `configuration` | `CloudNimble.Breakdance.Azurite.AzuriteConfiguration` | The configuration options. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobEndpoint
+
+Gets the HTTP endpoint URL for the Blob service.
+            Returns null if Blob service was not requested.
+
+#### Syntax
+
+```csharp
+public string BlobEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobPort
+
+Gets the port number for the Blob service, or 0 if not started.
+
+#### Syntax
+
+```csharp
+public int BlobPort { get; private set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> IsRunning
+
+Gets whether the Azurite instance is currently running.
+
+#### Syntax
+
+```csharp
+public bool IsRunning { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueueEndpoint
+
+Gets the HTTP endpoint URL for the Queue service.
+            Returns null if Queue service was not requested.
+
+#### Syntax
+
+```csharp
+public string QueueEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueuePort
+
+Gets the port number for the Queue service, or 0 if not started.
+
+#### Syntax
+
+```csharp
+public int QueuePort { get; private set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StandardError
+
+Gets the standard error captured from the Azurite process.
+
+#### Syntax
+
+```csharp
+public string StandardError { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StandardOutput
+
+Gets the standard output captured from the Azurite process.
+
+#### Syntax
+
+```csharp
+public string StandardOutput { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TableEndpoint
+
+Gets the HTTP endpoint URL for the Table service.
+            Returns null if Table service was not requested.
+
+#### Syntax
+
+```csharp
+public string TableEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TablePort
+
+Gets the port number for the Table service, or 0 if not started.
+
+#### Syntax
+
+```csharp
+public int TablePort { get; private set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Dispose
+
+Disposes the Azurite instance and releases all resources.
+
+#### Syntax
+
+```csharp
+public void Dispose()
+```
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetConnectionString
+
+Gets a connection string for the Development Storage account.
+            Only includes endpoints for services that were requested.
+
+#### Syntax
+
+```csharp
+public string GetConnectionString(string accountName = "devstoreaccount1", string accountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `accountName` | `string` | The account name. Defaults to "devstoreaccount1". |
+| `accountKey` | `string` | The account key. Defaults to the well-known development key. |
+
+#### Returns
+
+Type: `string`
+A connection string that can be used with Azure Storage SDKs.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StartAsync
+
+Starts the Azurite instance asynchronously.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task StartAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A task that completes when Azurite is ready to accept connections.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StopAsync
+
+Stops the Azurite instance asynchronously.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task StopAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A task that completes when Azurite has stopped.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Related APIs
+
+- System.IDisposable
+

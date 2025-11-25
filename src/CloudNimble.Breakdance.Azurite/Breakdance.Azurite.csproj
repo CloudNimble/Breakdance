@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+		<RootNamespace>CloudNimble.Breakdance.Azurite</RootNamespace>
+		<AssemblyName>CloudNimble.Breakdance.Azurite</AssemblyName>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Description>Azurite test harness for .NET with in-memory Azure Storage emulation. Integrates with CloudNimble.Breakdance for seamless testing.</Description>
+		<PackageReleaseNotes>Initial release with support for Blob, Queue, and Table services. In-memory persistence by default, dynamic port allocation for parallel test execution.</PackageReleaseNotes>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageTags>azurite;azure storage;testing;breakdance;unit testing;integration testing</PackageTags>
+		<NoWarn>$(NoWarn);CS1591;CA1052</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="node_modules\**" />
+	  <EmbeddedResource Remove="node_modules\**" />
+	  <None Remove="node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Include .targets file in NuGet package -->
+		<None Include="Breakdance.Azurite.targets" Pack="true" PackagePath="build\$(AssemblyName).targets" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+	</ItemGroup>
+
+	<!-- npm-based Azurite package management -->
+	<PropertyGroup>
+		<PrepareForBuildDependsOn>
+			NpmInstall;
+			$(PrepareForBuildDependsOn)
+		</PrepareForBuildDependsOn>
+	</PropertyGroup>
+
+	<!-- Check for npm and restore packages -->
+	<Target Name="NpmInstall">
+		<Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true">
+			<Output TaskParameter="ExitCode" PropertyName="NpmExitCode" />
+		</Exec>
+		<Error Condition="'$(NpmExitCode)' != '0'" Text="npm is not installed or not in PATH. Please install Node.js from https://nodejs.org/" />
+		<Message Importance="high" Text="Restoring Azurite npm package..." />
+		<Exec Command="npm install" WorkingDirectory="$(MSBuildProjectDirectory)" />
+	</Target>
+
+</Project>

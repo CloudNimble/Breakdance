@@ -28,7 +28,7 @@ A base class for unit tests that maintains an [IHost](https://learn.microsoft.co
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
 
 Creates a new [BreakdanceTestBase](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase) instance.
 
@@ -38,7 +38,7 @@ Creates a new [BreakdanceTestBase](/api-reference/CloudNimble/Breakdance/Assembl
 public BreakdanceTestBase()
 ```
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `object`</Note>
 
@@ -50,7 +50,7 @@ public Object()
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DefaultScope
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DefaultScope
 
 Provides a default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) implementation to contain scoped services.
 
@@ -64,7 +64,7 @@ public Microsoft.Extensions.DependencyInjection.IServiceScope DefaultScope { get
 
 Type: `Microsoft.Extensions.DependencyInjection.IServiceScope`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestHost
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestHost
 
 The [IHost](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost) instance containing the test host.
 
@@ -78,7 +78,7 @@ public Microsoft.Extensions.Hosting.IHost TestHost { get; internal set; }
 
 Type: `Microsoft.Extensions.Hosting.IHost`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestHostBuilder
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestHostBuilder
 
 The [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) instance used to configure the test host.
 
@@ -94,7 +94,7 @@ Type: `Microsoft.Extensions.Hosting.IHostBuilder`
 
 ## Methods
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetup <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetup <DocsBadge text="Virtual" variant="warning" />
 
 Method used by test assemblies to setup the environment.
 
@@ -110,7 +110,7 @@ With MSTest, use [AssemblyInitialize].
             With NUnit, use [OneTimeSetup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblyTearDown <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblyTearDown <DocsBadge text="Virtual" variant="warning" />
 
 Method used by test assemblies to clean up the environment.
 
@@ -126,7 +126,7 @@ With MSTest, use [AssemblyCleanup].
             With NUnit, use [OneTimeTearDown].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassSetup <DocsBadge text="Virtual" variant="warning" />
 
 Method used by test classes to setup the environment.
 
@@ -142,7 +142,7 @@ With MSTest, use [ClassInitialize].
             With NUnit, use [OneTimeSetup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassTearDown <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassTearDown <DocsBadge text="Virtual" variant="warning" />
 
 Method used by test classes to clean up the environment.
 
@@ -158,7 +158,7 @@ With MSTest, use [ClassCleanup].
             With NUnit, use [OneTimeTearDown].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Dispose
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Dispose
 
 Clean up disposable objects in the environment.
 
@@ -168,7 +168,7 @@ Clean up disposable objects in the environment.
 public void Dispose()
 ```
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
 
 <Note>Inherited from `object`</Note>
 
@@ -188,7 +188,7 @@ public virtual bool Equals(object obj)
 
 Type: `bool`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `object`</Note>
 
@@ -209,7 +209,7 @@ public static bool Equals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
 
 <Note>Inherited from `object`</Note>
 
@@ -223,7 +223,7 @@ public virtual int GetHashCode()
 
 Type: `int`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedService <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetKeyedService <DocsBadge text="Virtual" variant="warning" />
 
 Get service of type *T* from the System.IServiceProvider.
 
@@ -248,7 +248,7 @@ A service object of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedServices <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetKeyedServices <DocsBadge text="Virtual" variant="warning" />
 
 Get services of type *T* from the System.IServiceProvider.
 
@@ -273,7 +273,7 @@ An [IEnumerable`1](https://learn.microsoft.com/dotnet/api/system.collections.gen
 
 - `T` - The type of service object to get.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedService
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedService
 
 Get the requested service from the specified [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope).
 
@@ -297,7 +297,7 @@ Type: `T`
 
 - `T` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedService
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedService
 
 Get the requested service from the default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) provided by Breakdance.
 
@@ -315,7 +315,7 @@ Type: `T`
 
 - `T` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedServices
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedServices
 
 Get the requested service from the specified [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope).
 
@@ -339,7 +339,7 @@ Type: `System.Collections.Generic.IEnumerable<T>`
 
 - `T` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScopedServices
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedServices
 
 Get the requested service from the default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) provided by Breakdance.
 
@@ -357,7 +357,7 @@ Type: `System.Collections.Generic.IEnumerable<T>`
 
 - `T` - 
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetService <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetService <DocsBadge text="Virtual" variant="warning" />
 
 Get service of type *T* from the System.IServiceProvider.
 
@@ -376,7 +376,7 @@ A service object of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetServices <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetServices <DocsBadge text="Virtual" variant="warning" />
 
 Get an enumeration of services of type *T* from the System.IServiceProvider.
 
@@ -395,7 +395,7 @@ An enumeration of services of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetType <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `object`</Note>
 
@@ -409,7 +409,7 @@ public System.Type GetType()
 
 Type: `System.Type`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `object`</Note>
 
@@ -423,7 +423,7 @@ protected internal object MemberwiseClone()
 
 Type: `object`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `object`</Note>
 
@@ -444,7 +444,7 @@ public static bool ReferenceEquals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ResetTestHostBuilder
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ResetTestHostBuilder
 
 Resets the test host by disposing of the current TestHost and initializing a new default TestHostBuilder.
             This prepares the environment for a fresh test setup.
@@ -455,7 +455,7 @@ Resets the test host by disposing of the current TestHost and initializing a new
 public void ResetTestHostBuilder()
 ```
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetClaimsPrincipalSelectorToThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetClaimsPrincipalSelectorToThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal).
 
@@ -469,7 +469,7 @@ public static void SetClaimsPrincipalSelectorToThreadPrincipal()
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetClaimsPrincipalSelectorToThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetClaimsPrincipalSelectorToThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal) and sets the latter to a new ClaimsIdentity with the specified claims.
 
@@ -492,7 +492,7 @@ public static void SetClaimsPrincipalSelectorToThreadPrincipal(System.Collection
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetClaimsPrincipalSelectorToThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetClaimsPrincipalSelectorToThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal) and sets the latter to a new ClaimsIdentity with the specified claim.
 
@@ -515,7 +515,7 @@ public static void SetClaimsPrincipalSelectorToThreadPrincipal(System.Security.C
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to a new ClaimsIdentity with the specified claims.
 
@@ -538,7 +538,7 @@ public static void SetThreadPrincipal(System.Collections.Generic.List<System.Sec
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to a new ClaimsIdentity with the specified claim.
 
@@ -561,7 +561,7 @@ public static void SetThreadPrincipal(System.Security.Claims.Claim claim, string
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetup <DocsBadge text="Virtual" variant="warning" />
 
 Method used by test classes to setup the environment.
 
@@ -577,7 +577,7 @@ With MSTest, use [TestInitialize].
             With NUnit, use [Setup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestTearDown <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDown <DocsBadge text="Virtual" variant="warning" />
 
 Method used by test classes to clean up the environment.
 
@@ -593,7 +593,7 @@ With MSTest, use [TestCleanup].
             With NUnit, use [TearDown].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
 
 <Note>Inherited from `object`</Note>
 

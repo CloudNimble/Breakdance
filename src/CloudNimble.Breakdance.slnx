@@ -1,8 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Solution>
   <Folder Name="/Core/">
     <Project Path="CloudNimble.Breakdance.AspNetCore/Breakdance.AspNetCore.csproj" />
     <Project Path="CloudNimble.Breakdance.Assemblies/Breakdance.Assemblies.csproj" />
+    <Project Path="CloudNimble.Breakdance.Azurite/Breakdance.Azurite.csproj" />
     <Project Path="CloudNimble.Breakdance.Blazor/Breakdance.Blazor.csproj" />
     <Project Path="CloudNimble.Breakdance.WebApi/Breakdance.WebApi.csproj" />
   </Folder>
@@ -24,6 +25,7 @@
   <Folder Name="/Tests/">
     <Project Path="CloudNimble.Breakdance.Tests.AspNetCore/Breakdance.Tests.AspNetCore.csproj" />
     <Project Path="CloudNimble.Breakdance.Tests.Assemblies/Breakdance.Tests.Assemblies.csproj" />
+    <Project Path="CloudNimble.Breakdance.Tests.Azurite/Breakdance.Tests.Azurite.csproj" />
     <Project Path="CloudNimble.Breakdance.Tests.Blazor/Breakdance.Tests.Blazor.csproj" />
     <Project Path="CloudNimble.Breakdance.Tests.WebApi/Breakdance.Tests.WebApi.csproj" />
   </Folder>

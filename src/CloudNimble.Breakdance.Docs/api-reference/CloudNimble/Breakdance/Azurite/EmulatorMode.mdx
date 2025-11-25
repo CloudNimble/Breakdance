@@ -1,0 +1,43 @@
+---
+title: EmulatorMode
+description: "Defines how the Azurite emulator instance is managed during test execution."
+icon: list-ol
+tag: "ENUM"
+keywords: ['EmulatorMode', 'CloudNimble.Breakdance.Azurite.EmulatorMode', 'CloudNimble.Breakdance.Azurite', 'class', 'System.Enum']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Azurite.dll
+
+**Namespace:** CloudNimble.Breakdance.Azurite
+
+**Inheritance:** System.Enum
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Azurite.EmulatorMode
+```
+
+## Summary
+
+Defines how the Azurite emulator instance is managed during test execution.
+
+## Values
+
+| Name | Value | Description |
+|------|-------|-------------|
+| `SharedPerAssembly` | 0 | One shared Azurite instance per test assembly.
+            The instance starts once and is reused by all tests in the assembly.
+            This is the default and most efficient mode. |
+| `PerClass` | 1 | One Azurite instance per test class.
+            A new instance starts for each test class and is shared by all tests in that class. |
+| `PerTest` | 2 | One Azurite instance per test method.
+            A new instance starts and stops for each individual test.
+            This provides maximum isolation but is the slowest option. |
+| `Manual` | 3 | Manual lifecycle management.
+            The test author is responsible for starting and stopping Azurite instances. |
+

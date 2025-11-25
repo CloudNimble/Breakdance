@@ -29,6 +29,18 @@
                 "icon": "folder-tree",
                 "pages": [
                   {
+                    "group": "AspNetCore",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/Breakdance/AspNetCore/index",
+                      "api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase",
+                      "api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase",
+                      "api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreTestHelpers",
+                      "api-reference/CloudNimble/Breakdance/AspNetCore/HttpClientHelpers",
+                      "api-reference/CloudNimble/Breakdance/AspNetCore/WebApiConstants"
+                    ]
+                  },
+                  {
                     "group": "Assemblies",
                     "icon": "folder-tree",
                     "pages": [
@@ -58,11 +70,43 @@
                     ]
                   },
                   {
+                    "group": "Blazor",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/Breakdance/Blazor/index",
+                      "api-reference/CloudNimble/Breakdance/Blazor/BlazorBreakdanceTestBase"
+                    ]
+                  },
+                  {
+                    "group": "Extensions",
+                    "icon": "folder-tree",
+                    "pages": [
+                      {
+                        "group": "MSTest2",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/Breakdance/Extensions/MSTest2/index",
+                          "api-reference/CloudNimble/Breakdance/Extensions/MSTest2/BreakdanceMSTestBase"
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "group": "Tools",
                     "icon": "folder-tree",
                     "pages": [
                       "api-reference/CloudNimble/Breakdance/Tools/index",
                       "api-reference/CloudNimble/Breakdance/Tools/ColorConsole"
+                    ]
+                  },
+                  {
+                    "group": "WebApi",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/Breakdance/WebApi/index",
+                      "api-reference/CloudNimble/Breakdance/WebApi/HttpClientHelpers",
+                      "api-reference/CloudNimble/Breakdance/WebApi/WebApiConstants",
+                      "api-reference/CloudNimble/Breakdance/WebApi/WebApiTestHelpers"
                     ]
                   }
                 ]
@@ -94,6 +138,26 @@
                     ]
                   }
                 ]
+              },
+              {
+                "group": "VisualStudio",
+                "icon": "folder-tree",
+                "pages": [
+                  {
+                    "group": "TestTools",
+                    "icon": "folder-tree",
+                    "pages": [
+                      {
+                        "group": "UnitTesting",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/Microsoft/VisualStudio/TestTools/UnitTesting/index",
+                          "api-reference/Microsoft/VisualStudio/TestTools/UnitTesting/TestContext"
+                        ]
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -113,6 +177,20 @@
               "api-reference/System/IServiceProvider",
               "api-reference/System/Object",
               {
+                "group": "Net",
+                "icon": "folder-tree",
+                "pages": [
+                  {
+                    "group": "Http",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/System/Net/Http/index",
+                      "api-reference/System/Net/Http/HttpClient"
+                    ]
+                  }
+                ]
+              },
+              {
                 "group": "Reflection",
                 "icon": "folder-tree",
                 "pages": [
@@ -120,6 +198,20 @@
                   "api-reference/System/Reflection/ConstructorInfo",
                   "api-reference/System/Reflection/FieldInfo",
                   "api-reference/System/Reflection/MethodInfo"
+                ]
+              },
+              {
+                "group": "Web",
+                "icon": "folder-tree",
+                "pages": [
+                  {
+                    "group": "Http",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/System/Web/Http/index",
+                      "api-reference/System/Web/Http/HttpConfiguration"
+                    ]
+                  }
                 ]
               }
             ]

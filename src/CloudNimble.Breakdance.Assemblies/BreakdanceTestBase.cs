@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Assemblies
 {
@@ -11,7 +12,7 @@ namespace CloudNimble.Breakdance.Assemblies
     /// <summary>
     /// A base class for unit tests that maintains an <see cref="IHost"/> with configuration and a Dependency Injection container.
     /// </summary>
-    public abstract class BreakdanceTestBase : IDisposable
+    public abstract class BreakdanceTestBase : IDisposable, IAsyncDisposable
     {
         private bool disposedValue;
 
@@ -49,16 +50,44 @@ namespace CloudNimble.Breakdance.Assemblies
         #region Public Methods
 
         /// <summary>
+        /// Method used by test assemblies to setup the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [AssemblyInitialize] with async Task return type.
+        /// With NUnit, use [OneTimeSetup] with async Task return type.
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual Task AssemblySetupAsync()
+        {
+            EnsureTestHost();
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
         /// Method used by test assemblies to setup the environment.
         /// </summary>
         /// <remarks>
         /// With MSTest, use [AssemblyInitialize].
         /// With NUnit, use [OneTimeSetup].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// This method calls <see cref="AssemblySetupAsync"/> synchronously.
         /// </remarks>
         public virtual void AssemblySetup()
         {
-            EnsureTestHost();
+            AssemblySetupAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Method used by test assemblies to clean up the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [AssemblyCleanup] with async Task return type.
+        /// With NUnit, use [OneTimeTearDown] with async Task return type.
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual async Task AssemblyTearDownAsync()
+        {
+            await DisposeAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -68,10 +97,25 @@ namespace CloudNimble.Breakdance.Assemblies
         /// With MSTest, use [AssemblyCleanup].
         /// With NUnit, use [OneTimeTearDown].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// This method calls <see cref="AssemblyTearDownAsync"/> synchronously.
         /// </remarks>
         public virtual void AssemblyTearDown()
         {
-            Dispose();
+            AssemblyTearDownAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Method used by test classes to setup the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [ClassInitialize] with async Task return type.
+        /// With NUnit, use [OneTimeSetup] with async Task return type.
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual Task ClassSetupAsync()
+        {
+            EnsureTestHost();
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -81,10 +125,24 @@ namespace CloudNimble.Breakdance.Assemblies
         /// With MSTest, use [ClassInitialize].
         /// With NUnit, use [OneTimeSetup].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// This method calls <see cref="ClassSetupAsync"/> synchronously.
         /// </remarks>
         public virtual void ClassSetup()
         {
-            EnsureTestHost();
+            ClassSetupAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Method used by test classes to clean up the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [ClassCleanup] with async Task return type.
+        /// With NUnit, use [OneTimeTearDown] with async Task return type.
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual async Task ClassTearDownAsync()
+        {
+            await DisposeAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -94,10 +152,11 @@ namespace CloudNimble.Breakdance.Assemblies
         /// With MSTest, use [ClassCleanup].
         /// With NUnit, use [OneTimeTearDown].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// This method calls <see cref="ClassTearDownAsync"/> synchronously.
         /// </remarks>
         public virtual void ClassTearDown()
         {
-            Dispose();
+            ClassTearDownAsync().GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -107,6 +166,21 @@ namespace CloudNimble.Breakdance.Assemblies
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Asynchronously clean up disposable objects in the environment.
+        /// </summary>
+        public async ValueTask DisposeAsync()
+        {
+            // Perform async cleanup.
+            await DisposeAsyncCore().ConfigureAwait(false);
+
+            // Dispose of unmanaged resources.
+            Dispose(disposing: false);
+
+            // Suppress finalization.
             GC.SuppressFinalize(this);
         }
 
@@ -273,16 +347,44 @@ namespace CloudNimble.Breakdance.Assemblies
         }
 
         /// <summary>
+        /// Method used by test classes to setup the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [TestInitialize] with async Task return type.
+        /// With NUnit, use [Setup] with async Task return type.
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual Task TestSetupAsync()
+        {
+            EnsureTestHost();
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
         /// Method used by test classes to setup the environment.
         /// </summary>
         /// <remarks>
         /// With MSTest, use [TestInitialize].
         /// With NUnit, use [Setup].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// This method calls <see cref="TestSetupAsync"/> synchronously.
         /// </remarks>
         public virtual void TestSetup()
         {
-            EnsureTestHost();
+            TestSetupAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Method used by test classes to clean up the environment asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// With MSTest, use [TestCleanup] with async Task return type.
+        /// With NUnit, use [TearDown] with async Task return type.
+        /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// </remarks>
+        public virtual Task TestTearDownAsync()
+        {
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -292,9 +394,11 @@ namespace CloudNimble.Breakdance.Assemblies
         /// With MSTest, use [TestCleanup].
         /// With NUnit, use [TearDown].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
+        /// This method calls <see cref="TestTearDownAsync"/> synchronously.
         /// </remarks>
         public virtual void TestTearDown()
         {
+            TestTearDownAsync().GetAwaiter().GetResult();
         }
 
         #endregion
@@ -324,6 +428,28 @@ namespace CloudNimble.Breakdance.Assemblies
 
                 TestHostBuilder = null;
                 TestHost = null;
+                disposedValue = true;
+            }
+        }
+
+        /// <summary>
+        /// Asynchronously removes references to all <see cref="BreakdanceTestBase"/> resources.
+        /// </summary>
+        protected virtual async ValueTask DisposeAsyncCore()
+        {
+            if (!disposedValue)
+            {
+                if (TestHost != null)
+                {
+                    await TestHost.StopAsync().ConfigureAwait(false);
+                    TestHost.Dispose();
+                }
+
+                DefaultScope?.Dispose();
+
+                TestHostBuilder = null;
+                TestHost = null;
+                DefaultScope = null;
                 disposedValue = true;
             }
         }

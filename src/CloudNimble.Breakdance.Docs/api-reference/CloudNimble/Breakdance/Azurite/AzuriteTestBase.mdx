@@ -1,0 +1,221 @@
+---
+title: AzuriteTestBase
+description: "Base class for tests that require an Azurite instance.             By default, uses a shared instance per test assembly for optimal performance."
+icon: shapes
+tag: "ABSTRACT"
+keywords: ['AzuriteTestBase', 'CloudNimble.Breakdance.Azurite.AzuriteTestBase', 'CloudNimble.Breakdance.Azurite', 'class', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Azurite.dll
+
+**Namespace:** CloudNimble.Breakdance.Azurite
+
+**Inheritance:** CloudNimble.Breakdance.Assemblies.BreakdanceTestBase
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Azurite.AzuriteTestBase
+```
+
+## Summary
+
+Base class for tests that require an Azurite instance.
+            By default, uses a shared instance per test assembly for optimal performance.
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobEndpoint
+
+Gets the Blob service endpoint URL.
+
+#### Syntax
+
+```csharp
+public string BlobEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobPort
+
+Gets the Blob service port number.
+
+#### Syntax
+
+```csharp
+public int BlobPort { get; }
+```
+
+#### Property Value
+
+Type: `int`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ConnectionString
+
+Gets a connection string for the Azurite Development Storage account.
+
+#### Syntax
+
+```csharp
+public string ConnectionString { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueueEndpoint
+
+Gets the Queue service endpoint URL.
+
+#### Syntax
+
+```csharp
+public string QueueEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueuePort
+
+Gets the Queue service port number.
+
+#### Syntax
+
+```csharp
+public int QueuePort { get; }
+```
+
+#### Property Value
+
+Type: `int`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TableEndpoint
+
+Gets the Table service endpoint URL.
+
+#### Syntax
+
+```csharp
+public string TableEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TablePort
+
+Gets the Table service port number.
+
+#### Syntax
+
+```csharp
+public int TablePort { get; }
+```
+
+#### Property Value
+
+Type: `int`
+
+## Methods
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetupAsync <DocsBadge text="Override" variant="info" />
+
+Method used by test assemblies to setup the environment asynchronously.
+            Ensures Azurite instance is running if needed.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task AssemblySetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblyTearDownAsync <DocsBadge text="Override" variant="info" />
+
+Method used by test assemblies to clean up the environment asynchronously.
+            For SharedPerAssembly mode, this stops the shared Azurite instance.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task AssemblyTearDownAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassSetupAsync <DocsBadge text="Override" variant="info" />
+
+Method used by test classes to setup the environment asynchronously.
+            Ensures Azurite instance is running if needed.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task ClassSetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassTearDownAsync <DocsBadge text="Override" variant="info" />
+
+Method used by test classes to clean up the environment asynchronously.
+            For PerClass mode, this stops the class-specific Azurite instance.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task ClassTearDownAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetupAsync <DocsBadge text="Override" variant="info" />
+
+Method used by test methods to setup the environment asynchronously.
+            Ensures Azurite instance is running if needed.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task TestSetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDownAsync <DocsBadge text="Override" variant="info" />
+
+Method used by test methods to clean up the environment asynchronously.
+            For PerTest mode, this stops the test-specific Azurite instance.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task TestTearDownAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+

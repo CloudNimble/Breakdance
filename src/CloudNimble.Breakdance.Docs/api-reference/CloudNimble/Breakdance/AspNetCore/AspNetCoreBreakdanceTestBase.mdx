@@ -31,7 +31,7 @@ A base class for building unit tests for AspNetCore APIs that automatically main
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
 
 Creates a new [AspNetCoreBreakdanceTestBase](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase) instance.
 
@@ -45,7 +45,7 @@ public AspNetCoreBreakdanceTestBase()
 
 The call to .Configure() with no content is required to get a minimal, empty [IWebHost](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.hosting.iwebhost).
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -63,7 +63,7 @@ Uses the modern [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHost
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestHostBuilder <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestHostBuilder <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -79,7 +79,7 @@ public Microsoft.Extensions.Hosting.IHostBuilder TestHostBuilder { get; internal
 
 Type: `Microsoft.Extensions.Hosting.IHostBuilder`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestServer <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestServer <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -97,7 +97,7 @@ Type: `Microsoft.AspNetCore.TestHost.TestServer`
 
 ## Methods
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddApis <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AddApis <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -126,7 +126,7 @@ Calls AddControllers() on the [IServiceCollection](https://learn.microsoft.com/d
                 Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotations(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
                 and Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddMinimalMvc <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AddMinimalMvc <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -154,7 +154,7 @@ Calls AddMvcCore() on the [IServiceCollection](https://learn.microsoft.com/dotne
                 Additional configuration using the Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder
                 will be required.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddRazorPages <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AddRazorPages <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -182,7 +182,7 @@ Calls AddRazorPages() on the [IServiceCollection](https://learn.microsoft.com/do
                 Microsoft.Extensions.DependencyInjection.TagHelperServicesExtensions.AddCacheTagHelper(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
                 and Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuilderExtensions.AddRazorPages(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddViews <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AddViews <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -214,7 +214,7 @@ Calls AddControllersWithViews() on the [IServiceCollection](https://learn.micros
                 Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder),
                 and Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder).
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetup <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetup <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -232,7 +232,7 @@ With MSTest, use [AssemblyInitialize].
             With NUnit, use [OneTimeSetup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -254,7 +254,7 @@ With MSTest, use [AssemblyInitialize].
             With NUnit, use [OneTimeSetUp].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  EnsureTestServer <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> EnsureTestServer <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -270,7 +270,7 @@ internal void EnsureTestServer()
 
 Builds the host using [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder), starts it, and retrieves the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) from the host services.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  EnsureTestServerAsync <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> EnsureTestServerAsync <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -290,7 +290,7 @@ Type: `System.Threading.Tasks.Task`
 
 Builds the host using [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder), starts it, and retrieves the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver) from the host services.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHttpClient <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetHttpClient <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -313,7 +313,7 @@ public System.Net.Http.HttpClient GetHttpClient(string routePrefix = "api/tests/
 Type: `System.Net.Http.HttpClient`
 A properly configured [HttpClient](/api-reference/System/Net/Http/HttpClient)instance from the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver).
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHttpClient <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetHttpClient <DocsBadge text="Inherited" variant="neutral" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -337,7 +337,7 @@ public System.Net.Http.HttpClient GetHttpClient(System.Net.Http.Headers.Authenti
 Type: `System.Net.Http.HttpClient`
 A properly configured [HttpClient](/api-reference/System/Net/Http/HttpClient)instance from the [AspNetCoreBreakdanceTestBase.TestServer](/api-reference/CloudNimble/Breakdance/AspNetCore/AspNetCoreBreakdanceTestBase#testserver).
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedService <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetKeyedService <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -364,7 +364,7 @@ A service object of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyedServices <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetKeyedServices <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -391,7 +391,7 @@ An [IEnumerable`1](https://learn.microsoft.com/dotnet/api/system.collections.gen
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetService <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetService <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -412,7 +412,7 @@ A service object of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetServices <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetServices <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -433,7 +433,7 @@ An enumeration of services of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetup <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -451,7 +451,7 @@ With MSTest, use [TestInitialize].
             With NUnit, use [Setup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -473,7 +473,7 @@ With MSTest, use [TestInitialize].
             With NUnit, use [SetUp].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestTearDown <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDown <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 

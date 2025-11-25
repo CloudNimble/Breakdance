@@ -27,7 +27,7 @@ Base class for implementation of TestCache handlers for unit testing.
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
 
 Constructor overload for specifying the root folder path.
 
@@ -45,7 +45,7 @@ public TestCacheDelegatingHandlerBase(string responseFilesPath)
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ResponseFilesPath
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ResponseFilesPath
 
 Stores the root folder for reading/writing static response files.
 
@@ -61,7 +61,7 @@ Type: `string`
 
 ## Methods
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetFileExtensionString
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetFileExtensionString
 
 Maps the MediaType header in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to a known list of file extensions.
 
@@ -81,7 +81,7 @@ public static string GetFileExtensionString(System.Net.Http.HttpRequestMessage r
 
 Type: `string`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetResponseMediaTypeString
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetResponseMediaTypeString
 
 Maps the file extension in the specified path to a known list of media types.
 
