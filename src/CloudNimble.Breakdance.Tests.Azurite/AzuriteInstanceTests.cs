@@ -332,8 +332,8 @@ namespace CloudNimble.Breakdance.Tests.Azurite
             {
                 await blobInstance.StartAsync();
                 blobInstance.BlobPort.Should().BeGreaterThan(0);
-                blobInstance.QueuePort.Should().Be(0);
-                blobInstance.TablePort.Should().Be(0);
+                blobInstance.QueuePort.Should().BeNull();
+                blobInstance.TablePort.Should().BeNull();
             }
             finally
             {
@@ -353,9 +353,9 @@ namespace CloudNimble.Breakdance.Tests.Azurite
             try
             {
                 await queueInstance.StartAsync();
-                queueInstance.BlobPort.Should().Be(0);
+                queueInstance.BlobPort.Should().BeNull();
                 queueInstance.QueuePort.Should().BeGreaterThan(0);
-                queueInstance.TablePort.Should().Be(0);
+                queueInstance.TablePort.Should().BeNull();
             }
             finally
             {
@@ -375,8 +375,8 @@ namespace CloudNimble.Breakdance.Tests.Azurite
             try
             {
                 await tableInstance.StartAsync();
-                tableInstance.BlobPort.Should().Be(0);
-                tableInstance.QueuePort.Should().Be(0);
+                tableInstance.BlobPort.Should().BeNull();
+                tableInstance.QueuePort.Should().BeNull();
                 tableInstance.TablePort.Should().BeGreaterThan(0);
             }
             finally

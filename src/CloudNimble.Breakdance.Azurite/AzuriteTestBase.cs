@@ -92,19 +92,19 @@ namespace CloudNimble.Breakdance.Azurite
         public string TableEndpoint => Azurite?.TableEndpoint;
 
         /// <summary>
-        /// Gets the Blob service port number.
+        /// Gets the Blob service port number, or null if not started.
         /// </summary>
-        public int BlobPort => Azurite?.BlobPort ?? 0;
+        public int? BlobPort => Azurite?.BlobPort;
 
         /// <summary>
-        /// Gets the Queue service port number.
+        /// Gets the Queue service port number, or null if not started.
         /// </summary>
-        public int QueuePort => Azurite?.QueuePort ?? 0;
+        public int? QueuePort => Azurite?.QueuePort;
 
         /// <summary>
-        /// Gets the Table service port number.
+        /// Gets the Table service port number, or null if not started.
         /// </summary>
-        public int TablePort => Azurite?.TablePort ?? 0;
+        public int? TablePort => Azurite?.TablePort;
 
         /// <summary>
         /// Gets a connection string for the Azurite Development Storage account.

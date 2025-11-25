@@ -27,8 +27,8 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         {
             // Assert
             BlobPort.Should().BeGreaterThan(0);
-            QueuePort.Should().Be(0);
-            TablePort.Should().Be(0);
+            QueuePort.Should().BeNull();
+            TablePort.Should().BeNull();
 
             BlobEndpoint.Should().NotBeNullOrEmpty();
             QueueEndpoint.Should().BeNull();
@@ -72,9 +72,9 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         public void QueueOnly_ShouldOnlyStartQueueService()
         {
             // Assert
-            BlobPort.Should().Be(0);
+            BlobPort.Should().BeNull();
             QueuePort.Should().BeGreaterThan(0);
-            TablePort.Should().Be(0);
+            TablePort.Should().BeNull();
 
             BlobEndpoint.Should().BeNull();
             QueueEndpoint.Should().NotBeNullOrEmpty();
@@ -106,8 +106,8 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         public void TableOnly_ShouldOnlyStartTableService()
         {
             // Assert
-            BlobPort.Should().Be(0);
-            QueuePort.Should().Be(0);
+            BlobPort.Should().BeNull();
+            QueuePort.Should().BeNull();
             TablePort.Should().BeGreaterThan(0);
 
             BlobEndpoint.Should().BeNull();

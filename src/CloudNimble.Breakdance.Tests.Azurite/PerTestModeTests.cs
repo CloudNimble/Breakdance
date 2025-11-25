@@ -17,8 +17,8 @@ namespace CloudNimble.Breakdance.Tests.Azurite
 
         protected override EmulatorMode Mode => EmulatorMode.PerTest;
 
-        private static readonly List<int> _capturedPorts = new List<int>();
-        private static readonly object _lock = new object();
+        private static readonly List<int?> _capturedPorts = [];
+        private static readonly object _lock = new();
 
         [TestInitialize]
         public async Task Initialize()

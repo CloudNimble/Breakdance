@@ -15,7 +15,7 @@ namespace CloudNimble.Breakdance.Azurite
     /// <summary>
     /// Represents a running Azurite instance with process lifecycle management.
     /// </summary>
-    public class AzuriteInstance : IDisposable
+    public class AzuriteInstance : IDisposable, IAsyncDisposable
     {
 
         #region Private Members
@@ -34,41 +34,41 @@ namespace CloudNimble.Breakdance.Azurite
         #region Properties
 
         /// <summary>
-        /// Gets the port number for the Blob service, or 0 if not started.
+        /// Gets the port number for the Blob service, or null if not started.
         /// </summary>
-        public int BlobPort { get; private set; }
+        public int? BlobPort { get; private set; }
 
         /// <summary>
-        /// Gets the port number for the Queue service, or 0 if not started.
+        /// Gets the port number for the Queue service, or null if not started.
         /// </summary>
-        public int QueuePort { get; private set; }
+        public int? QueuePort { get; private set; }
 
         /// <summary>
-        /// Gets the port number for the Table service, or 0 if not started.
+        /// Gets the port number for the Table service, or null if not started.
         /// </summary>
-        public int TablePort { get; private set; }
+        public int? TablePort { get; private set; }
 
         /// <summary>
         /// Gets the HTTP endpoint URL for the Blob service.
-        /// Returns null if Blob service was not requested.
+        /// Returns null if Blob service was not requested or not started.
         /// </summary>
-        public string BlobEndpoint => _config.Services.HasFlag(AzuriteServiceType.Blob) && BlobPort > 0
+        public string BlobEndpoint => _config.Services.HasFlag(AzuriteServiceType.Blob) && BlobPort.HasValue
             ? $"http://127.0.0.1:{BlobPort}"
             : null;
 
         /// <summary>
         /// Gets the HTTP endpoint URL for the Queue service.
-        /// Returns null if Queue service was not requested.
+        /// Returns null if Queue service was not requested or not started.
         /// </summary>
-        public string QueueEndpoint => _config.Services.HasFlag(AzuriteServiceType.Queue) && QueuePort > 0
+        public string QueueEndpoint => _config.Services.HasFlag(AzuriteServiceType.Queue) && QueuePort.HasValue
             ? $"http://127.0.0.1:{QueuePort}"
             : null;
 
         /// <summary>
         /// Gets the HTTP endpoint URL for the Table service.
-        /// Returns null if Table service was not requested.
+        /// Returns null if Table service was not requested or not started.
         /// </summary>
-        public string TableEndpoint => _config.Services.HasFlag(AzuriteServiceType.Table) && TablePort > 0
+        public string TableEndpoint => _config.Services.HasFlag(AzuriteServiceType.Table) && TablePort.HasValue
             ? $"http://127.0.0.1:{TablePort}"
             : null;
 
@@ -119,16 +119,19 @@ namespace CloudNimble.Breakdance.Azurite
             // Determine which Azurite command to use based on services requested
             var command = GetAzuriteCommand();
 
-            // Start the process using cmd.exe to execute npx (handles .cmd files on Windows)
+            // Get working directory
             var workingDirectory = GetAzuriteDirectory();
             var fullCommand = $"npx {command} {args}";
-            
+
+            // Use cmd.exe /k (instead of /c) to keep cmd.exe alive.
+            // This maintains the process tree so Kill(entireProcessTree: true) works correctly.
+            // With /c, cmd.exe exits immediately after spawning npx, orphaning the Node processes.
             _process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/c {fullCommand}",
+                    Arguments = $"/k {fullCommand}",
                     WorkingDirectory = workingDirectory,
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -141,7 +144,7 @@ namespace CloudNimble.Breakdance.Azurite
             };
 
             // Log the command for debugging
-            _outputBuffer.AppendLine($"[DEBUG] Starting process: cmd.exe /c {fullCommand}");
+            _outputBuffer.AppendLine($"[DEBUG] Starting process: cmd.exe /k {fullCommand}");
             _outputBuffer.AppendLine($"[DEBUG] Working directory: {workingDirectory}");
 
             // Capture output and parse ports
@@ -206,27 +209,63 @@ namespace CloudNimble.Breakdance.Azurite
                 if (!_process.HasExited)
                 {
                     // Try graceful shutdown first
-                    _process.Kill(entireProcessTree: true);
+                    try
+                    {
+                        // Send Ctrl+C to the process to initiate graceful shutdown
+                        // For cmd.exe /k, we need to send an exit command through stdin
+                        try
+                        {
+                            await _process.StandardInput.WriteLineAsync("exit");
+                            await _process.StandardInput.FlushAsync();
+                        }
+                        catch
+                        {
+                            // Ignore errors writing to stdin
+                        }
 
-                    // Wait up to 5 seconds for exit
-                    var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-                    await _process.WaitForExitAsync(cts.Token);
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                // Force kill if graceful shutdown times out
-                if (!_process.HasExited)
-                {
-                    _process.Kill(entireProcessTree: true);
+                        _process.StandardInput.Close();
+
+                        // Wait up to 3 seconds for graceful exit
+                        var gracefulCts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+                        await _process.WaitForExitAsync(gracefulCts.Token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Graceful shutdown timed out, will force kill below
+                    }
+                    catch
+                    {
+                        // Ignore errors during graceful shutdown, will force kill below
+                    }
+
+                    // Force kill entire process tree if still running
+                    if (!_process.HasExited)
+                    {
+                        try
+                        {
+                            _process.Kill(entireProcessTree: true);
+
+                            // Wait up to 5 seconds for force kill to complete
+                            var forceCts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                            await _process.WaitForExitAsync(forceCts.Token);
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            // Process still running after force kill - log but continue
+                        }
+                        catch
+                        {
+                            // Ignore kill errors
+                        }
+                    }
                 }
             }
             finally
             {
                 _isRunning = false;
-                BlobPort = 0;
-                QueuePort = 0;
-                TablePort = 0;
+                BlobPort = null;
+                QueuePort = null;
+                TablePort = null;
             }
         }
 
@@ -268,6 +307,16 @@ namespace CloudNimble.Breakdance.Azurite
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Asynchronously disposes the Azurite instance and releases all resources.
+        /// </summary>
+        public async ValueTask DisposeAsync()
+        {
+            await DisposeAsyncCore().ConfigureAwait(false);
+            Dispose(disposing: false);
+            GC.SuppressFinalize(this);
+        }
+
         #endregion
 
         #region Private Methods
@@ -297,10 +346,9 @@ namespace CloudNimble.Breakdance.Azurite
         {
             try
             {
-                // Check for various "listening" patterns to know service is ready
-                if (output.Contains("successfully listening") || 
-                    output.Contains("listening at") ||
-                    output.Contains("listening on"))
+                // Check for "success" to detect service ready - handles various output formats
+                // e.g., "successfully listens on", "successfully listening at", etc.
+                if (output.Contains("success", StringComparison.OrdinalIgnoreCase))
                 {
                     _successfulServicesCount++;
 
@@ -396,32 +444,8 @@ namespace CloudNimble.Breakdance.Azurite
         {
             try
             {
-                // First, check if npx is available
-                try
-                {
-                    var npxCheck = Process.Start(new ProcessStartInfo
-                    {
-                        FileName = "cmd.exe",
-                        Arguments = "/c npx --version",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-                    npxCheck?.WaitForExit();
-                    if (npxCheck?.ExitCode != 0)
-                    {
-                        throw new InvalidOperationException("npx command not found. Ensure Node.js and npm are installed and in PATH.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException(
-                        "Failed to execute npx command. Ensure Node.js and npm are installed and in PATH.", ex);
-                }
-
                 // Check if Azurite is globally installed
-                var globalCheck = Process.Start(new ProcessStartInfo
+                using (var globalCheck = Process.Start(new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
                     Arguments = "/c npm list -g azurite --depth=0",
@@ -429,14 +453,16 @@ namespace CloudNimble.Breakdance.Azurite
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
-                });
-                globalCheck?.WaitForExit();
-
-                if (globalCheck?.ExitCode == 0)
+                }))
                 {
-                    // Azurite is globally installed, npx will find it automatically
-                    // Return current directory as working directory
-                    return Environment.CurrentDirectory;
+                    globalCheck?.WaitForExit();
+
+                    if (globalCheck?.ExitCode == 0)
+                    {
+                        // Azurite is globally installed, npx will find it automatically
+                        // Return current directory as working directory
+                        return Environment.CurrentDirectory;
+                    }
                 }
 
                 // Fall back to checking for local node_modules
@@ -581,13 +607,13 @@ namespace CloudNimble.Breakdance.Azurite
             {
                 var tasks = new List<Task<bool>>();
 
-                if (BlobPort > 0)
+                if (BlobPort.HasValue)
                     tasks.Add(IsServiceReadyAsync(httpClient, BlobEndpoint));
 
-                if (QueuePort > 0)
+                if (QueuePort.HasValue)
                     tasks.Add(IsServiceReadyAsync(httpClient, QueueEndpoint));
 
-                if (TablePort > 0)
+                if (TablePort.HasValue)
                     tasks.Add(IsServiceReadyAsync(httpClient, TableEndpoint));
 
                 var results = await Task.WhenAll(tasks);
@@ -632,6 +658,20 @@ namespace CloudNimble.Breakdance.Azurite
                 StopAsync().GetAwaiter().GetResult();
                 _process?.Dispose();
             }
+
+            _disposed = true;
+        }
+
+        /// <summary>
+        /// Asynchronously disposes managed resources.
+        /// </summary>
+        protected virtual async ValueTask DisposeAsyncCore()
+        {
+            if (_disposed)
+                return;
+
+            await StopAsync().ConfigureAwait(false);
+            _process?.Dispose();
 
             _disposed = true;
         }
