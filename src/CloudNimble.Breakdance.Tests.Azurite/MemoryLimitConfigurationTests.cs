@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Azurite
 {
-
     /// <summary>
-    /// Tests for configuration overrides.
+    /// Tests for memory limit configuration.
     /// </summary>
     [TestClass]
-    public class ConfigurationOverrideTests : AzuriteTestBase
+    public class MemoryLimitConfigurationTests : AzuriteTestBase
     {
         private static AzuriteInstance _azurite;
 
@@ -23,8 +22,8 @@ namespace CloudNimble.Breakdance.Tests.Azurite
             {
                 Services = AzuriteServiceType.All,
                 InMemoryPersistence = true,
-                Silent = false, // Test non-silent mode
-                StartupTimeoutSeconds = 60
+                Silent = true,
+                ExtentMemoryLimitMB = 512
             });
         }
 
@@ -36,22 +35,12 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         }
 
         [TestMethod]
-        public void ConfigurationOverrides_ShouldBeApplied()
+        public void MemoryLimit_ShouldAllowStartup()
         {
-            // Assert - The instance should be running with custom config
-            Azurite.Should().NotBeNull("Configuration overrides should still allow Azurite to start");
+            // Assert - Verify the instance starts with memory limit
+            Azurite.Should().NotBeNull();
             Azurite.IsRunning.Should().BeTrue();
-
-            // We can't directly test silent mode, but we can verify
-            // that the instance started successfully with custom timeout
             BlobPort.Should().BeGreaterThan(0);
-        }
-
-        [TestMethod]
-        public void InMemoryPersistence_ShouldBeConfigured()
-        {
-            // Assert
-            Azurite.IsRunning.Should().BeTrue();
         }
 
     }

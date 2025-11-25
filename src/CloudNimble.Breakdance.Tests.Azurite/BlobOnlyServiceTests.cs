@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Azurite
 {
-
     /// <summary>
-    /// Tests for configuration overrides.
+    /// Tests for Blob-only service startup.
     /// </summary>
     [TestClass]
-    public class ConfigurationOverrideTests : AzuriteTestBase
+    public class BlobOnlyServiceTests : AzuriteTestBase
     {
         private static AzuriteInstance _azurite;
 
@@ -21,10 +20,9 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         {
             _azurite = await CreateAndStartInstanceAsync(new AzuriteConfiguration
             {
-                Services = AzuriteServiceType.All,
+                Services = AzuriteServiceType.Blob,
                 InMemoryPersistence = true,
-                Silent = false, // Test non-silent mode
-                StartupTimeoutSeconds = 60
+                Silent = true
             });
         }
 
@@ -36,22 +34,28 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         }
 
         [TestMethod]
-        public void ConfigurationOverrides_ShouldBeApplied()
+        public void BlobOnly_ShouldOnlyStartBlobService()
         {
-            // Assert - The instance should be running with custom config
-            Azurite.Should().NotBeNull("Configuration overrides should still allow Azurite to start");
-            Azurite.IsRunning.Should().BeTrue();
-
-            // We can't directly test silent mode, but we can verify
-            // that the instance started successfully with custom timeout
+            // Assert
             BlobPort.Should().BeGreaterThan(0);
+            QueuePort.Should().BeNull();
+            TablePort.Should().BeNull();
+
+            BlobEndpoint.Should().NotBeNullOrEmpty();
+            QueueEndpoint.Should().BeNull();
+            TableEndpoint.Should().BeNull();
         }
 
         [TestMethod]
-        public void InMemoryPersistence_ShouldBeConfigured()
+        public void BlobOnly_ConnectionString_ShouldOnlyContainBlob()
         {
+            // Arrange & Act
+            var connectionString = ConnectionString;
+
             // Assert
-            Azurite.IsRunning.Should().BeTrue();
+            connectionString.Should().Contain("BlobEndpoint");
+            connectionString.Should().NotContain("QueueEndpoint");
+            connectionString.Should().NotContain("TableEndpoint");
         }
 
     }

@@ -81,6 +81,19 @@ namespace CloudNimble.Breakdance.Azurite
         /// </summary>
         public int StartupTimeoutSeconds { get; set; } = 30;
 
+        /// <summary>
+        /// Gets or sets whether to automatically assign random ports when ports are not specified.
+        /// When true and ports are null, random ports in 20000-30000 range will be assigned.
+        /// Defaults to true.
+        /// </summary>
+        public bool AutoAssignPorts { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the maximum number of retry attempts when port conflicts occur.
+        /// Only applies when <see cref="AutoAssignPorts"/> is true. Defaults to 20.
+        /// </summary>
+        public int MaxRetries { get; set; } = 20;
+
         #endregion
 
     }

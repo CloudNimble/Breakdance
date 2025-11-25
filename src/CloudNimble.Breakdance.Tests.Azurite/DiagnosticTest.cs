@@ -13,10 +13,14 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         [TestMethod]
         public async Task DiagnoseStartupFailure()
         {
-            // Arrange
+            // Arrange - Use a random high port to avoid conflicts with parallel tests
+            var random = new Random();
+            var blobPort = random.Next(45000, 50000);
+
             var config = new AzuriteConfiguration
             {
                 Services = AzuriteServiceType.Blob,
+                BlobPort = blobPort,
                 InMemoryPersistence = true,
                 Silent = true
             };
@@ -34,9 +38,6 @@ namespace CloudNimble.Breakdance.Tests.Azurite
                 Console.WriteLine($"StandardOutput: {instance.StandardOutput}");
                 Console.WriteLine($"StandardError: {instance.StandardError}");
 
-                // Cleanup
-                await instance.StopAsync();
-                instance.Dispose();
             }
             catch (Exception ex)
             {
@@ -48,6 +49,12 @@ namespace CloudNimble.Breakdance.Tests.Azurite
                 Console.WriteLine($"StandardError: {instance.StandardError}");
                 throw;
             }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+
         }
 
     }

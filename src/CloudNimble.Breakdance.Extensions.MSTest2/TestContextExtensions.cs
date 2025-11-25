@@ -28,7 +28,11 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
 
             if (message.Content != null)
             {
+#if NET8_0_OR_GREATER
+                var content = await message.Content.ReadAsStringAsync(testContext.CancellationToken).ConfigureAwait(false);
+#else
                 var content = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
                 testContext.WriteLine(content);
                 return content;
             }

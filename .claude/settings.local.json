@@ -1,11 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dotnet:*)",
-      "Bash(dir:*)",
-      "WebSearch",
-      "WebFetch(domain:aka.ms)",
-      "WebFetch(domain:github.com)"
+      "Bash(timeout 10 npx:*)",
+      "Bash(echo:*)",
+      "Bash(timeout:*)",
+      "Bash(dotnet build:*)"
     ],
     "deny": [],
     "ask": []

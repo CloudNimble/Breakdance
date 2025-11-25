@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,10 +21,14 @@ namespace CloudNimble.Breakdance.Azurite
         private readonly AzuriteConfiguration _config;
         private bool _isRunning;
         private bool _disposed;
-        private readonly StringBuilder _outputBuffer = new StringBuilder();
-        private readonly StringBuilder _errorBuffer = new StringBuilder();
-        private readonly TaskCompletionSource<bool> _portsDetected = new TaskCompletionSource<bool>();
+        private StringBuilder _outputBuffer = new StringBuilder();
+        private StringBuilder _errorBuffer = new StringBuilder();
+        private TaskCompletionSource<bool> _portsDetected = new TaskCompletionSource<bool>();
         private int _successfulServicesCount = 0;
+        private readonly Random _random = new Random();
+        private int? _attemptingBlobPort;
+        private int? _attemptingQueuePort;
+        private int? _attemptingTablePort;
 
         #endregion
 
@@ -106,13 +107,60 @@ namespace CloudNimble.Breakdance.Azurite
 
         /// <summary>
         /// Starts the Azurite instance asynchronously.
+        /// Includes automatic retry logic for port conflicts when <see cref="AzuriteConfiguration.AutoAssignPorts"/> is true.
         /// </summary>
         /// <returns>A task that completes when Azurite is ready to accept connections.</returns>
         public async Task StartAsync()
         {
-            // RWM: If it's already running, no need to start it.
+            // If already running, no need to start
             if (_isRunning) return;
 
+            var maxRetries = _config.AutoAssignPorts ? _config.MaxRetries : 1;
+
+            for (int attempt = 0; attempt < maxRetries; attempt++)
+            {
+                try
+                {
+                    // Assign random ports if needed
+                    AssignPortsIfNeeded();
+
+                    // Start the process and wait for ready
+                    await StartProcessAsync();
+                    await WaitForReadyAsync();
+
+                    // Success!
+                    _isRunning = true;
+
+                    System.Diagnostics.Debug.WriteLine($"[AzuriteInstance] Successfully started on ports " +
+                        $"Blob={BlobPort}, Queue={QueuePort}, Table={TablePort}");
+
+                    return;
+                }
+                catch (InvalidOperationException ex) when (_config.AutoAssignPorts && IsPortConflict(ex))
+                {
+                    System.Diagnostics.Debug.WriteLine($"[AzuriteInstance] Port conflict on attempt {attempt + 1}: {ex.Message}");
+
+                    // Clean up failed process and reset state for retry
+                    await CleanupFailedProcessAsync();
+
+                    if (attempt == maxRetries - 1)
+                    {
+                        throw new InvalidOperationException(
+                            $"Failed to start Azurite after {maxRetries} attempts. All port ranges tested were in use.\n" +
+                            $"Last error: {ex.Message}", ex);
+                    }
+
+                    // Brief delay before retry
+                    await Task.Delay(50);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Starts the Azurite process (internal helper for retry logic).
+        /// </summary>
+        private async Task StartProcessAsync()
+        {
             // Build command arguments
             var args = BuildArguments();
 
@@ -166,33 +214,6 @@ namespace CloudNimble.Breakdance.Azurite
             _process.Start();
             _process.BeginOutputReadLine();
             _process.BeginErrorReadLine();
-
-            try
-            {
-                // Wait for services to be ready
-                await WaitForReadyAsync();
-
-                // Only mark as running if startup was successful
-                _isRunning = true;
-            }
-            catch
-            {
-                // If startup fails, clean up the process
-                try
-                {
-                    if (!_process.HasExited)
-                    {
-                        _process.Kill(entireProcessTree: true);
-                    }
-                }
-                catch
-                {
-                    // Ignore cleanup errors
-                }
-
-                // Re-throw the original exception for retry logic
-                throw;
-            }
         }
 
         /// <summary>
@@ -266,6 +287,9 @@ namespace CloudNimble.Breakdance.Azurite
                 BlobPort = null;
                 QueuePort = null;
                 TablePort = null;
+                _attemptingBlobPort = null;
+                _attemptingQueuePort = null;
+                _attemptingTablePort = null;
             }
         }
 
@@ -332,42 +356,78 @@ namespace CloudNimble.Breakdance.Azurite
             {
                 AzuriteServiceType.Blob => "azurite-blob",
                 AzuriteServiceType.Queue => "azurite-queue",
-                AzuriteServiceType.Table => "azurite-table",
+                // NOTE: Table-only mode is disabled due to a bug in Azurite where azurite-table
+                // reports port 0 in its output instead of the actual bound port when using dynamic ports.
+                // See: https://github.com/Azure/Azurite - table/main.ts uses config.port instead of server.getHttpServerAddress()
+                // Once this is fixed upstream, uncomment the line below:
+                // AzuriteServiceType.Table => "azurite-table",
+                AzuriteServiceType.Table => throw new NotSupportedException(
+                    "Table-only mode is not currently supported due to an Azurite bug. " +
+                    "Please use AzuriteServiceType.All instead, which starts all services including Table. " +
+                    "See: https://github.com/Azure/Azurite/issues for the upstream bug."),
                 _ => "azurite" // Default to all services
             };
         }
 
         /// <summary>
         /// Parses port information from Azurite's standard output.
-        /// Azurite outputs: "Azurite [Service] service is successfully listening at http://127.0.0.1:[port]"
+        /// Azurite outputs two types of messages:
+        /// 1. "Azurite Blob service is starting on 127.0.0.1:PORT" - BEFORE port is bound (uses config port, may be 0)
+        /// 2. "Azurite Blob service successfully listens on http://127.0.0.1:PORT" - AFTER port is bound (uses actual port)
+        ///
+        /// We track "attempting" ports from the "starting" messages for retry logic,
+        /// and set actual ports from the "successfully" messages.
         /// </summary>
         /// <param name="output">A line of output from Azurite.</param>
         private void ParsePortFromOutput(string output)
         {
             try
             {
-                // Check for "success" to detect service ready - handles various output formats
-                // e.g., "successfully listens on", "successfully listening at", etc.
-                if (output.Contains("success", StringComparison.OrdinalIgnoreCase))
+                // Determine which service this message is about
+                string serviceType = null;
+                if (output.Contains("Blob", StringComparison.OrdinalIgnoreCase))
+                    serviceType = "Blob";
+                else if (output.Contains("Queue", StringComparison.OrdinalIgnoreCase))
+                    serviceType = "Queue";
+                else if (output.Contains("Table", StringComparison.OrdinalIgnoreCase))
+                    serviceType = "Table";
+
+                if (serviceType == null)
+                    return;
+
+                // Parse the port from this line - support multiple URL formats
+                int? parsedPort = ParsePortFromLine(output);
+
+                // Check for "starting on" messages - these set the "attempting" port for retry logic
+                // The port here may be 0 if using dynamic port assignment
+                if (output.Contains("is starting on", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (parsedPort.HasValue)
+                    {
+                        switch (serviceType)
+                        {
+                            case "Blob": _attemptingBlobPort = parsedPort; break;
+                            case "Queue": _attemptingQueuePort = parsedPort; break;
+                            case "Table": _attemptingTablePort = parsedPort; break;
+                        }
+                    }
+                }
+                // Check for "success" messages - these set the actual port (service is now listening)
+                else if (output.Contains("success", StringComparison.OrdinalIgnoreCase))
                 {
                     _successfulServicesCount++;
 
-                    // Parse the port from this line - support multiple URL formats
-                    var match = System.Text.RegularExpressions.Regex.Match(output, @"https?://[^:]+:(\d+)");
-                    if (!match.Success)
+                    // Only set port if it's a valid port (not 0)
+                    // Port 0 means the OS assigned a port, but the message still shows 0
+                    // This happens with azurite-table due to an upstream bug
+                    if (parsedPort.HasValue && parsedPort.Value > 0)
                     {
-                        // Try alternative pattern for different output formats
-                        match = System.Text.RegularExpressions.Regex.Match(output, @"port\s*(\d+)");
-                    }
-                    
-                    if (match.Success && int.TryParse(match.Groups[1].Value, out var port))
-                    {
-                        if (output.Contains("Blob") || output.Contains("blob"))
-                            BlobPort = port;
-                        else if (output.Contains("Queue") || output.Contains("queue"))
-                            QueuePort = port;
-                        else if (output.Contains("Table") || output.Contains("table"))
-                            TablePort = port;
+                        switch (serviceType)
+                        {
+                            case "Blob": BlobPort = parsedPort; break;
+                            case "Queue": QueuePort = parsedPort; break;
+                            case "Table": TablePort = parsedPort; break;
+                        }
                     }
 
                     // Check if all expected services are successfully listening
@@ -388,6 +448,36 @@ namespace CloudNimble.Breakdance.Azurite
                 _errorBuffer.AppendLine($"Exception parsing Azurite output: {ex.Message}");
                 _errorBuffer.AppendLine($"Output line: {output}");
             }
+        }
+
+        /// <summary>
+        /// Parses a port number from a line of Azurite output.
+        /// </summary>
+        /// <param name="output">The output line to parse.</param>
+        /// <returns>The parsed port number, or null if not found.</returns>
+        private int? ParsePortFromLine(string output)
+        {
+            // Format 1: "http://127.0.0.1:10000" or "https://..."
+            var match = System.Text.RegularExpressions.Regex.Match(output, @"https?://[^:]+:(\d+)");
+
+            if (!match.Success)
+            {
+                // Format 2: "127.0.0.1:10000" (without http prefix)
+                match = System.Text.RegularExpressions.Regex.Match(output, @"\d+\.\d+\.\d+\.\d+:(\d+)");
+            }
+
+            if (!match.Success)
+            {
+                // Format 3: "port 10000" or "port: 10000"
+                match = System.Text.RegularExpressions.Regex.Match(output, @"port\s*:?\s*(\d+)", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            }
+
+            if (match.Success && int.TryParse(match.Groups[1].Value, out var port))
+            {
+                return port;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -543,6 +633,78 @@ namespace CloudNimble.Breakdance.Azurite
         }
 
         /// <summary>
+        /// Assigns random ports to the configuration if AutoAssignPorts is enabled and ports aren't set.
+        /// </summary>
+        private void AssignPortsIfNeeded()
+        {
+            if (!_config.AutoAssignPorts) return;
+
+            var basePort = _random.Next(20000, 30000);
+
+            if (_config.Services.HasFlag(AzuriteServiceType.Blob) && !_config.BlobPort.HasValue)
+                _config.BlobPort = basePort;
+            if (_config.Services.HasFlag(AzuriteServiceType.Queue) && !_config.QueuePort.HasValue)
+                _config.QueuePort = basePort + 1;
+            if (_config.Services.HasFlag(AzuriteServiceType.Table) && !_config.TablePort.HasValue)
+                _config.TablePort = basePort + 2;
+
+            System.Diagnostics.Debug.WriteLine($"[AzuriteInstance] Assigned ports: Blob={_config.BlobPort}, Queue={_config.QueuePort}, Table={_config.TablePort}");
+        }
+
+        /// <summary>
+        /// Cleans up a failed process and resets state for retry.
+        /// </summary>
+        private async Task CleanupFailedProcessAsync()
+        {
+            // Kill the failed process
+            if (_process != null)
+            {
+                try
+                {
+                    if (!_process.HasExited)
+                    {
+                        _process.Kill(entireProcessTree: true);
+                    }
+                }
+                catch
+                {
+                    // Ignore kill errors
+                }
+
+                _process.Dispose();
+                _process = null;
+            }
+
+            // Clear ports so they get reassigned on next attempt
+            _config.BlobPort = null;
+            _config.QueuePort = null;
+            _config.TablePort = null;
+
+            // Reset port properties
+            BlobPort = null;
+            QueuePort = null;
+            TablePort = null;
+
+            // Reset detection state
+            _outputBuffer = new StringBuilder();
+            _errorBuffer = new StringBuilder();
+            _successfulServicesCount = 0;
+            _portsDetected = new TaskCompletionSource<bool>();
+
+            // Brief delay to ensure ports are released
+            await Task.Delay(100);
+        }
+
+        /// <summary>
+        /// Determines if an exception represents a port conflict.
+        /// </summary>
+        private static bool IsPortConflict(Exception ex) =>
+            ex.Message.Contains("EADDRINUSE") ||
+            ex.Message.Contains("address already in use") ||
+            ex.Message.Contains("Port conflict") ||
+            ex.Message.Contains("port is already in use");
+
+        /// <summary>
         /// Checks for fatal errors in the output and error buffers and throws if found.
         /// Port conflict errors (EADDRINUSE) are thrown separately so they can be retried at a higher level.
         /// </summary>
@@ -596,53 +758,6 @@ namespace CloudNimble.Breakdance.Azurite
             }
         }
 
-        /// <summary>
-        /// Checks if all requested services are ready.
-        /// </summary>
-        /// <param name="httpClient">The HTTP client to use for health checks.</param>
-        /// <returns>True if all services are ready, false otherwise.</returns>
-        private async Task<bool> AreServicesReadyAsync(HttpClient httpClient)
-        {
-            try
-            {
-                var tasks = new List<Task<bool>>();
-
-                if (BlobPort.HasValue)
-                    tasks.Add(IsServiceReadyAsync(httpClient, BlobEndpoint));
-
-                if (QueuePort.HasValue)
-                    tasks.Add(IsServiceReadyAsync(httpClient, QueueEndpoint));
-
-                if (TablePort.HasValue)
-                    tasks.Add(IsServiceReadyAsync(httpClient, TableEndpoint));
-
-                var results = await Task.WhenAll(tasks);
-                return results.All(r => r);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Checks if a specific service endpoint is ready.
-        /// </summary>
-        /// <param name="httpClient">The HTTP client.</param>
-        /// <param name="endpoint">The endpoint URL.</param>
-        /// <returns>True if the service is ready, false otherwise.</returns>
-        private async Task<bool> IsServiceReadyAsync(HttpClient httpClient, string endpoint)
-        {
-            try
-            {
-                var response = await httpClient.GetAsync($"{endpoint}/devstoreaccount1?comp=list");
-                return response.IsSuccessStatusCode || (int)response.StatusCode == 400; // 400 is ok, means service is up
-            }
-            catch
-            {
-                return false;
-            }
-        }
 
         /// <summary>
         /// Disposes the instance.
