@@ -45,7 +45,7 @@
 		</Exec>
 		<Error Condition="'$(NpmExitCode)' != '0'" Text="npm is not installed or not in PATH. Please install Node.js from https://nodejs.org/" />
 		<Message Importance="high" Text="Restoring Azurite npm package..." />
-		<Exec Command="npm install" WorkingDirectory="$(MSBuildProjectDirectory)" />
+		<Exec Command="npm i azurite --g" WorkingDirectory="$(MSBuildProjectDirectory)" />
 	</Target>
 
 </Project>

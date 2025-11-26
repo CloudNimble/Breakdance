@@ -1,0 +1,435 @@
+---
+title: "Testing with Azure Storage (Azurite)"
+description: "Learn how to write integration tests against Azure Blob, Queue, and Table Storage using the Azurite emulator with Breakdance."
+---
+
+Breakdance provides first-class support for testing Azure Storage services using [Azurite](https://github.com/Azure/Azurite),
+Microsoft's official Azure Storage emulator. The `CloudNimble.Breakdance.Azurite` package handles all the complexity of
+starting, configuring, and stopping Azurite instances during your test runs.
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+<Steps>
+  <Step title="Node.js installed">
+    Azurite runs on Node.js. Install it from [nodejs.org](https://nodejs.org/) or via your package manager.
+  </Step>
+  <Step title="Azurite installed globally">
+    Install Azurite globally using npm:
+    ```bash
+    npm install -g azurite
+    ```
+  </Step>
+  <Step title="NuGet package installed">
+    Add the Breakdance Azurite package to your test project:
+    ```bash
+    dotnet add package CloudNimble.Breakdance.Azurite
+    ```
+  </Step>
+</Steps>
+
+## Quick Start
+
+The simplest way to get started is to create a test class that inherits from `AzuriteTestBase`:
+
+```csharp MyStorageTests.cs
+using CloudNimble.Breakdance.Azurite;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
+
+[TestClass]
+public class MyStorageTests : AzuriteTestBase
+{
+    private static AzuriteInstance _azurite;
+
+    protected override AzuriteInstance Azurite => _azurite;
+
+    [ClassInitialize]
+    public static async Task ClassInit(TestContext ctx)
+    {
+        _azurite = await CreateAndStartInstanceAsync(new AzuriteConfiguration
+        {
+            Services = AzuriteServiceType.All,
+            InMemoryPersistence = true,
+            Silent = true
+        });
+    }
+
+    [ClassCleanup]
+    public static async Task ClassCleanup()
+    {
+        await StopAndDisposeAsync(_azurite);
+        _azurite = null;
+    }
+
+    [TestMethod]
+    public async Task CanUploadBlob()
+    {
+        // Use the ConnectionString property to connect to Azurite
+        var blobServiceClient = new BlobServiceClient(ConnectionString);
+        var container = blobServiceClient.GetBlobContainerClient("test-container");
+        await container.CreateIfNotExistsAsync();
+
+        var blob = container.GetBlobClient("test-blob.txt");
+        await blob.UploadAsync(BinaryData.FromString("Hello, Azurite!"));
+
+        Assert.IsTrue(await blob.ExistsAsync());
+    }
+}
+```
+
+<Tip>
+Each test class owns its own static `AzuriteInstance` field. This design avoids cross-class pollution
+where multiple test classes would share the same instance, which can cause port conflicts and test interference.
+</Tip>
+
+## Configuration Options
+
+The `AzuriteConfiguration` class provides extensive options for customizing your Azurite instance:
+
+### Selecting Services
+
+You can start only the services you need to reduce resource usage and startup time:
+
+<Tabs>
+  <Tab title="All Services">
+    ```csharp
+    var config = new AzuriteConfiguration
+    {
+        Services = AzuriteServiceType.All // Blob, Queue, and Table
+    };
+    ```
+  </Tab>
+  <Tab title="Blob Only">
+    ```csharp
+    var config = new AzuriteConfiguration
+    {
+        Services = AzuriteServiceType.Blob
+    };
+    ```
+  </Tab>
+  <Tab title="Queue Only">
+    ```csharp
+    var config = new AzuriteConfiguration
+    {
+        Services = AzuriteServiceType.Queue
+    };
+    ```
+  </Tab>
+  <Tab title="Multiple Services">
+    ```csharp
+    var config = new AzuriteConfiguration
+    {
+        Services = AzuriteServiceType.Blob | AzuriteServiceType.Queue
+    };
+    ```
+  </Tab>
+</Tabs>
+
+<Warning>
+Table-only mode (`AzuriteServiceType.Table` alone) is currently not supported due to an upstream bug in Azurite
+where the table service reports incorrect port information. Use `AzuriteServiceType.All` if you need Table storage.
+</Warning>
+
+### Storage Persistence
+
+By default, Azurite runs with in-memory persistence, which is fast and automatically cleans up after tests:
+
+```csharp
+var config = new AzuriteConfiguration
+{
+    InMemoryPersistence = true,        // Default: true
+    ExtentMemoryLimitMB = 512          // Optional: limit memory usage
+};
+```
+
+For tests that need to persist data to disk:
+
+```csharp
+var config = new AzuriteConfiguration
+{
+    InMemoryPersistence = false,
+    Location = @"C:\temp\azurite-data"  // Directory for data files
+};
+```
+
+### Port Configuration
+
+Breakdance automatically assigns random ports (20000-30000) to avoid conflicts when running tests in parallel:
+
+```csharp
+var config = new AzuriteConfiguration
+{
+    AutoAssignPorts = true,   // Default: true
+    MaxRetries = 20           // Retry attempts if port is in use
+};
+```
+
+If you need specific ports (not recommended for CI/CD):
+
+```csharp
+var config = new AzuriteConfiguration
+{
+    AutoAssignPorts = false,
+    BlobPort = 10000,
+    QueuePort = 10001,
+    TablePort = 10002
+};
+```
+
+### All Configuration Options
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `Services` | `AzuriteServiceType` | `All` | Which services to start (Blob, Queue, Table, or combinations) |
+| `InMemoryPersistence` | `bool` | `true` | Use in-memory storage instead of disk |
+| `Silent` | `bool` | `true` | Suppress Azurite access logs |
+| `ExtentMemoryLimitMB` | `int?` | `null` | Memory limit for in-memory mode |
+| `SkipApiVersionCheck` | `bool` | `true` | Skip API version validation |
+| `DisableTelemetry` | `bool` | `true` | Disable Azurite telemetry |
+| `LooseMode` | `bool` | `false` | Ignore unsupported headers/parameters |
+| `AutoAssignPorts` | `bool` | `true` | Automatically assign random ports |
+| `MaxRetries` | `int` | `20` | Port conflict retry attempts |
+| `StartupTimeoutSeconds` | `int` | `30` | Timeout waiting for Azurite to start |
+| `BlobPort` | `int?` | `null` | Specific blob service port |
+| `QueuePort` | `int?` | `null` | Specific queue service port |
+| `TablePort` | `int?` | `null` | Specific table service port |
+| `Location` | `string` | `null` | Disk persistence directory |
+| `DebugLogPath` | `string` | `null` | Path for debug log file |
+
+## Accessing Azurite
+
+Once your test class is set up, `AzuriteTestBase` provides convenient properties for connecting to the services:
+
+```csharp
+[TestMethod]
+public void AccessEndpoints()
+{
+    // Connection string for Azure SDK clients
+    var connectionString = ConnectionString;
+
+    // Individual endpoint URLs
+    var blobUrl = BlobEndpoint;     // e.g., "http://127.0.0.1:23456"
+    var queueUrl = QueueEndpoint;   // e.g., "http://127.0.0.1:23457"
+    var tableUrl = TableEndpoint;   // e.g., "http://127.0.0.1:23458"
+
+    // Port numbers (useful for custom configurations)
+    var blobPort = BlobPort;        // e.g., 23456
+    var queuePort = QueuePort;      // e.g., 23457
+    var tablePort = TablePort;      // e.g., 23458
+}
+```
+
+<Note>
+Endpoint properties return `null` if that service was not requested in the configuration.
+For example, if you set `Services = AzuriteServiceType.Blob`, then `QueueEndpoint` and `TableEndpoint` will be `null`.
+</Note>
+
+## Testing Patterns
+
+### Testing Blob Storage
+
+```csharp
+[TestMethod]
+public async Task BlobStorage_CanUploadAndDownload()
+{
+    // Arrange
+    var client = new BlobServiceClient(ConnectionString);
+    var container = client.GetBlobContainerClient("test-container");
+    await container.CreateIfNotExistsAsync();
+
+    var blobName = $"test-{Guid.NewGuid()}.txt";
+    var blob = container.GetBlobClient(blobName);
+    var content = "Hello, World!";
+
+    // Act
+    await blob.UploadAsync(BinaryData.FromString(content));
+    var downloaded = await blob.DownloadContentAsync();
+
+    // Assert
+    Assert.AreEqual(content, downloaded.Value.Content.ToString());
+}
+```
+
+### Testing Queue Storage
+
+```csharp
+[TestMethod]
+public async Task QueueStorage_CanSendAndReceiveMessages()
+{
+    // Arrange
+    var client = new QueueServiceClient(ConnectionString);
+    var queue = client.GetQueueClient("test-queue");
+    await queue.CreateIfNotExistsAsync();
+
+    // Act
+    await queue.SendMessageAsync("Test message");
+    var messages = await queue.ReceiveMessagesAsync(maxMessages: 1);
+
+    // Assert
+    Assert.AreEqual(1, messages.Value.Length);
+    Assert.AreEqual("Test message", messages.Value[0].MessageText);
+}
+```
+
+### Testing Table Storage
+
+```csharp
+[TestMethod]
+public async Task TableStorage_CanAddAndQueryEntities()
+{
+    // Arrange
+    var client = new TableServiceClient(ConnectionString);
+    var table = client.GetTableClient("testtable");
+    await table.CreateIfNotExistsAsync();
+
+    var entity = new TableEntity("partition1", "row1")
+    {
+        { "Name", "Test Entity" },
+        { "Value", 42 }
+    };
+
+    // Act
+    await table.AddEntityAsync(entity);
+    var result = await table.GetEntityAsync<TableEntity>("partition1", "row1");
+
+    // Assert
+    Assert.AreEqual("Test Entity", result.Value["Name"]);
+    Assert.AreEqual(42, result.Value["Value"]);
+}
+```
+
+## Advanced Scenarios
+
+### Sharing an Instance Across Multiple Test Classes
+
+If you have many test classes that need the same Azurite configuration, you can use assembly-level initialization:
+
+```csharp AssemblySetup.cs
+using CloudNimble.Breakdance.Azurite;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
+
+[TestClass]
+public static class AssemblySetup
+{
+    public static AzuriteInstance SharedAzurite { get; private set; }
+
+    [AssemblyInitialize]
+    public static async Task AssemblyInit(TestContext ctx)
+    {
+        SharedAzurite = new AzuriteInstance(new AzuriteConfiguration
+        {
+            Services = AzuriteServiceType.All,
+            InMemoryPersistence = true,
+            Silent = true
+        });
+        await SharedAzurite.StartAsync();
+    }
+
+    [AssemblyCleanup]
+    public static async Task AssemblyCleanup()
+    {
+        if (SharedAzurite != null)
+        {
+            await SharedAzurite.DisposeAsync();
+            SharedAzurite = null;
+        }
+    }
+}
+```
+
+Then reference it in your test classes:
+
+```csharp
+[TestClass]
+public class MyTests : AzuriteTestBase
+{
+    protected override AzuriteInstance Azurite => AssemblySetup.SharedAzurite;
+
+    [TestMethod]
+    public void MyTest()
+    {
+        Assert.IsNotNull(BlobEndpoint);
+    }
+}
+```
+
+<Warning>
+When sharing an Azurite instance across test classes, be careful about test isolation.
+Tests that create containers or queues may interfere with each other. Consider using unique
+names (e.g., with `Guid.NewGuid()`) for test resources.
+</Warning>
+
+### Using with Dependency Injection
+
+If your application uses dependency injection, you can register Azure Storage clients with the Azurite connection string:
+
+```csharp
+[TestMethod]
+public async Task TestWithDependencyInjection()
+{
+    // Arrange
+    var services = new ServiceCollection();
+    services.AddSingleton(_ => new BlobServiceClient(ConnectionString));
+    services.AddSingleton(_ => new QueueServiceClient(ConnectionString));
+    services.AddSingleton(_ => new TableServiceClient(ConnectionString));
+
+    // Add your application services
+    services.AddTransient<IMyStorageService, MyStorageService>();
+
+    var provider = services.BuildServiceProvider();
+    var myService = provider.GetRequiredService<IMyStorageService>();
+
+    // Act & Assert
+    await myService.DoSomethingWithStorageAsync();
+}
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Azurite fails to start">
+    Ensure Node.js and Azurite are installed:
+    ```bash
+    node --version
+    npx azurite --version
+    ```
+    If Azurite is not found, install it globally: `npm install -g azurite`
+  </Accordion>
+
+  <Accordion title="Port conflicts">
+    By default, Breakdance uses random ports and retries on conflicts. If you're seeing persistent
+    port issues, check for orphaned Azurite processes:
+    ```bash
+    # Windows
+    taskkill /F /IM node.exe
+
+    # macOS/Linux
+    pkill -f azurite
+    ```
+  </Accordion>
+
+  <Accordion title="Tests interfere with each other">
+    Each test class should have its own static `AzuriteInstance` field. If you're sharing an instance,
+    use unique resource names in each test to avoid conflicts.
+  </Accordion>
+
+  <Accordion title="Slow startup times">
+    - Use `InMemoryPersistence = true` for faster startup
+    - Only start the services you need (e.g., `AzuriteServiceType.Blob` instead of `All`)
+    - Consider sharing an instance across test classes if appropriate
+  </Accordion>
+</AccordionGroup>
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Azurite Documentation" icon="microsoft" href="https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite">
+    Official Microsoft documentation for Azurite
+  </Card>
+  <Card title="Azure Storage SDKs" icon="box" href="https://learn.microsoft.com/en-us/dotnet/api/overview/azure/storage">
+    .NET SDK documentation for Azure Storage
+  </Card>
+</CardGroup>
