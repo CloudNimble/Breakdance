@@ -9,7 +9,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageId>Breakdance.WebApi</PackageId>
 		<Title>Breakdance for WebApi 2</Title>
 		<Summary>
 			Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes

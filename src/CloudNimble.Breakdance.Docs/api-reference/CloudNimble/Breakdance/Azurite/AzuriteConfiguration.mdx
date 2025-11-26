@@ -47,6 +47,22 @@ public Object()
 
 ## Properties
 
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AutoAssignPorts
+
+Gets or sets whether to automatically assign random ports when ports are not specified.
+            When true and ports are null, random ports in 20000-30000 range will be assigned.
+            Defaults to true.
+
+#### Syntax
+
+```csharp
+public bool AutoAssignPorts { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobPort
 
 Gets or sets the optional blob service port.
@@ -147,6 +163,21 @@ public bool LooseMode { get; set; }
 #### Property Value
 
 Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> MaxRetries
+
+Gets or sets the maximum number of retry attempts when port conflicts occur.
+            Only applies when [AzuriteConfiguration.AutoAssignPorts](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#autoassignports) is true. Defaults to 20.
+
+#### Syntax
+
+```csharp
+public int MaxRetries { get; set; }
+```
+
+#### Property Value
+
+Type: `int`
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueuePort
 

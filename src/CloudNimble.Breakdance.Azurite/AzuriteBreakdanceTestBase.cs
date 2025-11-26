@@ -54,7 +54,7 @@ namespace CloudNimble.Breakdance.Azurite
     /// </code>
     /// </example>
     /// </remarks>
-    public abstract class AzuriteTestBase : BreakdanceTestBase
+    public abstract class AzuriteBreakdanceTestBase : BreakdanceTestBase
     {
 
         #region Properties

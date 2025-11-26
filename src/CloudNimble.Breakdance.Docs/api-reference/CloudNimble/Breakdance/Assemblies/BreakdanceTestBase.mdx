@@ -3,7 +3,7 @@ title: BreakdanceTestBase
 description: "A base class for unit tests that maintains an [IHost](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost) with configuration and a Dep..."
 icon: shapes
 tag: "ABSTRACT"
-keywords: ['BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies', 'class', 'System.Object', 'System.IDisposable']
+keywords: ['BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies', 'class', 'System.Object', 'System.IDisposable', 'System.IAsyncDisposable']
 ---
 
 import { DocsBadge } from '/snippets/DocsBadge.jsx';
@@ -109,6 +109,27 @@ public virtual void AssemblySetup()
 With MSTest, use [AssemblyInitialize].
             With NUnit, use [OneTimeSetup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
+            This method calls [BreakdanceTestBase.AssemblySetupAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#assemblysetupasync) synchronously.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetupAsync <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test assemblies to setup the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task AssemblySetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [AssemblyInitialize] with async Task return type.
+            With NUnit, use [OneTimeSetup] with async Task return type.
+            With xUnit, good luck: https://xunit.net/docs/shared-context
 
 ### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblyTearDown <DocsBadge text="Virtual" variant="warning" />
 
@@ -124,6 +145,27 @@ public virtual void AssemblyTearDown()
 
 With MSTest, use [AssemblyCleanup].
             With NUnit, use [OneTimeTearDown].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+            This method calls [BreakdanceTestBase.AssemblyTearDownAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#assemblyteardownasync) synchronously.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblyTearDownAsync <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test assemblies to clean up the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task AssemblyTearDownAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [AssemblyCleanup] with async Task return type.
+            With NUnit, use [OneTimeTearDown] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
 ### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassSetup <DocsBadge text="Virtual" variant="warning" />
@@ -141,6 +183,27 @@ public virtual void ClassSetup()
 With MSTest, use [ClassInitialize].
             With NUnit, use [OneTimeSetup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
+            This method calls [BreakdanceTestBase.ClassSetupAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#classsetupasync) synchronously.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassSetupAsync <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to setup the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task ClassSetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [ClassInitialize] with async Task return type.
+            With NUnit, use [OneTimeSetup] with async Task return type.
+            With xUnit, good luck: https://xunit.net/docs/shared-context
 
 ### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassTearDown <DocsBadge text="Virtual" variant="warning" />
 
@@ -157,6 +220,27 @@ public virtual void ClassTearDown()
 With MSTest, use [ClassCleanup].
             With NUnit, use [OneTimeTearDown].
             With xUnit, good luck: https://xunit.net/docs/shared-context
+            This method calls [BreakdanceTestBase.ClassTearDownAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#classteardownasync) synchronously.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassTearDownAsync <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to clean up the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task ClassTearDownAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [ClassCleanup] with async Task return type.
+            With NUnit, use [OneTimeTearDown] with async Task return type.
+            With xUnit, good luck: https://xunit.net/docs/shared-context
 
 ### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Dispose
 
@@ -167,6 +251,20 @@ Clean up disposable objects in the environment.
 ```csharp
 public void Dispose()
 ```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DisposeAsync
+
+Asynchronously clean up disposable objects in the environment.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask DisposeAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
 
 ### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
 
@@ -576,6 +674,27 @@ public virtual void TestSetup()
 With MSTest, use [TestInitialize].
             With NUnit, use [Setup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
+            This method calls [BreakdanceTestBase.TestSetupAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#testsetupasync) synchronously.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetupAsync <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to setup the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task TestSetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [TestInitialize] with async Task return type.
+            With NUnit, use [Setup] with async Task return type.
+            With xUnit, good luck: https://xunit.net/docs/shared-context
 
 ### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDown <DocsBadge text="Virtual" variant="warning" />
 
@@ -591,6 +710,27 @@ public virtual void TestTearDown()
 
 With MSTest, use [TestCleanup].
             With NUnit, use [TearDown].
+            With xUnit, good luck: https://xunit.net/docs/shared-context
+            This method calls [BreakdanceTestBase.TestTearDownAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#testteardownasync) synchronously.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDownAsync <DocsBadge text="Virtual" variant="warning" />
+
+Method used by test classes to clean up the environment asynchronously.
+
+#### Syntax
+
+```csharp
+public virtual System.Threading.Tasks.Task TestTearDownAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+With MSTest, use [TestCleanup] with async Task return type.
+            With NUnit, use [TearDown] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
 ### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
@@ -610,4 +750,5 @@ Type: `string?`
 ## Related APIs
 
 - System.IDisposable
+- System.IAsyncDisposable
 

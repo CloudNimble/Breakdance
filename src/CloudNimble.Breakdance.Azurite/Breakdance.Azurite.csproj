@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 		<!-- Include .targets file in NuGet package -->
-		<None Include="Breakdance.Azurite.targets" Pack="true" PackagePath="build\$(AssemblyName).targets" />
+		<None Include="Breakdance.Azurite.targets" Pack="true" PackagePath="build\$(PackageId).targets" />
 	</ItemGroup>
 
 	<ItemGroup>

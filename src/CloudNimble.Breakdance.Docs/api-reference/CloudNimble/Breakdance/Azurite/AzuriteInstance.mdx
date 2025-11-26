@@ -2,7 +2,7 @@
 title: AzuriteInstance
 description: "Represents a running Azurite instance with process lifecycle management."
 icon: file-brackets-curly
-keywords: ['AzuriteInstance', 'CloudNimble.Breakdance.Azurite.AzuriteInstance', 'CloudNimble.Breakdance.Azurite', 'class', 'System.Object', 'System.IDisposable']
+keywords: ['AzuriteInstance', 'CloudNimble.Breakdance.Azurite.AzuriteInstance', 'CloudNimble.Breakdance.Azurite', 'class', 'System.Object', 'System.IDisposable', 'System.IAsyncDisposable']
 ---
 
 import { DocsBadge } from '/snippets/DocsBadge.jsx';
@@ -58,7 +58,7 @@ public Object()
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobEndpoint
 
 Gets the HTTP endpoint URL for the Blob service.
-            Returns null if Blob service was not requested.
+            Returns null if Blob service was not requested or not started.
 
 #### Syntax
 
@@ -72,17 +72,17 @@ Type: `string`
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobPort
 
-Gets the port number for the Blob service, or 0 if not started.
+Gets the port number for the Blob service, or null if not started.
 
 #### Syntax
 
 ```csharp
-public int BlobPort { get; private set; }
+public System.Nullable<int> BlobPort { get; private set; }
 ```
 
 #### Property Value
 
-Type: `int`
+Type: `System.Nullable<int>`
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> IsRunning
 
@@ -101,7 +101,7 @@ Type: `bool`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueueEndpoint
 
 Gets the HTTP endpoint URL for the Queue service.
-            Returns null if Queue service was not requested.
+            Returns null if Queue service was not requested or not started.
 
 #### Syntax
 
@@ -115,17 +115,17 @@ Type: `string`
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueuePort
 
-Gets the port number for the Queue service, or 0 if not started.
+Gets the port number for the Queue service, or null if not started.
 
 #### Syntax
 
 ```csharp
-public int QueuePort { get; private set; }
+public System.Nullable<int> QueuePort { get; private set; }
 ```
 
 #### Property Value
 
-Type: `int`
+Type: `System.Nullable<int>`
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StandardError
 
@@ -158,7 +158,7 @@ Type: `string`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TableEndpoint
 
 Gets the HTTP endpoint URL for the Table service.
-            Returns null if Table service was not requested.
+            Returns null if Table service was not requested or not started.
 
 #### Syntax
 
@@ -172,17 +172,17 @@ Type: `string`
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TablePort
 
-Gets the port number for the Table service, or 0 if not started.
+Gets the port number for the Table service, or null if not started.
 
 #### Syntax
 
 ```csharp
-public int TablePort { get; private set; }
+public System.Nullable<int> TablePort { get; private set; }
 ```
 
 #### Property Value
 
-Type: `int`
+Type: `System.Nullable<int>`
 
 ## Methods
 
@@ -195,6 +195,20 @@ Disposes the Azurite instance and releases all resources.
 ```csharp
 public void Dispose()
 ```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DisposeAsync
+
+Asynchronously disposes the Azurite instance and releases all resources.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask DisposeAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
 
 ### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
 
@@ -326,6 +340,7 @@ Type: `bool`
 ### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StartAsync
 
 Starts the Azurite instance asynchronously.
+            Includes automatic retry logic for port conflicts when [AzuriteConfiguration.AutoAssignPorts](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#autoassignports) is true.
 
 #### Syntax
 
@@ -370,4 +385,5 @@ Type: `string?`
 ## Related APIs
 
 - System.IDisposable
+- System.IAsyncDisposable
 

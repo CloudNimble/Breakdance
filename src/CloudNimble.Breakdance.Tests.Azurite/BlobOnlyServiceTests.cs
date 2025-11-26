@@ -9,7 +9,7 @@ namespace CloudNimble.Breakdance.Tests.Azurite
     /// Tests for Blob-only service startup.
     /// </summary>
     [TestClass]
-    public class BlobOnlyServiceTests : AzuriteTestBase
+    public class BlobOnlyServiceTests : AzuriteBreakdanceTestBase
     {
         private static AzuriteInstance _azurite;
 

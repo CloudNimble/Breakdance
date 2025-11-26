@@ -8,7 +8,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageId>Breakdance.AspNetCore</PackageId>
 		<Title>Breakdance for AspNetCore</Title>
 		<Summary>
 			Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package contains helper classes

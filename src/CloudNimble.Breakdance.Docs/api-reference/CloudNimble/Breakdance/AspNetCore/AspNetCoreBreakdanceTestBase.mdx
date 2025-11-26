@@ -232,7 +232,7 @@ With MSTest, use [AssemblyInitialize].
             With NUnit, use [OneTimeSetup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetupAsync <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -241,7 +241,7 @@ Method used by test assemblies to setup the environment asynchronously.
 #### Syntax
 
 ```csharp
-public virtual System.Threading.Tasks.Task AssemblySetupAsync()
+public override System.Threading.Tasks.Task AssemblySetupAsync()
 ```
 
 #### Returns
@@ -451,7 +451,7 @@ With MSTest, use [TestInitialize].
             With NUnit, use [Setup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetupAsync <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetupAsync <DocsBadge text="Override" variant="info" />
 
 <Note>Inherited from `CloudNimble.Breakdance.AspNetCore.AspNetCoreBreakdanceTestBase`</Note>
 
@@ -460,7 +460,7 @@ Method used by test classes to setup the environment asynchronously.
 #### Syntax
 
 ```csharp
-public virtual System.Threading.Tasks.Task TestSetupAsync()
+public override System.Threading.Tasks.Task TestSetupAsync()
 ```
 
 #### Returns

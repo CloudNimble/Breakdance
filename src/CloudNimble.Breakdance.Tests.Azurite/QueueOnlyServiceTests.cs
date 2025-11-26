@@ -9,7 +9,7 @@ namespace CloudNimble.Breakdance.Tests.Azurite
     /// Tests for Queue-only service startup.
     /// </summary>
     [TestClass]
-    public class QueueOnlyServiceTests : AzuriteTestBase
+    public class QueueOnlyServiceTests : AzuriteBreakdanceTestBase
     {
         private static AzuriteInstance _azurite;
 

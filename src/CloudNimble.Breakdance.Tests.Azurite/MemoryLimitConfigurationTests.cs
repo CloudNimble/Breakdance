@@ -9,7 +9,7 @@ namespace CloudNimble.Breakdance.Tests.Azurite
     /// Tests for memory limit configuration.
     /// </summary>
     [TestClass]
-    public class MemoryLimitConfigurationTests : AzuriteTestBase
+    public class MemoryLimitConfigurationTests : AzuriteBreakdanceTestBase
     {
         private static AzuriteInstance _azurite;
 

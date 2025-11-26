@@ -10,7 +10,7 @@ namespace CloudNimble.Breakdance.Tests.Azurite
     /// Tests for configuration overrides.
     /// </summary>
     [TestClass]
-    public class ConfigurationOverrideTests : AzuriteTestBase
+    public class ConfigurationOverrideTests : AzuriteBreakdanceTestBase
     {
         private static AzuriteInstance _azurite;
 

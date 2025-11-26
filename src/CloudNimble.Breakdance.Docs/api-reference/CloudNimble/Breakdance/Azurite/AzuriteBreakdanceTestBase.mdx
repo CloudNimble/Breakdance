@@ -1,0 +1,181 @@
+---
+title: AzuriteBreakdanceTestBase
+description: "Base class for tests that require an Azurite instance.              Each derived class must declare its own static [AzuriteInstance](/api-reference/CloudNimb..."
+icon: shapes
+tag: "ABSTRACT"
+keywords: ['AzuriteBreakdanceTestBase', 'CloudNimble.Breakdance.Azurite.AzuriteBreakdanceTestBase', 'CloudNimble.Breakdance.Azurite', 'class', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Azurite.dll
+
+**Namespace:** CloudNimble.Breakdance.Azurite
+
+**Inheritance:** CloudNimble.Breakdance.Assemblies.BreakdanceTestBase
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Azurite.AzuriteBreakdanceTestBase
+```
+
+## Summary
+
+Base class for tests that require an Azurite instance.
+             Each derived class must declare its own static [AzuriteInstance](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteInstance) field
+             and override the `Azurite` property to return it.
+
+## Remarks
+
+
+
+
+             MSTest requires [ClassInitialize] and [ClassCleanup] to be static methods.
+             To avoid cross-class pollution (static fields on a base class are shared by ALL derived classes),
+             each test class must own its own static instance.
+             
+
+
+
+## Examples
+
+```csharp
+[TestClass]
+public class MyTests : AzuriteTestBase
+{
+    private static AzuriteInstance _azurite;
+
+    protected override AzuriteInstance Azurite =&gt; _azurite;
+
+    [ClassInitialize]
+    public static async Task ClassInit(TestContext ctx)
+    {
+        _azurite = await CreateAndStartInstanceAsync(new AzuriteConfiguration
+        {
+            Services = AzuriteServiceType.All,
+            InMemoryPersistence = true,
+            Silent = true
+        });
+    }
+
+    [ClassCleanup]
+    public static async Task ClassCleanup()
+    {
+        if (_azurite != null)
+        {
+            await _azurite.DisposeAsync();
+            _azurite = null;
+        }
+    }
+
+    [TestMethod]
+    public void MyTest()
+    {
+        Assert.IsNotNull(BlobEndpoint);
+    }
+}
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobEndpoint
+
+Gets the Blob service endpoint URL.
+
+#### Syntax
+
+```csharp
+public string BlobEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobPort
+
+Gets the Blob service port number, or null if not started.
+
+#### Syntax
+
+```csharp
+public System.Nullable<int> BlobPort { get; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<int>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ConnectionString
+
+Gets a connection string for the Azurite Development Storage account.
+
+#### Syntax
+
+```csharp
+public string ConnectionString { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueueEndpoint
+
+Gets the Queue service endpoint URL.
+
+#### Syntax
+
+```csharp
+public string QueueEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueuePort
+
+Gets the Queue service port number, or null if not started.
+
+#### Syntax
+
+```csharp
+public System.Nullable<int> QueuePort { get; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<int>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TableEndpoint
+
+Gets the Table service endpoint URL.
+
+#### Syntax
+
+```csharp
+public string TableEndpoint { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TablePort
+
+Gets the Table service port number, or null if not started.
+
+#### Syntax
+
+```csharp
+public System.Nullable<int> TablePort { get; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<int>`
+

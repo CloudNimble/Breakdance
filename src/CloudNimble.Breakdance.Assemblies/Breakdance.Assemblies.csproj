@@ -9,11 +9,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>Breakdance.Assemblies</PackageId>
         <Title>Breakdance for Assemblies</Title>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <Summary>
             Breakdance is a testing framework for managing the dangerous dance of shipping public APIs. This package helps generate
             public API reports for any .NET assembly, and compare them against a prior unit test run. That way, if something in the

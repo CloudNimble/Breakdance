@@ -17,6 +17,12 @@
         ]
       },
       {
+        "group": "Guides",
+        "pages": [
+          "guides/testing-azure-storage"
+        ]
+      },
+      {
         "group": "API Reference",
         "icon": "code",
         "pages": [
@@ -67,6 +73,17 @@
                           "api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheWriteDelegatingHandler"
                         ]
                       }
+                    ]
+                  },
+                  {
+                    "group": "Azurite",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/Breakdance/Azurite/index",
+                      "api-reference/CloudNimble/Breakdance/Azurite/AzuriteBreakdanceTestBase",
+                      "api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration",
+                      "api-reference/CloudNimble/Breakdance/Azurite/AzuriteInstance",
+                      "api-reference/CloudNimble/Breakdance/Azurite/AzuriteServiceType"
                     ]
                   },
                   {
