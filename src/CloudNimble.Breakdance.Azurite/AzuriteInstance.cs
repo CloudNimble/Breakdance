@@ -171,6 +171,10 @@ namespace CloudNimble.Breakdance.Azurite
             var workingDirectory = GetAzuriteDirectory();
             var fullCommand = $"npx {command} {args}";
 
+            // Build the window title for process identification
+            var instanceName = string.IsNullOrWhiteSpace(_config.InstanceName) ? "Unknown" : _config.InstanceName;
+            var windowTitle = $"Breakdance.Azurite - {instanceName}";
+
             // Use cmd.exe /k (instead of /c) to keep cmd.exe alive.
             // This maintains the process tree so Kill(entireProcessTree: true) works correctly.
             // With /c, cmd.exe exits immediately after spawning npx, orphaning the Node processes.
@@ -179,7 +183,7 @@ namespace CloudNimble.Breakdance.Azurite
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/k {fullCommand}",
+                    Arguments = $"/k title {windowTitle} && {fullCommand}",
                     WorkingDirectory = workingDirectory,
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -192,8 +196,9 @@ namespace CloudNimble.Breakdance.Azurite
             };
 
             // Log the command for debugging
-            _outputBuffer.AppendLine($"[DEBUG] Starting process: cmd.exe /k {fullCommand}");
+            _outputBuffer.AppendLine($"[DEBUG] Starting process: cmd.exe /k title {windowTitle} && {fullCommand}");
             _outputBuffer.AppendLine($"[DEBUG] Working directory: {workingDirectory}");
+            _outputBuffer.AppendLine($"[DEBUG] Instance name: {instanceName}");
 
             // Capture output and parse ports
             _process.OutputDataReceived += (sender, e) =>
@@ -212,6 +217,11 @@ namespace CloudNimble.Breakdance.Azurite
             };
 
             _process.Start();
+
+            // Assign the process to a Windows Job Object so it's automatically killed
+            // when the parent .NET process exits (for any reason: crash, Ctrl+C, debugger detach, etc.)
+            WindowsJobObject.AssignProcess(_process);
+
             _process.BeginOutputReadLine();
             _process.BeginErrorReadLine();
         }

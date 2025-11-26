@@ -1,4 +1,5 @@
 using CloudNimble.Breakdance.Assemblies;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Azurite
@@ -113,6 +114,14 @@ namespace CloudNimble.Breakdance.Azurite
         protected static async Task<AzuriteInstance> CreateAndStartInstanceAsync(AzuriteConfiguration config = null)
         {
             config ??= new AzuriteConfiguration();
+
+            // Auto-populate instance name from caller's class name if not set
+            if (string.IsNullOrWhiteSpace(config.InstanceName))
+            {
+                var callerType = new StackFrame(1).GetMethod()?.DeclaringType;
+                config.InstanceName = callerType?.Name ?? "Unknown";
+            }
+
             var instance = new AzuriteInstance(config);
             await instance.StartAsync();
             return instance;

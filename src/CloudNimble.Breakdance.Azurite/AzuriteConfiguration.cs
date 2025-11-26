@@ -94,6 +94,13 @@ namespace CloudNimble.Breakdance.Azurite
         /// </summary>
         public int MaxRetries { get; set; } = 20;
 
+        /// <summary>
+        /// Gets or sets a name to identify this Azurite instance (e.g., test class name).
+        /// Used for process identification and debugging. The full window title will be
+        /// "Breakdance.Azurite - {InstanceName}". If not set, defaults to "Unknown".
+        /// </summary>
+        public string InstanceName { get; set; }
+
         #endregion
 
     }

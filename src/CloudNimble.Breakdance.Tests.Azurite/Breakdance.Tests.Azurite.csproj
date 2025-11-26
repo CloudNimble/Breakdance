@@ -9,6 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Azure.Data.Tables" Version="12.10.0" />
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.24.0" />
+        <PackageReference Include="Azure.Storage.Queues" Version="12.22.0" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\CloudNimble.Breakdance.Azurite\Breakdance.Azurite.csproj" />
         <ProjectReference Include="..\CloudNimble.Breakdance.Extensions.MSTest2\Breakdance.Extensions.MSTest2.csproj" />
     </ItemGroup>

@@ -39,7 +39,7 @@
 	</PropertyGroup>
 
 	<!-- Check for npm and restore packages, only on .NET 10 to prevent it trying to install 3x. Skip during pack. -->
-	<Target Name="NpmInstall" Condition="'$(TargetFramework)' == 'net10.0' AND '$(NoBuild)' != 'true' AND '$(SkipNpmInstall)' != 'true'">
+	<Target Name="NpmInstall" Condition="'$(IsInnerBuild)' != 'true' AND '$(NoBuild)' != 'true'">
 		<Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true">
 			<Output TaskParameter="ExitCode" PropertyName="NpmExitCode" />
 		</Exec>

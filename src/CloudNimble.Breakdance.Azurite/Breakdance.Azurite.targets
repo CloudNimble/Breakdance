@@ -1,7 +1,7 @@
 <Project>
 
-	<!-- Ensure Azurite is globally installed before running tests -->
-	<Target Name="EnsureAzuriteInstalled" BeforeTargets="Build">
+	<!-- Ensure Azurite is globally installed before running tests. Only run once in multi-targeting builds. -->
+	<Target Name="EnsureAzuriteInstalled" BeforeTargets="Build" Condition="'$(IsInnerBuild)' != 'true'">
 
 		<!-- Check if npm is installed -->
 		<Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true" ConsoleToMSBuild="true">
