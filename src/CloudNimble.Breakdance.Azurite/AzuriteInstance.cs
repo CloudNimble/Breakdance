@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace CloudNimble.Breakdance.Azurite
 {
@@ -21,14 +24,20 @@ namespace CloudNimble.Breakdance.Azurite
         private readonly AzuriteConfiguration _config;
         private bool _isRunning;
         private bool _disposed;
-        private StringBuilder _outputBuffer = new StringBuilder();
-        private StringBuilder _errorBuffer = new StringBuilder();
-        private TaskCompletionSource<bool> _portsDetected = new TaskCompletionSource<bool>();
+        private StringBuilder _outputBuffer = new();
+        private StringBuilder _errorBuffer = new();
+        private TaskCompletionSource<bool> _portsDetected = new();
         private int _successfulServicesCount = 0;
-        private readonly Random _random = new Random();
+        private readonly Random _random = new();
         private int? _attemptingBlobPort;
         private int? _attemptingQueuePort;
         private int? _attemptingTablePort;
+
+        // HTTP client for storage REST API calls
+        private HttpClient _httpClient;
+        private const string DefaultAccountName = "devstoreaccount1";
+        private const string DefaultAccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+        private const string StorageApiVersion = "2020-10-02";
 
         #endregion
 
@@ -349,6 +358,265 @@ namespace CloudNimble.Breakdance.Azurite
             await DisposeAsyncCore().ConfigureAwait(false);
             Dispose(disposing: false);
             GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region Storage Cleanup Methods
+
+        /// <summary>
+        /// Clears all messages from a queue. Does nothing if the queue doesn't exist.
+        /// </summary>
+        /// <param name="queueName">The name of the queue to clear.</param>
+        /// <returns>A task that completes when the operation finishes.</returns>
+        public async Task ClearQueueMessagesAsync(string queueName)
+        {
+            if (string.IsNullOrWhiteSpace(queueName))
+                throw new ArgumentException("Queue name cannot be null or empty.", nameof(queueName));
+
+            if (QueueEndpoint == null)
+                throw new InvalidOperationException("Queue service is not running.");
+
+            using var response = await SendStorageRequestAsync(
+                HttpMethod.Delete,
+                QueueEndpoint,
+                $"/{queueName}/messages").ConfigureAwait(false);
+
+            // Accept success or 404 (queue doesn't exist) - idempotent operation
+            if (!response.IsSuccessStatusCode && response.StatusCode != System.Net.HttpStatusCode.NotFound)
+            {
+                throw new InvalidOperationException($"Failed to clear queue '{queueName}': {response.StatusCode}");
+            }
+        }
+
+        /// <summary>
+        /// Deletes a queue. Does nothing if the queue doesn't exist.
+        /// </summary>
+        /// <param name="queueName">The name of the queue to delete.</param>
+        /// <returns>A task that completes when the operation finishes.</returns>
+        public async Task DeleteQueueAsync(string queueName)
+        {
+            if (string.IsNullOrWhiteSpace(queueName))
+                throw new ArgumentException("Queue name cannot be null or empty.", nameof(queueName));
+
+            if (QueueEndpoint == null)
+                throw new InvalidOperationException("Queue service is not running.");
+
+            using var response = await SendStorageRequestAsync(
+                HttpMethod.Delete,
+                QueueEndpoint,
+                $"/{queueName}").ConfigureAwait(false);
+
+            // Accept success or 404 (queue doesn't exist) - idempotent operation
+            if (!response.IsSuccessStatusCode && response.StatusCode != System.Net.HttpStatusCode.NotFound)
+            {
+                throw new InvalidOperationException($"Failed to delete queue '{queueName}': {response.StatusCode}");
+            }
+        }
+
+        /// <summary>
+        /// Lists all queues in the storage account.
+        /// </summary>
+        /// <returns>A list of queue names.</returns>
+        public async Task<List<string>> ListQueuesAsync()
+        {
+            if (QueueEndpoint == null)
+                throw new InvalidOperationException("Queue service is not running.");
+
+            using var response = await SendStorageRequestAsync(
+                HttpMethod.Get,
+                QueueEndpoint,
+                "?comp=list").ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var doc = XDocument.Parse(content);
+            var queues = new List<string>();
+
+            foreach (var queue in doc.Descendants("Queue"))
+            {
+                var name = queue.Element("Name")?.Value;
+                if (!string.IsNullOrEmpty(name))
+                    queues.Add(name);
+            }
+
+            return queues;
+        }
+
+        /// <summary>
+        /// Deletes all queues in the storage account.
+        /// </summary>
+        /// <returns>A task that completes when all queues are deleted.</returns>
+        public async Task ClearAllQueuesAsync()
+        {
+            var queues = await ListQueuesAsync().ConfigureAwait(false);
+            foreach (var queue in queues)
+            {
+                await DeleteQueueAsync(queue).ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// Deletes a blob container. Does nothing if the container doesn't exist.
+        /// </summary>
+        /// <param name="containerName">The name of the container to delete.</param>
+        /// <returns>A task that completes when the operation finishes.</returns>
+        public async Task DeleteBlobContainerAsync(string containerName)
+        {
+            if (string.IsNullOrWhiteSpace(containerName))
+                throw new ArgumentException("Container name cannot be null or empty.", nameof(containerName));
+
+            if (BlobEndpoint == null)
+                throw new InvalidOperationException("Blob service is not running.");
+
+            using var response = await SendStorageRequestAsync(
+                HttpMethod.Delete,
+                BlobEndpoint,
+                $"/{containerName}?restype=container").ConfigureAwait(false);
+
+            // Accept success or 404 (container doesn't exist) - idempotent operation
+            if (!response.IsSuccessStatusCode && response.StatusCode != System.Net.HttpStatusCode.NotFound)
+            {
+                throw new InvalidOperationException($"Failed to delete container '{containerName}': {response.StatusCode}");
+            }
+        }
+
+        /// <summary>
+        /// Lists all blob containers in the storage account.
+        /// </summary>
+        /// <returns>A list of container names.</returns>
+        public async Task<List<string>> ListBlobContainersAsync()
+        {
+            if (BlobEndpoint == null)
+                throw new InvalidOperationException("Blob service is not running.");
+
+            using var response = await SendStorageRequestAsync(
+                HttpMethod.Get,
+                BlobEndpoint,
+                "/?comp=list").ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var doc = XDocument.Parse(content);
+            var containers = new List<string>();
+
+            foreach (var container in doc.Descendants("Container"))
+            {
+                var name = container.Element("Name")?.Value;
+                if (!string.IsNullOrEmpty(name))
+                    containers.Add(name);
+            }
+
+            return containers;
+        }
+
+        /// <summary>
+        /// Deletes all blob containers in the storage account.
+        /// </summary>
+        /// <returns>A task that completes when all containers are deleted.</returns>
+        public async Task ClearAllBlobContainersAsync()
+        {
+            var containers = await ListBlobContainersAsync().ConfigureAwait(false);
+            foreach (var container in containers)
+            {
+                await DeleteBlobContainerAsync(container).ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// Deletes a table. Does nothing if the table doesn't exist.
+        /// </summary>
+        /// <param name="tableName">The name of the table to delete.</param>
+        /// <returns>A task that completes when the operation finishes.</returns>
+        public async Task DeleteTableAsync(string tableName)
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+                throw new ArgumentException("Table name cannot be null or empty.", nameof(tableName));
+
+            if (TableEndpoint == null)
+                throw new InvalidOperationException("Table service is not running.");
+
+            // Table service requires OData headers
+            var tableHeaders = new Dictionary<string, string>
+            {
+                ["Accept"] = "application/json;odata=minimalmetadata",
+                ["DataServiceVersion"] = "3.0"
+            };
+
+            using var response = await SendStorageRequestAsync(
+                HttpMethod.Delete,
+                TableEndpoint,
+                $"/Tables('{tableName}')",
+                tableHeaders,
+                useTableAuth: true).ConfigureAwait(false);
+
+            // Accept success or 404 (table doesn't exist) - idempotent operation
+            if (!response.IsSuccessStatusCode && response.StatusCode != System.Net.HttpStatusCode.NotFound)
+            {
+                throw new InvalidOperationException($"Failed to delete table '{tableName}': {response.StatusCode}");
+            }
+        }
+
+        /// <summary>
+        /// Lists all tables in the storage account.
+        /// </summary>
+        /// <returns>A list of table names.</returns>
+        public async Task<List<string>> ListTablesAsync()
+        {
+            if (TableEndpoint == null)
+                throw new InvalidOperationException("Table service is not running.");
+
+            // Table service requires OData headers
+            var tableHeaders = new Dictionary<string, string>
+            {
+                ["Accept"] = "application/json;odata=minimalmetadata",
+                ["DataServiceVersion"] = "3.0"
+            };
+
+            using var response = await SendStorageRequestAsync(
+                HttpMethod.Get,
+                TableEndpoint,
+                "/Tables",
+                tableHeaders,
+                useTableAuth: true).ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            // Table service returns JSON, not XML
+            var tables = new List<string>();
+
+            // Simple JSON parsing for table names - format: {"value":[{"TableName":"name1"},{"TableName":"name2"}]}
+            // Using basic string parsing to avoid adding System.Text.Json dependency concerns
+            var startIndex = 0;
+            while ((startIndex = content.IndexOf("\"TableName\":", startIndex, StringComparison.Ordinal)) != -1)
+            {
+                startIndex += 12; // Skip past "TableName":
+                var valueStart = content.IndexOf('"', startIndex);
+                if (valueStart == -1) break;
+                var valueEnd = content.IndexOf('"', valueStart + 1);
+                if (valueEnd == -1) break;
+                tables.Add(content.Substring(valueStart + 1, valueEnd - valueStart - 1));
+                startIndex = valueEnd + 1;
+            }
+
+            return tables;
+        }
+
+        /// <summary>
+        /// Deletes all tables in the storage account.
+        /// </summary>
+        /// <returns>A task that completes when all tables are deleted.</returns>
+        public async Task ClearAllTablesAsync()
+        {
+            var tables = await ListTablesAsync().ConfigureAwait(false);
+            foreach (var table in tables)
+            {
+                await DeleteTableAsync(table).ConfigureAwait(false);
+            }
         }
 
         #endregion
@@ -768,6 +1036,211 @@ namespace CloudNimble.Breakdance.Azurite
             }
         }
 
+        /// <summary>
+        /// Ensures the HTTP client is initialized.
+        /// </summary>
+        private HttpClient EnsureHttpClient()
+        {
+            _httpClient ??= new HttpClient();
+            return _httpClient;
+        }
+
+        /// <summary>
+        /// Computes the SharedKey authorization signature for Azure Storage REST API requests (Blob/Queue services).
+        /// </summary>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="canonicalizedResource">The canonicalized resource string.</param>
+        /// <param name="date">The RFC1123 formatted date.</param>
+        /// <param name="canonicalizedHeaders">The canonicalized headers string.</param>
+        /// <param name="contentLength">The content length (empty string for no body).</param>
+        /// <param name="contentType">The content type (empty string for no body).</param>
+        /// <returns>The authorization header value.</returns>
+        private string ComputeSharedKeySignature(
+            HttpMethod method,
+            string canonicalizedResource,
+            string date,
+            string canonicalizedHeaders,
+            string contentLength = "",
+            string contentType = "")
+        {
+            // String to sign format for Blob/Queue services
+            // VERB\n
+            // Content-Encoding\n
+            // Content-Language\n
+            // Content-Length\n
+            // Content-MD5\n
+            // Content-Type\n
+            // Date\n
+            // If-Modified-Since\n
+            // If-Match\n
+            // If-None-Match\n
+            // If-Unmodified-Since\n
+            // Range\n
+            // CanonicalizedHeaders
+            // CanonicalizedResource
+
+            var stringToSign = string.Join("\n",
+                method.Method.ToUpperInvariant(),
+                "", // Content-Encoding
+                "", // Content-Language
+                contentLength, // Content-Length
+                "", // Content-MD5
+                contentType, // Content-Type
+                "", // Date (we use x-ms-date instead)
+                "", // If-Modified-Since
+                "", // If-Match
+                "", // If-None-Match
+                "", // If-Unmodified-Since
+                "", // Range
+                canonicalizedHeaders + canonicalizedResource);
+
+            Debug.WriteLine($"[AzuriteInstance] StringToSign (escaped): {stringToSign.Replace("\n", "\\n")}");
+
+            using var hmac = new HMACSHA256(Convert.FromBase64String(DefaultAccountKey));
+            var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign)));
+            return $"SharedKey {DefaultAccountName}:{signature}";
+        }
+
+        /// <summary>
+        /// Computes the SharedKey authorization signature for Azure Table Storage REST API requests.
+        /// Table service uses a different (simpler) string-to-sign format than Blob/Queue.
+        /// </summary>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="canonicalizedResource">The canonicalized resource string.</param>
+        /// <param name="date">The RFC1123 formatted date.</param>
+        /// <param name="contentType">The content type (empty string for no body).</param>
+        /// <returns>The authorization header value.</returns>
+        private string ComputeTableSharedKeySignature(
+            HttpMethod method,
+            string canonicalizedResource,
+            string date,
+            string contentType = "")
+        {
+            // Table service uses a different string to sign format:
+            // VERB\n
+            // Content-MD5\n
+            // Content-Type\n
+            // Date\n
+            // CanonicalizedResource
+
+            var stringToSign = string.Join("\n",
+                method.Method.ToUpperInvariant(),
+                "", // Content-MD5
+                contentType, // Content-Type
+                date, // Date (use the date value directly, not x-ms-date)
+                canonicalizedResource);
+
+            Debug.WriteLine($"[AzuriteInstance] Table StringToSign (escaped): {stringToSign.Replace("\n", "\\n")}");
+
+            using var hmac = new HMACSHA256(Convert.FromBase64String(DefaultAccountKey));
+            var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign)));
+            return $"SharedKey {DefaultAccountName}:{signature}";
+        }
+
+        /// <summary>
+        /// Sends an authenticated HTTP request to the Azure Storage REST API.
+        /// </summary>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="endpoint">The service endpoint URL.</param>
+        /// <param name="path">The resource path (can include query parameters like ?comp=list).</param>
+        /// <param name="additionalHeaders">Additional headers to include.</param>
+        /// <param name="useTableAuth">True to use Table service authentication format.</param>
+        /// <returns>The HTTP response.</returns>
+        private async Task<HttpResponseMessage> SendStorageRequestAsync(
+            HttpMethod method,
+            string endpoint,
+            string path,
+            Dictionary<string, string> additionalHeaders = null,
+            bool useTableAuth = false)
+        {
+            var client = EnsureHttpClient();
+            var date = DateTime.UtcNow.ToString("R");
+            var url = $"{endpoint}/{DefaultAccountName}{path}";
+
+            using var request = new HttpRequestMessage(method, url);
+
+            // Add required headers
+            request.Headers.Add("x-ms-date", date);
+            request.Headers.Add("x-ms-version", StorageApiVersion);
+
+            // Add any additional headers
+            if (additionalHeaders != null)
+            {
+                foreach (var header in additionalHeaders)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                }
+            }
+
+            // Build canonicalized headers (sorted, lowercase)
+            var canonicalizedHeaders = $"x-ms-date:{date}\nx-ms-version:{StorageApiVersion}\n";
+
+            // Build canonicalized resource - separate path and query parameters
+            // For path-based endpoints (Azurite), the format is:
+            // /{account}/{account}{resource-path}\n{query-params}
+            // The account name appears twice: once as the signing account, once as the URL path component
+            string canonicalizedResource;
+            var queryIndex = path.IndexOf('?');
+            if (queryIndex >= 0)
+            {
+                // Parse path and query separately
+                var pathPart = path[..queryIndex];
+                var queryPart = path[(queryIndex + 1)..];
+
+                // For path-based endpoints, resource is /account/account/path
+                // The URL path is /devstoreaccount1{pathPart}, so canonicalized is /devstoreaccount1/devstoreaccount1{pathPart}
+                canonicalizedResource = $"/{DefaultAccountName}/{DefaultAccountName}{pathPart}";
+
+                // Parse and sort query parameters for canonicalization
+                var queryParams = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var param in queryPart.Split('&'))
+                {
+                    var parts = param.Split('=');
+                    var key = parts[0].ToLowerInvariant();
+                    var value = parts.Length > 1 ? parts[1] : "";
+                    queryParams[key] = value;
+                }
+
+                // Append query parameters in sorted order
+                foreach (var kvp in queryParams)
+                {
+                    canonicalizedResource += $"\n{kvp.Key}:{kvp.Value}";
+                }
+            }
+            else
+            {
+                canonicalizedResource = $"/{DefaultAccountName}/{DefaultAccountName}{path}";
+            }
+
+            // Compute and add authorization
+            string auth;
+            if (useTableAuth)
+            {
+                // Table service uses a different string-to-sign format
+                auth = ComputeTableSharedKeySignature(method, canonicalizedResource, date);
+            }
+            else
+            {
+                auth = ComputeSharedKeySignature(method, canonicalizedResource, date, canonicalizedHeaders);
+            }
+            request.Headers.Add("Authorization", auth);
+
+            Debug.WriteLine($"[AzuriteInstance] URL: {url}");
+            Debug.WriteLine($"[AzuriteInstance] Authorization: {auth}");
+            Debug.WriteLine($"[AzuriteInstance] CanonicalizedResource: {canonicalizedResource.Replace("\n", "\\n")}");
+            Debug.WriteLine($"[AzuriteInstance] CanonicalizedHeaders: {canonicalizedHeaders.Replace("\n", "\\n")}");
+
+            var response = await client.SendAsync(request).ConfigureAwait(false);
+
+            // Log error responses for debugging
+            if (!response.IsSuccessStatusCode && response.StatusCode != System.Net.HttpStatusCode.NotFound)
+            {
+                var errorBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                Debug.WriteLine($"[AzuriteInstance] Error Response {(int)response.StatusCode}: {errorBody}");
+            }
+
+            return response;
+        }
 
         /// <summary>
         /// Disposes the instance.
@@ -782,6 +1255,7 @@ namespace CloudNimble.Breakdance.Azurite
             {
                 StopAsync().GetAwaiter().GetResult();
                 _process?.Dispose();
+                _httpClient?.Dispose();
             }
 
             _disposed = true;
@@ -797,6 +1271,7 @@ namespace CloudNimble.Breakdance.Azurite
 
             await StopAsync().ConfigureAwait(false);
             _process?.Dispose();
+            _httpClient?.Dispose();
 
             _disposed = true;
         }

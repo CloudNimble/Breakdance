@@ -434,6 +434,375 @@ namespace CloudNimble.Breakdance.Tests.Azurite
                 .WithMessage("*Table-only mode is not currently supported*");
         }
 
+        #region Storage Cleanup Tests - Queue Operations
+
+        [TestMethod]
+        public async Task ListQueuesAsync_WhenNoQueues_ShouldReturnEmptyList()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.All,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act
+                var queues = await instance.ListQueuesAsync();
+
+                // Assert
+                queues.Should().NotBeNull();
+                queues.Should().BeEmpty();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task DeleteQueueAsync_WhenQueueDoesNotExist_ShouldNotThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Queue,
+                QueuePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act - Should not throw even if queue doesn't exist (idempotent)
+                Func<Task> act = async () => await instance.DeleteQueueAsync("nonexistent-queue");
+
+                // Assert
+                await act.Should().NotThrowAsync();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task ClearAllQueuesAsync_WhenNoQueues_ShouldNotThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Queue,
+                QueuePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act
+                Func<Task> act = async () => await instance.ClearAllQueuesAsync();
+
+                // Assert
+                await act.Should().NotThrowAsync();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task QueueCleanupMethods_WhenNotRunning_ShouldThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Queue,
+                QueuePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            // Act & Assert - Instance not started
+            Func<Task> listAct = async () => await instance.ListQueuesAsync();
+            Func<Task> deleteAct = async () => await instance.DeleteQueueAsync("test");
+            Func<Task> clearAct = async () => await instance.ClearQueueMessagesAsync("test");
+            Func<Task> clearAllAct = async () => await instance.ClearAllQueuesAsync();
+
+            await listAct.Should().ThrowAsync<InvalidOperationException>();
+            await deleteAct.Should().ThrowAsync<InvalidOperationException>();
+            await clearAct.Should().ThrowAsync<InvalidOperationException>();
+            await clearAllAct.Should().ThrowAsync<InvalidOperationException>();
+
+            instance.Dispose();
+        }
+
+        #endregion
+
+        #region Storage Cleanup Tests - Blob Operations
+
+        [TestMethod]
+        public async Task ListBlobContainersAsync_WhenNoContainers_ShouldReturnEmptyList()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Blob,
+                BlobPort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act
+                var containers = await instance.ListBlobContainersAsync();
+
+                // Assert
+                containers.Should().NotBeNull();
+                containers.Should().BeEmpty();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task DeleteBlobContainerAsync_WhenContainerDoesNotExist_ShouldNotThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Blob,
+                BlobPort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act - Should not throw even if container doesn't exist (idempotent)
+                Func<Task> act = async () => await instance.DeleteBlobContainerAsync("nonexistent-container");
+
+                // Assert
+                await act.Should().NotThrowAsync();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task ClearAllBlobContainersAsync_WhenNoContainers_ShouldNotThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Blob,
+                BlobPort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act
+                Func<Task> act = async () => await instance.ClearAllBlobContainersAsync();
+
+                // Assert
+                await act.Should().NotThrowAsync();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task BlobCleanupMethods_WhenNotRunning_ShouldThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Blob,
+                BlobPort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            // Act & Assert - Instance not started
+            Func<Task> listAct = async () => await instance.ListBlobContainersAsync();
+            Func<Task> deleteAct = async () => await instance.DeleteBlobContainerAsync("test");
+            Func<Task> clearAllAct = async () => await instance.ClearAllBlobContainersAsync();
+
+            await listAct.Should().ThrowAsync<InvalidOperationException>();
+            await deleteAct.Should().ThrowAsync<InvalidOperationException>();
+            await clearAllAct.Should().ThrowAsync<InvalidOperationException>();
+
+            instance.Dispose();
+        }
+
+        #endregion
+
+        #region Storage Cleanup Tests - Table Operations
+
+        [TestMethod]
+        public async Task ListTablesAsync_WhenNoTables_ShouldReturnEmptyList()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.All,
+                BlobPort = 0,
+                QueuePort = 0,
+                TablePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act
+                var tables = await instance.ListTablesAsync();
+
+                // Assert
+                tables.Should().NotBeNull();
+                tables.Should().BeEmpty();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task DeleteTableAsync_WhenTableDoesNotExist_ShouldNotThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.All,
+                BlobPort = 0,
+                QueuePort = 0,
+                TablePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act - Should not throw even if table doesn't exist (idempotent)
+                Func<Task> act = async () => await instance.DeleteTableAsync("NonexistentTable");
+
+                // Assert
+                await act.Should().NotThrowAsync();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task ClearAllTablesAsync_WhenNoTables_ShouldNotThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.All,
+                BlobPort = 0,
+                QueuePort = 0,
+                TablePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                // Act
+                Func<Task> act = async () => await instance.ClearAllTablesAsync();
+
+                // Assert
+                await act.Should().NotThrowAsync();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task TableCleanupMethods_WhenNotRunning_ShouldThrow()
+        {
+            // Arrange
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.All,
+                BlobPort = 0,
+                QueuePort = 0,
+                TablePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            // Act & Assert - Instance not started
+            Func<Task> listAct = async () => await instance.ListTablesAsync();
+            Func<Task> deleteAct = async () => await instance.DeleteTableAsync("Test");
+            Func<Task> clearAllAct = async () => await instance.ClearAllTablesAsync();
+
+            await listAct.Should().ThrowAsync<InvalidOperationException>();
+            await deleteAct.Should().ThrowAsync<InvalidOperationException>();
+            await clearAllAct.Should().ThrowAsync<InvalidOperationException>();
+
+            instance.Dispose();
+        }
+
+        #endregion
+
     }
 
 }
