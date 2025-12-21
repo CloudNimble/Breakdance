@@ -5,8 +5,6 @@ icon: file-brackets-curly
 keywords: ['AzuriteConfiguration', 'CloudNimble.Breakdance.Azurite.AzuriteConfiguration', 'CloudNimble.Breakdance.Azurite', 'class', 'System.Object']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.Breakdance.Azurite.dll
@@ -27,7 +25,7 @@ Configuration options for an Azurite instance.
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 #### Syntax
 
@@ -35,7 +33,7 @@ Configuration options for an Azurite instance.
 public AzuriteConfiguration()
 ```
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -47,7 +45,7 @@ public Object()
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AutoAssignPorts
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AutoAssignPorts
 
 Gets or sets whether to automatically assign random ports when ports are not specified.
             When true and ports are null, random ports in 20000-30000 range will be assigned.
@@ -63,7 +61,7 @@ public bool AutoAssignPorts { get; set; }
 
 Type: `bool`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> BlobPort
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BlobPort
 
 Gets or sets the optional blob service port.
             If null, Azurite will use its default port and we'll parse the actual port from output.
@@ -78,7 +76,7 @@ public System.Nullable<int> BlobPort { get; set; }
 
 Type: `System.Nullable<int>`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DebugLogPath
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DebugLogPath
 
 Gets or sets the debug log file path. Null means no debug logging.
 
@@ -92,7 +90,7 @@ public string DebugLogPath { get; set; }
 
 Type: `string`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DisableTelemetry
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DisableTelemetry
 
 Gets or sets whether to disable telemetry. Defaults to true.
 
@@ -106,7 +104,7 @@ public bool DisableTelemetry { get; set; }
 
 Type: `bool`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ExtentMemoryLimitMB
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ExtentMemoryLimitMB
 
 Gets or sets the maximum memory limit in MB for in-memory storage.
             Null means unlimited. Only applies when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is true.
@@ -121,7 +119,7 @@ public System.Nullable<int> ExtentMemoryLimitMB { get; set; }
 
 Type: `System.Nullable<int>`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> InMemoryPersistence
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> InMemoryPersistence
 
 Gets or sets whether to use in-memory persistence (no disk storage). Defaults to true.
 
@@ -135,7 +133,23 @@ public bool InMemoryPersistence { get; set; }
 
 Type: `bool`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Location
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> InstanceName
+
+Gets or sets a name to identify this Azurite instance (e.g., test class name).
+            Used for process identification and debugging. The full window title will be
+            "Breakdance.Azurite - {InstanceName}". If not set, defaults to "Unknown".
+
+#### Syntax
+
+```csharp
+public string InstanceName { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Location
 
 Gets or sets the workspace location for disk persistence.
             Only used when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is false.
@@ -150,7 +164,7 @@ public string Location { get; set; }
 
 Type: `string`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> LooseMode
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> LooseMode
 
 Gets or sets whether to enable loose mode (ignore unsupported headers/parameters). Defaults to false.
 
@@ -164,7 +178,7 @@ public bool LooseMode { get; set; }
 
 Type: `bool`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> MaxRetries
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MaxRetries
 
 Gets or sets the maximum number of retry attempts when port conflicts occur.
             Only applies when [AzuriteConfiguration.AutoAssignPorts](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#autoassignports) is true. Defaults to 20.
@@ -179,7 +193,7 @@ public int MaxRetries { get; set; }
 
 Type: `int`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> QueuePort
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QueuePort
 
 Gets or sets the optional queue service port.
             If null, Azurite will use its default port and we'll parse the actual port from output.
@@ -194,7 +208,7 @@ public System.Nullable<int> QueuePort { get; set; }
 
 Type: `System.Nullable<int>`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Services
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Services
 
 Gets or sets which services to start. Defaults to [AzuriteServiceType.All](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteServiceType#all).
 
@@ -208,7 +222,7 @@ public CloudNimble.Breakdance.Azurite.AzuriteServiceType Services { get; set; }
 
 Type: `CloudNimble.Breakdance.Azurite.AzuriteServiceType`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Silent
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Silent
 
 Gets or sets whether to run in silent mode (no access logs). Defaults to true.
 
@@ -222,7 +236,7 @@ public bool Silent { get; set; }
 
 Type: `bool`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SkipApiVersionCheck
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SkipApiVersionCheck
 
 Gets or sets whether to skip API version checking. Defaults to true.
 
@@ -236,7 +250,7 @@ public bool SkipApiVersionCheck { get; set; }
 
 Type: `bool`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> StartupTimeoutSeconds
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> StartupTimeoutSeconds
 
 Gets or sets the timeout in seconds to wait for Azurite to start. Defaults to 30 seconds.
 
@@ -250,7 +264,7 @@ public int StartupTimeoutSeconds { get; set; }
 
 Type: `int`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TablePort
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TablePort
 
 Gets or sets the optional table service port.
             If null, Azurite will use its default port and we'll parse the actual port from output.
@@ -267,7 +281,7 @@ Type: `System.Nullable<int>`
 
 ## Methods
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -287,7 +301,7 @@ public virtual bool Equals(object obj)
 
 Type: `bool`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -308,7 +322,7 @@ public static bool Equals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -322,7 +336,7 @@ public virtual int GetHashCode()
 
 Type: `int`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetType <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -336,7 +350,7 @@ public System.Type GetType()
 
 Type: `System.Type`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -350,7 +364,7 @@ protected internal object MemberwiseClone()
 
 Type: `object`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -371,7 +385,7 @@ public static bool ReferenceEquals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 

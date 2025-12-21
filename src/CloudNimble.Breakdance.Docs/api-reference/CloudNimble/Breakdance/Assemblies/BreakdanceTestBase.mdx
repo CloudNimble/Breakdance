@@ -6,8 +6,6 @@ tag: "ABSTRACT"
 keywords: ['BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase', 'CloudNimble.Breakdance.Assemblies', 'class', 'System.Object', 'System.IDisposable', 'System.IAsyncDisposable']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.Breakdance.Assemblies.dll
@@ -28,7 +26,7 @@ A base class for unit tests that maintains an [IHost](https://learn.microsoft.co
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 Creates a new [BreakdanceTestBase](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase) instance.
 
@@ -38,7 +36,7 @@ Creates a new [BreakdanceTestBase](/api-reference/CloudNimble/Breakdance/Assembl
 public BreakdanceTestBase()
 ```
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -50,7 +48,7 @@ public Object()
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DefaultScope
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DefaultScope
 
 Provides a default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) implementation to contain scoped services.
 
@@ -64,7 +62,7 @@ public Microsoft.Extensions.DependencyInjection.IServiceScope DefaultScope { get
 
 Type: `Microsoft.Extensions.DependencyInjection.IServiceScope`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestHost
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestHost
 
 The [IHost](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihost) instance containing the test host.
 
@@ -78,7 +76,7 @@ public Microsoft.Extensions.Hosting.IHost TestHost { get; internal set; }
 
 Type: `Microsoft.Extensions.Hosting.IHost`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestHostBuilder
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestHostBuilder
 
 The [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder) instance used to configure the test host.
 
@@ -94,7 +92,7 @@ Type: `Microsoft.Extensions.Hosting.IHostBuilder`
 
 ## Methods
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetup <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssemblySetup <Badge color="orange">Virtual</Badge>
 
 Method used by test assemblies to setup the environment.
 
@@ -111,7 +109,7 @@ With MSTest, use [AssemblyInitialize].
             With xUnit, good luck: https://xunit.net/docs/shared-context
             This method calls [BreakdanceTestBase.AssemblySetupAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#assemblysetupasync) synchronously.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblySetupAsync <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssemblySetupAsync <Badge color="orange">Virtual</Badge>
 
 Method used by test assemblies to setup the environment asynchronously.
 
@@ -131,7 +129,7 @@ With MSTest, use [AssemblyInitialize] with async Task return type.
             With NUnit, use [OneTimeSetup] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblyTearDown <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssemblyTearDown <Badge color="orange">Virtual</Badge>
 
 Method used by test assemblies to clean up the environment.
 
@@ -148,7 +146,7 @@ With MSTest, use [AssemblyCleanup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
             This method calls [BreakdanceTestBase.AssemblyTearDownAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#assemblyteardownasync) synchronously.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> AssemblyTearDownAsync <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssemblyTearDownAsync <Badge color="orange">Virtual</Badge>
 
 Method used by test assemblies to clean up the environment asynchronously.
 
@@ -168,7 +166,7 @@ With MSTest, use [AssemblyCleanup] with async Task return type.
             With NUnit, use [OneTimeTearDown] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassSetup <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClassSetup <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to setup the environment.
 
@@ -185,7 +183,7 @@ With MSTest, use [ClassInitialize].
             With xUnit, good luck: https://xunit.net/docs/shared-context
             This method calls [BreakdanceTestBase.ClassSetupAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#classsetupasync) synchronously.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassSetupAsync <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClassSetupAsync <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to setup the environment asynchronously.
 
@@ -205,7 +203,7 @@ With MSTest, use [ClassInitialize] with async Task return type.
             With NUnit, use [OneTimeSetup] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassTearDown <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClassTearDown <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to clean up the environment.
 
@@ -222,7 +220,7 @@ With MSTest, use [ClassCleanup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
             This method calls [BreakdanceTestBase.ClassTearDownAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#classteardownasync) synchronously.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ClassTearDownAsync <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClassTearDownAsync <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to clean up the environment asynchronously.
 
@@ -242,7 +240,7 @@ With MSTest, use [ClassCleanup] with async Task return type.
             With NUnit, use [OneTimeTearDown] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Dispose
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Dispose
 
 Clean up disposable objects in the environment.
 
@@ -252,7 +250,7 @@ Clean up disposable objects in the environment.
 public void Dispose()
 ```
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> DisposeAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DisposeAsync
 
 Asynchronously clean up disposable objects in the environment.
 
@@ -266,7 +264,7 @@ public System.Threading.Tasks.ValueTask DisposeAsync()
 
 Type: `System.Threading.Tasks.ValueTask`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -286,7 +284,7 @@ public virtual bool Equals(object obj)
 
 Type: `bool`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Equals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -307,7 +305,7 @@ public static bool Equals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -321,7 +319,7 @@ public virtual int GetHashCode()
 
 Type: `int`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetKeyedService <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetKeyedService <Badge color="orange">Virtual</Badge>
 
 Get service of type *T* from the System.IServiceProvider.
 
@@ -346,7 +344,7 @@ A service object of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetKeyedServices <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetKeyedServices <Badge color="orange">Virtual</Badge>
 
 Get services of type *T* from the System.IServiceProvider.
 
@@ -371,7 +369,7 @@ An [IEnumerable`1](https://learn.microsoft.com/dotnet/api/system.collections.gen
 
 - `T` - The type of service object to get.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedService
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetScopedService
 
 Get the requested service from the specified [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope).
 
@@ -395,7 +393,7 @@ Type: `T`
 
 - `T` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedService
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetScopedService
 
 Get the requested service from the default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) provided by Breakdance.
 
@@ -413,7 +411,7 @@ Type: `T`
 
 - `T` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedServices
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetScopedServices
 
 Get the requested service from the specified [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope).
 
@@ -437,7 +435,7 @@ Type: `System.Collections.Generic.IEnumerable<T>`
 
 - `T` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetScopedServices
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetScopedServices
 
 Get the requested service from the default [IServiceScope](https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicescope) provided by Breakdance.
 
@@ -455,7 +453,7 @@ Type: `System.Collections.Generic.IEnumerable<T>`
 
 - `T` - 
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetService <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetService <Badge color="orange">Virtual</Badge>
 
 Get service of type *T* from the System.IServiceProvider.
 
@@ -474,7 +472,7 @@ A service object of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetServices <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetServices <Badge color="orange">Virtual</Badge>
 
 Get an enumeration of services of type *T* from the System.IServiceProvider.
 
@@ -493,7 +491,7 @@ An enumeration of services of type *T*.
 
 - `T` - The type of service object to get.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> GetType <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -507,7 +505,7 @@ public System.Type GetType()
 
 Type: `System.Type`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -521,7 +519,7 @@ protected internal object MemberwiseClone()
 
 Type: `object`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -542,7 +540,7 @@ public static bool ReferenceEquals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ResetTestHostBuilder
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResetTestHostBuilder
 
 Resets the test host by disposing of the current TestHost and initializing a new default TestHostBuilder.
             This prepares the environment for a fresh test setup.
@@ -553,7 +551,7 @@ Resets the test host by disposing of the current TestHost and initializing a new
 public void ResetTestHostBuilder()
 ```
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetClaimsPrincipalSelectorToThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetClaimsPrincipalSelectorToThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal).
 
@@ -567,7 +565,7 @@ public static void SetClaimsPrincipalSelectorToThreadPrincipal()
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetClaimsPrincipalSelectorToThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetClaimsPrincipalSelectorToThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal) and sets the latter to a new ClaimsIdentity with the specified claims.
 
@@ -590,7 +588,7 @@ public static void SetClaimsPrincipalSelectorToThreadPrincipal(System.Collection
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetClaimsPrincipalSelectorToThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetClaimsPrincipalSelectorToThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to the [CurrentPrincipal](https://learn.microsoft.com/dotnet/api/system.threading.thread.currentprincipal) and sets the latter to a new ClaimsIdentity with the specified claim.
 
@@ -613,7 +611,7 @@ public static void SetClaimsPrincipalSelectorToThreadPrincipal(System.Security.C
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to a new ClaimsIdentity with the specified claims.
 
@@ -636,7 +634,7 @@ public static void SetThreadPrincipal(System.Collections.Generic.List<System.Sec
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> SetThreadPrincipal
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetThreadPrincipal
 
 Sets the [ClaimsPrincipalSelector](https://learn.microsoft.com/dotnet/api/system.security.claims.claimsprincipal.claimsprincipalselector) to a new ClaimsIdentity with the specified claim.
 
@@ -659,7 +657,7 @@ public static void SetThreadPrincipal(System.Security.Claims.Claim claim, string
 
 This is used in non-ASP.NET Core testing situations where you're not going to pull the Identity from a request-specific DI Container.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetup <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestSetup <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to setup the environment.
 
@@ -676,7 +674,7 @@ With MSTest, use [TestInitialize].
             With xUnit, good luck: https://xunit.net/docs/shared-context
             This method calls [BreakdanceTestBase.TestSetupAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#testsetupasync) synchronously.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestSetupAsync <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestSetupAsync <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to setup the environment asynchronously.
 
@@ -696,7 +694,7 @@ With MSTest, use [TestInitialize] with async Task return type.
             With NUnit, use [Setup] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDown <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestTearDown <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to clean up the environment.
 
@@ -713,7 +711,7 @@ With MSTest, use [TestCleanup].
             With xUnit, good luck: https://xunit.net/docs/shared-context
             This method calls [BreakdanceTestBase.TestTearDownAsync](/api-reference/CloudNimble/Breakdance/Assemblies/BreakdanceTestBase#testteardownasync) synchronously.
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> TestTearDownAsync <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestTearDownAsync <Badge color="orange">Virtual</Badge>
 
 Method used by test classes to clean up the environment asynchronously.
 
@@ -733,7 +731,7 @@ With MSTest, use [TestCleanup] with async Task return type.
             With NUnit, use [TearDown] with async Task return type.
             With xUnit, good luck: https://xunit.net/docs/shared-context
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
