@@ -32,14 +32,10 @@
 
     </PropertyGroup>
 
-    <!-- MSTest 4.x for modern frameworks (net8.0+) -->
-    <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
-        <PackageReference Include="MSTest" Version="[4.*, 5.0.0)" />
-    </ItemGroup>
-
-    <!-- MSTest 3.x for legacy framework (netstandard2.0) -->
-    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-        <PackageReference Include="MSTest" Version="[3.*, 4.0.0)" />
+    <!-- Use MSTest.TestFramework directly (not the MSTest metapackage) because
+         MSTest.TestAdapter doesn't support netstandard2.0, but TestFramework does -->
+    <ItemGroup>
+        <PackageReference Include="MSTest.TestFramework" Version="[4.*, 5.0.0)" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
