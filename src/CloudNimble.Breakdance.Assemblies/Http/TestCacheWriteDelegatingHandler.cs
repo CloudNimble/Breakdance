@@ -1,4 +1,5 @@
-﻿using System.IO;
+using System;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -12,6 +13,20 @@ namespace CloudNimble.Breakdance.Assemblies.Http
     /// </summary>
     public class TestCacheWriteDelegatingHandler : TestCacheDelegatingHandlerBase
     {
+
+        #region Private Members
+
+        /// <summary>
+        /// Maximum number of retry attempts when file is locked.
+        /// </summary>
+        private const int MaxRetryAttempts = 5;
+
+        /// <summary>
+        /// Initial delay in milliseconds before retrying.
+        /// </summary>
+        private const int InitialRetryDelayMs = 50;
+
+        #endregion
 
         #region Constructors
 
@@ -64,17 +79,44 @@ namespace CloudNimble.Breakdance.Assemblies.Http
 
             var fileContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-#if NETCOREAPP3_1_OR_GREATER
-            await File.WriteAllTextAsync(fullPath, fileContent, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
-#else
-            File.WriteAllText(fullPath, fileContent, Encoding.UTF8);
-#endif
+            await WriteFileWithRetryAsync(fullPath, fileContent, cancellationToken).ConfigureAwait(false);
 
             var taskCompletionSource = new TaskCompletionSource<HttpResponseMessage>();
             taskCompletionSource.SetResult(response);
 
             return await taskCompletionSource.Task.ConfigureAwait(false);
 
+        }
+
+        /// <summary>
+        /// Writes content to a file with retry logic to handle concurrent access from multiple test assemblies.
+        /// </summary>
+        /// <param name="fullPath">The full path to the file.</param>
+        /// <param name="content">The content to write.</param>
+        /// <param name="cancellationToken">Token for cancelling the operation.</param>
+        private static async Task WriteFileWithRetryAsync(string fullPath, string content, CancellationToken cancellationToken)
+        {
+            var retryCount = 0;
+            var delay = InitialRetryDelayMs;
+
+            while (true)
+            {
+                try
+                {
+#if NETCOREAPP3_1_OR_GREATER
+                    await File.WriteAllTextAsync(fullPath, content, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
+#else
+                    File.WriteAllText(fullPath, content, Encoding.UTF8);
+#endif
+                    return;
+                }
+                catch (IOException) when (retryCount < MaxRetryAttempts)
+                {
+                    retryCount++;
+                    await Task.Delay(delay, cancellationToken).ConfigureAwait(false);
+                    delay *= 2; // Exponential backoff
+                }
+            }
         }
 
     }

@@ -227,11 +227,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// With NUnit, use [OneTimeSetup].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
         /// </remarks>
-        public override void AssemblySetup()
-        {
-            base.AssemblySetup();
-            EnsureTestServerAsync().GetAwaiter().GetResult();
-        }
+        public override void AssemblySetup() => AssemblySetupAsync().GetAwaiter().GetResult();
 
         /// <summary>
         /// Method used by test assemblies to setup the environment asynchronously.
@@ -243,8 +239,8 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public async override Task AssemblySetupAsync()
         {
-            base.AssemblySetup();
-            await EnsureTestServerAsync();
+            await base.AssemblySetupAsync().ConfigureAwait(false);
+            await EnsureTestServerAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -255,11 +251,7 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// With NUnit, use [Setup].
         /// With xUnit, good luck: https://xunit.net/docs/shared-context
         /// </remarks>
-        public override void TestSetup()
-        {
-            base.TestSetup();
-            EnsureTestServerAsync().GetAwaiter().GetResult();
-        }
+        public override void TestSetup() => TestSetupAsync().GetAwaiter().GetResult();
 
         /// <summary>
         /// Method used by test classes to setup the environment asynchronously.
@@ -271,8 +263,8 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// </remarks>
         public async override Task TestSetupAsync()
         {
-            base.TestSetup();
-            await EnsureTestServerAsync();
+            await base.TestSetupAsync().ConfigureAwait(false);
+            await EnsureTestServerAsync().ConfigureAwait(false);
         }
 
         /// <summary>
