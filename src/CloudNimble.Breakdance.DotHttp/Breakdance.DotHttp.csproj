@@ -10,6 +10,11 @@
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
 
+        <!-- Ensure local dependencies are copied for analyzer bundling -->
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+        <!-- Register custom target to add analyzer content to package -->
+        <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToPackage</TargetsForTfmSpecificContentInPackage>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,9 +28,9 @@
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.*" PrivateAssets="all" />
 
         <!-- Runtime dependencies for netstandard2.0 -->
-        <PackageReference Include="System.Text.Json" Version="8.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-        <PackageReference Include="IndexRange" Version="1.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-        <PackageReference Include="System.Memory" Version="4.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+        <PackageReference Include="System.Text.Json" Version="8.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" PrivateAssets="all" />
+        <PackageReference Include="IndexRange" Version="1.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" PrivateAssets="all" />
+        <PackageReference Include="System.Memory" Version="4.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" PrivateAssets="all" />
 
         <!-- Project reference -->
         <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
@@ -38,12 +43,24 @@
     </ItemGroup>
 
     <ItemGroup>
-        <!-- Include generator DLL in analyzers folder (netstandard2.0 only for Roslyn) -->
-        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-
         <!-- Include SDK build files -->
         <None Include="Build\Breakdance.DotHttp.props" Pack="true" PackagePath="build;buildTransitive" />
         <None Include="Build\Breakdance.DotHttp.targets" Pack="true" PackagePath="build;buildTransitive" />
     </ItemGroup>
+
+    <!--
+    Custom target to include netstandard2.0 assembly in the analyzers folder.
+    This runs per-TFM during pack, so we only include when building netstandard2.0.
+
+    Note: Breakdance.Assemblies is NOT included here because the source generator
+    doesn't use it at compile time. It's only needed at runtime by generated tests
+    (DotHttpTestBase inherits from BreakdanceTestBase), which is handled by the
+    normal lib/ folder dependency.
+    -->
+    <Target Name="_AddAnalyzersToPackage" Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <ItemGroup>
+            <TfmSpecificPackageFile Include="$(TargetPath)" PackagePath="analyzers/dotnet/cs" />
+        </ItemGroup>
+    </Target>
 
 </Project>
