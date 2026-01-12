@@ -30,4 +30,11 @@
         <PackageReference Include="MSTest.TestFramework" Version="4.*" />
     </ItemGroup>
 
+    <!-- Align package versions for net48 to match DotHttp netstandard2.0 dependencies -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.*" />
+        <PackageReference Include="System.Memory" Version="4.*" />
+        <PackageReference Include="System.Text.Json" Version="8.*" />
+    </ItemGroup>
+
 </Project>

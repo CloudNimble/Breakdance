@@ -29,12 +29,6 @@
               "guides/web/response-caching",
               "guides/web/testing-web-api"
             ]
-          },
-          {
-            "group": "Diagnostics",
-            "pages": [
-              "conceptual/CloudNimble/Breakdance/DotHttp/analyzer-diagnostics"
-            ]
           }
         ]
       },
