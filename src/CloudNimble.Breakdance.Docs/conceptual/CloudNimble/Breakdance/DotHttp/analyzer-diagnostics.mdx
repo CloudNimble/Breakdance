@@ -1,0 +1,294 @@
+---
+title: "DotHttp Analyzer Diagnostics"
+description: "Reference documentation for all diagnostic messages produced by the Breakdance.DotHttp source generator."
+---
+
+The DotHttp source generator analyzes `.http` files at compile time and reports diagnostics for issues it encounters.
+This page documents all diagnostic rules and provides guidance on resolving them.
+
+## Overview
+
+| Rule ID | Title | Severity | Category |
+|---------|-------|----------|----------|
+| [DOTHTTP001](#dothttp001) | HTTP request line error | Error | DotHttp |
+| [DOTHTTP002](#dothttp002) | HTTP header error | Error | DotHttp |
+| [DOTHTTP003](#dothttp003) | HTTP variable error | Error | DotHttp |
+| [DOTHTTP004](#dothttp004) | HTTP body warning | Warning | DotHttp |
+| [DOTHTTP005](#dothttp005) | Unknown HTTP method | Warning | DotHttp |
+
+---
+
+## DOTHTTP001
+
+**HTTP request line error**
+
+<Card title="Details" icon="circle-info">
+  | Property | Value |
+  |----------|-------|
+  | **Rule ID** | DOTHTTP001 |
+  | **Severity** | Error |
+  | **Category** | DotHttp |
+  | **Enabled** | Yes |
+</Card>
+
+### Description
+
+This error occurs when the parser cannot interpret the HTTP request line. The request line must follow the format:
+`METHOD URL [HTTP/version]`
+
+### Cause
+
+Common causes include:
+- Missing HTTP method (GET, POST, PUT, DELETE, etc.)
+- Missing URL
+- Invalid URL format
+- Malformed HTTP version specifier
+
+### How to Fix
+
+Ensure your request line follows the correct format:
+
+<CodeGroup>
+```http Correct
+GET https://api.example.com/users HTTP/1.1
+```
+
+```http Correct (without version)
+POST https://api.example.com/users
+```
+
+```http Incorrect
+https://api.example.com/users
+```
+</CodeGroup>
+
+---
+
+## DOTHTTP002
+
+**HTTP header error**
+
+<Card title="Details" icon="circle-info">
+  | Property | Value |
+  |----------|-------|
+  | **Rule ID** | DOTHTTP002 |
+  | **Severity** | Error |
+  | **Category** | DotHttp |
+  | **Enabled** | Yes |
+</Card>
+
+### Description
+
+This error occurs when an HTTP header line cannot be parsed correctly.
+
+### Cause
+
+Common causes include:
+- Missing colon separator between header name and value
+- Invalid header name characters
+- Header placed after request body
+
+### How to Fix
+
+Headers must use the format `Header-Name: value` and appear before the request body:
+
+<CodeGroup>
+```http Correct
+GET https://api.example.com/users
+Content-Type: application/json
+Authorization: Bearer token123
+
+{"key": "value"}
+```
+
+```http Incorrect - Missing colon
+GET https://api.example.com/users
+Content-Type application/json
+```
+
+```http Incorrect - Header after body
+GET https://api.example.com/users
+
+{"key": "value"}
+Content-Type: application/json
+```
+</CodeGroup>
+
+---
+
+## DOTHTTP003
+
+**HTTP variable error**
+
+<Card title="Details" icon="circle-info">
+  | Property | Value |
+  |----------|-------|
+  | **Rule ID** | DOTHTTP003 |
+  | **Severity** | Error |
+  | **Category** | DotHttp |
+  | **Enabled** | Yes |
+</Card>
+
+### Description
+
+This error occurs when a variable definition or reference is malformed.
+
+### Cause
+
+Common causes include:
+- Unclosed variable reference (`{{variable` without closing `}}`)
+- Invalid variable name syntax
+- Malformed variable definition line
+
+### How to Fix
+
+Variable definitions use `@name = value` syntax, and references use `{{name}}`:
+
+<CodeGroup>
+```http Correct
+@baseUrl = https://api.example.com
+@apiKey = my-secret-key
+
+GET {{baseUrl}}/users
+Authorization: Bearer {{apiKey}}
+```
+
+```http Incorrect - Unclosed variable
+GET {{baseUrl/users
+```
+
+```http Incorrect - Invalid definition
+baseUrl = https://api.example.com
+```
+</CodeGroup>
+
+---
+
+## DOTHTTP004
+
+**HTTP body warning**
+
+<Card title="Details" icon="circle-info">
+  | Property | Value |
+  |----------|-------|
+  | **Rule ID** | DOTHTTP004 |
+  | **Severity** | Warning |
+  | **Category** | DotHttp |
+  | **Enabled** | Yes |
+</Card>
+
+### Description
+
+This warning indicates a potential issue with the request body that may cause unexpected behavior but does not prevent parsing.
+
+### Cause
+
+Common causes include:
+- Request body on a GET request (unusual but technically allowed)
+- Body without corresponding Content-Type header
+- Possible JSON syntax issues
+
+### How to Fix
+
+Consider adding appropriate headers and reviewing the body content:
+
+<CodeGroup>
+```http Recommended
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com"
+}
+```
+
+```http Warning - Body without Content-Type
+POST https://api.example.com/users
+
+{"name": "John Doe"}
+```
+</CodeGroup>
+
+---
+
+## DOTHTTP005
+
+**Unknown HTTP method**
+
+<Card title="Details" icon="circle-info">
+  | Property | Value |
+  |----------|-------|
+  | **Rule ID** | DOTHTTP005 |
+  | **Severity** | Warning |
+  | **Category** | DotHttp |
+  | **Enabled** | Yes |
+</Card>
+
+### Description
+
+This warning is reported when the HTTP method is not one of the standard methods. The request will still be processed, but using non-standard methods may cause issues with some servers.
+
+### Standard Methods
+
+The following HTTP methods are recognized without warning:
+- `GET`, `POST`, `PUT`, `DELETE`, `PATCH`
+- `HEAD`, `OPTIONS`, `TRACE`, `CONNECT`
+
+### Custom Methods
+
+If you need to use a custom HTTP method (some APIs use them), you can safely ignore this warning. The request will be generated with the custom method.
+
+<CodeGroup>
+```http Standard - No warning
+GET https://api.example.com/users
+```
+
+```http Custom - Warning reported
+PURGE https://cdn.example.com/cache/items
+```
+</CodeGroup>
+
+---
+
+## Suppressing Diagnostics
+
+If you need to suppress a diagnostic, you can use standard suppression techniques:
+
+### In Code
+
+```csharp
+#pragma warning disable DOTHTTP004
+// Code that triggers the warning
+#pragma warning restore DOTHTTP004
+```
+
+### In Project File
+
+```xml
+<PropertyGroup>
+    <NoWarn>$(NoWarn);DOTHTTP004</NoWarn>
+</PropertyGroup>
+```
+
+### In EditorConfig
+
+```ini
+[*.http]
+dotnet_diagnostic.DOTHTTP004.severity = none
+```
+
+<Note>
+Suppressing errors (DOTHTTP001-003) is not recommended as they indicate parsing failures that will prevent test generation.
+</Note>
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title=".http File Testing" icon="file-code" href="/guides/web/dothttp-testing">
+    Learn how to write tests using the .http file format
+  </Card>
+  <Card title="DotHttp API Reference" icon="code" href="/api-reference/CloudNimble/Breakdance/DotHttp/index">
+    Full API documentation for the DotHttp library
+  </Card>
+</CardGroup>

@@ -32,6 +32,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <!-- Analyzer release tracking files -->
+        <AdditionalFiles Include="AnalyzerReleases.Shipped.md" />
+        <AdditionalFiles Include="AnalyzerReleases.Unshipped.md" />
+    </ItemGroup>
+
+    <ItemGroup>
         <!-- Include generator DLL in analyzers folder (netstandard2.0 only for Roslyn) -->
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
 
