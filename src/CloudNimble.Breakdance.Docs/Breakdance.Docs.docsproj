@@ -33,6 +33,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Folder Include="guides\web\" />
 	  <Folder Include="snippets\" />
 	</ItemGroup>
 

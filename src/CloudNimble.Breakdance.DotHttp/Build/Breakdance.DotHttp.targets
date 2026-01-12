@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!--
+    Breakdance.DotHttp targets file.
+
+    Configuration is passed directly to the source generator which parses
+    nested XML in a single pass - no intermediate files or XmlPeek required.
+  -->
+
+    <ItemGroup>
+        <!-- Include all .http files as additional texts for the generator -->
+        <AdditionalFiles Include="$(BreakdanceDotHttp_BasePath)\**\*.http" />
+
+        <!-- Pass nested XML configuration directly to the source generator -->
+        <CompilerVisibleProperty Include="BreakdanceDotHttpConfig" />
+
+        <!-- Also support individual properties for backwards compatibility -->
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_TestFramework" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_Namespace" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_BasePath" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_UseFluentAssertions" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_HttpClientType" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_Environment" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_CheckStatusCode" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_CheckContentType" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_CheckBodyForErrors" />
+        <CompilerVisibleProperty Include="BreakdanceDotHttp_LogResponseOnFailure" />
+        <CompilerVisibleProperty Include="RootNamespace" />
+    </ItemGroup>
+
+</Project>

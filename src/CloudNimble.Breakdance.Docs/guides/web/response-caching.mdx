@@ -1,0 +1,361 @@
+---
+title: "Response Caching for Tests"
+description: "Capture HTTP responses from real APIs and replay them in tests for fast, deterministic, and offline-capable testing."
+---
+
+Testing against live APIs is slow, flaky, and depends on network availability. Breakdance's response caching
+handlers let you capture real API responses once, then replay them in subsequent test runs.
+
+## Why Cache Responses?
+
+<CardGroup cols={2}>
+  <Card title="Speed" icon="bolt">
+    Tests run instantly by reading from disk instead of making network calls
+  </Card>
+  <Card title="Reliability" icon="shield-check">
+    Tests pass consistently without API availability or rate limiting issues
+  </Card>
+  <Card title="Offline Testing" icon="plane">
+    Run your test suite anywhere, even without internet access
+  </Card>
+  <Card title="CI/CD Friendly" icon="robot">
+    No secrets or API credentials needed in your build pipeline
+  </Card>
+</CardGroup>
+
+## How It Works
+
+Breakdance provides two `DelegatingHandler` classes:
+
+1. **`TestCacheWriteDelegatingHandler`** - Makes real HTTP calls and saves responses to files
+2. **`TestCacheReadDelegatingHandler`** - Reads responses from files instead of making HTTP calls
+
+The workflow:
+1. Run tests once with the **Write** handler to capture responses
+2. Check captured response files into source control
+3. Run tests with the **Read** handler for fast, deterministic execution
+
+## Quick Start
+
+<Steps>
+  <Step title="Install the package">
+    ```bash
+    dotnet add package CloudNimble.Breakdance.Assemblies
+    ```
+  </Step>
+  <Step title="Create a folder for response files">
+    ```
+    MyProject.Tests/
+      ResponseFiles/
+        (captured responses go here)
+    ```
+  </Step>
+  <Step title="Capture responses">
+    Run your tests with the Write handler to capture real API responses.
+  </Step>
+  <Step title="Switch to Read handler">
+    Change to the Read handler for subsequent test runs.
+  </Step>
+</Steps>
+
+## Capturing Responses
+
+Use `TestCacheWriteDelegatingHandler` to capture real API responses:
+
+```csharp ApiCaptureTests.cs
+using CloudNimble.Breakdance.Assemblies.Http;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+[TestClass]
+public class ApiCaptureTests
+{
+    [TestMethod]
+    public async Task CaptureUserEndpoint()
+    {
+        // Create handler that will save responses to ResponseFiles folder
+        var handler = new TestCacheWriteDelegatingHandler("ResponseFiles")
+        {
+            InnerHandler = new HttpClientHandler()
+        };
+
+        var client = new HttpClient(handler);
+
+        // This makes a real HTTP call and saves the response
+        var response = await client.GetAsync("https://jsonplaceholder.typicode.com/users");
+
+        Assert.IsTrue(response.IsSuccessStatusCode);
+    }
+}
+```
+
+After running this test, you'll have:
+```
+ResponseFiles/
+  jsonplaceholder.typicode.com/
+    users.json
+```
+
+<Tip>
+Run capture tests once, then check the `ResponseFiles` folder into source control.
+This lets your entire team (and CI) run tests without API access.
+</Tip>
+
+## Replaying Responses
+
+Switch to `TestCacheReadDelegatingHandler` to serve cached responses:
+
+```csharp ApiTests.cs
+using CloudNimble.Breakdance.Assemblies.Http;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+[TestClass]
+public class ApiTests
+{
+    [TestMethod]
+    public async Task GetUsers_FromCache()
+    {
+        // Create handler that reads from ResponseFiles folder
+        var handler = new TestCacheReadDelegatingHandler("ResponseFiles");
+        var client = new HttpClient(handler);
+
+        // This reads from file, no network call
+        var response = await client.GetAsync("https://jsonplaceholder.typicode.com/users");
+
+        Assert.IsTrue(response.IsSuccessStatusCode);
+
+        var content = await response.Content.ReadAsStringAsync();
+        Assert.IsFalse(string.IsNullOrWhiteSpace(content));
+    }
+}
+```
+
+<Note>
+The Read handler throws `InvalidOperationException` if a response file doesn't exist.
+This helps catch missing captures early.
+</Note>
+
+## File Organization
+
+Responses are organized by host and path:
+
+| Request URL | File Path |
+|-------------|-----------|
+| `https://api.example.com/users` | `ResponseFiles/api.example.com/users.json` |
+| `https://api.example.com/users/123` | `ResponseFiles/api.example.com/users/123.json` |
+| `https://api.example.com/v1/items?type=active` | `ResponseFiles/api.example.com/v1/items.json` |
+
+The file extension is determined by the response's Content-Type:
+- `application/json` → `.json`
+- `application/xml` → `.xml`
+- `text/html` → `.html`
+- Others → `.txt`
+
+## Using with DotHttpTestBase
+
+Combine response caching with `.http` file testing:
+
+```csharp
+using CloudNimble.Breakdance.DotHttp;
+using CloudNimble.Breakdance.Assemblies.Http;
+
+public class CachedApiTests : DotHttpTestBase
+{
+    protected override HttpMessageHandler CreateHttpMessageHandler()
+    {
+        return new TestCacheReadDelegatingHandler("ResponseFiles");
+    }
+
+    [TestMethod]
+    public async Task GetUsers_Test()
+    {
+        SetVariable("baseUrl", "https://api.example.com");
+
+        var request = new DotHttpRequest
+        {
+            Method = "GET",
+            Url = "{{baseUrl}}/users"
+        };
+
+        // Response served from ResponseFiles/api.example.com/users.json
+        var response = await SendRequestAsync(request);
+        await DotHttpAssertions.AssertValidResponseAsync(response);
+    }
+}
+```
+
+## Capture/Replay Pattern
+
+A common pattern is to have separate capture and test modes:
+
+```csharp
+public abstract class ApiTestBase : DotHttpTestBase
+{
+    // Toggle this to switch between capture and replay modes
+    protected virtual bool CaptureMode => false;
+
+    protected override HttpMessageHandler CreateHttpMessageHandler()
+    {
+        if (CaptureMode)
+        {
+            return new TestCacheWriteDelegatingHandler("ResponseFiles")
+            {
+                InnerHandler = new HttpClientHandler()
+            };
+        }
+
+        return new TestCacheReadDelegatingHandler("ResponseFiles");
+    }
+}
+
+// For normal test runs (cached responses)
+[TestClass]
+public class UserApiTests : ApiTestBase
+{
+    // Uses cached responses by default
+}
+
+// For capturing fresh responses
+[TestClass]
+[Ignore("Run manually to refresh cached responses")]
+public class UserApiCapture : ApiTestBase
+{
+    protected override bool CaptureMode => true;
+}
+```
+
+## Environment-Specific Responses
+
+Capture responses per environment for different test scenarios:
+
+```csharp
+public class MultiEnvironmentTests : DotHttpTestBase
+{
+    private readonly string _environment;
+
+    public MultiEnvironmentTests()
+    {
+        _environment = Environment.GetEnvironmentVariable("TEST_ENV") ?? "default";
+    }
+
+    protected override HttpMessageHandler CreateHttpMessageHandler()
+    {
+        var folder = $"ResponseFiles/{_environment}";
+        return new TestCacheReadDelegatingHandler(folder);
+    }
+}
+```
+
+Directory structure:
+```
+ResponseFiles/
+  default/
+    api.example.com/
+      users.json
+  error-scenarios/
+    api.example.com/
+      users.json  (contains error response)
+  empty-results/
+    api.example.com/
+      users.json  (contains empty array)
+```
+
+## Handling Different Response States
+
+Create response files manually to test edge cases:
+
+```json ResponseFiles/api.example.com/users-error.json
+{
+    "error": "Internal server error",
+    "code": "INTERNAL_ERROR"
+}
+```
+
+```csharp
+[TestMethod]
+public async Task GetUsers_HandlesError_Gracefully()
+{
+    // Point to error response file
+    var handler = new TestCacheReadDelegatingHandler("ResponseFiles/error-scenarios");
+    var client = new HttpClient(handler);
+
+    var response = await client.GetAsync("https://api.example.com/users");
+    var content = await response.Content.ReadAsStringAsync();
+
+    Assert.IsTrue(content.Contains("error"));
+}
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Check response files into source control">
+    Response files should be committed alongside your tests. This ensures everyone
+    on the team and your CI pipeline can run tests without API access.
+  </Accordion>
+
+  <Accordion title="Refresh captures periodically">
+    API responses change over time. Set a reminder to refresh your captured responses
+    monthly or when API versions change.
+  </Accordion>
+
+  <Accordion title="Don't capture sensitive data">
+    Be careful not to capture responses containing secrets, tokens, or personal data.
+    Either sanitize the response files or use mock data in the captured responses.
+  </Accordion>
+
+  <Accordion title="Use meaningful directory names">
+    Organize response files by feature or test scenario for easier maintenance:
+    ```
+    ResponseFiles/
+      user-management/
+      order-processing/
+      authentication/
+    ```
+  </Accordion>
+
+  <Accordion title="Handle concurrent writes">
+    `TestCacheWriteDelegatingHandler` includes retry logic for file locking when
+    multiple tests run in parallel. No additional configuration needed.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Response file not found">
+    The Read handler throws `InvalidOperationException` with the expected file path.
+    Check:
+    - The file exists at the expected path
+    - The URL matches exactly (including query string handling)
+    - The ResponseFiles folder is copied to test output (set Copy to Output Directory)
+  </Accordion>
+
+  <Accordion title="Wrong Content-Type">
+    The handler sets Content-Type based on file extension. If you need a specific
+    Content-Type, ensure your file has the correct extension (`.json`, `.xml`, etc.).
+  </Accordion>
+
+  <Accordion title="Tests pass locally but fail in CI">
+    Ensure response files are included in your test project:
+    ```xml
+    <ItemGroup>
+      <None Include="ResponseFiles\**\*" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
+    Write API tests using the .http file format
+  </Card>
+  <Card title="In-Memory Web API" icon="server" href="guides/web/testing-web-api">
+    Test ASP.NET Web API controllers without a server
+  </Card>
+</CardGroup>

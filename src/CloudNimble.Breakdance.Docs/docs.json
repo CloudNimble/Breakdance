@@ -19,7 +19,17 @@
       {
         "group": "Guides",
         "pages": [
-          "guides/testing-azure-storage"
+          "guides/index",
+          "guides/testing-azure-storage",
+          {
+            "group": "Web",
+            "pages": [
+              "guides/web/index",
+              "guides/web/dothttp-testing",
+              "guides/web/response-caching",
+              "guides/web/testing-web-api"
+            ]
+          }
         ]
       },
       {
@@ -92,6 +102,39 @@
                     "pages": [
                       "api-reference/CloudNimble/Breakdance/Blazor/index",
                       "api-reference/CloudNimble/Breakdance/Blazor/BlazorBreakdanceTestBase"
+                    ]
+                  },
+                  {
+                    "group": "DotHttp",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/Breakdance/DotHttp/index",
+                      "api-reference/CloudNimble/Breakdance/DotHttp/DotHttpAssertionException",
+                      "api-reference/CloudNimble/Breakdance/DotHttp/DotHttpAssertions",
+                      "api-reference/CloudNimble/Breakdance/DotHttp/DotHttpFileParser",
+                      "api-reference/CloudNimble/Breakdance/DotHttp/DotHttpTestBase",
+                      "api-reference/CloudNimble/Breakdance/DotHttp/EnvironmentLoader",
+                      "api-reference/CloudNimble/Breakdance/DotHttp/ResponseCapture",
+                      "api-reference/CloudNimble/Breakdance/DotHttp/VariableResolver",
+                      {
+                        "group": "Generator",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/Breakdance/DotHttp/Generator/index",
+                          "api-reference/CloudNimble/Breakdance/DotHttp/Generator/DotHttpSourceGenerator"
+                        ]
+                      },
+                      {
+                        "group": "Models",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/Breakdance/DotHttp/Models/index",
+                          "api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpEnvironment",
+                          "api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpFile",
+                          "api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpRequest",
+                          "api-reference/CloudNimble/Breakdance/DotHttp/Models/EnvironmentValue"
+                        ]
+                      }
                     ]
                   },
                   {

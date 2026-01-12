@@ -1,0 +1,457 @@
+---
+title: "Testing with .http Files"
+description: "Write API tests using Visual Studio's .http file format with variables, environments, and request chaining."
+---
+
+The `.http` file format lets you define HTTP requests in a readable text format. Breakdance's DotHttp library
+provides a runtime and source generator to execute these files as unit tests, with full support for variables,
+environments, and request chaining.
+
+## Prerequisites
+
+<Steps>
+  <Step title="Install the package">
+    Add the Breakdance DotHttp package to your test project:
+    ```bash
+    dotnet add package CloudNimble.Breakdance.DotHttp
+    ```
+  </Step>
+  <Step title="Create a .http file">
+    Add a `.http` file to your project. Visual Studio and VS Code provide syntax highlighting.
+  </Step>
+</Steps>
+
+## Quick Start
+
+Create a test class that inherits from `DotHttpTestBase`:
+
+```csharp ApiTests.cs
+using CloudNimble.Breakdance.DotHttp;
+using CloudNimble.Breakdance.DotHttp.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+[TestClass]
+public class ApiTests : DotHttpTestBase
+{
+    [TestMethod]
+    public async Task GetUsers_ReturnsSuccess()
+    {
+        SetVariable("baseUrl", "https://jsonplaceholder.typicode.com");
+
+        var request = new DotHttpRequest
+        {
+            Method = "GET",
+            Url = "{{baseUrl}}/users",
+            Name = "getUsers"
+        };
+
+        var response = await SendRequestAsync(request);
+
+        Assert.IsTrue(response.IsSuccessStatusCode);
+    }
+}
+```
+
+<Tip>
+While you can manually construct `DotHttpRequest` objects, the real power comes from parsing `.http` files
+or using the source generator to create tests automatically.
+</Tip>
+
+## The .http File Format
+
+A `.http` file contains one or more HTTP requests separated by `###`:
+
+```http api.http
+### Get all users
+GET https://api.example.com/users
+Accept: application/json
+
+### Create a user
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com"
+}
+
+### Get a specific user
+GET https://api.example.com/users/1
+```
+
+Each request section includes:
+- An optional comment line starting with `#` or `//`
+- The HTTP method and URL
+- Optional headers (key: value format)
+- A blank line separating headers from body
+- An optional request body
+
+## Variables
+
+Variables make your requests dynamic and reusable.
+
+### Defining Variables
+
+Define variables at the top of your `.http` file using `@variable = value`:
+
+```http
+@baseUrl = https://api.example.com
+@apiKey = my-secret-key
+
+### Use variables in requests
+GET {{baseUrl}}/users
+Authorization: Bearer {{apiKey}}
+```
+
+### Setting Variables in Code
+
+```csharp
+[TestMethod]
+public async Task GetUsers_WithApiKey()
+{
+    SetVariable("baseUrl", "https://api.example.com");
+    SetVariable("apiKey", Configuration["ApiKey"]); // From test config
+
+    var response = await SendRequestAsync(request);
+    Assert.IsTrue(response.IsSuccessStatusCode);
+}
+```
+
+### Dynamic Variables
+
+Breakdance supports dynamic variables that generate values at runtime:
+
+| Variable | Description | Example Output |
+|----------|-------------|----------------|
+| `{{$guid}}` | New GUID | `550e8400-e29b-41d4-a716-446655440000` |
+| `{{$datetime}}` | UTC datetime (ISO 8601) | `2024-01-15T10:30:00Z` |
+| `{{$localDatetime}}` | Local datetime with timezone | `2024-01-15T10:30:00-05:00` |
+| `{{$timestamp}}` | Unix timestamp | `1705315800` |
+| `{{$randomInt}}` | Random integer | `42987` |
+| `{{$randomInt 100}}` | Random 0-100 | `73` |
+| `{{$randomInt 10 50}}` | Random 10-50 | `34` |
+| `{{$processEnv VAR}}` | Environment variable | Value of $VAR |
+
+```http
+### Create unique resource
+POST {{baseUrl}}/items
+Content-Type: application/json
+
+{
+    "id": "{{$guid}}",
+    "timestamp": "{{$datetime}}",
+    "sequence": {{$randomInt 1000}}
+}
+```
+
+### DateTime Formatting and Offsets
+
+Dynamic datetime variables support formatting and offsets:
+
+```http
+### Datetime with format
+# ISO 8601 (default)
+GET {{baseUrl}}/reports?from={{$datetime}}
+
+# RFC 1123 format
+GET {{baseUrl}}/reports?from={{$datetime rfc1123}}
+
+# Custom format
+GET {{baseUrl}}/reports?from={{$datetime "dd-MM-yyyy"}}
+
+### Datetime with offset
+# Tomorrow
+GET {{baseUrl}}/reports?until={{$datetime 1 d}}
+
+# One week ago
+GET {{baseUrl}}/reports?from={{$datetime -7 d}}
+
+# In 1 hour
+GET {{baseUrl}}/tokens?expires={{$timestamp 1 h}}
+```
+
+**Offset units:** `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours), `d` (days), `w` (weeks), `M` (months), `y` (years)
+
+## Environment Files
+
+Store environment-specific variables in `http-client.env.json`:
+
+```json http-client.env.json
+{
+    "$shared": {
+        "apiVersion": "v2"
+    },
+    "dev": {
+        "baseUrl": "https://localhost:5001",
+        "apiKey": "dev-key-123"
+    },
+    "staging": {
+        "baseUrl": "https://staging.api.example.com",
+        "apiKey": "staging-key-456"
+    },
+    "prod": {
+        "baseUrl": "https://api.example.com",
+        "apiKey": "prod-key-789"
+    }
+}
+```
+
+Load environments in your tests:
+
+```csharp
+[TestInitialize]
+public void Setup()
+{
+    LoadEnvironment("http-client.env.json", "dev");
+}
+
+[TestMethod]
+public async Task CanSwitchEnvironments()
+{
+    // Start with dev
+    LoadEnvironment("http-client.env.json", "dev");
+    var devResponse = await SendRequestAsync(request);
+
+    // Switch to staging
+    SwitchEnvironment("staging");
+    var stagingResponse = await SendRequestAsync(request);
+}
+```
+
+### User Overrides
+
+Keep secrets out of source control with `.user` files:
+
+```json http-client.env.json.user
+{
+    "dev": {
+        "apiKey": "my-personal-dev-key"
+    }
+}
+```
+
+```csharp
+LoadEnvironmentWithOverrides(
+    "http-client.env.json",
+    "http-client.env.json.user",
+    "dev");
+```
+
+<Warning>
+Add `*.user` files to your `.gitignore` to prevent committing secrets.
+</Warning>
+
+## Request Chaining
+
+Chain requests together by capturing responses and referencing them in subsequent requests.
+
+### Naming Requests
+
+Use `# @name` to give a request a name for later reference:
+
+```http
+### Login to get a token
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{"username": "test", "password": "secret"}
+
+### Use the token from login
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{login.response.body.$.token}}
+```
+
+### Response Reference Syntax
+
+| Reference | Description |
+|-----------|-------------|
+| `{{name.response.body.*}}` | Entire response body |
+| `{{name.response.body.$.path}}` | JSONPath extraction |
+| `{{name.response.body./xpath}}` | XPath for XML |
+| `{{name.response.headers.HeaderName}}` | Response header value |
+| `{{name.request.body.*}}` | Original request body |
+
+### JSONPath Examples
+
+```http
+### Login request
+# @name login
+POST {{baseUrl}}/auth
+Content-Type: application/json
+
+{"username": "admin", "password": "secret"}
+
+### Get user profile using extracted userId
+GET {{baseUrl}}/users/{{login.response.body.$.user.id}}
+Authorization: Bearer {{login.response.body.$.token}}
+
+### Create order with user's default address
+# @name createOrder
+POST {{baseUrl}}/orders
+Content-Type: application/json
+X-Request-Id: {{login.response.headers.X-Request-Id}}
+
+{
+    "userId": "{{login.response.body.$.user.id}}",
+    "items": [{"productId": "123", "quantity": 1}]
+}
+```
+
+### Chaining in Code
+
+```csharp
+[TestMethod]
+public async Task ChainedRequests_UseResponseData()
+{
+    // First request - login
+    var loginRequest = new DotHttpRequest
+    {
+        Method = "POST",
+        Url = "{{baseUrl}}/auth/login",
+        Name = "login",
+        Body = "{\"username\": \"test\", \"password\": \"secret\"}",
+        Headers = { ["Content-Type"] = "application/json" }
+    };
+
+    await SendRequestAsync(loginRequest);
+
+    // Second request - uses token from login response
+    var profileRequest = new DotHttpRequest
+    {
+        Method = "GET",
+        Url = "{{baseUrl}}/users/me",
+        Headers = {
+            ["Authorization"] = "Bearer {{login.response.body.$.token}}"
+        }
+    };
+
+    var response = await SendRequestAsync(profileRequest);
+    Assert.IsTrue(response.IsSuccessStatusCode);
+}
+```
+
+## Smart Assertions
+
+Go beyond simple status code checking with `DotHttpAssertions`:
+
+```csharp
+using CloudNimble.Breakdance.DotHttp;
+
+[TestMethod]
+public async Task ValidateApiContract()
+{
+    var response = await SendRequestAsync(request);
+
+    // Comprehensive validation in one call
+    await DotHttpAssertions.AssertValidResponseAsync(response,
+        checkStatusCode: true,      // Verify 2xx status
+        checkContentType: true,     // Ensure Content-Type header present
+        checkBodyForErrors: true,   // Detect error patterns in 200 responses
+        logResponseOnFailure: true);// Include body in error messages
+}
+
+[TestMethod]
+public async Task AssertSpecificConditions()
+{
+    var response = await SendRequestAsync(request);
+
+    // Check specific status code
+    await DotHttpAssertions.AssertStatusCodeAsync(response, 201);
+
+    // Verify Content-Type
+    DotHttpAssertions.AssertContentType(response, "application/json");
+
+    // Check for specific header
+    DotHttpAssertions.AssertHeader(response, "X-Request-Id");
+    DotHttpAssertions.AssertHeader(response, "Cache-Control", "no-store");
+
+    // Verify body contains expected text
+    await DotHttpAssertions.AssertBodyContainsAsync(response, "\"success\":true");
+
+    // Detect hidden errors (200 OK with error payload)
+    await DotHttpAssertions.AssertNoErrorsInBodyAsync(response);
+}
+```
+
+### Error Pattern Detection
+
+`AssertNoErrorsInBodyAsync` catches common API anti-patterns where an error is returned with a 200 status:
+
+```json
+// This 200 OK response would fail the assertion
+{
+    "error": "User not found",
+    "success": false
+}
+```
+
+Detected patterns:
+- `"error":` or `"errors":` fields
+- `"success":false` or `"status":"error"`
+- XML `<error>` elements
+- `"fault":` fields
+
+## Using with Response Caching
+
+Combine DotHttp testing with cached responses for deterministic tests:
+
+```csharp
+public class CachedApiTests : DotHttpTestBase
+{
+    protected override HttpMessageHandler CreateHttpMessageHandler()
+    {
+        // Serve responses from cached files instead of real API
+        return new TestCacheReadDelegatingHandler("ResponseFiles");
+    }
+
+    [TestMethod]
+    public async Task GetUsers_UseCachedResponse()
+    {
+        SetVariable("baseUrl", "https://api.example.com");
+
+        var response = await SendRequestAsync(new DotHttpRequest
+        {
+            Method = "GET",
+            Url = "{{baseUrl}}/users"
+        });
+
+        // Response comes from ResponseFiles/api.example.com/users.json
+        Assert.IsTrue(response.IsSuccessStatusCode);
+    }
+}
+```
+
+See the [Response Caching guide](/guides/response-caching) for details on capturing and serving cached responses.
+
+## Parsing .http Files
+
+Use `DotHttpFileParser` to parse existing `.http` files:
+
+```csharp
+[TestMethod]
+public async Task ExecuteAllRequestsFromFile()
+{
+    var parser = new DotHttpFileParser();
+    var httpFile = parser.ParseFile("api.http");
+
+    foreach (var request in httpFile.Requests)
+    {
+        var response = await SendRequestAsync(request);
+        await DotHttpAssertions.AssertValidResponseAsync(response);
+    }
+}
+```
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
+    Capture and replay HTTP responses for deterministic tests
+  </Card>
+  <Card title="In-Memory Web API" icon="server" href="guides/web/testing-web-api">
+    Test ASP.NET Web API controllers without a server
+  </Card>
+</CardGroup>

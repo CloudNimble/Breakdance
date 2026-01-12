@@ -1,0 +1,306 @@
+---
+title: EnvironmentLoader
+description: "Loads and parses http-client.env.json environment files."
+icon: file-brackets-curly
+keywords: ['EnvironmentLoader', 'CloudNimble.Breakdance.DotHttp.EnvironmentLoader', 'CloudNimble.Breakdance.DotHttp', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.EnvironmentLoader
+```
+
+## Summary
+
+Loads and parses http-client.env.json environment files.
+
+## Remarks
+
+Supports $shared variables, environment-specific values, provider-based secrets, and .user file overrides.
+
+## Examples
+
+```csharp
+var loader = new EnvironmentLoader();
+var environment = loader.LoadFromFile("http-client.env.json");
+var variables = loader.GetResolvedVariables(environment, "dev");
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public EnvironmentLoader()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetResolvedVariables
+
+Gets the resolved variables for a specific environment, including $shared values.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.Dictionary<string, string> GetResolvedVariables(CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment environment, string environmentName)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `environment` | `CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment` | The environment configuration. |
+| `environmentName` | `string` | The name of the environment (e.g., "dev", "staging"). |
+
+#### Returns
+
+Type: `System.Collections.Generic.Dictionary<string, string>`
+A dictionary of resolved variable names and values.
+
+#### Examples
+
+```csharp
+var loader = new EnvironmentLoader();
+var env = loader.LoadFromFile("http-client.env.json");
+var devVars = loader.GetResolvedVariables(env, "dev");
+// devVars contains merged $shared and dev-specific variables
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> LoadFromFile
+
+Loads an environment configuration from a JSON file path.
+
+#### Syntax
+
+```csharp
+public CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment LoadFromFile(string filePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filePath` | `string` | The path to the http-client.env.json file. |
+
+#### Returns
+
+Type: `CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment`
+A [DotHttpEnvironment](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpEnvironment) containing the parsed configuration.
+
+#### Examples
+
+```csharp
+var loader = new EnvironmentLoader();
+var environment = loader.LoadFromFile("http-client.env.json");
+foreach (var envName in environment.Environments.Keys)
+{
+    Console.WriteLine($"Environment: {envName}");
+}
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MergeWithUserOverrides
+
+Merges the user override file (.user) with the base environment.
+
+#### Syntax
+
+```csharp
+public CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment MergeWithUserOverrides(CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment baseEnvironment, string userFilePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `baseEnvironment` | `CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment` | The base environment from http-client.env.json. |
+| `userFilePath` | `string` | The path to the http-client.env.json.user file. |
+
+#### Returns
+
+Type: `CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment`
+The merged environment configuration.
+
+#### Examples
+
+```csharp
+var loader = new EnvironmentLoader();
+var baseEnv = loader.LoadFromFile("http-client.env.json");
+var mergedEnv = loader.MergeWithUserOverrides(baseEnv, "http-client.env.json.user");
+```
+
+#### Remarks
+
+User override values take precedence over base environment values.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Parse
+
+Parses environment configuration from JSON content.
+
+#### Syntax
+
+```csharp
+public CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment Parse(string jsonContent)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `jsonContent` | `string` | The JSON content of the environment file. |
+
+#### Returns
+
+Type: `CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment`
+A [DotHttpEnvironment](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpEnvironment) containing the parsed configuration.
+
+#### Examples
+
+```csharp
+var loader = new EnvironmentLoader();
+var json = @"{
+  ""$shared"": { ""ApiVersion"": ""v2"" },
+  ""dev"": { ""HostAddress"": ""https://localhost:5001"" }
+}";
+var environment = loader.Parse(json);
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

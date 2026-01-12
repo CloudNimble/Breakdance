@@ -1,0 +1,209 @@
+---
+title: DotHttpSourceGenerator
+description: "Source generator that creates test classes from .http files."
+icon: lock
+tag: "SEALED"
+keywords: ['DotHttpSourceGenerator', 'CloudNimble.Breakdance.DotHttp.Generator.DotHttpSourceGenerator', 'CloudNimble.Breakdance.DotHttp.Generator', 'class', 'System.Object', 'Microsoft.CodeAnalysis.IIncrementalGenerator']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp.Generator
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.Generator.DotHttpSourceGenerator
+```
+
+## Summary
+
+Source generator that creates test classes from .http files.
+
+## Remarks
+
+Supports MSTest and XUnit frameworks via the TestFramework configuration property.
+            Generated classes are partial to allow custom setup and assertion overrides.
+
+## Examples
+
+```csharp
+// Given an api.http file with:
+// @baseUrl = https://api.example.com
+//
+// ### Get all users
+// # @name GetAllUsers
+// GET {{baseUrl}}/users
+// Accept: application/json
+//
+// The generator produces ApiTests.g.cs with:
+// [TestClass]
+// public partial class ApiTests : DotHttpTestBase
+// {
+//     [TestMethod]
+//     public async Task GetAllUsers() { ... }
+// }
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public DotHttpSourceGenerator()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Initialize
+
+#### Syntax
+
+```csharp
+public void Initialize(Microsoft.CodeAnalysis.IncrementalGeneratorInitializationContext context)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `context` | `Microsoft.CodeAnalysis.IncrementalGeneratorInitializationContext` | - |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Related APIs
+
+- Microsoft.CodeAnalysis.IIncrementalGenerator
+

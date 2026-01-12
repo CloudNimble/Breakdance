@@ -1,0 +1,90 @@
+---
+title: DotHttpAssertionException
+description: "Exception thrown when a DotHttp assertion fails."
+icon: file-brackets-curly
+keywords: ['DotHttpAssertionException', 'CloudNimble.Breakdance.DotHttp.DotHttpAssertionException', 'CloudNimble.Breakdance.DotHttp', 'class', 'System.Exception']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp
+
+**Inheritance:** System.Exception
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.DotHttpAssertionException
+```
+
+## Summary
+
+Exception thrown when a DotHttp assertion fails.
+
+## Remarks
+
+This exception is thrown by [DotHttpAssertions](/api-reference/CloudNimble/Breakdance/DotHttp/DotHttpAssertions) methods when
+            HTTP response validation fails.
+
+## Examples
+
+```csharp
+try
+{
+    await DotHttpAssertions.AssertValidResponseAsync(response);
+}
+catch (DotHttpAssertionException ex)
+{
+    Console.WriteLine($"Assertion failed: {ex.Message}");
+}
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [DotHttpAssertionException](/api-reference/CloudNimble/Breakdance/DotHttp/DotHttpAssertionException) class.
+
+#### Syntax
+
+```csharp
+public DotHttpAssertionException()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [DotHttpAssertionException](/api-reference/CloudNimble/Breakdance/DotHttp/DotHttpAssertionException) class
+            with a specified error message.
+
+#### Syntax
+
+```csharp
+public DotHttpAssertionException(string message)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `message` | `string` | The message that describes the error. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [DotHttpAssertionException](/api-reference/CloudNimble/Breakdance/DotHttp/DotHttpAssertionException) class
+            with a specified error message and inner exception.
+
+#### Syntax
+
+```csharp
+public DotHttpAssertionException(string message, System.Exception innerException)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `message` | `string` | The message that describes the error. |
+| `innerException` | `System.Exception` | The exception that is the cause of the current exception. |
+

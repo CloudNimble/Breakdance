@@ -5,6 +5,7 @@
     <Project Path="CloudNimble.Breakdance.Assemblies/Breakdance.Assemblies.csproj" />
     <Project Path="CloudNimble.Breakdance.Azurite/Breakdance.Azurite.csproj" />
     <Project Path="CloudNimble.Breakdance.Blazor/Breakdance.Blazor.csproj" />
+    <Project Path="CloudNimble.Breakdance.DotHttp/Breakdance.DotHttp.csproj" />
     <Project Path="CloudNimble.Breakdance.WebApi/Breakdance.WebApi.csproj" />
   </Folder>
   <Folder Name="/Docs/">
@@ -27,6 +28,7 @@
     <Project Path="CloudNimble.Breakdance.Tests.Assemblies/Breakdance.Tests.Assemblies.csproj" />
     <Project Path="CloudNimble.Breakdance.Tests.Azurite/Breakdance.Tests.Azurite.csproj" />
     <Project Path="CloudNimble.Breakdance.Tests.Blazor/Breakdance.Tests.Blazor.csproj" />
+    <Project Path="CloudNimble.Breakdance.Tests.DotHttp/Breakdance.Tests.DotHttp.csproj" />
     <Project Path="CloudNimble.Breakdance.Tests.WebApi/Breakdance.Tests.WebApi.csproj" />
   </Folder>
   <Folder Name="/Tools/">

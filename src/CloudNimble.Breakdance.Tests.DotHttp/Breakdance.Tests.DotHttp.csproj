@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <AssemblyName>CloudNimble.Breakdance.Tests.DotHttp</AssemblyName>
+        <RootNamespace>CloudNimble.Breakdance.Tests.DotHttp</RootNamespace>
+        <!-- net48 tests netstandard2.0 compatibility (VS runs on .NET Framework) -->
+        <TargetFrameworks>net10.0;net9.0;net8.0;net48</TargetFrameworks>
+        <IsPackable>false</IsPackable>
+        <RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
+        <NoWarn>$(NoWarn);NU1605;NU1701</NoWarn>
+        <!-- Required for net48 test execution -->
+        <OutputType Condition="'$(TargetFramework)' == 'net48'">Exe</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CloudNimble.Breakdance.DotHttp\Breakdance.DotHttp.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="HttpFiles\**\*.http">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="HttpFiles\**\*.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.*" />
+        <PackageReference Include="MSTest.TestFramework" Version="4.*" />
+    </ItemGroup>
+
+</Project>

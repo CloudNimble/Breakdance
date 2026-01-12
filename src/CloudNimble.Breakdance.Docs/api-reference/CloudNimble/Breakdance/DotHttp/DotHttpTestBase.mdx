@@ -1,0 +1,180 @@
+---
+title: DotHttpTestBase
+description: "Base class for generated .http file tests. Provides HTTP client management,              variable resolution, and response capture for request chaining."
+icon: shapes
+tag: "ABSTRACT"
+keywords: ['DotHttpTestBase', 'CloudNimble.Breakdance.DotHttp.DotHttpTestBase', 'CloudNimble.Breakdance.DotHttp', 'class', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp
+
+**Inheritance:** CloudNimble.Breakdance.Assemblies.BreakdanceTestBase
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.DotHttpTestBase
+```
+
+## Summary
+
+Base class for generated .http file tests. Provides HTTP client management,
+             variable resolution, and response capture for request chaining.
+
+## Remarks
+
+Inherits from BreakdanceTestBase for integration with the Breakdance testing framework.
+             Generated test classes are partial, allowing customization of setup and assertions.
+
+## Examples
+
+```csharp
+public partial class ApiTests : DotHttpTestBase
+{
+    protected override HttpMessageHandler CreateHttpMessageHandler()
+    {
+        // Use cached responses for deterministic tests
+        return new TestCacheReadDelegatingHandler("ResponseFiles");
+    }
+
+    partial void OnLoginSetup()
+    {
+        SetVariable("baseUrl", "https://api.example.com");
+    }
+}
+```
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> LoadEnvironment
+
+Loads environment configuration from an http-client.env.json file.
+
+#### Syntax
+
+```csharp
+public void LoadEnvironment(string filePath, string environmentName = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filePath` | `string` | The path to the environment file. |
+| `environmentName` | `string` | The environment to use (e.g., "dev", "staging"). |
+
+#### Examples
+
+```csharp
+LoadEnvironment("http-client.env.json", "dev");
+// Now variables from the dev environment are available
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> LoadEnvironmentWithOverrides
+
+Loads environment configuration with user overrides.
+
+#### Syntax
+
+```csharp
+public void LoadEnvironmentWithOverrides(string baseFilePath, string userFilePath, string environmentName = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `baseFilePath` | `string` | The path to the http-client.env.json file. |
+| `userFilePath` | `string` | The path to the http-client.env.json.user file. |
+| `environmentName` | `string` | The environment to use. |
+
+#### Examples
+
+```csharp
+LoadEnvironmentWithOverrides(
+    "http-client.env.json",
+    "http-client.env.json.user",
+    "dev");
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetVariable
+
+Sets a variable for use in request resolution.
+
+#### Syntax
+
+```csharp
+public void SetVariable(string name, string value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | The variable name (without @ prefix or {{}} wrapper). |
+| `value` | `string` | The variable value. |
+
+#### Examples
+
+```csharp
+SetVariable("baseUrl", "https://api.example.com");
+SetVariable("apiKey", "my-secret-key");
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SwitchEnvironment
+
+Switches to a different environment from the loaded configuration.
+
+#### Syntax
+
+```csharp
+public void SwitchEnvironment(string environmentName)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `environmentName` | `string` | The environment name to switch to. |
+
+#### Examples
+
+```csharp
+LoadEnvironment("http-client.env.json", "dev");
+// Run dev tests...
+SwitchEnvironment("staging");
+// Now running with staging variables
+```
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestSetupAsync <Badge color="blue">Override</Badge>
+
+Sets up the test environment.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task TestSetupAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestTearDownAsync <Badge color="blue">Override</Badge>
+
+Cleans up resources after each test.
+
+#### Syntax
+
+```csharp
+public override System.Threading.Tasks.Task TestTearDownAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+

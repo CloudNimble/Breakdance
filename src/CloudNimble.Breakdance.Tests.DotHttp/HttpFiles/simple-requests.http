@@ -1,0 +1,35 @@
+@baseUrl = https://api.example.com
+@apiVersion = v1
+
+### Get all users
+# @name GetUsers
+GET {{baseUrl}}/{{apiVersion}}/users
+Accept: application/json
+
+### Get a specific user
+# @name GetUser
+GET {{baseUrl}}/{{apiVersion}}/users/123
+
+### Create a new user
+# @name CreateUser
+POST {{baseUrl}}/{{apiVersion}}/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com"
+}
+
+### Update a user
+# @name UpdateUser
+PUT {{baseUrl}}/{{apiVersion}}/users/123
+Content-Type: application/json
+
+{
+    "name": "John Updated",
+    "email": "john.updated@example.com"
+}
+
+### Delete a user
+# @name DeleteUser
+DELETE {{baseUrl}}/{{apiVersion}}/users/123

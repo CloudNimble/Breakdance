@@ -1,0 +1,43 @@
+@baseUrl = https://api.example.com
+
+### Login to get authentication token
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "secret123"
+}
+
+### Get user profile using token from login
+# @name getProfile
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{login.response.body.$.token}}
+X-Request-Id: {{login.response.headers.X-Request-Id}}
+
+### Update profile with data from login
+# @name updateProfile
+PUT {{baseUrl}}/users/{{login.response.body.$.userId}}
+Authorization: Bearer {{login.response.body.$.token}}
+Content-Type: application/json
+
+{
+    "lastLogin": "{{login.response.body.$.timestamp}}"
+}
+
+### Create a resource
+# @name createResource
+POST {{baseUrl}}/resources
+Authorization: Bearer {{login.response.body.$.token}}
+Content-Type: application/json
+
+{
+    "name": "New Resource",
+    "ownerId": "{{login.response.body.$.userId}}"
+}
+
+### Get the created resource
+# @name getResource
+GET {{baseUrl}}/resources/{{createResource.response.body.$.id}}
+Authorization: Bearer {{login.response.body.$.token}}

@@ -1,0 +1,94 @@
+---
+title: "Web & API Testing"
+description: "Test HTTP APIs and web services with in-memory servers, .http files, and response caching."
+icon: circle-info
+---
+
+Breakdance provides multiple approaches for testing web APIs, each suited to different scenarios.
+Choose based on your testing needs:
+
+## Choose Your Approach
+
+<CardGroup cols={3}>
+  <Card title="In-Memory Testing" icon="server" href="guides/web/testing-web-api">
+    **Best for:** Unit testing HTTP APIs you're building without deploying infra
+
+    Fast, no network overhead, great for CI/CD
+  </Card>
+  <Card title=".http Files" icon="file-code" href="guides/web/dothttp-testing">
+    **Best for:** Replicating requests from 3rd party APIs
+
+    Readable format, variables, request chaining
+  </Card>
+  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
+    **Best for:** Replicating responses from 3rd party APIs
+
+    Capture once, replay everywhere
+  </Card>
+</CardGroup>
+
+## Quick Comparison
+
+| Feature | In-Memory | .http Files | Response Caching |
+|---------|-----------|-------------|------------------|
+| Network calls | None | Optional | Captured |
+| Test speed | Fastest | Fast | Fast (cached) |
+| Real API testing | No | Yes | Initial capture |
+| Offline capable | Yes | With caching | Yes |
+| Request chaining | Manual | Built-in | N/A |
+| Environment configs | N/A | Yes | Per-folder |
+
+## Combining Approaches
+
+These techniques work well together:
+
+```csharp
+// Use .http file format with cached responses
+public class ApiTests : DotHttpTestBase
+{
+    protected override HttpMessageHandler CreateHttpMessageHandler()
+    {
+        // Serve responses from cached files
+        return new TestCacheReadDelegatingHandler("ResponseFiles");
+    }
+
+    [TestMethod]
+    public async Task GetUsers_Test()
+    {
+        SetVariable("baseUrl", "https://api.example.com");
+
+        var response = await SendRequestAsync(new DotHttpRequest
+        {
+            Method = "GET",
+            Url = "{{baseUrl}}/users"
+        });
+
+        await DotHttpAssertions.AssertValidResponseAsync(response);
+    }
+}
+```
+
+## Guides
+
+<Cards>
+  <Card title="In-Memory Web API Testing" icon="server" href="guides/web/testing-web-api">
+    Test ASP.NET Web API controllers without a real HTTP server. Create an HttpClient wired
+    directly to your API's routing pipeline for fast, reliable unit tests.
+  </Card>
+  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
+    Write API tests using Visual Studio's .http file format. Supports variables, dynamic values,
+    environment files, and request chaining with response extraction.
+  </Card>
+  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
+    Capture HTTP responses from real APIs and replay them in tests. Perfect for testing against
+    external services without network dependencies.
+  </Card>
+</Cards>
+
+## Related Packages
+
+| Package | Purpose |
+|---------|---------|
+| `CloudNimble.Breakdance.WebApi` | In-memory Web API testing helpers |
+| `CloudNimble.Breakdance.DotHttp` | .http file parsing and test base class |
+| `CloudNimble.Breakdance.Assemblies` | Response caching handlers |

@@ -1,0 +1,223 @@
+---
+title: DotHttpEnvironment
+description: "Represents the configuration from an http-client.env.json file."
+icon: file-brackets-curly
+keywords: ['DotHttpEnvironment', 'CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment', 'CloudNimble.Breakdance.DotHttp.Models', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp.Models
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.Models.DotHttpEnvironment
+```
+
+## Summary
+
+Represents the configuration from an http-client.env.json file.
+
+## Remarks
+
+Supports $shared variables, environment-specific values, and provider-based secrets.
+
+## Examples
+
+```csharp
+{
+  "$shared": {
+    "ApiVersion": "v2"
+  },
+  "dev": {
+    "HostAddress": "https://localhost:5001"
+  },
+  "prod": {
+    "HostAddress": "https://api.example.com"
+  }
+}
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public DotHttpEnvironment()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Environments
+
+Gets or sets the environment-specific variable sets, keyed by environment name.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.Dictionary<string, System.Collections.Generic.Dictionary<string, CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue>> Environments { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.Dictionary<string, System.Collections.Generic.Dictionary<string, CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue>>`
+
+#### Remarks
+
+Common environment names include "dev", "staging", and "prod".
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Shared
+
+Gets or sets the shared variables that apply to all environments.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.Dictionary<string, CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue> Shared { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.Dictionary<string, CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue>`
+
+#### Remarks
+
+Parsed from the "$shared" section in http-client.env.json.
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

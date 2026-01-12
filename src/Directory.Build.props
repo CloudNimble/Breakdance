@@ -102,7 +102,7 @@
 		<PackageReference Include="coverlet.collector" Version="*" />
 		<PackageReference Include="FluentAssertions" Version="6.*" PrivateAssets="All" />
 		<PackageReference Include="FluentAssertions.Analyzers" Version="0.*" PrivateAssets="All" />
-		<PackageReference Include="MSTest" Version="4.*" />
+		<PackageReference Include="MSTest" Version="4.*" NoWarn="NU1701" />
 
         <!-- Enable parallel test execution in MSTest 4 and later. -->
 		<AssemblyAttribute Include="Microsoft.VisualStudio.TestTools.UnitTesting.Parallelize">

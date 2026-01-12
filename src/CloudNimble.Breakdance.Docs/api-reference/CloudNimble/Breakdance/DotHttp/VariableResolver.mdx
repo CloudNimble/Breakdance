@@ -1,0 +1,460 @@
+---
+title: VariableResolver
+description: "Resolves {{variable}} placeholders in .http file content."
+icon: lock
+tag: "SEALED"
+keywords: ['VariableResolver', 'CloudNimble.Breakdance.DotHttp.VariableResolver', 'CloudNimble.Breakdance.DotHttp', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.VariableResolver
+```
+
+## Summary
+
+Resolves {{variable}} placeholders in .http file content.
+
+## Remarks
+
+Supports simple variables, dynamic variables ($datetime, $randomInt, etc.),
+            and response references for request chaining per the Microsoft .http file specification.
+
+## Examples
+
+```csharp
+var resolver = new VariableResolver();
+resolver.SetVariable("baseUrl", "https://api.example.com");
+resolver.SetVariable("apiKey", "my-secret-key");
+var result = resolver.Resolve("GET {{baseUrl}}/users?key={{apiKey}}");
+// result = "GET https://api.example.com/users?key=my-secret-key"
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public VariableResolver()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Clear
+
+Clears all stored variables.
+
+#### Syntax
+
+```csharp
+public void Clear()
+```
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+resolver.SetVariable("foo", "bar");
+resolver.Clear();
+// All variables are now removed
+```
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetResponseReferenceNames
+
+Extracts all response reference names from the input.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.HashSet<string> GetResponseReferenceNames(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string. |
+
+#### Returns
+
+Type: `System.Collections.Generic.HashSet<string>`
+Set of request names that are referenced.
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+var input = "Authorization: Bearer {{login.response.body.$.token}}";
+var names = resolver.GetResponseReferenceNames(input);
+// names contains "login"
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetVariableNames
+
+Extracts all variable names from the input string.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.HashSet<string> GetVariableNames(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string. |
+
+#### Returns
+
+Type: `System.Collections.Generic.HashSet<string>`
+Set of variable names found.
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+var input = "{{baseUrl}}/users/{{userId}}";
+var names = resolver.GetVariableNames(input);
+// names contains "baseUrl" and "userId"
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HasResponseReferences
+
+Checks if a string contains response references ({{name.response.*}}).
+
+#### Syntax
+
+```csharp
+public bool HasResponseReferences(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string to check. |
+
+#### Returns
+
+Type: `bool`
+True if response references are present.
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+var hasRefs = resolver.HasResponseReferences("Bearer {{login.response.body.$.token}}");
+// hasRefs = true
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HasUnresolvedVariables
+
+Checks if a string contains any unresolved variable references.
+
+#### Syntax
+
+```csharp
+public bool HasUnresolvedVariables(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string to check. |
+
+#### Returns
+
+Type: `bool`
+True if unresolved variables remain.
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+resolver.SetVariable("baseUrl", "https://api.example.com");
+var resolved = resolver.Resolve("{{baseUrl}}/{{userId}}");
+var hasUnresolved = resolver.HasUnresolvedVariables(resolved);
+// hasUnresolved = true (userId was not set)
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Resolve
+
+Resolves all variable references in the input string.
+
+#### Syntax
+
+```csharp
+public string Resolve(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string containing {{variable}} placeholders. |
+
+#### Returns
+
+Type: `string`
+The resolved string with variables replaced.
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+resolver.SetVariable("baseUrl", "https://api.example.com");
+var result = resolver.Resolve("GET {{baseUrl}}/users");
+// result = "GET https://api.example.com/users"
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResolveDynamicVariables
+
+Resolves dynamic variables like $datetime, $randomInt, $timestamp, etc.
+
+#### Syntax
+
+```csharp
+public string ResolveDynamicVariables(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string. |
+
+#### Returns
+
+Type: `string`
+The resolved string.
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+var result = resolver.ResolveDynamicVariables("ID: {{$guid}}");
+// result = "ID: 550e8400-e29b-41d4-a716-446655440000" (example GUID)
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResolveSimpleVariables
+
+Resolves simple {{variable}} placeholders.
+
+#### Syntax
+
+```csharp
+public string ResolveSimpleVariables(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string. |
+
+#### Returns
+
+Type: `string`
+The resolved string.
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+resolver.SetVariable("name", "John");
+var result = resolver.ResolveSimpleVariables("Hello, {{name}}!");
+// result = "Hello, John!"
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetVariable
+
+Sets a variable value for resolution.
+
+#### Syntax
+
+```csharp
+public void SetVariable(string name, string value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | The variable name (without @ prefix or {{}} wrapper). |
+| `value` | `string` | The variable value. |
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+resolver.SetVariable("baseUrl", "https://api.example.com");
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetVariables
+
+Sets multiple variables at once.
+
+#### Syntax
+
+```csharp
+public void SetVariables(System.Collections.Generic.IDictionary<string, string> variables)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `variables` | `System.Collections.Generic.IDictionary<string, string>` | Dictionary of variable names and values. |
+
+#### Examples
+
+```csharp
+var resolver = new VariableResolver();
+resolver.SetVariables(new Dictionary&lt;string, string&gt;
+{
+    ["baseUrl"] = "https://api.example.com",
+    ["apiKey"] = "secret-key"
+});
+```
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

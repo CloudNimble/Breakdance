@@ -1,0 +1,286 @@
+---
+title: EnvironmentValue
+description: "Represents a value in the environment configuration."
+icon: file-brackets-curly
+keywords: ['EnvironmentValue', 'CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue', 'CloudNimble.Breakdance.DotHttp.Models', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp.Models
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue
+```
+
+## Summary
+
+Represents a value in the environment configuration.
+
+## Remarks
+
+Can be a simple string or a provider-based secret reference (AspnetUserSecrets, AzureKeyVault, etc.).
+
+## Examples
+
+```csharp
+// Simple string value
+{ "ApiKey": "dev-key-123" }
+
+// Provider-based secret
+{
+  "ApiKey": {
+    "provider": "AzureKeyVault",
+    "secretName": "ProdApiKey",
+    "resourceId": "/subscriptions/.../vaults/my-vault"
+  }
+}
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public EnvironmentValue()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsSecret
+
+Gets a value indicating whether this is a provider-based secret.
+
+#### Syntax
+
+```csharp
+public bool IsSecret { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+#### Remarks
+
+Returns true when [EnvironmentValue.Provider](/api-reference/CloudNimble/Breakdance/DotHttp/Models/EnvironmentValue#provider) is not null or empty.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Provider
+
+Gets or sets the provider type for secret resolution.
+
+#### Syntax
+
+```csharp
+public string Provider { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+Supported providers include "AspnetUserSecrets", "AzureKeyVault", and "Encrypted".
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResourceId
+
+Gets or sets the Azure resource ID for the AzureKeyVault provider.
+
+#### Syntax
+
+```csharp
+public string ResourceId { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SecretName
+
+Gets or sets the secret name for provider-based values.
+
+#### Syntax
+
+```csharp
+public string SecretName { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Value
+
+Gets or sets the simple string value when not using a provider.
+
+#### Syntax
+
+```csharp
+public string Value { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> FromString
+
+Creates an [EnvironmentValue](/api-reference/CloudNimble/Breakdance/DotHttp/Models/EnvironmentValue) from a simple string.
+
+#### Syntax
+
+```csharp
+public static CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue FromString(string value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `value` | `string` | The string value. |
+
+#### Returns
+
+Type: `CloudNimble.Breakdance.DotHttp.Models.EnvironmentValue`
+A new [EnvironmentValue](/api-reference/CloudNimble/Breakdance/DotHttp/Models/EnvironmentValue) with the specified value.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

@@ -1,0 +1,240 @@
+---
+title: "In-Memory Web API Testing"
+description: "Learn how to write fast, reliable tests for ASP.NET Web API controllers without spinning up a real HTTP server."
+---
+
+Testing Web API controllers traditionally requires running a full HTTP server, which is slow and can have port conflicts.
+Breakdance provides helpers that create an in-memory HTTP pipeline, letting you test your controllers directly without network overhead.
+
+## Prerequisites
+
+<Steps>
+  <Step title="Install the package">
+    Add the Breakdance WebApi package to your test project:
+    ```bash
+    dotnet add package CloudNimble.Breakdance.WebApi
+    ```
+  </Step>
+  <Step title="Reference your Web API project">
+    Your test project needs a reference to the project containing your controllers:
+    ```xml
+    <ProjectReference Include="..\MyApi\MyApi.csproj" />
+    ```
+  </Step>
+</Steps>
+
+## Quick Start
+
+The simplest approach uses `WebApiTestHelpers` to get a fully configured HttpClient:
+
+```csharp MyApiTests.cs
+using CloudNimble.Breakdance.WebApi;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+[TestClass]
+public class MyApiTests
+{
+    [TestMethod]
+    public async Task GetUsers_ReturnsSuccessStatusCode()
+    {
+        // Get an HttpClient wired up to your API's in-memory pipeline
+        var httpClient = WebApiTestHelpers.GetTestableHttpClient();
+
+        // Make requests just like you would against a real server
+        var response = await httpClient.ExecuteTestRequest(
+            HttpMethod.Get,
+            resource: "/api/users");
+
+        // Assert
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+    }
+}
+```
+
+<Tip>
+The `ExecuteTestRequest` extension method handles building the request URL and headers for you.
+It defaults to `http://localhost/api/test` as the base path.
+</Tip>
+
+## How It Works
+
+When you call `GetTestableHttpClient()`, Breakdance creates:
+
+1. An `HttpConfiguration` with attribute routing enabled
+2. An `HttpServer` that processes requests in-memory
+3. An `HttpClient` connected to that server
+
+```csharp
+// These three lines are equivalent to calling WebApiTestHelpers.GetTestableHttpClient()
+var config = new HttpConfiguration();
+config.MapHttpAttributeRoutes();
+config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+var server = new HttpServer(config);
+var client = new HttpClient(server);
+```
+
+Your controllers are discovered automatically from referenced assemblies.
+
+## Configuration Options
+
+### Custom HttpConfiguration
+
+If your API requires specific configuration (like custom routes or services), use the extension methods on `HttpConfiguration`:
+
+```csharp
+[TestMethod]
+public async Task CustomConfiguration_Works()
+{
+    var config = new HttpConfiguration();
+
+    // Add your custom routes
+    config.Routes.MapHttpRoute(
+        name: "DefaultApi",
+        routeTemplate: "api/{controller}/{id}",
+        defaults: new { id = RouteParameter.Optional }
+    );
+
+    // Register your DI container
+    config.DependencyResolver = new MyDependencyResolver();
+
+    // Get a client using your custom config
+    var client = config.GetTestableHttpClient();
+
+    var response = await client.ExecuteTestRequest(
+        HttpMethod.Get,
+        routePrefix: "api",  // Match your route template
+        resource: "/products");
+
+    Assert.IsTrue(response.IsSuccessStatusCode);
+}
+```
+
+### Changing the Route Prefix
+
+The default route prefix is `api/test`. Override it to match your API's routes:
+
+```csharp
+var response = await client.ExecuteTestRequest(
+    HttpMethod.Get,
+    routePrefix: "api/v1",
+    resource: "/customers");
+```
+
+### Custom Host
+
+If `localhost` conflicts with something on your machine:
+
+```csharp
+var response = await client.ExecuteTestRequest(
+    HttpMethod.Get,
+    host: "http://testhost",
+    resource: "/api/orders");
+```
+
+## Sending Request Bodies
+
+For POST, PUT, and PATCH requests, pass a payload object:
+
+```csharp
+[TestMethod]
+public async Task CreateUser_WithValidPayload_Returns201()
+{
+    var client = WebApiTestHelpers.GetTestableHttpClient();
+
+    var newUser = new { Name = "John Doe", Email = "john@example.com" };
+
+    var response = await client.ExecuteTestRequest(
+        HttpMethod.Post,
+        resource: "/api/users",
+        payload: newUser);
+
+    Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+}
+```
+
+The payload is automatically serialized to JSON using Newtonsoft.Json.
+
+## Reading Response Content
+
+```csharp
+[TestMethod]
+public async Task GetUser_ReturnsUserData()
+{
+    var client = WebApiTestHelpers.GetTestableHttpClient();
+
+    var response = await client.ExecuteTestRequest(
+        HttpMethod.Get,
+        resource: "/api/users/1");
+
+    // Read the response body
+    var content = await response.Content.ReadAsStringAsync();
+    Assert.IsFalse(string.IsNullOrWhiteSpace(content));
+
+    // Or deserialize directly
+    var user = JsonConvert.DeserializeObject<User>(content);
+    Assert.AreEqual(1, user.Id);
+}
+```
+
+## Testing Error Responses
+
+In-memory testing surfaces the same error responses your API would return in production:
+
+```csharp
+[TestMethod]
+public async Task GetUser_NotFound_Returns404()
+{
+    var client = WebApiTestHelpers.GetTestableHttpClient();
+
+    var response = await client.ExecuteTestRequest(
+        HttpMethod.Get,
+        resource: "/api/users/99999");
+
+    Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+}
+
+[TestMethod]
+public async Task CreateUser_InvalidData_Returns400()
+{
+    var client = WebApiTestHelpers.GetTestableHttpClient();
+
+    var invalidUser = new { Name = "", Email = "not-an-email" };
+
+    var response = await client.ExecuteTestRequest(
+        HttpMethod.Post,
+        resource: "/api/users",
+        payload: invalidUser);
+
+    Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+}
+```
+
+<Note>
+Because `IncludeErrorDetailPolicy.Always` is set, you'll get detailed error messages in the response body.
+This is helpful for debugging test failures but should not be enabled in production.
+</Note>
+
+## Comparison: In-Memory vs Real Server Testing
+
+| Aspect | In-Memory Testing | Real Server Testing |
+|--------|-------------------|---------------------|
+| Speed | Fast (no network) | Slower (HTTP overhead) |
+| Port conflicts | None | Possible |
+| Full HTTP stack | No (no network layer) | Yes |
+| SSL testing | No | Yes |
+| Middleware | Some limitations | Full support |
+| Best for | Unit tests, CI/CD | Integration tests, E2E |
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
+    Capture and replay HTTP responses for deterministic tests
+  </Card>
+  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
+    Write tests using Visual Studio's .http file format
+  </Card>
+</CardGroup>

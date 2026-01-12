@@ -1,0 +1,67 @@
+### Request with HTTP/2 version
+GET https://api.example.com/http2 HTTP/2
+
+### Request with all HTTP methods
+OPTIONS https://api.example.com/options
+
+###
+HEAD https://api.example.com/head
+
+###
+TRACE https://api.example.com/trace
+
+###
+CONNECT https://api.example.com/connect
+
+### Request with multi-line header
+# @name multilineHeader
+GET https://api.example.com/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+ .eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+ .SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+### Request with empty header value
+# @name emptyHeaderValue
+GET https://api.example.com/test
+X-Empty-Header:
+X-Normal-Header: value
+
+### Request with header containing colon
+# @name headerWithColon
+GET https://api.example.com/proxy
+X-Forwarded-Host: api.example.com:8080
+X-Real-URL: https://internal.example.com:443/path
+
+### Request with file body reference
+# @name fileBody
+POST https://api.example.com/upload
+Content-Type: application/octet-stream
+
+< ./data/payload.json
+
+### Mixed comments style
+// This is a double-slash comment
+# This is a hash comment
+// @name mixedComments
+GET https://api.example.com/comments
+
+### Request with all supported content types
+# @name jsonRequest
+POST https://api.example.com/json
+Content-Type: application/json
+
+{"key": "value"}
+
+###
+# @name xmlRequest
+POST https://api.example.com/xml
+Content-Type: application/xml
+
+<root><element>value</element></root>
+
+###
+# @name formRequest
+POST https://api.example.com/form
+Content-Type: application/x-www-form-urlencoded
+
+name=John&email=john@example.com

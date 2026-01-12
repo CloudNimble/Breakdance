@@ -1,0 +1,227 @@
+---
+title: DotHttpFileParser
+description: "Parses .http files into structured [DotHttpFile](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpFile) objects."
+icon: lock
+tag: "SEALED"
+keywords: ['DotHttpFileParser', 'CloudNimble.Breakdance.DotHttp.DotHttpFileParser', 'CloudNimble.Breakdance.DotHttp', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.DotHttpFileParser
+```
+
+## Summary
+
+Parses .http files into structured [DotHttpFile](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpFile) objects.
+
+## Remarks
+
+Implements the full .http file specification as documented at
+             https://learn.microsoft.com/en-us/aspnet/core/test/http-files
+             including variables, request chaining, file references, and multi-line headers.
+
+## Examples
+
+```csharp
+var parser = new DotHttpFileParser();
+var file = parser.Parse(httpFileContent, "api.http");
+
+// Check for parse diagnostics
+foreach (var diagnostic in file.Diagnostics)
+{
+    Console.WriteLine($"{diagnostic.Location}: {diagnostic.GetMessage()}");
+}
+
+// Process requests
+foreach (var request in file.Requests)
+{
+    Console.WriteLine($"{request.Method} {request.Url}");
+}
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public DotHttpFileParser()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Parse
+
+Parses a .http file content into a structured model.
+
+#### Syntax
+
+```csharp
+public CloudNimble.Breakdance.DotHttp.Models.DotHttpFile Parse(string content, string filePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `content` | `string` | The content of the .http file. |
+| `filePath` | `string` | The file path for reference in the model. |
+
+#### Returns
+
+Type: `CloudNimble.Breakdance.DotHttp.Models.DotHttpFile`
+A [DotHttpFile](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpFile) containing the parsed requests, variables, and any parse errors.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` | Thrown when *filePath* is null. |
+
+#### Examples
+
+```csharp
+var parser = new DotHttpFileParser();
+var content = File.ReadAllText("api.http");
+var file = parser.Parse(content, "api.http");
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

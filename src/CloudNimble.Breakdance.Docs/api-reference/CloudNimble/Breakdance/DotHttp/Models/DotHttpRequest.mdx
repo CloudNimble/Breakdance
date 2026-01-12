@@ -1,0 +1,432 @@
+---
+title: DotHttpRequest
+description: "Represents a single HTTP request parsed from a .http file."
+icon: file-brackets-curly
+keywords: ['DotHttpRequest', 'CloudNimble.Breakdance.DotHttp.Models.DotHttpRequest', 'CloudNimble.Breakdance.DotHttp.Models', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp.Models
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.Models.DotHttpRequest
+```
+
+## Summary
+
+Represents a single HTTP request parsed from a .http file.
+
+## Remarks
+
+Supports all standard HTTP methods, request chaining via response variable references,
+            file-based request bodies, and request-level variable overrides.
+
+## Examples
+
+```csharp
+# @name GetUsers
+GET {{baseUrl}}/users
+Accept: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public DotHttpRequest()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Body
+
+Gets or sets the request body content for POST, PUT, and PATCH requests.
+
+#### Syntax
+
+```csharp
+public string Body { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+May contain {{variable}} references that are resolved at runtime.
+            For file references, this will be null and [DotHttpRequest.BodyFilePath](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpRequest#bodyfilepath) will be set.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BodyFilePath
+
+Gets or sets the file path for request body when using file reference syntax.
+
+#### Syntax
+
+```csharp
+public string BodyFilePath { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Examples
+
+```csharp
+POST {{baseUrl}}/upload
+Content-Type: application/octet-stream
+
+&lt; ./path/to/file.bin
+```
+
+#### Remarks
+
+When set, the body content should be loaded from this file path at runtime.
+             The path is relative to the .http file location.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Comments
+
+Gets or sets the comments and documentation that appeared before this request.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<string> Comments { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<string>`
+
+#### Remarks
+
+Comments are parsed from lines starting with # or // that precede the request line.
+            The comment markers are preserved for accurate representation.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DependsOn
+
+Gets or sets the names of requests this request depends on for chaining.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<string> DependsOn { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<string>`
+
+#### Examples
+
+```csharp
+// A request using {{login.response.body.$.token}} would have "login" in DependsOn
+```
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HasResponseReferences
+
+Gets a value indicating whether this request references variables from previous responses.
+
+#### Syntax
+
+```csharp
+public bool HasResponseReferences { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+#### Examples
+
+```csharp
+// True when the request contains syntax like {{login.response.body.$.token}}
+```
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Headers
+
+Gets or sets the request headers as key-value pairs.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.Dictionary<string, string> Headers { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.Dictionary<string, string>`
+
+#### Remarks
+
+Headers are stored with case-insensitive keys per RFC 7230.
+            Header values may contain {{variable}} references that are resolved at runtime.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HttpVersion
+
+Gets or sets the HTTP version (HTTP/1.1, HTTP/2, HTTP/3).
+
+#### Syntax
+
+```csharp
+public string HttpVersion { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+Optional. When not specified, the default HTTP version is used.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsFileBody
+
+Gets a value indicating whether the request body should be loaded from a file.
+
+#### Syntax
+
+```csharp
+public bool IsFileBody { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> LineNumber
+
+Gets or sets the line number in the source file where this request begins.
+
+#### Syntax
+
+```csharp
+public int LineNumber { get; set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+#### Remarks
+
+Used for diagnostics and error reporting.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Method
+
+Gets or sets the HTTP method (GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS, TRACE, CONNECT).
+
+#### Syntax
+
+```csharp
+public string Method { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Name
+
+Gets or sets the optional name for the request, parsed from "# @name RequestName" comment.
+
+#### Syntax
+
+```csharp
+public string Name { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+Used for generating test method names and for referencing in request chaining.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Url
+
+Gets or sets the request URL.
+
+#### Syntax
+
+```csharp
+public string Url { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+May contain {{variable}} references that are resolved at runtime.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Variables
+
+Gets or sets the request-level variables that override file-level variables.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.Dictionary<string, string> Variables { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.Dictionary<string, string>`
+
+#### Examples
+
+```csharp
+@baseUrl = https://override.example.com
+GET {{baseUrl}}/users
+```
+
+#### Remarks
+
+Variables defined after a request separator (###) but before the next request line
+            apply only to that request and override file-level variables with the same name.
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

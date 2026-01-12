@@ -1,0 +1,218 @@
+---
+title: DotHttpAssertions
+description: "Provides smart assertion helpers for HTTP responses that go beyond simple status code checking."
+icon: bolt
+tag: "STATIC"
+keywords: ['DotHttpAssertions', 'CloudNimble.Breakdance.DotHttp.DotHttpAssertions', 'CloudNimble.Breakdance.DotHttp', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.DotHttpAssertions
+```
+
+## Summary
+
+Provides smart assertion helpers for HTTP responses that go beyond simple status code checking.
+
+## Remarks
+
+Detects common API error patterns like 200 OK responses that contain error payloads.
+
+## Examples
+
+```csharp
+var response = await httpClient.SendAsync(request);
+
+// Validate response meets common API expectations
+await DotHttpAssertions.AssertValidResponseAsync(response);
+
+// Or with custom options
+await DotHttpAssertions.AssertValidResponseAsync(response,
+    checkStatusCode: true,
+    checkContentType: true,
+    checkBodyForErrors: true);
+```
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssertBodyContainsAsync
+
+Validates that the response body contains the specified text.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task AssertBodyContainsAsync(System.Net.Http.HttpResponseMessage response, string expectedText, int maxBodyPreviewLength = 500)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response. |
+| `expectedText` | `string` | The text that should be present in the body. |
+| `maxBodyPreviewLength` | `int` | Maximum length of body content to include in error messages. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Examples
+
+```csharp
+await DotHttpAssertions.AssertBodyContainsAsync(response, "\"success\":true");
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssertContentType
+
+Validates that the response Content-Type matches the expected value.
+
+#### Syntax
+
+```csharp
+public static void AssertContentType(System.Net.Http.HttpResponseMessage response, string expectedContentType)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response. |
+| `expectedContentType` | `string` | The expected Content-Type (e.g., "application/json"). |
+
+#### Examples
+
+```csharp
+DotHttpAssertions.AssertContentType(response, "application/json");
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssertHeader
+
+Validates that the response contains a specific header.
+
+#### Syntax
+
+```csharp
+public static void AssertHeader(System.Net.Http.HttpResponseMessage response, string headerName, string expectedValue = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response. |
+| `headerName` | `string` | The expected header name. |
+| `expectedValue` | `string` | Optional expected header value. |
+
+#### Examples
+
+```csharp
+DotHttpAssertions.AssertHeader(response, "X-Request-Id");
+DotHttpAssertions.AssertHeader(response, "Cache-Control", "no-store");
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssertNoErrorsInBodyAsync
+
+Validates that the response body does not contain error patterns.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task AssertNoErrorsInBodyAsync(System.Net.Http.HttpResponseMessage response, int maxBodyPreviewLength = 500)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response. |
+| `maxBodyPreviewLength` | `int` | Maximum length of body content to include in error messages. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Examples
+
+```csharp
+await DotHttpAssertions.AssertNoErrorsInBodyAsync(response);
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssertStatusCodeAsync
+
+Validates that the response status code matches the expected value.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task AssertStatusCodeAsync(System.Net.Http.HttpResponseMessage response, int expectedStatusCode, int maxBodyPreviewLength = 500)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response. |
+| `expectedStatusCode` | `int` | The expected status code. |
+| `maxBodyPreviewLength` | `int` | Maximum length of body content to include in error messages. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Examples
+
+```csharp
+await DotHttpAssertions.AssertStatusCodeAsync(response, 201); // Created
+await DotHttpAssertions.AssertStatusCodeAsync(response, 204); // No Content
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssertValidResponseAsync
+
+Validates that the response meets common API contract expectations.
+
+#### Syntax
+
+```csharp
+public static System.Threading.Tasks.Task AssertValidResponseAsync(System.Net.Http.HttpResponseMessage response, bool checkStatusCode = true, bool checkContentType = true, bool checkBodyForErrors = true, bool logResponseOnFailure = true, int maxBodyPreviewLength = 500)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response to validate. |
+| `checkStatusCode` | `bool` | Whether to check the status code for success. Default is true. |
+| `checkContentType` | `bool` | Whether to verify Content-Type is present when body exists. Default is true. |
+| `checkBodyForErrors` | `bool` | Whether to check for error patterns in the response body. Default is true. |
+| `logResponseOnFailure` | `bool` | Whether to include the response body in failure messages. Default is true. |
+| `maxBodyPreviewLength` | `int` | Maximum length of body content to include in error messages. Default is 500. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A task that completes when validation is done.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `DotHttpAssertionException` | Thrown when an assertion fails. |
+
+#### Examples
+
+```csharp
+var response = await httpClient.SendAsync(request);
+await DotHttpAssertions.AssertValidResponseAsync(response);
+```
+

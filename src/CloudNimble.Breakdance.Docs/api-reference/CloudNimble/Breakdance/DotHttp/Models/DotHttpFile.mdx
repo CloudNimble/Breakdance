@@ -1,0 +1,280 @@
+---
+title: DotHttpFile
+description: "Represents a complete parsed .http file containing variables and requests."
+icon: file-brackets-curly
+keywords: ['DotHttpFile', 'CloudNimble.Breakdance.DotHttp.Models.DotHttpFile', 'CloudNimble.Breakdance.DotHttp.Models', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp.Models
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.Models.DotHttpFile
+```
+
+## Summary
+
+Represents a complete parsed .http file containing variables and requests.
+
+## Remarks
+
+A .http file can contain multiple requests separated by ### and file-level variables.
+             Variables are case-sensitive per the Microsoft specification.
+
+## Examples
+
+```csharp
+@baseUrl = https://api.example.com
+
+### Get all users
+GET {{baseUrl}}/users
+
+### Create user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{"name": "John"}
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public DotHttpFile()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Diagnostics
+
+Gets or sets the parsing diagnostics encountered while parsing this file.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<Microsoft.CodeAnalysis.Diagnostic> Diagnostics { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<Microsoft.CodeAnalysis.Diagnostic>`
+
+#### Remarks
+
+Contains Roslyn diagnostic information for malformed content that could not be parsed.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> FilePath
+
+Gets or sets the file path relative to the project.
+
+#### Syntax
+
+```csharp
+public string FilePath { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HasChainedRequests
+
+Gets a value indicating whether any requests in this file have dependencies on other requests.
+
+#### Syntax
+
+```csharp
+public bool HasChainedRequests { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+#### Remarks
+
+Returns true when any request uses response variable references like {{login.response.body.$.token}}.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Requests
+
+Gets or sets all HTTP requests defined in the file.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<CloudNimble.Breakdance.DotHttp.Models.DotHttpRequest> Requests { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<CloudNimble.Breakdance.DotHttp.Models.DotHttpRequest>`
+
+#### Remarks
+
+Requests are separated by ### in the source file.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Variables
+
+Gets or sets the file-level variables defined with @name=value syntax.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.Dictionary<string, string> Variables { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.Dictionary<string, string>`
+
+#### Examples
+
+```csharp
+@baseUrl = https://api.example.com
+@apiVersion = v2
+```
+
+#### Remarks
+
+Variable names are case-sensitive per the Microsoft specification.
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>CloudNimble.Breakdance.DotHttp</RootNamespace>
+        <AssemblyName>CloudNimble.Breakdance.DotHttp</AssemblyName>
+        <TargetFrameworks>net10.0;net9.0;net8.0;netstandard2.0</TargetFrameworks>
+        <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+
+        <!-- Source generator configuration -->
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <IsRoslynComponent>true</IsRoslynComponent>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Allow test assembly to access internal members -->
+        <InternalsVisibleTo Include="CloudNimble.Breakdance.Tests.DotHttp, $(StrongNamePublicKey)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Source generator dependencies -->
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.*" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.*" PrivateAssets="all" />
+
+        <!-- Runtime dependencies for netstandard2.0 -->
+        <PackageReference Include="System.Text.Json" Version="8.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+        <PackageReference Include="IndexRange" Version="1.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+        <PackageReference Include="System.Memory" Version="4.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+
+        <!-- Project reference -->
+        <ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Include generator DLL in analyzers folder (netstandard2.0 only for Roslyn) -->
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+
+        <!-- Include SDK build files -->
+        <None Include="Build\Breakdance.DotHttp.props" Pack="true" PackagePath="build;buildTransitive" />
+        <None Include="Build\Breakdance.DotHttp.targets" Pack="true" PackagePath="build;buildTransitive" />
+    </ItemGroup>
+
+</Project>

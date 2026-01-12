@@ -1,0 +1,47 @@
+---
+title: "Guides"
+description: "Step-by-step tutorials for testing different aspects of your .NET applications with Breakdance."
+---
+
+Breakdance provides specialized testing support for various .NET technologies. These guides walk you through
+common scenarios with practical examples.
+
+## By Category
+
+<CardGroup cols={2}>
+  <Card title="Web & API Testing" icon="globe" href="guides/web">
+    Test HTTP APIs with in-memory servers, .http files, and response caching
+  </Card>
+  <Card title="Azure Storage" icon="database" href="guides/testing-azure-storage">
+    Integration testing with Azurite for Blob, Queue, and Table storage
+  </Card>
+</CardGroup>
+
+## All Guides
+
+### Web & API Testing
+
+<Cards>
+  <Card title="In-Memory Web API Testing" icon="server" href="guides/web/testing-web-api">
+    Test ASP.NET Web API controllers without spinning up a real HTTP server
+  </Card>
+  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
+    Write API tests using Visual Studio's .http file format with variables and chaining
+  </Card>
+  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
+    Capture and replay HTTP responses for fast, deterministic tests
+  </Card>
+</Cards>
+
+### Azure Services
+
+<Cards>
+  <Card title="Azure Storage with Azurite" icon="box-archive" href="guides/testing-azure-storage">
+    Test against Blob, Queue, and Table storage using the Azurite emulator
+  </Card>
+</Cards>
+
+## Getting Started
+
+New to Breakdance? Start with the [Quickstart](/quickstart) guide to set up your first test project,
+then explore the guides relevant to your application's technology stack.

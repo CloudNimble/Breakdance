@@ -178,7 +178,18 @@ namespace CloudNimble.Breakdance.Azurite
 
             // Get working directory
             var workingDirectory = GetAzuriteDirectory();
-            var fullCommand = $"npx {command} {args}";
+
+            // Calculate appropriate Node.js heap size:
+            // - If ExtentMemoryLimitMB is set, add 128MB overhead for Azurite's internal structures
+            // - Otherwise, use 256MB default (sufficient for basic in-memory operations)
+            var heapSizeMB = _config.ExtentMemoryLimitMB.HasValue
+                ? _config.ExtentMemoryLimitMB.Value + 128
+                : 256;
+
+            // Set NODE_OPTIONS to limit Node.js heap size to prevent OOM errors
+            // when multiple Azurite instances run in parallel (e.g., parallel tests)
+            var nodeOptions = $"--max-old-space-size={heapSizeMB}";
+            var fullCommand = $"set NODE_OPTIONS={nodeOptions} && npx {command} {args}";
 
             // Build the window title for process identification
             var instanceName = string.IsNullOrWhiteSpace(_config.InstanceName) ? "Unknown" : _config.InstanceName;
@@ -992,8 +1003,21 @@ namespace CloudNimble.Breakdance.Azurite
             var standardOutput = StandardOutput;
             var combinedOutput = errorOutput + standardOutput;
 
+            // Check for Node.js/V8 out-of-memory errors (fail fast - no point waiting)
+            if (combinedOutput.Contains("Fatal process out of memory") ||
+                combinedOutput.Contains("FATAL ERROR: CALL_AND_RETRY_LAST") ||
+                combinedOutput.Contains("JavaScript heap out of memory") ||
+                combinedOutput.Contains("Allocation failed"))
+            {
+                throw new OutOfMemoryException(
+                    $"Node.js ran out of memory while starting Azurite. " +
+                    $"Try setting ExtentMemoryLimitMB to a lower value or disable InMemoryPersistence.\n" +
+                    $"Output: {standardOutput}\n" +
+                    $"Error: {errorOutput}");
+            }
+
             // Check for port conflict - this is a special case that can be retried
-            if (combinedOutput.Contains("EADDRINUSE") || 
+            if (combinedOutput.Contains("EADDRINUSE") ||
                 combinedOutput.Contains("address already in use") ||
                 combinedOutput.Contains("port is already in use") ||
                 combinedOutput.Contains("listen EADDRINUSE"))

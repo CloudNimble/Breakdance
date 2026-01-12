@@ -1,0 +1,346 @@
+---
+title: ResponseCapture
+description: "Captures HTTP responses from named requests for use in request chaining."
+icon: lock
+tag: "SEALED"
+keywords: ['ResponseCapture', 'CloudNimble.Breakdance.DotHttp.ResponseCapture', 'CloudNimble.Breakdance.DotHttp', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.DotHttp.dll
+
+**Namespace:** CloudNimble.Breakdance.DotHttp
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.DotHttp.ResponseCapture
+```
+
+## Summary
+
+Captures HTTP responses from named requests for use in request chaining.
+
+## Remarks
+
+Supports {{name.response.body.$.path}} for JSONPath, {{name.response.body./xpath}} for XPath,
+             and {{name.response.headers.HeaderName}} for header extraction.
+
+## Examples
+
+```csharp
+var capture = new ResponseCapture();
+await capture.CaptureAsync("login", loginResponse);
+
+// Later, resolve a reference from the captured response
+var token = capture.ResolveReference("{{login.response.body.$.token}}");
+var header = capture.ResolveReference("{{login.response.headers.X-Request-Id}}");
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public ResponseCapture()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CaptureAsync
+
+Captures a response for later reference.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task CaptureAsync(string name, System.Net.Http.HttpResponseMessage response, string requestBody = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | The request name (from # @name directive). |
+| `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response. |
+| `requestBody` | `string` | The original request body (for {{name.request.body}} references). |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Examples
+
+```csharp
+var capture = new ResponseCapture();
+var response = await httpClient.SendAsync(request);
+await capture.CaptureAsync("createUser", response, requestBodyJson);
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Clear
+
+Clears all captured responses.
+
+#### Syntax
+
+```csharp
+public void Clear()
+```
+
+#### Examples
+
+```csharp
+var capture = new ResponseCapture();
+// ... capture some responses ...
+capture.Clear(); // Reset for new test
+```
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetResponseBody
+
+Gets the captured response body for a named request.
+
+#### Syntax
+
+```csharp
+public string GetResponseBody(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | The request name. |
+
+#### Returns
+
+Type: `string`
+The response body, or null if not captured.
+
+#### Examples
+
+```csharp
+var capture = new ResponseCapture();
+await capture.CaptureAsync("login", response);
+var body = capture.GetResponseBody("login");
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HasResponse
+
+Checks if a captured response exists for the given name.
+
+#### Syntax
+
+```csharp
+public bool HasResponse(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | The request name. |
+
+#### Returns
+
+Type: `bool`
+True if the response has been captured.
+
+#### Examples
+
+```csharp
+if (capture.HasResponse("login"))
+{
+    var token = capture.ResolveReference("{{login.response.body.$.token}}");
+}
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResolveAllReferences
+
+Resolves all response references in a string.
+
+#### Syntax
+
+```csharp
+public string ResolveAllReferences(string input)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `input` | `string` | The input string containing response references. |
+
+#### Returns
+
+Type: `string`
+The resolved string.
+
+#### Examples
+
+```csharp
+var url = "https://api.example.com/users/{{login.response.body.$.userId}}";
+var resolvedUrl = capture.ResolveAllReferences(url);
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResolveReference
+
+Resolves a response reference to its actual value.
+
+#### Syntax
+
+```csharp
+public string ResolveReference(string reference)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `reference` | `string` | The full reference string (e.g., "{{login.response.body.$.token}}"). |
+
+#### Returns
+
+Type: `string`
+The resolved value, or the original reference if not found.
+
+#### Examples
+
+```csharp
+var capture = new ResponseCapture();
+await capture.CaptureAsync("login", response);
+var token = capture.ResolveReference("{{login.response.body.$.token}}");
+```
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+    Default properties for Breakdance.DotHttp source generator.
+    These can be overridden via nested XML in BreakdanceDotHttpConfig or direct properties.
+  -->
+
+  <PropertyGroup>
+    <!-- Default test framework (MSTest or XUnit) -->
+    <BreakdanceDotHttp_TestFramework Condition="'$(BreakdanceDotHttp_TestFramework)' == ''">MSTest</BreakdanceDotHttp_TestFramework>
+
+    <!-- Default base path for .http files -->
+    <BreakdanceDotHttp_BasePath Condition="'$(BreakdanceDotHttp_BasePath)' == ''">$(MSBuildProjectDirectory)</BreakdanceDotHttp_BasePath>
+
+    <!-- Default environment name -->
+    <BreakdanceDotHttp_Environment Condition="'$(BreakdanceDotHttp_Environment)' == ''">dev</BreakdanceDotHttp_Environment>
+
+    <!-- Default assertion options -->
+    <BreakdanceDotHttp_UseFluentAssertions Condition="'$(BreakdanceDotHttp_UseFluentAssertions)' == ''">false</BreakdanceDotHttp_UseFluentAssertions>
+    <BreakdanceDotHttp_CheckStatusCode Condition="'$(BreakdanceDotHttp_CheckStatusCode)' == ''">true</BreakdanceDotHttp_CheckStatusCode>
+    <BreakdanceDotHttp_CheckContentType Condition="'$(BreakdanceDotHttp_CheckContentType)' == ''">true</BreakdanceDotHttp_CheckContentType>
+    <BreakdanceDotHttp_CheckBodyForErrors Condition="'$(BreakdanceDotHttp_CheckBodyForErrors)' == ''">true</BreakdanceDotHttp_CheckBodyForErrors>
+    <BreakdanceDotHttp_LogResponseOnFailure Condition="'$(BreakdanceDotHttp_LogResponseOnFailure)' == ''">true</BreakdanceDotHttp_LogResponseOnFailure>
+  </PropertyGroup>
+
+</Project>

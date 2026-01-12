@@ -302,3 +302,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /src/CloudNimble.Breakdance.Tests.Assemblies/ResponseFiles/
+/.claude/settings.local.json
