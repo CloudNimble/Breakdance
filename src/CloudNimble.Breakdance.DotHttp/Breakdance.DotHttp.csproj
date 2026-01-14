@@ -45,7 +45,7 @@
     </ItemGroup>
 
     <!--
-    Custom target to include netstandard2.0 assembly in the analyzers folder.
+    Custom target to include netstandard2.0 assembly and dependencies in the analyzers folder.
     This runs per-TFM during pack, so we only include when building netstandard2.0.
 
     Note: Breakdance.Assemblies is NOT included here because the source generator
@@ -55,7 +55,11 @@
     -->
     <Target Name="_AddAnalyzersToPackage" Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <ItemGroup>
+            <!-- Main generator assembly -->
             <TfmSpecificPackageFile Include="$(TargetPath)" PackagePath="analyzers/dotnet/cs" />
+
+            <!-- Humanizer dependency (used by source generator at compile time) -->
+            <TfmSpecificPackageFile Include="$(OutputPath)Humanizer.dll" PackagePath="analyzers/dotnet/cs" />
         </ItemGroup>
     </Target>
 
