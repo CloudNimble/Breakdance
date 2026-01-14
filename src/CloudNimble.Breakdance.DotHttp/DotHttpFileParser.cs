@@ -254,6 +254,7 @@ namespace CloudNimble.Breakdance.DotHttp
             DotHttpRequest currentRequest = null;
             var currentComments = new List<string>();
             string currentRequestName = null;
+            string currentSeparatorTitle = null;
             var currentRequestVariables = new Dictionary<string, string>(StringComparer.Ordinal);
             var state = ParserState.Start;
             var bodyLines = new List<string>();
@@ -274,6 +275,10 @@ namespace CloudNimble.Breakdance.DotHttp
                         FinishRequest(context, currentRequest, bodyLines);
                         context.File.Requests.Add(currentRequest);
                     }
+
+                    // Capture any text after ### as the separator title for the next request
+                    var separatorText = trimmedSpan.Slice(3).Trim();
+                    currentSeparatorTitle = separatorText.Length > 0 ? separatorText.ToString() : null;
 
                     // Reset state for next request
                     currentRequest = null;
@@ -296,6 +301,7 @@ namespace CloudNimble.Breakdance.DotHttp
                         trimmedSpan,
                         ref currentRequest,
                         ref currentRequestName,
+                        ref currentSeparatorTitle,
                         ref state,
                         currentComments,
                         currentRequestVariables,
@@ -394,6 +400,7 @@ namespace CloudNimble.Breakdance.DotHttp
         /// <param name="trimmedLine">The trimmed line to process.</param>
         /// <param name="currentRequest">The current request, set when a request line is found.</param>
         /// <param name="currentRequestName">The current request name from @name directive.</param>
+        /// <param name="currentSeparatorTitle">The text after ### separator, used for test method naming.</param>
         /// <param name="state">The current parser state, may transition to InHeaders.</param>
         /// <param name="currentComments">The accumulated comments for the next request.</param>
         /// <param name="currentRequestVariables">The request-level variables.</param>
@@ -404,6 +411,7 @@ namespace CloudNimble.Breakdance.DotHttp
             ReadOnlySpan<char> trimmedLine,
             ref DotHttpRequest currentRequest,
             ref string currentRequestName,
+            ref string currentSeparatorTitle,
             ref ParserState state,
             List<string> currentComments,
             Dictionary<string, string> currentRequestVariables,
@@ -501,6 +509,7 @@ namespace CloudNimble.Breakdance.DotHttp
                     Url = requestMatch.Groups[2].Value,
                     HttpVersion = requestMatch.Groups[3].Success ? requestMatch.Groups[3].Value : null,
                     Name = currentRequestName,
+                    SeparatorTitle = currentSeparatorTitle,
                     LineNumber = context.LineNumber,
                     Comments = new List<string>(currentComments)
                 };
@@ -516,6 +525,7 @@ namespace CloudNimble.Breakdance.DotHttp
 
                 currentComments.Clear();
                 currentRequestName = null;
+                currentSeparatorTitle = null;
                 state = ParserState.InHeaders;
                 return;
             }

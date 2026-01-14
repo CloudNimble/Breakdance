@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <RootNamespace>CloudNimble.Breakdance.DotHttp</RootNamespace>
@@ -18,12 +18,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- Allow test assembly to access internal members -->
-        <InternalsVisibleTo Include="CloudNimble.Breakdance.Tests.DotHttp, $(StrongNamePublicKey)" />
-    </ItemGroup>
-
-    <ItemGroup>
         <!-- Source generator dependencies -->
+        <PackageReference Include="Humanizer.Core" Version="3.*" NoWarn="NU1608" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.*" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.*" PrivateAssets="all" />
 

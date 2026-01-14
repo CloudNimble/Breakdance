@@ -123,6 +123,20 @@ namespace CloudNimble.Breakdance.DotHttp.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the text that appeared after the ### separator on the same line.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// ### Get All Users
+        /// GET {{baseUrl}}/users
+        /// </code>
+        /// </example>
+        /// <remarks>
+        /// This text is used for generating descriptive test method names when @name is not specified.
+        /// </remarks>
+        public string SeparatorTitle { get; set; }
+
+        /// <summary>
         /// Gets or sets the request URL.
         /// </summary>
         /// <remarks>

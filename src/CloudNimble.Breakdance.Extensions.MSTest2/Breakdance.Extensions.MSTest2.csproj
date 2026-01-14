@@ -35,6 +35,7 @@
     <!-- Use MSTest.TestFramework directly (not the MSTest metapackage) because
          MSTest.TestAdapter doesn't support netstandard2.0, but TestFramework does -->
     <ItemGroup>
+        <PackageReference Include="Humanizer.Core" Version="3.*" NoWarn="NU1608" />
         <PackageReference Include="MSTest.TestFramework" Version="[4.*, 5.0.0)" />
     </ItemGroup>
 

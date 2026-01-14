@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using CloudNimble.Breakdance.DotHttp.Models;
+using Humanizer;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
@@ -41,6 +42,30 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
     [Generator(LanguageNames.CSharp)]
     public sealed class DotHttpSourceGenerator : IIncrementalGenerator
     {
+
+        #region Fields
+
+        /// <summary>
+        /// Matches variable references like {{variableName}}.
+        /// </summary>
+        private static readonly Regex VariableReferenceRegex = new(@"\{\{[^}]+\}\}", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Matches HTTP/HTTPS protocol prefixes.
+        /// </summary>
+        private static readonly Regex ProtocolPrefixRegex = new(@"^https?://", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Matches any character that is not valid in a C# identifier.
+        /// </summary>
+        private static readonly Regex InvalidIdentifierCharRegex = new(@"[^a-zA-Z0-9_]", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Matches consecutive underscores.
+        /// </summary>
+        private static readonly Regex ConsecutiveUnderscoreRegex = new(@"_+", RegexOptions.Compiled);
+
+        #endregion
 
         #region Public Methods
 
@@ -94,56 +119,152 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
 
         /// <summary>
         /// Escapes a string value for use in a C# string literal.
+        /// Uses single-pass span iteration to avoid intermediate string allocations.
         /// </summary>
         /// <param name="value">The value to escape.</param>
         /// <returns>The escaped string.</returns>
         internal static string Escape(string value)
         {
-            if (value is null)
+            if (string.IsNullOrEmpty(value))
             {
                 return string.Empty;
             }
 
-            return value
-                .Replace("\\", "\\\\")
-                .Replace("\"", "\\\"")
-                .Replace("\r", "\\r")
-                .Replace("\n", "\\n")
-                .Replace("\t", "\\t");
+            // Quick check if any escaping is needed
+            var span = value.AsSpan();
+            var needsEscaping = false;
+            foreach (var c in span)
+            {
+                if (c is '\\' or '"' or '\r' or '\n' or '\t')
+                {
+                    needsEscaping = true;
+                    break;
+                }
+            }
+
+            if (!needsEscaping)
+            {
+                return value;
+            }
+
+            // Single pass to build escaped string
+            var sb = new StringBuilder(value.Length + 16);
+            foreach (var c in span)
+            {
+                switch (c)
+                {
+                    case '\\':
+                        sb.Append("\\\\");
+                        break;
+                    case '"':
+                        sb.Append("\\\"");
+                        break;
+                    case '\r':
+                        sb.Append("\\r");
+                        break;
+                    case '\n':
+                        sb.Append("\\n");
+                        break;
+                    case '\t':
+                        sb.Append("\\t");
+                        break;
+                    default:
+                        sb.Append(c);
+                        break;
+                }
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>
         /// Escapes a string value for use in a C# verbatim string literal.
+        /// Uses span-based check to avoid allocation when no escaping needed.
         /// </summary>
         /// <param name="value">The value to escape.</param>
         /// <returns>The escaped string for verbatim literal.</returns>
         internal static string EscapeVerbatim(string value)
         {
-            if (value is null)
+            if (string.IsNullOrEmpty(value))
             {
                 return string.Empty;
             }
 
+            // Quick check if any escaping is needed
+            if (value.AsSpan().IndexOf('"') < 0)
+            {
+                return value;
+            }
+
             // For verbatim strings, only double-quotes need escaping
-            return value.Replace("\"", "\"\"");
+            var sb = new StringBuilder(value.Length + 8);
+            foreach (var c in value.AsSpan())
+            {
+                if (c == '"')
+                {
+                    sb.Append("\"\"");
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>
         /// Escapes a string value for use in XML documentation.
+        /// Uses single-pass span iteration to avoid intermediate string allocations.
         /// </summary>
         /// <param name="value">The value to escape.</param>
         /// <returns>The XML-escaped string.</returns>
         internal static string EscapeXml(string value)
         {
-            if (value is null)
+            if (string.IsNullOrEmpty(value))
             {
                 return string.Empty;
             }
 
-            return value
-                .Replace("&", "&amp;")
-                .Replace("<", "&lt;")
-                .Replace(">", "&gt;");
+            // Quick check if any escaping is needed
+            var span = value.AsSpan();
+            var needsEscaping = false;
+            foreach (var c in span)
+            {
+                if (c is '&' or '<' or '>')
+                {
+                    needsEscaping = true;
+                    break;
+                }
+            }
+
+            if (!needsEscaping)
+            {
+                return value;
+            }
+
+            // Single pass to build escaped string
+            var sb = new StringBuilder(value.Length + 16);
+            foreach (var c in span)
+            {
+                switch (c)
+                {
+                    case '&':
+                        sb.Append("&amp;");
+                        break;
+                    case '<':
+                        sb.Append("&lt;");
+                        break;
+                    case '>':
+                        sb.Append("&gt;");
+                        break;
+                    default:
+                        sb.Append(c);
+                        break;
+                }
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -511,6 +632,7 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
 
         /// <summary>
         /// Parses an HTTP version string to a version number.
+        /// Uses span-based parsing to avoid regex overhead.
         /// </summary>
         /// <param name="version">The HTTP version string (e.g., "HTTP/1.1", "HTTP/2").</param>
         /// <returns>The version number as a string (e.g., "1.1", "2.0").</returns>
@@ -521,20 +643,51 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
                 return "1.1";
             }
 
-            // Parse "HTTP/1.1" or "HTTP/2" or "HTTP/3" format
-            var match = Regex.Match(version, @"HTTP/(\d+(?:\.\d+)?)");
-            if (match.Success)
+            // Parse "HTTP/1.1" or "HTTP/2" or "HTTP/3" format using span
+            var span = version.AsSpan();
+            var httpPrefix = "HTTP/".AsSpan();
+
+            var prefixIndex = span.IndexOf(httpPrefix, StringComparison.OrdinalIgnoreCase);
+            if (prefixIndex < 0)
             {
-                var v = match.Groups[1].Value;
-                // Ensure we have major.minor format
-                if (!v.Contains('.'))
-                {
-                    v += ".0";
-                }
-                return v;
+                return "1.1";
             }
 
-            return "1.1";
+            var versionStart = prefixIndex + httpPrefix.Length;
+            if (versionStart >= span.Length)
+            {
+                return "1.1";
+            }
+
+            // Find the end of the version number (digits and dots only)
+            var versionSpan = span[versionStart..];
+            var versionEnd = 0;
+            foreach (var c in versionSpan)
+            {
+                if (char.IsDigit(c) || c == '.')
+                {
+                    versionEnd++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (versionEnd == 0)
+            {
+                return "1.1";
+            }
+
+            var v = versionSpan[..versionEnd];
+
+            // Ensure we have major.minor format
+            if (v.IndexOf('.') < 0)
+            {
+                return $"{v.ToString()}.0";
+            }
+
+            return v.ToString();
         }
 
         /// <summary>
@@ -542,27 +695,84 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
         /// </summary>
         /// <param name="request">The HTTP request.</param>
         /// <returns>A valid C# method name.</returns>
+        /// <remarks>
+        /// Name is determined in this priority order:
+        /// 1. The @name directive value if specified
+        /// 2. The text after ### separator (dehumanized) with _{HttpMethod} suffix
+        /// 3. The URL path (dehumanized) with _{HttpMethod} suffix
+        /// </remarks>
         internal static string GetTestMethodName(DotHttpRequest request)
         {
+            // Priority 1: Use @name if specified
             if (!string.IsNullOrEmpty(request.Name))
             {
                 return SanitizeMethodName(request.Name);
             }
 
-            // Generate name from method and URL
+            // Priority 2: Use separator title if present
+            if (!string.IsNullOrEmpty(request.SeparatorTitle))
+            {
+                var titleDehumanized = CleanupAfterDehumanize(request.SeparatorTitle.Dehumanize());
+                return $"{titleDehumanized}_{request.Method}";
+            }
+
+            // Priority 3: Use URL path
             var urlPart = request.Url;
 
             // Remove variable references for naming
-            urlPart = Regex.Replace(urlPart, @"\{\{[^}]+\}\}", "");
+            urlPart = VariableReferenceRegex.Replace(urlPart, "");
 
             // Remove protocol
-            urlPart = Regex.Replace(urlPart, @"^https?://", "");
+            urlPart = ProtocolPrefixRegex.Replace(urlPart, "");
 
-            // Take path and convert to method name
-            var parts = urlPart.Split(['/', '?', '&', '='], StringSplitOptions.RemoveEmptyEntries);
-            var nameParts = parts.Take(3).Select(SanitizeMethodName);
+            // Remove host/domain portion (everything before first /)
+            var pathStart = urlPart.IndexOf('/');
+            if (pathStart >= 0)
+            {
+                urlPart = urlPart[pathStart..];
+            }
 
-            return $"{request.Method}_{string.Join("_", nameParts)}";
+            // Remove query string
+            var queryStart = urlPart.IndexOf('?');
+            if (queryStart >= 0)
+            {
+                urlPart = urlPart[..queryStart];
+            }
+
+            var dehumanized = CleanupAfterDehumanize(urlPart.Dehumanize());
+
+            // If cleanup resulted in empty string, use a default
+            if (string.IsNullOrEmpty(dehumanized))
+            {
+                dehumanized = "Request";
+            }
+
+            return $"{dehumanized}_{request.Method}";
+        }
+
+        /// <summary>
+        /// Cleans up a dehumanized string by removing characters that are invalid for C# identifiers.
+        /// This runs AFTER Dehumanize, requiring fewer character checks than pre-sanitization.
+        /// </summary>
+        /// <param name="input">The dehumanized string.</param>
+        /// <returns>A string with only valid C# identifier characters.</returns>
+        internal static string CleanupAfterDehumanize(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            // Remove any characters that aren't valid in C# identifiers (letters, digits, underscores)
+            var result = InvalidIdentifierCharRegex.Replace(input, "");
+
+            // Ensure result starts with a letter (valid C# identifier requirement)
+            if (!string.IsNullOrEmpty(result) && !char.IsLetter(result[0]))
+            {
+                result = "N" + result;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -591,7 +801,7 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
             }
 
             // Remove invalid characters and convert to PascalCase
-            var result = Regex.Replace(name, @"[^a-zA-Z0-9_]", "_");
+            var result = InvalidIdentifierCharRegex.Replace(name, "_");
 
             // Ensure it starts with a letter
             if (!char.IsLetter(result[0]))
@@ -615,10 +825,10 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
             }
 
             // Remove invalid characters
-            var result = Regex.Replace(name, @"[^a-zA-Z0-9_]", "_");
+            var result = InvalidIdentifierCharRegex.Replace(name, "_");
 
             // Remove consecutive underscores
-            result = Regex.Replace(result, @"_+", "_");
+            result = ConsecutiveUnderscoreRegex.Replace(result, "_");
 
             // Remove leading/trailing underscores
             result = result.Trim('_');
@@ -644,18 +854,25 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
                 return input;
             }
 
-            var parts = input.Split(['_', '-', ' '], StringSplitOptions.RemoveEmptyEntries);
-            var result = new StringBuilder();
+            var span = input.AsSpan();
+            var result = new StringBuilder(input.Length);
+            var capitalizeNext = true;
 
-            foreach (var part in parts)
+            foreach (var c in span)
             {
-                if (part.Length > 0)
+                if (c is '_' or '-' or ' ')
                 {
-                    result.Append(char.ToUpperInvariant(part[0]));
-                    if (part.Length > 1)
-                    {
-                        result.Append(part[1..].ToLowerInvariant());
-                    }
+                    // Skip delimiter, next character should be capitalized
+                    capitalizeNext = true;
+                }
+                else if (capitalizeNext)
+                {
+                    result.Append(char.ToUpperInvariant(c));
+                    capitalizeNext = false;
+                }
+                else
+                {
+                    result.Append(char.ToLowerInvariant(c));
                 }
             }
 

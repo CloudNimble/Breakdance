@@ -266,6 +266,31 @@ Type: `string`
 
 Used for generating test method names and for referencing in request chaining.
 
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SeparatorTitle
+
+Gets or sets the text that appeared after the ### separator on the same line.
+
+#### Syntax
+
+```csharp
+public string SeparatorTitle { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Examples
+
+```csharp
+### Get All Users
+GET {{baseUrl}}/users
+```
+
+#### Remarks
+
+This text is used for generating descriptive test method names when @name is not specified.
+
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Url
 
 Gets or sets the request URL.
