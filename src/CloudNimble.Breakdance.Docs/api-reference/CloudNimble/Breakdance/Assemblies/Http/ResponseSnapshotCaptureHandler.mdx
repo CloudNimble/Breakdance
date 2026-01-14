@@ -1,10 +1,8 @@
 ---
-title: TestCacheWriteDelegatingHandler
-description: "Handler for capturing HTTP responses and writing them to files."
+title: ResponseSnapshotCaptureHandler
+description: "A [DelegatingHandler](https://learn.microsoft.com/dotnet/api/system.net.http.delegatinghandler) that captures HTTP responses and saves them as snapshot files."
 icon: file-brackets-curly
-sidebarTitle: TestCacheWriteDelegatingHandler
-tag: "OBSOLETE"
-keywords: ['TestCacheWriteDelegatingHandler', 'CloudNimble.Breakdance.Assemblies.Http.TestCacheWriteDelegatingHandler', 'CloudNimble.Breakdance.Assemblies.Http', 'class', 'CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotCaptureHandler']
+keywords: ['ResponseSnapshotCaptureHandler', 'CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotCaptureHandler', 'CloudNimble.Breakdance.Assemblies.Http', 'class', 'CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase']
 ---
 
 ## Definition
@@ -13,47 +11,56 @@ keywords: ['TestCacheWriteDelegatingHandler', 'CloudNimble.Breakdance.Assemblies
 
 **Namespace:** CloudNimble.Breakdance.Assemblies.Http
 
-**Inheritance:** CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotCaptureHandler
+**Inheritance:** CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase
 
 ## Syntax
 
 ```csharp
-CloudNimble.Breakdance.Assemblies.Http.TestCacheWriteDelegatingHandler
+CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotCaptureHandler
 ```
 
 ## Summary
 
-Handler for capturing HTTP responses and writing them to files.
+A [DelegatingHandler](https://learn.microsoft.com/dotnet/api/system.net.http.delegatinghandler) that captures HTTP responses and saves them as snapshot files.
 
 ## Remarks
 
-This class is deprecated. Use [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler) instead.
+
+
+
+             This handler passes requests through to the actual endpoint, then captures the response
+             and saves it as a snapshot file. This enables recording real API responses for later
+             replay during testing.
+             
+
+
+
+
+             Use this handler during an initial recording phase to capture responses from third-party
+             APIs, then use [ResponseSnapshotReplayHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler) to replay those responses
+             during test execution without hitting live endpoints.
+             
+
+
+
+## Examples
+
+```csharp
+// Create a handler that captures responses to snapshot files
+var innerHandler = new HttpClientHandler();
+var captureHandler = new ResponseSnapshotCaptureHandler("TestData/Snapshots")
+{
+    InnerHandler = innerHandler
+};
+var client = new HttpClient(captureHandler);
+
+// Requests go to the real endpoint, responses are saved as snapshots
+var response = await client.GetAsync("https://api.example.com/users");
+```
 
 ## Constructors
 
 ### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
-
-Creates a new [TestCacheWriteDelegatingHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheWriteDelegatingHandler) with the specified root folder path.
-
-#### Syntax
-
-```csharp
-public TestCacheWriteDelegatingHandler(string responseFilesPath)
-```
-
-#### Parameters
-
-| Name | Type | Description |
-|------|------|-------------|
-| `responseFilesPath` | `string` | Root folder path for storing static response files. |
-
-#### Remarks
-
-This constructor is deprecated. Use [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler) instead.
-
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
-
-<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotCaptureHandler`</Note>
 
 Creates a new [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler) that saves response snapshots to the specified path.
 
@@ -197,57 +204,4 @@ public static string GetResponseMediaTypeString(string filePath)
 
 Type: `string`
 The MIME type string for the file extension.
-
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SendAsync <Badge color="blue">Override</Badge>
-
-<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotCaptureHandler`</Note>
-
-Sends the request to the actual endpoint and captures the response as a snapshot file.
-
-#### Syntax
-
-```csharp
-protected override System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsync(System.Net.Http.HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
-```
-
-#### Parameters
-
-| Name | Type | Description |
-|------|------|-------------|
-| `request` | `System.Net.Http.HttpRequestMessage` | The [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) being intercepted. |
-| `cancellationToken` | `System.Threading.CancellationToken` | Token for cancelling the asynchronous operation. |
-
-#### Returns
-
-Type: `System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage>`
-The [HttpResponseMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage) from the actual endpoint.
-
-#### Exceptions
-
-| Exception | Description |
-|-----------|-------------|
-| `ArgumentNullException` | Thrown when *request* is null. |
-
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SendAsyncInternal <Badge color="gray">Inherited</Badge>
-
-<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotCaptureHandler`</Note>
-
-Allows test projects to call the otherwise inaccessible `CancellationToken)` method directly.
-
-#### Syntax
-
-```csharp
-internal System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> SendAsyncInternal(System.Net.Http.HttpRequestMessage request)
-```
-
-#### Parameters
-
-| Name | Type | Description |
-|------|------|-------------|
-| `request` | `System.Net.Http.HttpRequestMessage` | The [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to process. |
-
-#### Returns
-
-Type: `System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage>`
-The [HttpResponseMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage) from the actual endpoint.
 

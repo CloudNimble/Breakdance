@@ -1,0 +1,409 @@
+---
+title: ASP.NET Core API Testing
+sidebarTitle: ASP.NET Core (.NET 8+)
+description: "Test ASP.NET Core APIs with in-memory TestServer for fast, reliable unit and integration tests."
+icon: bolt
+---
+
+This guide covers testing **ASP.NET Core** APIs running on **.NET 8** or later.
+
+<Note>
+If you're using **ASP.NET Web API 2** on .NET Framework, see the [ASP.NET Classic testing guide](/guides/web/aspnet-classic-rest) instead.
+</Note>
+
+Breakdance provides a powerful test base class that wraps ASP.NET Core's `TestServer`, giving you in-memory HTTP testing with full dependency injection support.
+
+## Prerequisites
+
+<Steps>
+  <Step title="Install the package">
+    Add the Breakdance AspNetCore package to your test project:
+    ```bash
+    dotnet add package Breakdance.AspNetCore
+    ```
+  </Step>
+  <Step title="Reference your API project">
+    Your test project needs a reference to the project containing your controllers:
+    ```xml
+    <ProjectReference Include="..\MyApi\MyApi.csproj" />
+    ```
+  </Step>
+</Steps>
+
+## Quick Start
+
+Inherit from `AspNetCoreBreakdanceTestBase` to get automatic TestServer management:
+
+```csharp MyApiTests.cs
+using CloudNimble.Breakdance.AspNetCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net;
+using System.Threading.Tasks;
+
+[TestClass]
+public class MyApiTests : AspNetCoreBreakdanceTestBase
+{
+    [TestInitialize]
+    public void Setup()
+    {
+        // Configure the API services
+        AddApis();
+        TestSetup();
+    }
+
+    [TestMethod]
+    public async Task GetUsers_ReturnsSuccess()
+    {
+        var client = GetHttpClient();
+
+        var response = await client.GetAsync("/users");
+
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        TestTearDown();
+    }
+}
+```
+
+## Configuration Methods
+
+`AspNetCoreBreakdanceTestBase` provides several helper methods to configure your test environment:
+
+### AddApis()
+
+Configures the test server with controller support (authorization, CORS, data annotations, formatter mappings):
+
+```csharp
+[TestInitialize]
+public void Setup()
+{
+    AddApis();
+    TestSetup();
+}
+```
+
+This is equivalent to calling `services.AddControllers()` in your `Startup.cs`.
+
+### AddMinimalMvc()
+
+Registers only the minimum MVC services needed to route requests and invoke controllers:
+
+```csharp
+[TestInitialize]
+public void Setup()
+{
+    AddMinimalMvc();
+    TestSetup();
+}
+```
+
+Use this for lightweight tests where you don't need the full controller feature set.
+
+### AddViews()
+
+Configures support for controllers with Razor views:
+
+```csharp
+[TestInitialize]
+public void Setup()
+{
+    AddViews();
+    TestSetup();
+}
+```
+
+### AddRazorPages()
+
+Configures support for Razor Pages:
+
+```csharp
+[TestInitialize]
+public void Setup()
+{
+    AddRazorPages();
+    TestSetup();
+}
+```
+
+## Custom Configuration
+
+For more control, configure the `TestHostBuilder` directly:
+
+```csharp
+[TestInitialize]
+public void Setup()
+{
+    // Add custom services
+    TestHostBuilder.ConfigureServices(services =>
+    {
+        services.AddControllers();
+        services.AddScoped<IUserService, TestUserService>();
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseInMemoryDatabase("TestDb"));
+    });
+
+    // Configure the application pipeline
+    TestHostBuilder.Configure(app =>
+    {
+        app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.UseEndpoints(endpoints => endpoints.MapControllers());
+    });
+
+    // Configure app settings
+    TestHostBuilder.ConfigureAppConfiguration(config =>
+    {
+        config.AddInMemoryCollection(new Dictionary<string, string>
+        {
+            ["ConnectionStrings:Default"] = "InMemory",
+            ["Features:EnableNewFeature"] = "true"
+        });
+    });
+
+    TestSetup();
+}
+```
+
+## Getting an HttpClient
+
+Use `GetHttpClient()` to get a client connected to the in-memory test server:
+
+```csharp
+[TestMethod]
+public async Task GetUsers_ReturnsUserList()
+{
+    // Default base address is http://localhost/api/test
+    var client = GetHttpClient();
+
+    var response = await client.GetAsync("/users");
+    var content = await response.Content.ReadAsStringAsync();
+
+    Assert.IsTrue(response.IsSuccessStatusCode);
+    Assert.IsFalse(string.IsNullOrWhiteSpace(content));
+}
+```
+
+### Custom Route Prefix
+
+Override the default route prefix:
+
+```csharp
+var client = GetHttpClient(routePrefix: "api/v2");
+```
+
+### With Authentication
+
+Add authentication headers:
+
+```csharp
+using System.Net.Http.Headers;
+
+var authHeader = new AuthenticationHeaderValue("Bearer", "your-test-token");
+var client = GetHttpClient(authHeader);
+
+var response = await client.GetAsync("/protected-resource");
+```
+
+## Accessing Services
+
+Resolve services from the test server's dependency injection container:
+
+```csharp
+[TestMethod]
+public void CanResolveServices()
+{
+    var userService = GetService<IUserService>();
+    Assert.IsNotNull(userService);
+}
+
+[TestMethod]
+public void CanResolveMultipleImplementations()
+{
+    var handlers = GetServices<IMessageHandler>();
+    Assert.IsTrue(handlers.Any());
+}
+```
+
+For .NET 8+, keyed services are also supported:
+
+```csharp
+[TestMethod]
+public void CanResolveKeyedServices()
+{
+    var primaryCache = GetKeyedService<ICache>("primary");
+    var secondaryCache = GetKeyedService<ICache>("secondary");
+
+    Assert.IsNotNull(primaryCache);
+    Assert.IsNotNull(secondaryCache);
+}
+```
+
+## Testing POST/PUT/PATCH Requests
+
+```csharp
+[TestMethod]
+public async Task CreateUser_ReturnsCreated()
+{
+    var client = GetHttpClient();
+
+    var newUser = new { Name = "John Doe", Email = "john@example.com" };
+    var content = new StringContent(
+        JsonSerializer.Serialize(newUser),
+        Encoding.UTF8,
+        "application/json");
+
+    var response = await client.PostAsync("/users", content);
+
+    Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+}
+```
+
+## Testing Error Responses
+
+```csharp
+[TestMethod]
+public async Task GetUser_NotFound_Returns404()
+{
+    var client = GetHttpClient();
+
+    var response = await client.GetAsync("/users/99999");
+
+    Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+}
+
+[TestMethod]
+public async Task CreateUser_InvalidData_Returns400()
+{
+    var client = GetHttpClient();
+
+    var invalidUser = new { Name = "", Email = "not-an-email" };
+    var content = new StringContent(
+        JsonSerializer.Serialize(invalidUser),
+        Encoding.UTF8,
+        "application/json");
+
+    var response = await client.PostAsync("/users", content);
+
+    Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+}
+```
+
+## Using Static Helpers
+
+For simpler scenarios, use `AspNetCoreTestHelpers` without inheriting from the test base:
+
+```csharp
+using CloudNimble.Breakdance.AspNetCore;
+using Microsoft.AspNetCore.TestHost;
+
+[TestMethod]
+public async Task QuickTest()
+{
+    var testServer = await AspNetCoreTestHelpers.GetTestableHttpServerAsync(
+        registration: services =>
+        {
+            services.AddControllers();
+        },
+        builder: app =>
+        {
+            app.UseRouting();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+        });
+
+    var client = testServer.CreateClient();
+    var response = await client.GetAsync("/api/health");
+
+    Assert.IsTrue(response.IsSuccessStatusCode);
+}
+```
+
+## Integration with FluentAssertions
+
+Combine with FluentAssertions for more expressive tests:
+
+```csharp
+using FluentAssertions;
+
+[TestMethod]
+public async Task GetUsers_ReturnsNonEmptyList()
+{
+    var client = GetHttpClient();
+
+    var response = await client.GetAsync("/users");
+    var content = await response.Content.ReadAsStringAsync();
+    var users = JsonSerializer.Deserialize<List<User>>(content);
+
+    response.StatusCode.Should().Be(HttpStatusCode.OK);
+    users.Should().NotBeEmpty();
+    users.Should().AllSatisfy(u => u.Email.Should().Contain("@"));
+}
+```
+
+## Comparison: TestServer vs Real Server
+
+| Aspect | TestServer (In-Memory) | Real Server |
+|--------|------------------------|-------------|
+| Speed | Fast (no network) | Slower (HTTP overhead) |
+| Port conflicts | None | Possible |
+| Full HTTP stack | Most features | Yes |
+| SSL testing | Limited | Yes |
+| Middleware | Full support | Full support |
+| Authentication | Configurable | Full support |
+| Best for | Unit tests, CI/CD | E2E tests |
+
+## Lifecycle
+
+Understanding the test lifecycle helps avoid common issues:
+
+```csharp
+[TestClass]
+public class LifecycleExample : AspNetCoreBreakdanceTestBase
+{
+    [AssemblyInitialize]
+    public static void AssemblyInit(TestContext context)
+    {
+        // Runs once before all tests in the assembly
+    }
+
+    [TestInitialize]
+    public void TestInit()
+    {
+        // Configure services and middleware
+        AddApis();
+
+        // This builds and starts the TestServer
+        TestSetup();
+    }
+
+    [TestMethod]
+    public async Task MyTest()
+    {
+        // TestServer is ready to use
+        var client = GetHttpClient();
+        // ...
+    }
+
+    [TestCleanup]
+    public void TestCleanup()
+    {
+        // Disposes the TestServer
+        TestTearDown();
+    }
+}
+```
+
+## Related Resources
+
+<CardGroup cols={2}>
+  <Card title="ASP.NET Classic Testing" icon="landmark" href="/guides/web/aspnet-classic-rest">
+    Test ASP.NET Web API 2 on .NET Framework
+  </Card>
+  <Card title="Response Snapshots" icon="camera" href="/guides/web/snapshots/responses">
+    Capture and replay HTTP responses for deterministic tests
+  </Card>
+</CardGroup>

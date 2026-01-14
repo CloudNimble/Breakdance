@@ -2,7 +2,8 @@
 title: TestCacheDelegatingHandlerBase
 description: "Base class for implementation of TestCache handlers for unit testing."
 icon: file-brackets-curly
-keywords: ['TestCacheDelegatingHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http', 'class', 'System.Net.Http.DelegatingHandler']
+tag: "OBSOLETE"
+keywords: ['TestCacheDelegatingHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http', 'class', 'CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase']
 ---
 
 ## Definition
@@ -11,7 +12,7 @@ keywords: ['TestCacheDelegatingHandlerBase', 'CloudNimble.Breakdance.Assemblies.
 
 **Namespace:** CloudNimble.Breakdance.Assemblies.Http
 
-**Inheritance:** System.Net.Http.DelegatingHandler
+**Inheritance:** CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase
 
 ## Syntax
 
@@ -23,11 +24,15 @@ CloudNimble.Breakdance.Assemblies.Http.TestCacheDelegatingHandlerBase
 
 Base class for implementation of TestCache handlers for unit testing.
 
+## Remarks
+
+This class is deprecated. Use [ResponseSnapshotHandlerBase](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotHandlerBase) instead.
+
 ## Constructors
 
 ### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
-Constructor overload for specifying the root folder path.
+Creates a new [TestCacheDelegatingHandlerBase](/api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheDelegatingHandlerBase) with the specified root folder path.
 
 #### Syntax
 
@@ -41,16 +46,65 @@ public TestCacheDelegatingHandlerBase(string responseFilesPath)
 |------|------|-------------|
 | `responseFilesPath` | `string` | Root folder path for storing static response files. |
 
-## Properties
+#### Remarks
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResponseFilesPath
+This constructor is deprecated. Use [ResponseSnapshotHandlerBase](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotHandlerBase) instead.
 
-Stores the root folder for reading/writing static response files.
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase`</Note>
+
+Creates a new [ResponseSnapshotHandlerBase](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotHandlerBase) with the specified snapshot storage path.
 
 #### Syntax
 
 ```csharp
-public string ResponseFilesPath { get; private set; }
+public ResponseSnapshotHandlerBase(string responseSnapshotsPath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `responseSnapshotsPath` | `string` | Root folder path for storing response snapshot files. |
+
+#### Examples
+
+```csharp
+var handler = new ResponseSnapshotReplayHandler("TestData/Snapshots");
+var client = new HttpClient(handler);
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResponseFilesPath
+
+Gets the root folder path for reading/writing static response files.
+
+#### Syntax
+
+```csharp
+public string ResponseFilesPath { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+This property is deprecated. Use [ResponseSnapshotHandlerBase.ResponseSnapshotsPath](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotHandlerBase#responsesnapshotspath) instead.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResponseSnapshotsPath <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase`</Note>
+
+Gets the root folder path where response snapshot files are stored.
+
+#### Syntax
+
+```csharp
+public string ResponseSnapshotsPath { get; private set; }
 ```
 
 #### Property Value
@@ -59,7 +113,9 @@ Type: `string`
 
 ## Methods
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetFileExtensionString
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetFileExtensionString <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase`</Note>
 
 Maps the MediaType header in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to a known list of file extensions.
 
@@ -73,13 +129,54 @@ public static string GetFileExtensionString(System.Net.Http.HttpRequestMessage r
 
 | Name | Type | Description |
 |------|------|-------------|
-| `request` | `System.Net.Http.HttpRequestMessage` | - |
+| `request` | `System.Net.Http.HttpRequestMessage` | The request to examine. |
 
 #### Returns
 
 Type: `string`
+The file extension string for the request's Accept header.
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetResponseMediaTypeString
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` | Thrown when request is null. |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetPathInfo <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase`</Note>
+
+Parses the RequestUri in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) into a [Path](https://learn.microsoft.com/dotnet/api/system.io.path)-safe string
+            suitable for storing response snapshots on the file system.
+
+#### Syntax
+
+```csharp
+internal static (string, string) GetPathInfo(System.Net.Http.HttpRequestMessage request, string responseSnapshotsPath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `request` | `System.Net.Http.HttpRequestMessage` | The [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to parse. |
+| `responseSnapshotsPath` | `string` | Root folder for storing snapshot files. |
+
+#### Returns
+
+Type: `(string, string)`
+A tuple containing the directory path and file path components.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentException` | Thrown when the request has an invalid RequestUri. |
+| `InvalidOperationException` | Thrown when the URI cannot be converted to a valid file path. |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetResponseMediaTypeString <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase`</Note>
 
 Maps the file extension in the specified path to a known list of media types.
 
@@ -93,9 +190,10 @@ public static string GetResponseMediaTypeString(string filePath)
 
 | Name | Type | Description |
 |------|------|-------------|
-| `filePath` | `string` | - |
+| `filePath` | `string` | The file path to examine. |
 
 #### Returns
 
 Type: `string`
+The MIME type string for the file extension.
 

@@ -21,20 +21,40 @@
                 <Pages>
                     <Groups>
                         <Group Name="Getting Started" Icon="stars">
-                            <Pages>index;why-breakdance;quickstart</Pages>
+                            <Pages>
+								index;
+								why-breakdance;
+								quickstart
+							</Pages>
                         </Group>
-                        <!--<Group Name="Guides" Icon="dog-leashed">
-                            <Pages>guides/index;guides/pipeline;guides/conceptual-docs;guides/deployment</Pages>
-                        </Group>-->
+                        <Group Name="Guides" Icon="dog-leashed">
+                            <Pages>
+								guides/index;
+								guides/testing-azure-storage
+							</Pages>
+                            <Groups>
+                                <Group Name="Web" Icon="globe">
+                                    <Pages>
+										guides/web/index;
+										guides/web/aspnet-classic-rest;
+										guides/web/aspnet-core-rest
+									</Pages>
+                                    <Groups>
+                                        <Group Name="Snapshots" Icon="camera">
+                                            <Pages>
+												guides/web/snapshots/index;
+												guides/web/snapshots/requests;
+												guides/web/snapshots/responses
+											</Pages>
+                                        </Group>
+                                    </Groups>
+                                </Group>
+                            </Groups>
+                        </Group>
                     </Groups>
                 </Pages>
             </Navigation>
 		</MintlifyTemplate>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Folder Include="guides\web\" />
-	  <Folder Include="snippets\" />
-	</ItemGroup>
 
 </Project>

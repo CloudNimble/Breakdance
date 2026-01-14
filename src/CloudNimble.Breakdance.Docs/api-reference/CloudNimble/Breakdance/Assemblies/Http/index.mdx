@@ -3,7 +3,7 @@ title: Overview
 description: "Summary of the CloudNimble.Breakdance.Assemblies.Http Namespace"
 icon: folder-tree
 mode: wide
-keywords: ['CloudNimble.Breakdance.Assemblies.Http', 'namespace', 'TestCacheDelegatingHandlerBase', 'TestCacheReadDelegatingHandler', 'TestCacheWriteDelegatingHandler']
+keywords: ['CloudNimble.Breakdance.Assemblies.Http', 'namespace', 'ResponseSnapshotCaptureHandler', 'ResponseSnapshotHandlerBase', 'ResponseSnapshotReplayHandler', 'TestCacheDelegatingHandlerBase', 'TestCacheReadDelegatingHandler', 'TestCacheWriteDelegatingHandler']
 ---
 
 ## Types
@@ -12,7 +12,10 @@ keywords: ['CloudNimble.Breakdance.Assemblies.Http', 'namespace', 'TestCacheDele
 
 | Name | Summary |
 | ---- | ------- |
+| [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler) | A [DelegatingHandler](https://learn.microsoft.com/dotnet/api/system.net.http.delegatinghandler) that captures HTTP responses and saves them as snapshot files. |
+| [ResponseSnapshotHandlerBase](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotHandlerBase) | Base class for Response Snapshot handlers that enable testing with real captured HTTP responses. |
+| [ResponseSnapshotReplayHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler) | A [DelegatingHandler](https://learn.microsoft.com/dotnet/api/system.net.http.delegatinghandler) that replays previously captured HTTP responses from snapshot files. |
 | [TestCacheDelegatingHandlerBase](/api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheDelegatingHandlerBase) | Base class for implementation of TestCache handlers for unit testing. |
-| [TestCacheReadDelegatingHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheReadDelegatingHandler) | Handler for mocking the HttpResponse returned by an HttpRequest using a UTF-8 encoded file. |
-| [TestCacheWriteDelegatingHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheWriteDelegatingHandler) | Handler for mocking the HttpResponse returned by an HttpRequest using a UTF-8 encoded file. |
+| [TestCacheReadDelegatingHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheReadDelegatingHandler) | Handler for returning HTTP responses from cached files. |
+| [TestCacheWriteDelegatingHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheWriteDelegatingHandler) | Handler for capturing HTTP responses and writing them to files. |
 

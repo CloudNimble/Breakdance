@@ -18,6 +18,7 @@
       },
       {
         "group": "Guides",
+        "icon": "dog-leashed",
         "pages": [
           "guides/index",
           "guides/testing-azure-storage",
@@ -25,9 +26,17 @@
             "group": "Web",
             "pages": [
               "guides/web/index",
-              "guides/web/dothttp-testing",
-              "guides/web/response-caching",
-              "guides/web/testing-web-api"
+              "guides/web/aspnet-classic-rest",
+              "guides/web/aspnet-core-rest",
+              {
+                "group": "Snapshots",
+                "icon": "camera",
+                "pages": [
+                  "guides/web/snapshots/index",
+                  "guides/web/snapshots/requests",
+                  "guides/web/snapshots/responses"
+                ]
+              }
             ]
           }
         ]
@@ -78,6 +87,9 @@
                         "icon": "folder-tree",
                         "pages": [
                           "api-reference/CloudNimble/Breakdance/Assemblies/Http/index",
+                          "api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler",
+                          "api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotHandlerBase",
+                          "api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler",
                           "api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheDelegatingHandlerBase",
                           "api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheReadDelegatingHandler",
                           "api-reference/CloudNimble/Breakdance/Assemblies/Http/TestCacheWriteDelegatingHandler"

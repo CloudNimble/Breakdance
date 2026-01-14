@@ -1,6 +1,6 @@
 ---
 title: "Web & API Testing"
-description: "Test HTTP APIs and web services with in-memory servers, .http files, and response caching."
+description: "Test HTTP APIs and web services with in-memory servers, request snapshots, and response snapshots."
 icon: circle-info
 ---
 
@@ -10,17 +10,17 @@ Choose based on your testing needs:
 ## Choose Your Approach
 
 <CardGroup cols={3}>
-  <Card title="In-Memory Testing" icon="server" href="guides/web/testing-web-api">
+  <Card title="In-Memory Testing" icon="server" href="/guides/web/aspnet-core-rest">
     **Best for:** Unit testing HTTP APIs you're building without deploying infra
 
     Fast, no network overhead, great for CI/CD
   </Card>
-  <Card title=".http Files" icon="file-code" href="guides/web/dothttp-testing">
+  <Card title="Request Snapshots" icon="arrow-up" href="/guides/web/snapshots/requests">
     **Best for:** Replicating requests from 3rd party APIs
 
-    Readable format, variables, request chaining
+    `.http` files with variables, request chaining
   </Card>
-  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
+  <Card title="Response Snapshots" icon="arrow-down" href="/guides/web/snapshots/responses">
     **Best for:** Replicating responses from 3rd party APIs
 
     Capture once, replay everywhere
@@ -29,27 +29,27 @@ Choose based on your testing needs:
 
 ## Quick Comparison
 
-| Feature | In-Memory | .http Files | Response Caching |
-|---------|-----------|-------------|------------------|
+| Feature | In-Memory | Request Snapshots | Response Snapshots |
+|---------|-----------|-------------------|-------------------|
 | Network calls | None | Optional | Captured |
 | Test speed | Fastest | Fast | Fast (cached) |
 | Real API testing | No | Yes | Initial capture |
-| Offline capable | Yes | With caching | Yes |
+| Offline capable | Yes | With snapshots | Yes |
 | Request chaining | Manual | Built-in | N/A |
 | Environment configs | N/A | Yes | Per-folder |
 
 ## Combining Approaches
 
-These techniques work well together:
+These techniques work well together. See the [Snapshots Overview](/guides/web/snapshots/index) for the full philosophy.
 
 ```csharp
-// Use .http file format with cached responses
+// Use .http file format with captured response snapshots
 public class ApiTests : DotHttpTestBase
 {
     protected override HttpMessageHandler CreateHttpMessageHandler()
     {
-        // Serve responses from cached files
-        return new TestCacheReadDelegatingHandler("ResponseFiles");
+        // Serve responses from snapshot files
+        return new ResponseSnapshotReplayHandler("ResponseSnapshots");
     }
 
     [TestMethod]
@@ -71,17 +71,25 @@ public class ApiTests : DotHttpTestBase
 ## Guides
 
 <Cards>
-  <Card title="In-Memory Web API Testing" icon="server" href="guides/web/testing-web-api">
-    Test ASP.NET Web API controllers without a real HTTP server. Create an HttpClient wired
-    directly to your API's routing pipeline for fast, reliable unit tests.
+  <Card title="ASP.NET Core Testing" icon="bolt" href="/guides/web/aspnet-core-rest">
+    Test ASP.NET Core APIs with the built-in TestServer. Fast, in-memory testing
+    with full dependency injection support.
   </Card>
-  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
-    Write API tests using Visual Studio's .http file format. Supports variables, dynamic values,
+  <Card title="ASP.NET Classic Testing" icon="landmark" href="/guides/web/aspnet-classic-rest">
+    Test ASP.NET Web API 2 controllers on .NET Framework without a real HTTP server.
+    Create an HttpClient wired directly to your API's routing pipeline.
+  </Card>
+  <Card title="Snapshots Overview" icon="camera" href="/guides/web/snapshots/index">
+    Learn about Breakdance's "Test Real Things" philosophy and how snapshots
+    replace traditional mocking for API tests.
+  </Card>
+  <Card title="Request Snapshots" icon="arrow-up" href="/guides/web/snapshots/requests">
+    Write API tests using Visual Studio's `.http` file format. Supports variables,
     environment files, and request chaining with response extraction.
   </Card>
-  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
-    Capture HTTP responses from real APIs and replay them in tests. Perfect for testing against
-    external services without network dependencies.
+  <Card title="Response Snapshots" icon="arrow-down" href="/guides/web/snapshots/responses">
+    Capture HTTP responses from real APIs and replay them in tests. Perfect for
+    testing against external services without network dependencies.
   </Card>
 </Cards>
 
@@ -89,6 +97,7 @@ public class ApiTests : DotHttpTestBase
 
 | Package | Purpose |
 |---------|---------|
-| `CloudNimble.Breakdance.WebApi` | In-memory Web API testing helpers |
-| `CloudNimble.Breakdance.DotHttp` | .http file parsing and test base class |
-| `CloudNimble.Breakdance.Assemblies` | Response caching handlers |
+| `Breakdance.WebApi` | In-memory Web API 2 testing on .NET Framework |
+| `Breakdance.AspNetCore` | In-memory ASP.NET Core testing with TestServer |
+| `Breakdance.DotHttp` | `.http` file parsing and test base class |
+| `Breakdance.Assemblies` | Response snapshot handlers |

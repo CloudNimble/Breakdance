@@ -1,4 +1,4 @@
-﻿using CloudNimble.Breakdance.Assemblies.Http;
+using CloudNimble.Breakdance.Assemblies.Http;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -10,24 +10,26 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {
 
     /// <summary>
-    /// Tests the functionality of the <see cref="StaticFileResponseHttpMessageHandler"/>.
+    /// Tests the functionality of the <see cref="ResponseSnapshotHandlerBase"/>.
     /// </summary>
     [TestClass]
-    public class TestCacheDelegatingHandlerBaseTests
+    public class ResponseSnapshotHandlerBaseTests
     {
 
-        /// <summary>
-        /// Root directory for storing response files.
-        /// </summary>
-        internal static string ResponseFilesPath = "..\\..\\..\\..\\CloudNimble.Breakdance.Tests.Assemblies\\ResponseFiles";
+        #region Properties
 
         /// <summary>
-        /// Provides a set of URIs for testing functionality of the <see cref="TestCacheDelegatingHandlerBase"/>.
+        /// Root directory for storing response snapshot files.
+        /// </summary>
+        internal static string ResponseSnapshotsPath = "..\\..\\..\\..\\CloudNimble.Breakdance.Tests.Assemblies\\ResponseFiles";
+
+        /// <summary>
+        /// Provides a set of URIs for testing functionality of the <see cref="ResponseSnapshotHandlerBase"/>.
         /// </summary>
         /// <remarks>
         /// PLEASE NOTE: Based on your installation folder and your operating system, you may end up with a file path that
-        ///              exceeds the allowable maximum for your operating system.  If that is the case, you can choose to comment
-        ///              out the longer lines in the data set below or modify the folder specified in the <see cref="ResponseFilesPath"/>
+        ///              exceeds the allowable maximum for your operating system. If that is the case, you can choose to comment
+        ///              out the longer lines in the data set below or modify the folder specified in the <see cref="ResponseSnapshotsPath"/>
         ///              variable above to shorten the path.
         /// </remarks>
         internal static IEnumerable<object[]> GetPathsAndTestUris =>
@@ -66,25 +68,34 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
                 new object[] { "application/json", "services.odata.org\\TripPinRESTierService\\People\\'russellwhyte'\\Microsoft.OData.Service.Sample.TrippinInMemory.Models.ShareTrip", "root", "https://services.odata.org/TripPinRESTierService/People('russellwhyte')/Microsoft.OData.Service.Sample.TrippinInMemory.Models.ShareTrip" },
             };
 
+        #endregion
+
+        #region Tests
+
         /// <summary>
-        /// Tests that the <see cref="TestCacheDelegatingHandlerBase"/> can correctly parse all of the records provided in <see cref="GetPathsAndTestUris"/>.
+        /// Tests that the <see cref="ResponseSnapshotHandlerBase"/> can correctly parse all of the records provided in <see cref="GetPathsAndTestUris"/>.
         /// </summary>
-        /// <param name="directoryPath"></param>
-        /// <param name="fileName"></param>
-        /// <param name="requestUri"></param>
+        /// <param name="mediaType">The media type for the request.</param>
+        /// <param name="directoryPath">The expected directory path.</param>
+        /// <param name="fileName">The expected file name.</param>
+        /// <param name="requestUri">The request URI to parse.</param>
         [TestMethod]
 #pragma warning disable MSTEST0018 // DynamicData should be valid
         [DynamicData(nameof(GetPathsAndTestUris))]
 #pragma warning restore MSTEST0018 // DynamicData should be valid
-        public void GetStaticFilePath_CanParse_Uris(string mediaType, string directoryPath, string fileName, string requestUri)
+        public void GetPathInfo_CanParse_Uris(string mediaType, string directoryPath, string fileName, string requestUri)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
-            var (DirectoryPath, FilePath) = TestCacheDelegatingHandlerBase.GetPathInfo(request, ResponseFilesPath);
+
+            var (DirectoryPath, FilePath) = ResponseSnapshotHandlerBase.GetPathInfo(request, ResponseSnapshotsPath);
+
             Path.GetFileName(FilePath).IndexOfAny(Path.GetInvalidFileNameChars()).Should().BeLessThan(0);
             DirectoryPath.Should().Be(directoryPath);
-            FilePath.Should().Be($"{fileName}{TestCacheDelegatingHandlerBase.GetFileExtensionString(request)}");
+            FilePath.Should().Be($"{fileName}{ResponseSnapshotHandlerBase.GetFileExtensionString(request)}");
         }
+
+        #endregion
 
     }
 

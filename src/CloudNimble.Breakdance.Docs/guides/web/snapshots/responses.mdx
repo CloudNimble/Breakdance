@@ -1,12 +1,13 @@
 ---
-title: "Response Caching for Tests"
-description: "Capture HTTP responses from real APIs and replay them in tests for fast, deterministic, and offline-capable testing."
+title: "Response Snapshots"
+sidebarTitle: "Response Snapshots"
+description: "Capture real HTTP responses from APIs and replay them in tests for fast, deterministic, and offline-capable testing."
+icon: arrow-down
 ---
 
-Testing against live APIs is slow, flaky, and depends on network availability. Breakdance's response caching
-handlers let you capture real API responses once, then replay them in subsequent test runs.
+Response snapshots let you capture actual HTTP responses from real APIs, then replay them during test execution. Instead of maintaining hand-crafted mock responses that might drift from reality, you test against the same data your production code will encounter.
 
-## Why Cache Responses?
+## Why Use Response Snapshots?
 
 <CardGroup cols={2}>
   <Card title="Speed" icon="bolt">
@@ -25,42 +26,44 @@ handlers let you capture real API responses once, then replay them in subsequent
 
 ## How It Works
 
-Breakdance provides two `DelegatingHandler` classes:
+Breakdance provides two `DelegatingHandler` classes for the snapshot workflow:
 
-1. **`TestCacheWriteDelegatingHandler`** - Makes real HTTP calls and saves responses to files
-2. **`TestCacheReadDelegatingHandler`** - Reads responses from files instead of making HTTP calls
+| Handler | Purpose |
+|---------|---------|
+| `ResponseSnapshotCaptureHandler` | Makes real HTTP calls and saves responses to files |
+| `ResponseSnapshotReplayHandler` | Reads responses from files instead of making HTTP calls |
 
 The workflow:
-1. Run tests once with the **Write** handler to capture responses
+1. Run tests once with the **Capture** handler to record real responses
 2. Check captured response files into source control
-3. Run tests with the **Read** handler for fast, deterministic execution
+3. Run tests with the **Replay** handler for fast, deterministic execution
 
 ## Quick Start
 
 <Steps>
   <Step title="Install the package">
     ```bash
-    dotnet add package CloudNimble.Breakdance.Assemblies
+    dotnet add package Breakdance.Assemblies
     ```
   </Step>
-  <Step title="Create a folder for response files">
+  <Step title="Create a folder for snapshot files">
     ```
     MyProject.Tests/
-      ResponseFiles/
+      ResponseSnapshots/
         (captured responses go here)
     ```
   </Step>
   <Step title="Capture responses">
-    Run your tests with the Write handler to capture real API responses.
+    Run your tests with the Capture handler to record real API responses.
   </Step>
-  <Step title="Switch to Read handler">
-    Change to the Read handler for subsequent test runs.
+  <Step title="Switch to Replay handler">
+    Change to the Replay handler for subsequent test runs.
   </Step>
 </Steps>
 
 ## Capturing Responses
 
-Use `TestCacheWriteDelegatingHandler` to capture real API responses:
+Use `ResponseSnapshotCaptureHandler` to capture real API responses:
 
 ```csharp ApiCaptureTests.cs
 using CloudNimble.Breakdance.Assemblies.Http;
@@ -74,8 +77,8 @@ public class ApiCaptureTests
     [TestMethod]
     public async Task CaptureUserEndpoint()
     {
-        // Create handler that will save responses to ResponseFiles folder
-        var handler = new TestCacheWriteDelegatingHandler("ResponseFiles")
+        // Create handler that will save responses to ResponseSnapshots folder
+        var handler = new ResponseSnapshotCaptureHandler("ResponseSnapshots")
         {
             InnerHandler = new HttpClientHandler()
         };
@@ -92,19 +95,19 @@ public class ApiCaptureTests
 
 After running this test, you'll have:
 ```
-ResponseFiles/
+ResponseSnapshots/
   jsonplaceholder.typicode.com/
     users.json
 ```
 
 <Tip>
-Run capture tests once, then check the `ResponseFiles` folder into source control.
+Run capture tests once, then check the `ResponseSnapshots` folder into source control.
 This lets your entire team (and CI) run tests without API access.
 </Tip>
 
 ## Replaying Responses
 
-Switch to `TestCacheReadDelegatingHandler` to serve cached responses:
+Switch to `ResponseSnapshotReplayHandler` to serve captured responses:
 
 ```csharp ApiTests.cs
 using CloudNimble.Breakdance.Assemblies.Http;
@@ -116,10 +119,10 @@ using System.Threading.Tasks;
 public class ApiTests
 {
     [TestMethod]
-    public async Task GetUsers_FromCache()
+    public async Task GetUsers_FromSnapshot()
     {
-        // Create handler that reads from ResponseFiles folder
-        var handler = new TestCacheReadDelegatingHandler("ResponseFiles");
+        // Create handler that reads from ResponseSnapshots folder
+        var handler = new ResponseSnapshotReplayHandler("ResponseSnapshots");
         var client = new HttpClient(handler);
 
         // This reads from file, no network call
@@ -134,7 +137,7 @@ public class ApiTests
 ```
 
 <Note>
-The Read handler throws `InvalidOperationException` if a response file doesn't exist.
+The Replay handler throws `InvalidOperationException` if a snapshot file doesn't exist.
 This helps catch missing captures early.
 </Note>
 
@@ -144,19 +147,19 @@ Responses are organized by host and path:
 
 | Request URL | File Path |
 |-------------|-----------|
-| `https://api.example.com/users` | `ResponseFiles/api.example.com/users.json` |
-| `https://api.example.com/users/123` | `ResponseFiles/api.example.com/users/123.json` |
-| `https://api.example.com/v1/items?type=active` | `ResponseFiles/api.example.com/v1/items.json` |
+| `https://api.example.com/users` | `ResponseSnapshots/api.example.com/users.json` |
+| `https://api.example.com/users/123` | `ResponseSnapshots/api.example.com/users/123.json` |
+| `https://api.example.com/v1/items?type=active` | `ResponseSnapshots/api.example.com/v1/items.json` |
 
 The file extension is determined by the response's Content-Type:
 - `application/json` → `.json`
-- `application/xml` → `.xml`
+- `application/xml` or `text/xml` → `.xml`
 - `text/html` → `.html`
 - Others → `.txt`
 
 ## Using with DotHttpTestBase
 
-Combine response caching with `.http` file testing:
+Combine response snapshots with request snapshots (`.http` files) for comprehensive testing:
 
 ```csharp
 using CloudNimble.Breakdance.DotHttp;
@@ -166,7 +169,7 @@ public class CachedApiTests : DotHttpTestBase
 {
     protected override HttpMessageHandler CreateHttpMessageHandler()
     {
-        return new TestCacheReadDelegatingHandler("ResponseFiles");
+        return new ResponseSnapshotReplayHandler("ResponseSnapshots");
     }
 
     [TestMethod]
@@ -180,7 +183,7 @@ public class CachedApiTests : DotHttpTestBase
             Url = "{{baseUrl}}/users"
         };
 
-        // Response served from ResponseFiles/api.example.com/users.json
+        // Response served from ResponseSnapshots/api.example.com/users.json
         var response = await SendRequestAsync(request);
         await DotHttpAssertions.AssertValidResponseAsync(response);
     }
@@ -201,26 +204,26 @@ public abstract class ApiTestBase : DotHttpTestBase
     {
         if (CaptureMode)
         {
-            return new TestCacheWriteDelegatingHandler("ResponseFiles")
+            return new ResponseSnapshotCaptureHandler("ResponseSnapshots")
             {
                 InnerHandler = new HttpClientHandler()
             };
         }
 
-        return new TestCacheReadDelegatingHandler("ResponseFiles");
+        return new ResponseSnapshotReplayHandler("ResponseSnapshots");
     }
 }
 
-// For normal test runs (cached responses)
+// For normal test runs (replayed responses)
 [TestClass]
 public class UserApiTests : ApiTestBase
 {
-    // Uses cached responses by default
+    // Uses replayed responses by default
 }
 
 // For capturing fresh responses
 [TestClass]
-[Ignore("Run manually to refresh cached responses")]
+[Ignore("Run manually to refresh response snapshots")]
 public class UserApiCapture : ApiTestBase
 {
     protected override bool CaptureMode => true;
@@ -243,15 +246,15 @@ public class MultiEnvironmentTests : DotHttpTestBase
 
     protected override HttpMessageHandler CreateHttpMessageHandler()
     {
-        var folder = $"ResponseFiles/{_environment}";
-        return new TestCacheReadDelegatingHandler(folder);
+        var folder = $"ResponseSnapshots/{_environment}";
+        return new ResponseSnapshotReplayHandler(folder);
     }
 }
 ```
 
 Directory structure:
 ```
-ResponseFiles/
+ResponseSnapshots/
   default/
     api.example.com/
       users.json
@@ -263,11 +266,11 @@ ResponseFiles/
       users.json  (contains empty array)
 ```
 
-## Handling Different Response States
+## Testing Edge Cases
 
-Create response files manually to test edge cases:
+Create response files manually to test specific scenarios:
 
-```json ResponseFiles/api.example.com/users-error.json
+```json ResponseSnapshots/error-scenarios/api.example.com/users.json
 {
     "error": "Internal server error",
     "code": "INTERNAL_ERROR"
@@ -279,7 +282,7 @@ Create response files manually to test edge cases:
 public async Task GetUsers_HandlesError_Gracefully()
 {
     // Point to error response file
-    var handler = new TestCacheReadDelegatingHandler("ResponseFiles/error-scenarios");
+    var handler = new ResponseSnapshotReplayHandler("ResponseSnapshots/error-scenarios");
     var client = new HttpClient(handler);
 
     var response = await client.GetAsync("https://api.example.com/users");
@@ -293,24 +296,24 @@ public async Task GetUsers_HandlesError_Gracefully()
 
 <AccordionGroup>
   <Accordion title="Check response files into source control">
-    Response files should be committed alongside your tests. This ensures everyone
+    Response snapshot files should be committed alongside your tests. This ensures everyone
     on the team and your CI pipeline can run tests without API access.
   </Accordion>
 
-  <Accordion title="Refresh captures periodically">
+  <Accordion title="Refresh snapshots periodically">
     API responses change over time. Set a reminder to refresh your captured responses
     monthly or when API versions change.
   </Accordion>
 
   <Accordion title="Don't capture sensitive data">
     Be careful not to capture responses containing secrets, tokens, or personal data.
-    Either sanitize the response files or use mock data in the captured responses.
+    Either sanitize the response files or use test accounts with non-sensitive data.
   </Accordion>
 
   <Accordion title="Use meaningful directory names">
     Organize response files by feature or test scenario for easier maintenance:
     ```
-    ResponseFiles/
+    ResponseSnapshots/
       user-management/
       order-processing/
       authentication/
@@ -318,7 +321,7 @@ public async Task GetUsers_HandlesError_Gracefully()
   </Accordion>
 
   <Accordion title="Handle concurrent writes">
-    `TestCacheWriteDelegatingHandler` includes retry logic for file locking when
+    `ResponseSnapshotCaptureHandler` includes retry logic for file locking when
     multiple tests run in parallel. No additional configuration needed.
   </Accordion>
 </AccordionGroup>
@@ -326,12 +329,12 @@ public async Task GetUsers_HandlesError_Gracefully()
 ## Troubleshooting
 
 <AccordionGroup>
-  <Accordion title="Response file not found">
-    The Read handler throws `InvalidOperationException` with the expected file path.
+  <Accordion title="Response snapshot file not found">
+    The Replay handler throws `InvalidOperationException` with the expected file path.
     Check:
     - The file exists at the expected path
     - The URL matches exactly (including query string handling)
-    - The ResponseFiles folder is copied to test output (set Copy to Output Directory)
+    - The ResponseSnapshots folder is copied to test output (set Copy to Output Directory)
   </Accordion>
 
   <Accordion title="Wrong Content-Type">
@@ -340,22 +343,35 @@ public async Task GetUsers_HandlesError_Gracefully()
   </Accordion>
 
   <Accordion title="Tests pass locally but fail in CI">
-    Ensure response files are included in your test project:
+    Ensure snapshot files are included in your test project:
     ```xml
     <ItemGroup>
-      <None Include="ResponseFiles\**\*" CopyToOutputDirectory="PreserveNewest" />
+      <None Include="ResponseSnapshots\**\*" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
     ```
   </Accordion>
 </AccordionGroup>
 
+## Migration from TestCache Classes
+
+If you're upgrading from an earlier version of Breakdance, the following classes have been renamed:
+
+| Old Name | New Name |
+|----------|----------|
+| `TestCacheWriteDelegatingHandler` | `ResponseSnapshotCaptureHandler` |
+| `TestCacheReadDelegatingHandler` | `ResponseSnapshotReplayHandler` |
+| `TestCacheDelegatingHandlerBase` | `ResponseSnapshotHandlerBase` |
+| `ResponseFilesPath` property | `ResponseSnapshotsPath` property |
+
+The old class names are still available but marked as `[Obsolete]` and will be removed in a future major version.
+
 ## Related Resources
 
 <CardGroup cols={2}>
-  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
-    Write API tests using the .http file format
+  <Card title="Request Snapshots" icon="file-code" href="/guides/web/snapshots/requests">
+    Write API tests using the `.http` file format
   </Card>
-  <Card title="In-Memory Web API" icon="server" href="guides/web/testing-web-api">
-    Test ASP.NET Web API controllers without a server
+  <Card title="Snapshots Overview" icon="camera" href="/guides/web/snapshots/index">
+    Learn about the Test Real Things philosophy
   </Card>
 </CardGroup>

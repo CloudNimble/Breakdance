@@ -1,0 +1,160 @@
+---
+title: "Snapshots: Test Real Things"
+sidebarTitle: "Overview"
+description: "Capture and replay real HTTP requests and responses for fast, deterministic, and reliable API testing."
+icon: camera
+---
+
+Breakdance is built on a simple philosophy: **Test Real Things**.
+
+Traditional mocking creates a parallel universe where your tests pass but your code might still fail in production. Mocks require you to maintain fake implementations that can drift from reality. They obscure real problems and introduce artificial complexity.
+
+Snapshots are different. They capture actual HTTP traffic from real APIs and replay it in your tests. Your tests exercise the same code paths, parse the same JSON structures, and handle the same edge cases as production. When the real API changes, your snapshots reveal the difference immediately.
+
+## What Are Snapshots?
+
+Breakdance uses the term "snapshot" to describe captured HTTP traffic that can be replayed during testing:
+
+<CardGroup cols={2}>
+  <Card title="Request Snapshots" icon="arrow-up" href="/guides/web/snapshots/requests">
+    **`.http` files** containing real HTTP requests you want to replay.
+
+    Capture requests from browser DevTools, API documentation, or your own exploration. Define them once, run them everywhere.
+  </Card>
+  <Card title="Response Snapshots" icon="arrow-down" href="/guides/web/snapshots/responses">
+    **Response files** containing real HTTP responses from APIs.
+
+    Capture responses once from a real API, then replay them instantly without network calls.
+  </Card>
+</CardGroup>
+
+## Why Snapshots Beat Mocks
+
+| Aspect | Traditional Mocks | Snapshots |
+|--------|-------------------|-----------|
+| **Source of truth** | Developer imagination | Real API behavior |
+| **Maintenance** | Manual updates required | Re-capture when API changes |
+| **Accuracy** | Prone to drift | Always reflects reality |
+| **Edge cases** | Often forgotten | Naturally captured |
+| **Test confidence** | "Works with mocks" | "Works with real data" |
+| **Debugging** | Artificial scenarios | Real-world scenarios |
+
+## The Snapshot Workflow
+
+<Steps>
+  <Step title="Capture">
+    Record real HTTP traffic from the actual API. This happens once per endpoint or when the API changes.
+
+    - For **requests**: Copy from browser DevTools, API docs, or write `.http` files
+    - For **responses**: Run your code against the real API with capture enabled
+  </Step>
+  <Step title="Store">
+    Check snapshot files into source control alongside your tests. They become part of your test fixtures.
+  </Step>
+  <Step title="Replay">
+    Tests read from snapshot files instead of making network calls. Fast, deterministic, and offline-capable.
+  </Step>
+  <Step title="Refresh">
+    When APIs change, re-capture snapshots. Your tests immediately reveal any breaking changes.
+  </Step>
+</Steps>
+
+## When to Use Each Type
+
+### Request Snapshots (`.http` files)
+
+Use request snapshots when you want to:
+
+- Document API contracts in a readable format
+- Share request examples with your team
+- Test multiple variations of the same endpoint
+- Chain requests together (login → get profile → update settings)
+- Use environment-specific variables (dev/staging/prod URLs)
+
+```http users.http
+@baseUrl = https://api.example.com
+
+### Get all users
+GET {{baseUrl}}/users
+Accept: application/json
+
+### Get specific user
+GET {{baseUrl}}/users/123
+Accept: application/json
+```
+
+### Response Snapshots
+
+Use response snapshots when you want to:
+
+- Test against third-party APIs without hitting rate limits
+- Run tests offline or in CI environments without API access
+- Ensure deterministic test data (same response every time)
+- Test error handling with captured error responses
+- Avoid polluting real accounts with test data
+
+```csharp
+// Responses served from files, no network calls
+var handler = new ResponseSnapshotReplayHandler("Snapshots");
+var client = new HttpClient(handler);
+
+var response = await client.GetAsync("https://api.example.com/users");
+// Response loaded from Snapshots/api.example.com/users.json
+```
+
+## Combining Both Approaches
+
+The real power comes from combining request and response snapshots:
+
+```csharp
+public class UserApiTests : DotHttpTestBase
+{
+    protected override HttpMessageHandler CreateHttpMessageHandler()
+    {
+        // Replay captured responses
+        return new ResponseSnapshotReplayHandler("ResponseSnapshots");
+    }
+
+    [TestMethod]
+    public async Task GetUsers_ReturnsExpectedData()
+    {
+        // Request defined in .http format
+        SetVariable("baseUrl", "https://api.example.com");
+
+        var request = new DotHttpRequest
+        {
+            Method = "GET",
+            Url = "{{baseUrl}}/users"
+        };
+
+        // Request format from .http, response from snapshot file
+        var response = await SendRequestAsync(request);
+
+        await DotHttpAssertions.AssertValidResponseAsync(response);
+    }
+}
+```
+
+This gives you:
+- **Readable requests** in `.http` format with variables and chaining
+- **Real responses** captured from actual API calls
+- **Fast execution** with no network overhead
+- **Deterministic results** for reliable CI/CD
+
+## Getting Started
+
+<CardGroup cols={2}>
+  <Card title="Request Snapshots" icon="file-code" href="/guides/web/snapshots/requests">
+    Learn how to write and execute `.http` files as unit tests
+  </Card>
+  <Card title="Response Snapshots" icon="database" href="/guides/web/snapshots/responses">
+    Learn how to capture and replay HTTP responses
+  </Card>
+</CardGroup>
+
+## Related Packages
+
+| Package | Purpose |
+|---------|---------|
+| `Breakdance.DotHttp` | Request snapshots via `.http` file parsing |
+| `Breakdance.Assemblies` | Response snapshot handlers |

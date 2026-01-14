@@ -1,4 +1,4 @@
-﻿using CloudNimble.Breakdance.Assemblies.Http;
+using CloudNimble.Breakdance.Assemblies.Http;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -14,45 +14,52 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
 {
 
     /// <summary>
-    /// Tests the functionality of the <see cref="TestCacheWriteDelegatingHandler"/>.
+    /// Tests the functionality of the <see cref="ResponseSnapshotCaptureHandler"/>.
     /// </summary>
     [TestClass]
     [DoNotParallelize]
-    public class TestCacheWriteDelegatingHandlerTests
+    public class ResponseSnapshotCaptureHandlerTests
     {
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the test context for the current test.
+        /// </summary>
+        public TestContext TestContext { get; set; }
+
+        #endregion
 
         #region Private Properties
 
-        public TestContext TestContext { get; set; }
-
-
         /// <summary>
-        /// Root directory for storing response files.
+        /// Root directory for storing response snapshot files.
         /// </summary>
-        private static string ResponseFilesPath => TestCacheDelegatingHandlerBaseTests.ResponseFilesPath;
+        private static string ResponseSnapshotsPath => ResponseSnapshotHandlerBaseTests.ResponseSnapshotsPath;
 
         /// <summary>
         /// Local reference to test data is needed here or MSTest will choke.
         /// </summary>
-        internal static IEnumerable<object[]> GetPathsAndTestUris => TestCacheDelegatingHandlerBaseTests.GetPathsAndTestUris;
+        internal static IEnumerable<object[]> GetPathsAndTestUris => ResponseSnapshotHandlerBaseTests.GetPathsAndTestUris;
 
         #endregion
 
+        #region Tests
+
         /// <summary>
-        /// Tests that the <see cref="TestCacheWriteDelegatingHandler"/> can parse the provided set of URIs and read the associated file.
+        /// Tests that the <see cref="ResponseSnapshotCaptureHandler"/> can parse the provided set of URIs and write the response to a snapshot file.
         /// </summary>
-        /// <param name="directoryPath">Folder containing test cache file.</param>
-        /// <param name="fileName">Test cache file name.</param>
+        /// <param name="mediaType">The media type for the request.</param>
+        /// <param name="directoryPath">Folder containing response snapshot file.</param>
+        /// <param name="fileName">Response snapshot file name.</param>
         /// <param name="requestUri">URI to parse.</param>
-        /// <returns></returns>
-        /// <remarks>If you have not already generated the files for this test, you should run the TestCacheWriteDelegatingHandler_CanWriteFile test first.</remarks>
         [TestMethod]
 #pragma warning disable MSTEST0018 // DynamicData should be valid
         [DynamicData(nameof(GetPathsAndTestUris))]
 #pragma warning restore MSTEST0018 // DynamicData should be valid
-        public async Task TestCacheWriteDelegatingHandler_CanWriteFile(string mediaType, string directoryPath, string fileName, string requestUri)
+        public async Task ResponseSnapshotCaptureHandler_CanWriteFile(string mediaType, string directoryPath, string fileName, string requestUri)
         {
-            var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath)
+            var handler = new ResponseSnapshotCaptureHandler(ResponseSnapshotsPath)
             {
                 InnerHandler = new FakeHttpResponseHandler()
             };
@@ -64,18 +71,17 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             var content = await response.Content.ReadAsStringAsync(TestContext.CancellationToken);
             content.Should().NotBeNullOrEmpty();
 
-            File.Exists(Path.Combine(ResponseFilesPath, directoryPath, $"{fileName}{TestCacheDelegatingHandlerBase.GetFileExtensionString(request)}")).Should().BeTrue();
+            File.Exists(Path.Combine(ResponseSnapshotsPath, directoryPath, $"{fileName}{ResponseSnapshotHandlerBase.GetFileExtensionString(request)}")).Should().BeTrue();
         }
 
         /// <summary>
-        /// Tests that providing a <see cref="MediaTypeWithQualityHeaderValue"/> in the Accept header will cause the <see cref="TestCacheWriteDelegatingHandler"/>
-        /// to generate a file with a specific extension.
+        /// Tests that providing a <see cref="MediaTypeWithQualityHeaderValue"/> in the Accept header will cause the <see cref="ResponseSnapshotCaptureHandler"/>
+        /// to generate a snapshot file with the appropriate extension.
         /// </summary>
-        /// <returns></returns>
         [TestMethod]
-        public async Task TestCacheWriteDelegatingHandler_FileExtension_ReflectsMediaType()
+        public async Task ResponseSnapshotCaptureHandler_FileExtension_ReflectsMediaType()
         {
-            var handler = new TestCacheWriteDelegatingHandler(ResponseFilesPath)
+            var handler = new ResponseSnapshotCaptureHandler(ResponseSnapshotsPath)
             {
                 InnerHandler = new FakeHttpResponseHandler()
             };
@@ -87,14 +93,25 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
             var content = await response.Content.ReadAsStringAsync(TestContext.CancellationToken);
             content.Should().NotBeNullOrEmpty();
 
-            File.Exists(Path.Combine(ResponseFilesPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
+            File.Exists(Path.Combine(ResponseSnapshotsPath, "services.odata.org", "metadata.xml")).Should().BeTrue();
         }
 
+        #endregion
+
+        #region Private Classes
+
         /// <summary>
-        /// A fake <see cref="DelegatingHandler"/> to provide the required base handler.
+        /// A fake <see cref="DelegatingHandler"/> to provide the required base handler for testing.
         /// </summary>
         private class FakeHttpResponseHandler : DelegatingHandler
         {
+
+            /// <summary>
+            /// Sends the request and returns a fake response.
+            /// </summary>
+            /// <param name="request">The <see cref="HttpRequestMessage"/> to process.</param>
+            /// <param name="cancellationToken">Token for cancelling the asynchronous operation.</param>
+            /// <returns>A fake <see cref="HttpResponseMessage"/> with empty JSON content.</returns>
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.OK)
@@ -103,7 +120,10 @@ namespace CloudNimble.Breakdance.Tests.Assemblies.Http
                 };
                 return Task.FromResult(response);
             }
+
         }
+
+        #endregion
 
     }
 

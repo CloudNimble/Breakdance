@@ -1,7 +1,15 @@
 ---
-title: "In-Memory Web API Testing"
-description: "Learn how to write fast, reliable tests for ASP.NET Web API controllers without spinning up a real HTTP server."
+title: ASP.NET Classic Web API Testing
+sidebarTitle: ASP.NET Classic (.NET Framework)
+description: "Test ASP.NET Web API 2 controllers on .NET Framework with fast, in-memory HTTP testing."
+icon: landmark
 ---
+
+This guide covers testing **ASP.NET Web API 2** controllers that run on the **.NET Framework** (4.6.2+).
+
+<Note>
+If you're using **ASP.NET Core** (running on .NET 6+), see the [ASP.NET Core testing guide](/guides/web/aspnet-core-rest) instead.
+</Note>
 
 Testing Web API controllers traditionally requires running a full HTTP server, which is slow and can have port conflicts.
 Breakdance provides helpers that create an in-memory HTTP pipeline, letting you test your controllers directly without network overhead.
@@ -12,7 +20,7 @@ Breakdance provides helpers that create an in-memory HTTP pipeline, letting you 
   <Step title="Install the package">
     Add the Breakdance WebApi package to your test project:
     ```bash
-    dotnet add package CloudNimble.Breakdance.WebApi
+    dotnet add package Breakdance.WebApi
     ```
   </Step>
   <Step title="Reference your Web API project">
@@ -225,16 +233,24 @@ This is helpful for debugging test failures but should not be enabled in product
 | Port conflicts | None | Possible |
 | Full HTTP stack | No (no network layer) | Yes |
 | SSL testing | No | Yes |
-| Middleware | Some limitations | Full support |
+| Message handlers | Full support | Full support |
 | Best for | Unit tests, CI/CD | Integration tests, E2E |
+
+## Limitations
+
+The `Breakdance.WebApi` package is specifically for ASP.NET Web API 2 on .NET Framework. It does not support:
+
+- ASP.NET Core applications (use [Breakdance.AspNetCore](/guides/web/aspnet-core-rest) instead)
+- OWIN/Katana middleware
+- SignalR
 
 ## Related Resources
 
 <CardGroup cols={2}>
-  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
-    Capture and replay HTTP responses for deterministic tests
+  <Card title="ASP.NET Core Testing" icon="bolt" href="/guides/web/aspnet-core-rest">
+    Test ASP.NET Core APIs with TestServer
   </Card>
-  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
-    Write tests using Visual Studio's .http file format
+  <Card title="Response Snapshots" icon="camera" href="/guides/web/snapshots/responses">
+    Capture and replay HTTP responses for deterministic tests
   </Card>
 </CardGroup>

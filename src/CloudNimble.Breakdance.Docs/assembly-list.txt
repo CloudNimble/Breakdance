@@ -1,3 +1,4 @@
+D:\GitHub\Breakdance\src\Breakdance.Claude\bin\Debug\net10.0\Breakdance.Claude.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.AspNetCore\bin\Debug\net10.0\CloudNimble.Breakdance.AspNetCore.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Assemblies\bin\Debug\net10.0\CloudNimble.Breakdance.Assemblies.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Azurite\bin\Debug\net10.0\CloudNimble.Breakdance.Azurite.dll

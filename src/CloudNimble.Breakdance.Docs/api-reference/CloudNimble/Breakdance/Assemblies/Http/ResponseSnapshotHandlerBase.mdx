@@ -1,0 +1,135 @@
+---
+title: ResponseSnapshotHandlerBase
+description: "Base class for Response Snapshot handlers that enable testing with real captured HTTP responses."
+icon: file-brackets-curly
+keywords: ['ResponseSnapshotHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase', 'CloudNimble.Breakdance.Assemblies.Http', 'class', 'System.Net.Http.DelegatingHandler']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.Breakdance.Assemblies.dll
+
+**Namespace:** CloudNimble.Breakdance.Assemblies.Http
+
+**Inheritance:** System.Net.Http.DelegatingHandler
+
+## Syntax
+
+```csharp
+CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase
+```
+
+## Summary
+
+Base class for Response Snapshot handlers that enable testing with real captured HTTP responses.
+
+## Remarks
+
+
+
+
+            Response Snapshots are real HTTP responses captured from actual API calls and stored as files.
+            This allows testing against real response data without hitting live endpoints or polluting
+            third-party services with test data.
+            
+
+
+
+
+            Use [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler) to capture responses from live APIs,
+            then use [ResponseSnapshotReplayHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler) to replay those responses in tests.
+            
+
+
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Creates a new [ResponseSnapshotHandlerBase](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotHandlerBase) with the specified snapshot storage path.
+
+#### Syntax
+
+```csharp
+public ResponseSnapshotHandlerBase(string responseSnapshotsPath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `responseSnapshotsPath` | `string` | Root folder path for storing response snapshot files. |
+
+#### Examples
+
+```csharp
+var handler = new ResponseSnapshotReplayHandler("TestData/Snapshots");
+var client = new HttpClient(handler);
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResponseSnapshotsPath
+
+Gets the root folder path where response snapshot files are stored.
+
+#### Syntax
+
+```csharp
+public string ResponseSnapshotsPath { get; private set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetFileExtensionString
+
+Maps the MediaType header in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) to a known list of file extensions.
+
+#### Syntax
+
+```csharp
+public static string GetFileExtensionString(System.Net.Http.HttpRequestMessage request)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `request` | `System.Net.Http.HttpRequestMessage` | The request to examine. |
+
+#### Returns
+
+Type: `string`
+The file extension string for the request's Accept header.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` | Thrown when request is null. |
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetResponseMediaTypeString
+
+Maps the file extension in the specified path to a known list of media types.
+
+#### Syntax
+
+```csharp
+public static string GetResponseMediaTypeString(string filePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filePath` | `string` | The file path to examine. |
+
+#### Returns
+
+Type: `string`
+The MIME type string for the file extension.
+

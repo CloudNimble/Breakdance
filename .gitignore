@@ -303,3 +303,4 @@ $RECYCLE.BIN/
 *.lnk
 /src/CloudNimble.Breakdance.Tests.Assemblies/ResponseFiles/
 /.claude/settings.local.json
+/.playwright-mcp

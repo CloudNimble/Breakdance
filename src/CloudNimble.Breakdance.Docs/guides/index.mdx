@@ -1,47 +1,58 @@
 ---
-title: "Guides"
-description: "Step-by-step tutorials for testing different aspects of your .NET applications with Breakdance."
+title: Guides
+sidebarTitle: Overview
+description: "Step-by-step tutorials for testing real things in your .NET applications with Breakdance."
+icon: circle-info
 ---
 
 Breakdance provides specialized testing support for various .NET technologies. These guides walk you through
-common scenarios with practical examples.
+practical scenarios using the "Test Real Things" philosophy - no mocks, no fakes, just real behavior.
 
 ## By Category
 
 <CardGroup cols={2}>
-  <Card title="Web & API Testing" icon="globe" href="guides/web">
-    Test HTTP APIs with in-memory servers, .http files, and response caching
+  <Card title="Web & API Testing" icon="globe" href="/guides/web/index">
+    Test HTTP APIs with in-memory servers and HTTP snapshots
   </Card>
-  <Card title="Azure Storage" icon="database" href="guides/testing-azure-storage">
+  <Card title="Azure Storage" icon="database" href="/guides/testing-azure-storage">
     Integration testing with Azurite for Blob, Queue, and Table storage
   </Card>
 </CardGroup>
 
-## All Guides
-
-### Web & API Testing
+## Web & API Testing
 
 <Cards>
-  <Card title="In-Memory Web API Testing" icon="server" href="guides/web/testing-web-api">
-    Test ASP.NET Web API controllers without spinning up a real HTTP server
+  <Card title="Snapshots Overview" icon="camera" href="/guides/web/snapshots/index">
+    Learn the "Test Real Things" philosophy and how snapshots replace mocking
   </Card>
-  <Card title=".http File Testing" icon="file-code" href="guides/web/dothttp-testing">
-    Write API tests using Visual Studio's .http file format with variables and chaining
+  <Card title="Response Snapshots" icon="arrow-down" href="/guides/web/snapshots/responses">
+    Capture real HTTP responses and replay them for fast, deterministic tests
   </Card>
-  <Card title="Response Caching" icon="files" href="guides/web/response-caching">
-    Capture and replay HTTP responses for fast, deterministic tests
+  <Card title="Request Snapshots" icon="arrow-up" href="/guides/web/snapshots/requests">
+    Write API tests using Visual Studio's `.http` file format with variables and chaining
+  </Card>
+  <Card title="ASP.NET Core Testing" icon="bolt" href="/guides/web/aspnet-core-rest">
+    Test ASP.NET Core APIs with in-memory TestServer
+  </Card>
+  <Card title="ASP.NET Classic Testing" icon="landmark" href="/guides/web/aspnet-classic-rest">
+    Test ASP.NET Web API 2 controllers on .NET Framework
   </Card>
 </Cards>
 
-### Azure Services
+## Azure Services
 
 <Cards>
-  <Card title="Azure Storage with Azurite" icon="box-archive" href="guides/testing-azure-storage">
-    Test against Blob, Queue, and Table storage using the Azurite emulator
+  <Card title="Azure Storage with Azurite" icon="box-archive" href="/guides/testing-azure-storage">
+    Test against real Blob, Queue, and Table storage using the Azurite emulator
   </Card>
 </Cards>
 
 ## Getting Started
 
-New to Breakdance? Start with the [Quickstart](/quickstart) guide to set up your first test project,
+New to Breakdance? Start with understanding [Why Breakdance?](/why-breakdance) to learn the philosophy,
 then explore the guides relevant to your application's technology stack.
+
+<Tip>
+  Each guide includes practical examples you can copy directly into your test projects.
+  All examples follow the "Test Real Things" approach - capturing real behavior instead of mocking it.
+</Tip>
