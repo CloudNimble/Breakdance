@@ -697,23 +697,25 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
         /// <returns>A valid C# method name.</returns>
         /// <remarks>
         /// Name is determined in this priority order:
-        /// 1. The @name directive value if specified
-        /// 2. The text after ### separator (dehumanized) with _{HttpMethod} suffix
+        /// 1. The @name directive value if specified (first letter capitalized, rest preserved)
+        /// 2. The text after ### separator (dehumanized, acronyms normalized)
         /// 3. The URL path (dehumanized) with _{HttpMethod} suffix
         /// </remarks>
         internal static string GetTestMethodName(DotHttpRequest request)
         {
-            // Priority 1: Use @name if specified
+            // Priority 1: Use @name if specified - sanitize but preserve camelCase
             if (!string.IsNullOrEmpty(request.Name))
             {
                 return SanitizeMethodName(request.Name);
             }
 
-            // Priority 2: Use separator title if present
+            // Priority 2: Use separator title if present (no method suffix for human-readable titles)
             if (!string.IsNullOrEmpty(request.SeparatorTitle))
             {
-                var titleDehumanized = CleanupAfterDehumanize(request.SeparatorTitle.Dehumanize());
-                return $"{titleDehumanized}_{request.Method}";
+                // Dehumanize handles most cases, then clean up to valid identifier
+                var titleDehumanized = request.SeparatorTitle.Dehumanize().Replace(" ", "");
+                titleDehumanized = CleanupAfterDehumanize(titleDehumanized);
+                return NormalizeAcronyms(titleDehumanized);
             }
 
             // Priority 3: Use URL path
@@ -739,15 +741,99 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
                 urlPart = urlPart[..queryStart];
             }
 
-            var dehumanized = CleanupAfterDehumanize(urlPart.Dehumanize());
+            var dehumanized = CleanupAfterDehumanize(urlPart.Dehumanize().Replace(" ", ""));
 
-            // If cleanup resulted in empty string, use a default
+            // If result is empty, use a default
             if (string.IsNullOrEmpty(dehumanized))
             {
                 dehumanized = "Request";
             }
 
             return $"{dehumanized}_{request.Method}";
+        }
+
+        /// <summary>
+        /// Capitalizes the first letter of a string, preserving the rest.
+        /// </summary>
+        /// <param name="input">The input string.</param>
+        /// <returns>The string with first letter capitalized.</returns>
+        internal static string CapitalizeFirst(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            if (char.IsUpper(input[0]))
+            {
+                return input;
+            }
+
+            return char.ToUpperInvariant(input[0]) + input[1..];
+        }
+
+        /// <summary>
+        /// Normalizes acronyms in a PascalCase string by converting runs of uppercase letters to title case.
+        /// </summary>
+        /// <param name="input">The input string with potential all-caps acronyms.</param>
+        /// <returns>The string with normalized acronyms (URL → Url, API → Api).</returns>
+        /// <remarks>
+        /// This handles cases where Humanizer's Dehumanize preserves acronyms as all-caps.
+        /// For example: "AddDocumentURLContent" → "AddDocumentUrlContent".
+        /// </remarks>
+        internal static string NormalizeAcronyms(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            var span = input.AsSpan();
+            var result = new StringBuilder(input.Length);
+
+            for (var i = 0; i < span.Length; i++)
+            {
+                var c = span[i];
+
+                if (char.IsUpper(c))
+                {
+                    // Check if this is the start of an acronym (2+ consecutive uppercase letters)
+                    var acronymLength = 1;
+                    while (i + acronymLength < span.Length && char.IsUpper(span[i + acronymLength]))
+                    {
+                        acronymLength++;
+                    }
+
+                    if (acronymLength >= 2)
+                    {
+                        // Check if the next char after the acronym is lowercase (part of next word)
+                        // In that case, the last uppercase letter belongs to the next word
+                        var effectiveLength = acronymLength;
+                        if (i + acronymLength < span.Length && char.IsLower(span[i + acronymLength]))
+                        {
+                            effectiveLength = acronymLength - 1;
+                        }
+
+                        // Append first letter as uppercase, rest as lowercase
+                        result.Append(span[i]);
+                        for (var j = 1; j < effectiveLength; j++)
+                        {
+                            result.Append(char.ToLowerInvariant(span[i + j]));
+                        }
+                        i += effectiveLength - 1; // -1 because loop will increment
+                    }
+                    else
+                    {
+                        result.Append(c);
+                    }
+                }
+                else
+                {
+                    result.Append(c);
+                }
+            }
+
+            return result.ToString();
         }
 
         /// <summary>
@@ -843,10 +929,19 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
         }
 
         /// <summary>
-        /// Converts a string to PascalCase.
+        /// Converts a string to PascalCase with intelligent handling of different input formats.
         /// </summary>
         /// <param name="input">The input string.</param>
         /// <returns>The PascalCase string.</returns>
+        /// <remarks>
+        /// <para>For delimited input (snake_case, kebab-case): Capitalizes first letter of each word, lowercases the rest.</para>
+        /// <para>For non-delimited input (camelCase): Just capitalizes the first letter, preserving existing case.</para>
+        /// <para>Examples:</para>
+        /// <list type="bullet">
+        /// <item><description>"HELLO_WORLD" → "HelloWorld" (snake_case conversion)</description></item>
+        /// <item><description>"batchAddDocuments" → "BatchAddDocuments" (camelCase preservation)</description></item>
+        /// </list>
+        /// </remarks>
         internal static string ToPascalCase(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -855,24 +950,48 @@ namespace CloudNimble.Breakdance.DotHttp.Generator
             }
 
             var span = input.AsSpan();
-            var result = new StringBuilder(input.Length);
-            var capitalizeNext = true;
 
+            // Check if input has any delimiters
+            var hasDelimiters = false;
             foreach (var c in span)
             {
                 if (c is '_' or '-' or ' ')
                 {
-                    // Skip delimiter, next character should be capitalized
-                    capitalizeNext = true;
+                    hasDelimiters = true;
+                    break;
                 }
-                else if (capitalizeNext)
+            }
+
+            var result = new StringBuilder(input.Length);
+
+            if (hasDelimiters)
+            {
+                // Snake_case or kebab-case: standard PascalCase conversion
+                var capitalizeNext = true;
+                foreach (var c in span)
                 {
-                    result.Append(char.ToUpperInvariant(c));
-                    capitalizeNext = false;
+                    if (c is '_' or '-' or ' ')
+                    {
+                        capitalizeNext = true;
+                    }
+                    else if (capitalizeNext)
+                    {
+                        result.Append(char.ToUpperInvariant(c));
+                        capitalizeNext = false;
+                    }
+                    else
+                    {
+                        result.Append(char.ToLowerInvariant(c));
+                    }
                 }
-                else
+            }
+            else
+            {
+                // No delimiters (already camelCase or PascalCase): just uppercase first letter, preserve rest
+                result.Append(char.ToUpperInvariant(span[0]));
+                for (var i = 1; i < span.Length; i++)
                 {
-                    result.Append(char.ToLowerInvariant(c));
+                    result.Append(span[i]);
                 }
             }
 
