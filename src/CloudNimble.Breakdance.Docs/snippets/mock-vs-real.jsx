@@ -1,15 +1,28 @@
 export const MockVsReal = () => {
+  const [animationsStarted, setAnimationsStarted] = React.useState(false);
+
+  React.useEffect(() => {
+    setAnimationsStarted(true);
+  }, []);
+
   return (
     <div className="relative bg-[#0d0d1a] py-20 overflow-hidden">
       {/* Background texture */}
       <div
         className="absolute inset-0 opacity-5"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div
+        className="relative mx-auto max-w-7xl px-6 lg:px-8"
+        style={{
+          opacity: animationsStarted ? 1 : 0,
+          transform: animationsStarted ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+        }}
+      >
         {/* Section header */}
         <div className="text-center mb-16">
           <h2
@@ -49,16 +62,7 @@ export const MockVsReal = () => {
               {/* Code block */}
               <div className="bg-[#0a0a14] rounded-xl p-4 mb-6 font-mono text-sm overflow-x-auto">
                 <pre className="text-gray-300">
-                  <code>{`var mockService = new Mock<IUserService>();
-mockService.Setup(x => x.GetUser(It.IsAny<int>()))
-    .Returns(new User { Id = 1, Name = "Test" });
-
-// Does this match reality? 🤷
-// What about edge cases? 🤷
-// API changed last week? 🤷
-
-var result = await controller.GetUser(1);
-Assert.IsNotNull(result); // Passes... but means nothing`}</code>
+                  <code>{'var mockService = new Mock<IUserService>();\nmockService.Setup(x => x.GetUser(It.IsAny<int>()))\n    .Returns(new User { Id = 1, Name = "Test" });\n\n// Does this match reality?\n// What about edge cases?\n// API changed last week?\n\nvar result = await controller.GetUser(1);\nAssert.IsNotNull(result); // Passes... but means nothing'}</code>
                 </pre>
               </div>
 
@@ -68,7 +72,7 @@ Assert.IsNotNull(result); // Passes... but means nothing`}</code>
                   'Constant maintenance as APIs evolve',
                   'Edge cases easily missed',
                   'Tests pass, production fails',
-                  'Mock behavior ≠ real behavior'
+                  'Mock behavior != real behavior'
                 ].map((problem, i) => (
                   <li key={i} className="flex items-start gap-3 text-gray-400">
                     <svg className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -105,15 +109,7 @@ Assert.IsNotNull(result); // Passes... but means nothing`}</code>
               {/* Code block */}
               <div className="bg-[#0a0a14] rounded-xl p-4 mb-6 font-mono text-sm overflow-x-auto">
                 <pre className="text-gray-300">
-                  <code>{`// Capture real API response once
-var capture = new ResponseSnapshotCaptureHandler("Snapshots");
-await client.GetAsync("https://api.example.com/users/1");
-// Real response saved to disk ✓
-
-// Replay in all future tests - fast & deterministic
-var replay = new ResponseSnapshotReplayHandler("Snapshots");
-var response = await testClient.GetAsync("/users/1");
-// Exact response from real API ✓`}</code>
+                  <code>{'// Capture real API response once\nvar capture = new ResponseSnapshotCaptureHandler("Snapshots");\nawait client.GetAsync("https://api.example.com/users/1");\n// Real response saved to disk\n\n// Replay in all future tests - fast & deterministic\nvar replay = new ResponseSnapshotReplayHandler("Snapshots");\nvar response = await testClient.GetAsync("/users/1");\n// Exact response from real API'}</code>
                 </pre>
               </div>
 

@@ -1,8 +1,8 @@
-D:\GitHub\Breakdance\src\Breakdance.Claude\bin\Debug\net10.0\Breakdance.Claude.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.AspNetCore\bin\Debug\net10.0\CloudNimble.Breakdance.AspNetCore.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Assemblies\bin\Debug\net10.0\CloudNimble.Breakdance.Assemblies.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Azurite\bin\Debug\net10.0\CloudNimble.Breakdance.Azurite.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Blazor\bin\Debug\net10.0\CloudNimble.Breakdance.Blazor.dll
+D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Claude\bin\Debug\net10.0\Breakdance.Claude.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.DotHttp\bin\Debug\net10.0\CloudNimble.Breakdance.DotHttp.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Extensions.MSTest2\bin\Debug\net10.0\CloudNimble.Breakdance.Extensions.MSTest2.dll
 D:\GitHub\Breakdance\src\CloudNimble.Breakdance.Tools\bin\Debug\net10.0\Breakdance.Tools.dll

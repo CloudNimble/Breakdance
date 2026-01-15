@@ -1,14 +1,17 @@
 export const CTASection = () => {
+  const [animationsStarted, setAnimationsStarted] = React.useState(false);
+
+  React.useEffect(() => {
+    setAnimationsStarted(true);
+  }, []);
+
   return (
     <div className="relative bg-[#0d0d1a] py-24 overflow-hidden">
       {/* Animated gradient background */}
       <div
         className="absolute inset-0 opacity-30"
         style={{
-          background: `
-            radial-gradient(ellipse at 30% 50%, rgba(197, 232, 66, 0.2) 0%, transparent 50%),
-            radial-gradient(ellipse at 70% 50%, rgba(60, 208, 226, 0.2) 0%, transparent 50%)
-          `
+          background: 'radial-gradient(ellipse at 30% 50%, rgba(197, 232, 66, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 70% 50%, rgba(60, 208, 226, 0.2) 0%, transparent 50%)'
         }}
       />
 
@@ -17,14 +20,21 @@ export const CTASection = () => {
         className="absolute bottom-0 left-0 right-0 h-24 opacity-10"
         style={{
           background: '#1a1a2e',
-          maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80 L0 60 L30 60 L30 40 L50 40 L50 60 L80 60 L80 30 L100 30 L100 60 L140 60 L140 45 L160 45 L160 20 L180 20 L180 60 L220 60 L220 50 L260 50 L260 35 L280 35 L280 60 L320 60 L320 40 L340 40 L340 15 L360 15 L360 40 L380 40 L380 60 L420 60 L420 55 L460 55 L460 25 L480 25 L480 60 L520 60 L520 45 L540 45 L540 60 L580 60 L580 35 L600 35 L600 10 L620 10 L620 35 L640 35 L640 60 L680 60 L680 50 L720 50 L720 30 L740 30 L740 60 L780 60 L780 40 L800 40 L800 20 L820 20 L820 60 L860 60 L860 55 L900 55 L900 35 L920 35 L920 60 L960 60 L960 45 L980 45 L980 25 L1000 25 L1000 60 L1040 60 L1040 50 L1080 50 L1080 60 L1120 60 L1120 40 L1140 40 L1140 60 L1200 60 L1200 80 Z' fill='white'/%3E%3C/svg%3E")`,
+          maskImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80 L0 60 L30 60 L30 40 L50 40 L50 60 L80 60 L80 30 L100 30 L100 60 L140 60 L140 45 L160 45 L160 20 L180 20 L180 60 L220 60 L220 50 L260 50 L260 35 L280 35 L280 60 L320 60 L320 40 L340 40 L340 15 L360 15 L360 40 L380 40 L380 60 L420 60 L420 55 L460 55 L460 25 L480 25 L480 60 L520 60 L520 45 L540 45 L540 60 L580 60 L580 35 L600 35 L600 10 L620 10 L620 35 L640 35 L640 60 L680 60 L680 50 L720 50 L720 30 L740 30 L740 60 L780 60 L780 40 L800 40 L800 20 L820 20 L820 60 L860 60 L860 55 L900 55 L900 35 L920 35 L920 60 L960 60 L960 45 L980 45 L980 25 L1000 25 L1000 60 L1040 60 L1040 50 L1080 50 L1080 60 L1120 60 L1120 40 L1140 40 L1140 60 L1200 60 L1200 80 Z' fill='white'/%3E%3C/svg%3E\")",
           maskSize: '100% 100%',
-          WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80 L0 60 L30 60 L30 40 L50 40 L50 60 L80 60 L80 30 L100 30 L100 60 L140 60 L140 45 L160 45 L160 20 L180 20 L180 60 L220 60 L220 50 L260 50 L260 35 L280 35 L280 60 L320 60 L320 40 L340 40 L340 15 L360 15 L360 40 L380 40 L380 60 L420 60 L420 55 L460 55 L460 25 L480 25 L480 60 L520 60 L520 45 L540 45 L540 60 L580 60 L580 35 L600 35 L600 10 L620 10 L620 35 L640 35 L640 60 L680 60 L680 50 L720 50 L720 30 L740 30 L740 60 L780 60 L780 40 L800 40 L800 20 L820 20 L820 60 L860 60 L860 55 L900 55 L900 35 L920 35 L920 60 L960 60 L960 45 L980 45 L980 25 L1000 25 L1000 60 L1040 60 L1040 50 L1080 50 L1080 60 L1120 60 L1120 40 L1140 40 L1140 60 L1200 60 L1200 80 Z' fill='white'/%3E%3C/svg%3E")`,
+          WebkitMaskImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80 L0 60 L30 60 L30 40 L50 40 L50 60 L80 60 L80 30 L100 30 L100 60 L140 60 L140 45 L160 45 L160 20 L180 20 L180 60 L220 60 L220 50 L260 50 L260 35 L280 35 L280 60 L320 60 L320 40 L340 40 L340 15 L360 15 L360 40 L380 40 L380 60 L420 60 L420 55 L460 55 L460 25 L480 25 L480 60 L520 60 L520 45 L540 45 L540 60 L580 60 L580 35 L600 35 L600 10 L620 10 L620 35 L640 35 L640 60 L680 60 L680 50 L720 50 L720 30 L740 30 L740 60 L780 60 L780 40 L800 40 L800 20 L820 20 L820 60 L860 60 L860 55 L900 55 L900 35 L920 35 L920 60 L960 60 L960 45 L980 45 L980 25 L1000 25 L1000 60 L1040 60 L1040 50 L1080 50 L1080 60 L1120 60 L1120 40 L1140 40 L1140 60 L1200 60 L1200 80 Z' fill='white'/%3E%3C/svg%3E\")",
           WebkitMaskSize: '100% 100%'
         }}
       />
 
-      <div className="relative mx-auto max-w-4xl px-6 lg:px-8 text-center">
+      <div
+        className="relative mx-auto max-w-4xl px-6 lg:px-8 text-center"
+        style={{
+          opacity: animationsStarted ? 1 : 0,
+          transform: animationsStarted ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+        }}
+      >
         {/* Headline */}
         <h2
           className="text-4xl sm:text-6xl font-black text-white mb-6"

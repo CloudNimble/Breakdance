@@ -1,4 +1,10 @@
 export const PackageShowcase = () => {
+  const [animationsStarted, setAnimationsStarted] = React.useState(false);
+
+  React.useEffect(() => {
+    setAnimationsStarted(true);
+  }, []);
+
   const packages = [
     {
       name: 'Breakdance.Assemblies',
@@ -42,7 +48,7 @@ export const PackageShowcase = () => {
             key={i}
             className="absolute h-px bg-gradient-to-r from-transparent via-[#3CD0E2] to-transparent"
             style={{
-              top: `${20 + i * 20}%`,
+              top: (20 + i * 20) + '%',
               left: '0',
               right: '0'
             }}
@@ -50,7 +56,14 @@ export const PackageShowcase = () => {
         ))}
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div
+        className="relative mx-auto max-w-7xl px-6 lg:px-8"
+        style={{
+          opacity: animationsStarted ? 1 : 0,
+          transform: animationsStarted ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+        }}
+      >
         {/* Section header */}
         <div className="text-center mb-16">
           <h2
@@ -84,13 +97,12 @@ export const PackageShowcase = () => {
           {packages.map((pkg, index) => (
             <div
               key={index}
-              className={`
-                relative group rounded-xl p-5 border transition-all duration-300 hover:-translate-y-1
-                ${pkg.primary
+              className={
+                'relative group rounded-xl p-5 border transition-all duration-300 hover:-translate-y-1 ' +
+                (pkg.primary
                   ? 'bg-gradient-to-br from-[#C5E842]/10 to-[#3CD0E2]/10 border-[#C5E842]/30'
-                  : 'bg-[#1a1a2e]/50 border-gray-800 hover:border-gray-700'
-                }
-              `}
+                  : 'bg-[#1a1a2e]/50 border-gray-800 hover:border-gray-700')
+              }
             >
               {pkg.primary && (
                 <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-[#C5E842] text-[#0a0a14] text-xs font-bold rounded-full">

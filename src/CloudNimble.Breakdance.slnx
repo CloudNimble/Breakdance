@@ -1,7 +1,6 @@
 
 <Solution>
   <Folder Name="/Core/">
-    <Project Path="Breakdance.Claude/Breakdance.Claude.csproj" Id="b6af0f4b-bc2b-480e-96ab-4cef10c8d05f" />
     <Project Path="CloudNimble.Breakdance.AspNetCore/Breakdance.AspNetCore.csproj" />
     <Project Path="CloudNimble.Breakdance.Assemblies/Breakdance.Assemblies.csproj" />
     <Project Path="CloudNimble.Breakdance.Azurite/Breakdance.Azurite.csproj" />

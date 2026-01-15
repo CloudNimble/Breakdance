@@ -10,7 +10,7 @@ namespace CloudNimble.Breakdance.DotHttp
 {
 
     /// <summary>
-    /// Resolves {{variable}} placeholders in .http file content.
+    /// Resolves `{{variable}}` placeholders in .http file content.
     /// </summary>
     /// <example>
     /// <code>
@@ -116,7 +116,7 @@ namespace CloudNimble.Breakdance.DotHttp
         }
 
         /// <summary>
-        /// Checks if a string contains response references ({{name.response.*}}).
+        /// Checks if a string contains response references (`{{name.response.*}}`).
         /// </summary>
         /// <param name="input">The input string to check.</param>
         /// <returns>True if response references are present.</returns>
@@ -166,7 +166,7 @@ namespace CloudNimble.Breakdance.DotHttp
         /// <summary>
         /// Resolves all variable references in the input string.
         /// </summary>
-        /// <param name="input">The input string containing {{variable}} placeholders.</param>
+        /// <param name="input">The input string containing `{{variable}}` placeholders.</param>
         /// <returns>The resolved string with variables replaced.</returns>
         /// <example>
         /// <code>
@@ -221,7 +221,7 @@ namespace CloudNimble.Breakdance.DotHttp
         }
 
         /// <summary>
-        /// Resolves simple {{variable}} placeholders.
+        /// Resolves simple `{{variable}}` placeholders.
         /// </summary>
         /// <param name="input">The input string.</param>
         /// <returns>The resolved string.</returns>

@@ -24,6 +24,7 @@
           "guides/testing-azure-storage",
           {
             "group": "Web",
+            "icon": "globe",
             "pages": [
               "guides/web/index",
               "guides/web/aspnet-classic-rest",

@@ -26,8 +26,8 @@ Captures HTTP responses from named requests for use in request chaining.
 
 ## Remarks
 
-Supports {{name.response.body.$.path}} for JSONPath, {{name.response.body./xpath}} for XPath,
-             and {{name.response.headers.HeaderName}} for header extraction.
+Supports `{{name.response.body.$.path}}` for JSONPath, `{{name.response.body./xpath}}` for XPath,
+             and `{{name.response.headers.HeaderName}}` for header extraction.
 
 ## Examples
 
@@ -78,7 +78,7 @@ public System.Threading.Tasks.Task CaptureAsync(string name, System.Net.Http.Htt
 |------|------|-------------|
 | `name` | `string` | The request name (from # @name directive). |
 | `response` | `System.Net.Http.HttpResponseMessage` | The HTTP response. |
-| `requestBody` | `string` | The original request body (for {{name.request.body}} references). |
+| `requestBody` | `string` | The original request body (for `{{name.request.body}}` references). |
 
 #### Returns
 
@@ -315,7 +315,7 @@ public string ResolveReference(string reference)
 
 | Name | Type | Description |
 |------|------|-------------|
-| `reference` | `string` | The full reference string (e.g., "{{login.response.body.$.token}}"). |
+| `reference` | `string` | The full reference string (e.g., `"{{login.response.body.$.token}}"`). |
 
 #### Returns
 

@@ -1,4 +1,10 @@
 export const QuickStart = () => {
+  const [animationsStarted, setAnimationsStarted] = React.useState(false);
+
+  React.useEffect(() => {
+    setAnimationsStarted(true);
+  }, []);
+
   const steps = [
     {
       number: '01',
@@ -10,41 +16,32 @@ export const QuickStart = () => {
       number: '02',
       title: 'Capture',
       description: 'Record real responses from actual APIs',
-      code: `var handler = new ResponseSnapshotCaptureHandler("Snapshots") {
-    InnerHandler = new HttpClientHandler()
-};
-var client = new HttpClient(handler);
-await client.GetAsync("https://api.example.com/users");
-// Response saved to Snapshots/api.example.com/users.json`
+      code: 'var handler = new ResponseSnapshotCaptureHandler("Snapshots") {\n    InnerHandler = new HttpClientHandler()\n};\nvar client = new HttpClient(handler);\nawait client.GetAsync("https://api.example.com/users");\n// Response saved to Snapshots/api.example.com/users.json'
     },
     {
       number: '03',
       title: 'Replay',
       description: 'Use captured responses in your tests',
-      code: `[TestMethod]
-public async Task GetUsers_ReturnsExpectedData()
-{
-    var handler = new ResponseSnapshotReplayHandler("Snapshots");
-    var client = new HttpClient(handler);
-
-    var response = await client.GetAsync("https://api.example.com/users");
-
-    response.IsSuccessStatusCode.Should().BeTrue();
-}`
+      code: '[TestMethod]\npublic async Task GetUsers_ReturnsExpectedData()\n{\n    var handler = new ResponseSnapshotReplayHandler("Snapshots");\n    var client = new HttpClient(handler);\n\n    var response = await client.GetAsync("https://api.example.com/users");\n\n    response.IsSuccessStatusCode.Should().BeTrue();\n}'
     },
     {
       number: '04',
       title: 'Commit',
       description: 'Check snapshots into source control',
-      code: `git add Snapshots/
-git commit -m "Add API response snapshots"
-# Now your entire team can run tests without API access`
+      code: 'git add Snapshots/\ngit commit -m "Add API response snapshots"\n# Now your entire team can run tests without API access'
     }
   ];
 
   return (
     <div className="relative bg-[#0a0a14] py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div
+        className="mx-auto max-w-7xl px-6 lg:px-8"
+        style={{
+          opacity: animationsStarted ? 1 : 0,
+          transform: animationsStarted ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+        }}
+      >
         {/* Section header */}
         <div className="text-center mb-16">
           <h2

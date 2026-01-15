@@ -1,6 +1,6 @@
 ---
 title: VariableResolver
-description: "Resolves {{variable}} placeholders in .http file content."
+description: "Resolves `{{variable}}` placeholders in .http file content."
 icon: lock
 tag: "SEALED"
 keywords: ['VariableResolver', 'CloudNimble.Breakdance.DotHttp.VariableResolver', 'CloudNimble.Breakdance.DotHttp', 'class', 'System.Object']
@@ -22,7 +22,7 @@ CloudNimble.Breakdance.DotHttp.VariableResolver
 
 ## Summary
 
-Resolves {{variable}} placeholders in .http file content.
+Resolves `{{variable}}` placeholders in .http file content.
 
 ## Remarks
 
@@ -211,7 +211,7 @@ var names = resolver.GetVariableNames(input);
 
 ### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HasResponseReferences
 
-Checks if a string contains response references ({{name.response.*}}).
+Checks if a string contains response references (`{{name.response.*}}`).
 
 #### Syntax
 
@@ -318,7 +318,7 @@ public string Resolve(string input)
 
 | Name | Type | Description |
 |------|------|-------------|
-| `input` | `string` | The input string containing {{variable}} placeholders. |
+| `input` | `string` | The input string containing `{{variable}}` placeholders. |
 
 #### Returns
 
@@ -365,7 +365,7 @@ var result = resolver.ResolveDynamicVariables("ID: {{$guid}}");
 
 ### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ResolveSimpleVariables
 
-Resolves simple {{variable}} placeholders.
+Resolves simple `{{variable}}` placeholders.
 
 #### Syntax
 

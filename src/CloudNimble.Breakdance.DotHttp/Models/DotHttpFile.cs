@@ -41,7 +41,7 @@ namespace CloudNimble.Breakdance.DotHttp.Models
         /// Gets a value indicating whether any requests in this file have dependencies on other requests.
         /// </summary>
         /// <remarks>
-        /// Returns true when any request uses response variable references like {{login.response.body.$.token}}.
+        /// Returns true when any request uses response variable references like `{{login.response.body.$.token}}`.
         /// </remarks>
         public bool HasChainedRequests => Requests.Any(r => r.HasResponseReferences);
 

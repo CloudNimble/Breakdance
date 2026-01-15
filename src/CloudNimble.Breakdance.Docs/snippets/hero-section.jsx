@@ -1,11 +1,15 @@
 export const HeroSection = () => {
+  const [animationsStarted, setAnimationsStarted] = React.useState(false);
+
+  React.useEffect(() => {
+    setAnimationsStarted(true);
+  }, []);
+
   return (
     <div
       className="relative overflow-hidden py-20 sm:py-28"
       style={{
-        background: `
-          linear-gradient(135deg, #0a0a14 0%, #0d1117 50%, #0a0a14 100%)
-        `
+        background: 'linear-gradient(135deg, #0a0a14 0%, #0d1117 50%, #0a0a14 100%)'
       }}
     >
       {/* Glowing orbs background */}
@@ -26,10 +30,7 @@ export const HeroSection = () => {
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `
-            linear-gradient(rgba(197, 232, 66, 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(197, 232, 66, 0.5) 1px, transparent 1px)
-          `,
+          backgroundImage: 'linear-gradient(rgba(197, 232, 66, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(197, 232, 66, 0.5) 1px, transparent 1px)',
           backgroundSize: '50px 50px'
         }}
       />
@@ -82,7 +83,14 @@ export const HeroSection = () => {
       </svg>
 
       {/* Main content */}
-      <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
+      <div
+        className="relative mx-auto max-w-6xl px-6 lg:px-8"
+        style={{
+          opacity: animationsStarted ? 1 : 0,
+          transform: animationsStarted ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+        }}
+      >
         <div className="flex flex-col items-center text-center">
 
           {/* Logo - MUCH bigger */}

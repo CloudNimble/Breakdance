@@ -1,4 +1,10 @@
 export const FeatureGrid = () => {
+  const [animationsStarted, setAnimationsStarted] = React.useState(false);
+
+  React.useEffect(() => {
+    setAnimationsStarted(true);
+  }, []);
+
   const features = [
     {
       icon: (
@@ -18,7 +24,7 @@ export const FeatureGrid = () => {
         </svg>
       ),
       title: 'Request Snapshots',
-      description: 'Define API requests in Visual Studio\'s .http format. Variables, chaining, and environment configs built-in.',
+      description: "Define API requests in Visual Studio's .http format. Variables, chaining, and environment configs built-in.",
       href: '/guides/web/snapshots/requests',
       color: '#3CD0E2'
     },
@@ -101,7 +107,14 @@ export const FeatureGrid = () => {
         }}
       />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div
+        className="mx-auto max-w-7xl px-6 lg:px-8"
+        style={{
+          opacity: animationsStarted ? 1 : 0,
+          transform: animationsStarted ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+        }}
+      >
         {/* Section header */}
         <div className="text-center mb-16">
           <h2
@@ -126,14 +139,14 @@ export const FeatureGrid = () => {
               {/* Hover glow */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl"
-                style={{ background: `${feature.color}10` }}
+                style={{ background: feature.color + '10' }}
               />
 
               {/* Icon */}
               <div
                 className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
                 style={{
-                  background: `${feature.color}15`,
+                  background: feature.color + '15',
                   color: feature.color
                 }}
               >
@@ -154,7 +167,7 @@ export const FeatureGrid = () => {
               {/* Arrow indicator */}
               <div className="mt-4 flex items-center text-sm font-medium" style={{ color: feature.color }}>
                 <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                  Learn more →
+                  Learn more
                 </span>
               </div>
             </a>

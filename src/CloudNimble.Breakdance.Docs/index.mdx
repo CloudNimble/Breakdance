@@ -6,26 +6,18 @@ mode: "custom"
 icon: house
 ---
 
-import { HeroSection } from "/snippets/hero-section.jsx";
-import { MockVsReal } from "/snippets/mock-vs-real.jsx";
-import { FeatureGrid } from "/snippets/feature-grid.jsx";
-import { PackageShowcase } from "/snippets/package-showcase.jsx";
-import { QuickStart } from "/snippets/quick-start.jsx";
-import { CTASection } from "/snippets/cta-section.jsx";
+import { HeroSection } from '/snippets/hero-section.jsx';
+import { MockVsReal } from '/snippets/mock-vs-real.jsx';
+import { FeatureGrid } from '/snippets/feature-grid.jsx';
+import { PackageShowcase } from '/snippets/package-showcase.jsx';
+import { QuickStart } from '/snippets/quick-start.jsx';
+import { CTASection } from '/snippets/cta-section.jsx';
 
-{/* Google Fonts */}
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-<HeroSection />
-
-<MockVsReal />
-
-<FeatureGrid />
-
-<QuickStart />
-
-<PackageShowcase />
-
-<CTASection />
+<div className="custom-mode">
+  <HeroSection />
+  <MockVsReal />
+  <FeatureGrid />
+  <QuickStart />
+  <PackageShowcase />
+  <CTASection />
+</div>

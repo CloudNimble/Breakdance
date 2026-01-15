@@ -22,8 +22,8 @@ namespace CloudNimble.Breakdance.DotHttp
     /// </code>
     /// </example>
     /// <remarks>
-    /// Supports {{name.response.body.$.path}} for JSONPath, {{name.response.body./xpath}} for XPath,
-    /// and {{name.response.headers.HeaderName}} for header extraction.
+    /// Supports `{{name.response.body.$.path}}` for JSONPath, `{{name.response.body./xpath}}` for XPath,
+    /// and `{{name.response.headers.HeaderName}}` for header extraction.
     /// </remarks>
     public sealed partial class ResponseCapture
     {
@@ -41,7 +41,7 @@ namespace CloudNimble.Breakdance.DotHttp
         /// </summary>
         /// <param name="name">The request name (from # @name directive).</param>
         /// <param name="response">The HTTP response.</param>
-        /// <param name="requestBody">The original request body (for {{name.request.body}} references).</param>
+        /// <param name="requestBody">The original request body (for `{{name.request.body}}` references).</param>
         /// <example>
         /// <code>
         /// var capture = new ResponseCapture();
@@ -158,7 +158,7 @@ namespace CloudNimble.Breakdance.DotHttp
         /// <summary>
         /// Resolves a response reference to its actual value.
         /// </summary>
-        /// <param name="reference">The full reference string (e.g., "{{login.response.body.$.token}}").</param>
+        /// <param name="reference">The full reference string (e.g., `"{{login.response.body.$.token}}"`).</param>
         /// <returns>The resolved value, or the original reference if not found.</returns>
         /// <example>
         /// <code>
