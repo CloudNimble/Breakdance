@@ -1,9 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <RootNamespace>CloudNimble.Breakdance.Claude</RootNamespace>
+        <AssemblyName>CloudNimble.Breakdance.Claude</AssemblyName>
+        <TargetFrameworks>net10.0</TargetFrameworks>
+        <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ClaudeEssentials" Version="1.*" />
+    </ItemGroup>
+
 
 </Project>

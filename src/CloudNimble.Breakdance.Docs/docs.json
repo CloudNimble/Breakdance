@@ -13,7 +13,8 @@
         "pages": [
           "index",
           "why-breakdance",
-          "quickstart"
+          "quickstart",
+          "analyzer-diagnostics"
         ]
       },
       {

@@ -5,6 +5,7 @@
     <Project Path="CloudNimble.Breakdance.Assemblies/Breakdance.Assemblies.csproj" />
     <Project Path="CloudNimble.Breakdance.Azurite/Breakdance.Azurite.csproj" />
     <Project Path="CloudNimble.Breakdance.Blazor/Breakdance.Blazor.csproj" />
+    <Project Path="CloudNimble.Breakdance.Claude/Breakdance.Claude.csproj" />
     <Project Path="CloudNimble.Breakdance.DotHttp/Breakdance.DotHttp.csproj" />
     <Project Path="CloudNimble.Breakdance.WebApi/Breakdance.WebApi.csproj" />
   </Folder>
