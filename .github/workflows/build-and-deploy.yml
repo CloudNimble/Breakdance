@@ -141,6 +141,7 @@ jobs:
   deploy:
     needs: build
     runs-on: windows-latest
+    environment: production
     if: |
       (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')) ||
       (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_to_nuget == 'true')
@@ -187,40 +188,16 @@ jobs:
           echo "BRANCH_TYPE=other" >> $env:GITHUB_OUTPUT
         }
 
-    - name: NuGet login - try NUGET_USER
+    - name: NuGet login (Trusted Publishing)
       uses: nuget/login@v1
-      id: nuget_login_1
-      continue-on-error: true
+      id: nuget_login
       with:
         user: ${{ secrets.NUGET_USER }}
-
-    - name: NuGet login - try NUGET_USER_2
-      if: steps.nuget_login_1.outcome == 'failure'
-      uses: nuget/login@v1
-      id: nuget_login_2
-      with:
-        user: ${{ secrets.NUGET_USER_2 }}
-
-    - name: Report which account succeeded
-      shell: pwsh
-      run: |
-        if ("${{ steps.nuget_login_1.outcome }}" -eq "success") {
-          Write-Host "SUCCESS: Authenticated with NUGET_USER (${{ secrets.NUGET_USER }})"
-        } else {
-          Write-Host "FAILED:  NUGET_USER could not authenticate"
-          Write-Host "SUCCESS: Authenticated with NUGET_USER_2 (${{ secrets.NUGET_USER_2 }})"
-        }
 
     - name: Push to NuGet
       id: nuget_push
       shell: bash
-      run: |
-        if [ "${{ steps.nuget_login_1.outcome }}" == "success" ]; then
-          API_KEY="${{ steps.nuget_login_1.outputs.NUGET_API_KEY }}"
-        else
-          API_KEY="${{ steps.nuget_login_2.outputs.NUGET_API_KEY }}"
-        fi
-        dotnet nuget push ./artifacts/*.nupkg --api-key "$API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
     - name: Update preview suffix (dev branch only)
       if: steps.version.outputs.BRANCH_TYPE == 'dev'
