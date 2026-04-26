@@ -20,4 +20,16 @@
         <ProjectReference Include="..\CloudNimble.Breakdance.Extensions.MSTest2\Breakdance.Extensions.MSTest2.csproj" />
     </ItemGroup>
 
+    <!--
+        Self-import: this project lives in the same solution as Breakdance.Azurite and
+        consumes it via <ProjectReference>, which doesn't auto-import the package's
+        build/$(PackageId).targets file the way <PackageReference> does. The Import below
+        manually runs EnsureAzuriteInstalled so our own tests get the same npm-install
+        behavior NuGet consumers get for free.
+
+        DO NOT copy this pattern into your own project. If you reference Breakdance.Azurite
+        via PackageReference (the normal way), NuGet handles this automatically.
+    -->
+    <Import Project="..\CloudNimble.Breakdance.Azurite\Breakdance.Azurite.targets" />
+
 </Project>

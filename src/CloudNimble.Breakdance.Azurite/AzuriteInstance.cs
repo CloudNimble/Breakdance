@@ -147,7 +147,7 @@ namespace CloudNimble.Breakdance.Azurite
                 }
                 catch (InvalidOperationException ex) when (_config.AutoAssignPorts && IsPortConflict(ex))
                 {
-                    System.Diagnostics.Debug.WriteLine($"[AzuriteInstance] Port conflict on attempt {attempt + 1}: {ex.Message}");
+                    Debug.WriteLine($"[AzuriteInstance] Port conflict on attempt {attempt + 1}: {ex.Message}");
 
                     // Clean up failed process and reset state for retry
                     await CleanupFailedProcessAsync();
@@ -210,8 +210,8 @@ namespace CloudNimble.Breakdance.Azurite
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     RedirectStandardInput = true,
-                    StandardOutputEncoding = System.Text.Encoding.UTF8,
-                    StandardErrorEncoding = System.Text.Encoding.UTF8
+                    StandardOutputEncoding = Encoding.UTF8,
+                    StandardErrorEncoding = Encoding.UTF8
                 }
             };
 
