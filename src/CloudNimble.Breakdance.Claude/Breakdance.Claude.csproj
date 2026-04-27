@@ -8,8 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ClaudeEssentials" Version="1.*" />
+        <PackageReference Include="ClaudeEssentials" Version="2.*" />
     </ItemGroup>
-
 
 </Project>

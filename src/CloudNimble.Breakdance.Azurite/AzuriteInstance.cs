@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -19,6 +21,16 @@ namespace CloudNimble.Breakdance.Azurite
     {
 
         #region Private Members
+
+        // Process-wide blocklist of ports the OS has refused to bind (EACCES).
+        // Hyper-V/WinNAT reserve ranges that can shift across reboots but stay stable
+        // for a process lifetime, so sharing across instances within the test process
+        // avoids redundant retry-spin cost when parallel test workers hit the same port.
+        private static readonly ConcurrentDictionary<int, byte> _excludedPorts = new();
+
+        // Matches the "127.0.0.1:NNNNN" tail of Node's "listen EACCES/EADDRINUSE..." messages.
+        private static readonly Regex _portFromErrorRegex =
+            new(@"127\.0\.0\.1:(\d{1,5})", RegexOptions.Compiled);
 
         private Process _process;
         private readonly AzuriteConfiguration _config;
@@ -147,7 +159,31 @@ namespace CloudNimble.Breakdance.Azurite
                 }
                 catch (InvalidOperationException ex) when (_config.AutoAssignPorts && IsPortConflict(ex))
                 {
-                    System.Diagnostics.Debug.WriteLine($"[AzuriteInstance] Port conflict on attempt {attempt + 1}: {ex.Message}");
+                    Debug.WriteLine($"[AzuriteInstance] Port conflict on attempt {attempt + 1}: {ex.Message}");
+
+                    // Identify which port failed so we can null only that one and (if EACCES)
+                    // record it in the process-wide blocklist. Falls back to nulling all three
+                    // if the message format is unexpected.
+                    var failingPort = ParseFailingPort(ex.Message);
+
+                    if (failingPort.HasValue && IsPermissionDenied(ex))
+                    {
+                        if (_excludedPorts.TryAdd(failingPort.Value, 0))
+                        {
+                            Debug.WriteLine($"[AzuriteInstance] Excluded port {failingPort.Value} added to blocklist (EACCES).");
+                        }
+                    }
+
+                    if (failingPort.HasValue && NullMatchingConfigPort(failingPort.Value))
+                    {
+                        Debug.WriteLine($"[AzuriteInstance] Nulled config port {failingPort.Value} for retry.");
+                    }
+                    else
+                    {
+                        _config.BlobPort = null;
+                        _config.QueuePort = null;
+                        _config.TablePort = null;
+                    }
 
                     // Clean up failed process and reset state for retry
                     await CleanupFailedProcessAsync();
@@ -155,7 +191,7 @@ namespace CloudNimble.Breakdance.Azurite
                     if (attempt == maxRetries - 1)
                     {
                         throw new InvalidOperationException(
-                            $"Failed to start Azurite after {maxRetries} attempts. All port ranges tested were in use.\n" +
+                            $"Failed to start Azurite after {maxRetries} attempts. Ports tested were unavailable (in use or OS-reserved).\n" +
                             $"Last error: {ex.Message}", ex);
                     }
 
@@ -210,8 +246,8 @@ namespace CloudNimble.Breakdance.Azurite
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     RedirectStandardInput = true,
-                    StandardOutputEncoding = System.Text.Encoding.UTF8,
-                    StandardErrorEncoding = System.Text.Encoding.UTF8
+                    StandardOutputEncoding = Encoding.UTF8,
+                    StandardErrorEncoding = Encoding.UTF8
                 }
             };
 
@@ -923,21 +959,60 @@ namespace CloudNimble.Breakdance.Azurite
 
         /// <summary>
         /// Assigns random ports to the configuration if AutoAssignPorts is enabled and ports aren't set.
+        /// Ports are picked independently per service in the 20000-30000 range, skipping any port
+        /// already in the process-wide EACCES blocklist and any port already chosen this call.
         /// </summary>
         private void AssignPortsIfNeeded()
         {
             if (!_config.AutoAssignPorts) return;
 
-            var basePort = _random.Next(20000, 30000);
+            var pickedThisCall = new HashSet<int>();
+            if (_config.BlobPort.HasValue) pickedThisCall.Add(_config.BlobPort.Value);
+            if (_config.QueuePort.HasValue) pickedThisCall.Add(_config.QueuePort.Value);
+            if (_config.TablePort.HasValue) pickedThisCall.Add(_config.TablePort.Value);
 
             if (_config.Services.HasFlag(AzuriteServiceType.Blob) && !_config.BlobPort.HasValue)
-                _config.BlobPort = basePort;
+                _config.BlobPort = PickRandomPort(pickedThisCall);
             if (_config.Services.HasFlag(AzuriteServiceType.Queue) && !_config.QueuePort.HasValue)
-                _config.QueuePort = basePort + 1;
+                _config.QueuePort = PickRandomPort(pickedThisCall);
             if (_config.Services.HasFlag(AzuriteServiceType.Table) && !_config.TablePort.HasValue)
-                _config.TablePort = basePort + 2;
+                _config.TablePort = PickRandomPort(pickedThisCall);
 
-            System.Diagnostics.Debug.WriteLine($"[AzuriteInstance] Assigned ports: Blob={_config.BlobPort}, Queue={_config.QueuePort}, Table={_config.TablePort}");
+            Debug.WriteLine($"[AzuriteInstance] Assigned ports: Blob={_config.BlobPort}, Queue={_config.QueuePort}, Table={_config.TablePort}");
+        }
+
+        /// <summary>
+        /// Nulls the single <c>_config.{Blob,Queue,Table}Port</c> field whose value matches
+        /// <paramref name="port"/>, if any. Returns true if a match was found and cleared.
+        /// </summary>
+        private bool NullMatchingConfigPort(int port)
+        {
+            if (_config.BlobPort == port) { _config.BlobPort = null; return true; }
+            if (_config.QueuePort == port) { _config.QueuePort = null; return true; }
+            if (_config.TablePort == port) { _config.TablePort = null; return true; }
+            return false;
+        }
+
+        /// <summary>
+        /// Picks a random port from the auto-assign range, skipping ports in the static
+        /// EACCES blocklist and ports already chosen in <paramref name="alreadyPickedThisCall"/>.
+        /// Falls through to a possibly-conflicting port after a paranoid attempt cap so the
+        /// caller can surface a real bind error rather than spin forever.
+        /// </summary>
+        private int PickRandomPort(HashSet<int> alreadyPickedThisCall)
+        {
+            const int MaxAttempts = 100;
+            int port;
+            int attempts = 0;
+            do
+            {
+                port = _random.Next(20000, 30000);
+                attempts++;
+            }
+            while ((_excludedPorts.ContainsKey(port) || alreadyPickedThisCall.Contains(port)) && attempts < MaxAttempts);
+
+            alreadyPickedThisCall.Add(port);
+            return port;
         }
 
         /// <summary>
@@ -964,10 +1039,9 @@ namespace CloudNimble.Breakdance.Azurite
                 _process = null;
             }
 
-            // Clear ports so they get reassigned on next attempt
-            _config.BlobPort = null;
-            _config.QueuePort = null;
-            _config.TablePort = null;
+            // Note: config ports are NOT cleared here. The StartAsync retry catch decides
+            // which port(s) to null based on what specifically failed, so working ports
+            // can be reused on the next attempt.
 
             // Reset port properties
             BlobPort = null;
@@ -985,13 +1059,41 @@ namespace CloudNimble.Breakdance.Azurite
         }
 
         /// <summary>
-        /// Determines if an exception represents a port conflict.
+        /// Determines if an exception represents a retryable port conflict
+        /// (port already in use, or OS-reserved/permission-denied range).
         /// </summary>
+        /// <remarks>
+        /// EADDRINUSE is transient (another process holds the port). EACCES is stable for the
+        /// process lifetime (Hyper-V/WinNAT reserved range). Both share the retry path; only
+        /// EACCES feeds the static blocklist — see <see cref="IsPermissionDenied"/>.
+        /// </remarks>
         private static bool IsPortConflict(Exception ex) =>
             ex.Message.Contains("EADDRINUSE") ||
             ex.Message.Contains("address already in use") ||
             ex.Message.Contains("Port conflict") ||
-            ex.Message.Contains("port is already in use");
+            ex.Message.Contains("port is already in use") ||
+            ex.Message.Contains("EACCES") ||
+            ex.Message.Contains("permission denied");
+
+        /// <summary>
+        /// Determines if an exception represents an OS-level permission denial (EACCES) —
+        /// the failing port is in a reserved/excluded range and will reject any process for
+        /// the lifetime of this run.
+        /// </summary>
+        private static bool IsPermissionDenied(Exception ex) =>
+            ex.Message.Contains("EACCES") || ex.Message.Contains("permission denied");
+
+        /// <summary>
+        /// Extracts the failing port number from a Node "listen EACCES/EADDRINUSE ... 127.0.0.1:NNNNN"
+        /// style message. Returns null if the message format is unexpected.
+        /// </summary>
+        /// <param name="text">The text to scan (typically an exception message containing Azurite stderr).</param>
+        private static int? ParseFailingPort(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return null;
+            var match = _portFromErrorRegex.Match(text);
+            return match.Success && int.TryParse(match.Groups[1].Value, out var port) ? port : null;
+        }
 
         /// <summary>
         /// Checks for fatal errors in the output and error buffers and throws if found.
@@ -1016,7 +1118,7 @@ namespace CloudNimble.Breakdance.Azurite
                     $"Error: {errorOutput}");
             }
 
-            // Check for port conflict - this is a special case that can be retried
+            // Check for port conflict (already in use) - retryable
             if (combinedOutput.Contains("EADDRINUSE") ||
                 combinedOutput.Contains("address already in use") ||
                 combinedOutput.Contains("port is already in use") ||
@@ -1024,6 +1126,18 @@ namespace CloudNimble.Breakdance.Azurite
             {
                 throw new InvalidOperationException(
                     $"Port conflict detected - one or more ports are already in use.\n" +
+                    $"Output: {standardOutput}\n" +
+                    $"Error: {errorOutput}");
+            }
+
+            // Check for port permission denied (Hyper-V/WinNAT excluded range) - retryable.
+            // The thrown message intentionally contains "EACCES" / "permission denied" so the
+            // StartAsync retry catch's IsPortConflict predicate matches it.
+            if (combinedOutput.Contains("EACCES") ||
+                combinedOutput.Contains("permission denied"))
+            {
+                throw new InvalidOperationException(
+                    $"Port permission denied (EACCES) - one or more ports are in an OS-reserved range.\n" +
                     $"Output: {standardOutput}\n" +
                     $"Error: {errorOutput}");
             }
@@ -1044,7 +1158,6 @@ namespace CloudNimble.Breakdance.Azurite
             // Check for other fatal errors
             if (errorOutput.Contains("Error:") ||
                 errorOutput.Contains("ERROR") ||
-                combinedOutput.Contains("EACCES") ||
                 combinedOutput.Contains("ENOENT") ||
                 combinedOutput.Contains("MODULE_NOT_FOUND") ||
                 combinedOutput.Contains("SyntaxError") ||

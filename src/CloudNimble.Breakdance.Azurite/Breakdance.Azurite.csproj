@@ -30,22 +30,4 @@
 		<ProjectReference Include="..\CloudNimble.Breakdance.Assemblies\Breakdance.Assemblies.csproj" />
 	</ItemGroup>
 
-	<!-- npm-based Azurite package management -->
-	<PropertyGroup>
-		<PrepareForBuildDependsOn>
-			NpmInstall;
-			$(PrepareForBuildDependsOn)
-		</PrepareForBuildDependsOn>
-	</PropertyGroup>
-
-	<!-- Check for npm and restore packages, only on .NET 10 to prevent it trying to install 3x. Skip during pack. -->
-	<Target Name="NpmInstall" Condition="'$(IsInnerBuild)' != 'true' AND '$(NoBuild)' != 'true'">
-		<Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true">
-			<Output TaskParameter="ExitCode" PropertyName="NpmExitCode" />
-		</Exec>
-		<Error Condition="'$(NpmExitCode)' != '0'" Text="npm is not installed or not in PATH. Please install Node.js from https://nodejs.org/" />
-		<Message Importance="high" Text="Restoring Azurite npm package..." />
-		<Exec Command="npm i azurite --g" WorkingDirectory="$(MSBuildProjectDirectory)" />
-	</Target>
-
 </Project>
