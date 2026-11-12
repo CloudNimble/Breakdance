@@ -264,7 +264,7 @@ jobs:
          Set-Content -Path "./release-notes.md" -Value $body -Encoding utf8
 
     - name: Create GitHub Release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
          tag_name: v${{ needs.build.outputs.version }}
          name: Release v${{ needs.build.outputs.version }}
