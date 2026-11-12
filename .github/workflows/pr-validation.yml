@@ -14,8 +14,14 @@ permissions:
   actions: write
 
 env:
-   DOTNET_VERSION: '10.0.x'
+   DOTNET_VERSION: '11.0.x'
    SOLUTION_FILE: 'src/CloudNimble.Breakdance.slnx'
+   # RWM: On Windows runners the C: OS drive is much slower than D:, where the workspace lives. Keep the SDK and the NuGet caches on D:.
+   #      (The runner context isn't available in env, so these are literal paths.)
+   DOTNET_INSTALL_DIR: 'D:\dotnet'
+   DOTNET_ROOT: 'D:\dotnet'
+   NUGET_PACKAGES: 'D:\nuget\packages'
+   NUGET_HTTP_CACHE_PATH: 'D:\nuget\http-cache'
 
 jobs:
   validate:
@@ -25,6 +31,7 @@ jobs:
     - name: Enable long paths
       shell: pwsh
       run: |
+        # Azurite's node_modules tree goes past MAX_PATH.
         git config --system core.longpaths true
         Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' `
           -Name 'LongPathsEnabled' -Value 1 -Type DWord
@@ -38,28 +45,32 @@ jobs:
       shell: pwsh
       run: |
          Write-Host "Installing .NET versions..."
-         $versions = @("8.0", "9.0", "10.0")
-         foreach ($version in $versions) {
-           Write-Host "Installing .NET $version..."
-           Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
-           ./dotnet-install.ps1 -Channel $version -InstallDir "$env:ProgramFiles\dotnet"
-         }
+         Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
+         $installDir = $env:DOTNET_INSTALL_DIR
 
-         # Add to PATH for this job
-         echo "$env:ProgramFiles\dotnet" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+         Write-Host "Installing .NET 10.0..."
+         ./dotnet-install.ps1 -Channel 10.0 -InstallDir $installDir
 
-         # Verify installation
+         Write-Host "Installing .NET 11.0..."
+         ./dotnet-install.ps1 -Channel 11.0 -InstallDir $installDir
+
+         echo $installDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
          dotnet --list-sdks
 
     - name: Get version variables
       id: version
       shell: pwsh
       run: |
-        # Get version components from repository variables
-        $majorVersion = "${{ vars.VERSION_MAJOR }}"
+        # PRs into main build the current release line from VERSION_*; PRs into dev (and manual runs) build the next one from DEV_VERSION_*.
+        if ("${{ github.base_ref }}" -eq "main") {
+          $majorVersion = "${{ vars.VERSION_MAJOR }}"
+          $minorVersion = "${{ vars.VERSION_MINOR }}"
+        }
+        else {
+          $majorVersion = "${{ vars.DEV_VERSION_MAJOR }}"
+          $minorVersion = "${{ vars.DEV_VERSION_MINOR }}"
+        }
         if ([string]::IsNullOrEmpty($majorVersion)) { $majorVersion = "1" }
-
-        $minorVersion = "${{ vars.VERSION_MINOR }}"
         if ([string]::IsNullOrEmpty($minorVersion)) { $minorVersion = "0" }
 
         Write-Host "Version variables: MAJOR=$majorVersion, MINOR=$minorVersion"
@@ -81,7 +92,10 @@ jobs:
       run: dotnet restore ${{ env.SOLUTION_FILE }}
 
     - name: Build solution
-      run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --no-restore /p:Version=${{ steps.version.outputs.VERSION }} /p:PackageVersion=${{ steps.version.outputs.VERSION }}
+      # Note: not using --no-restore here. Solution-level restore can silently skip projects
+      # with analyzer ProjectReferences. Letting build handle restore for any missed projects
+      # only adds a few seconds since packages are already cached.
+      run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release /p:Version=${{ steps.version.outputs.VERSION }} /p:PackageVersion=${{ steps.version.outputs.VERSION }}
 
     - name: Test
       working-directory: src
@@ -94,14 +108,16 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: nuget-packages-pr
-        path: ./artifacts/*.nupkg
+        path: |
+          ./artifacts/*.nupkg
+          ./artifacts/*.snupkg
         retention-days: 7
 
     - name: Validate packages
       shell: pwsh
       run: |
         Write-Host "Validating NuGet packages..."
-        Get-ChildItem ./artifacts/*.nupkg | ForEach-Object {
+        Get-ChildItem ./artifacts -Include *.nupkg, *.snupkg -File -Recurse | ForEach-Object {
           Write-Host "Found package: $($_.Name)"
         }
         Write-Host "PR validation completed successfully"

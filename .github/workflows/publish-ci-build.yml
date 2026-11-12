@@ -1,0 +1,85 @@
+name: Publish CI Build to NuGet
+
+# Publishes the packages an earlier run already built, without rebuilding. Only CI-versioned packages (x.y.z-ci-*) from this
+# repository are accepted, and nothing else is changed: no version variables, no GitHub release.
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'The ID of the run that built the packages (from its Actions URL: .../actions/runs/<run_id>)'
+        required: true
+        type: string
+      artifact_name:
+        description: 'The artifact that holds the packages'
+        required: false
+        default: 'nuget-packages-pr'
+        type: choice
+        options:
+          - 'nuget-packages-pr'
+          - 'nuget-packages'
+
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    environment: production
+
+    steps:
+    - name: Check the source run
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        $run = gh api "repos/${{ github.repository }}/actions/runs/${{ inputs.run_id }}" | ConvertFrom-Json
+        if ($LASTEXITCODE -ne 0) { throw "Run ${{ inputs.run_id }} was not found in ${{ github.repository }}." }
+
+        Write-Host "Run ${{ inputs.run_id }}: '$($run.name)' on $($run.head_branch) ($($run.head_sha)), $($run.conclusion)"
+
+        # Packages built from a fork's code must never be published with this repository's NuGet identity.
+        if ($run.head_repository.full_name -ne "${{ github.repository }}") {
+          throw "Run ${{ inputs.run_id }} built code from $($run.head_repository.full_name), not ${{ github.repository }}."
+        }
+        if ($run.conclusion -ne "success") {
+          throw "Run ${{ inputs.run_id }} did not succeed (status: $($run.status), conclusion: $($run.conclusion))."
+        }
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: ./artifacts
+        run-id: ${{ inputs.run_id }}
+        github-token: ${{ github.token }}
+
+    - name: Check the package versions
+      shell: pwsh
+      run: |
+        $packages = @(Get-ChildItem ./artifacts -Filter *.nupkg)
+        if ($packages.Count -eq 0) { throw "The '${{ inputs.artifact_name }}' artifact has no .nupkg files." }
+
+        $notCi = @($packages | Where-Object { $_.Name -notmatch '-ci-' })
+        if ($notCi.Count -gt 0) {
+          throw "Only CI builds can be published here. Not CI-versioned: $($notCi.Name -join ', ')"
+        }
+
+        # dotnet nuget push sends each .snupkg along with the .nupkg of the same name.
+        $symbols = @(Get-ChildItem ./artifacts -Filter *.snupkg)
+        $packages | ForEach-Object { Write-Host "Publishing $($_.Name)" }
+        $symbols | ForEach-Object { Write-Host "Publishing symbols $($_.Name)" }
+        if ($symbols.Count -lt $packages.Count) {
+          Write-Host "::warning::Only $($symbols.Count) of $($packages.Count) packages have a .snupkg; the rest publish without symbols."
+        }
+
+    - name: NuGet login (Trusted Publishing)
+      uses: nuget/login@v1
+      id: nuget_login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+
+    - name: Push to NuGet
+      shell: bash
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

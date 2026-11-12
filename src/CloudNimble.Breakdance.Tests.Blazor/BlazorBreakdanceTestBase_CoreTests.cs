@@ -23,6 +23,19 @@ namespace CloudNimble.Breakdance.Tests.Blazor
         private const string projectPath = "..//..//..//";
 
         /// <summary>
+        /// The number of services the default Blazor test host registers before a test adds its own.
+        /// </summary>
+        /// <remarks>
+        /// Microsoft.Extensions.Hosting 11 adds four default registrations over 10: IAsyncStartupValidator, StartupValidator,
+        /// and the EventLogSettings options configuration and change-token source. See Baselines/BlazorTestHost_NET*.txt.
+        /// </remarks>
+#if NET11_0_OR_GREATER
+        private const int DefaultHostServiceCount = 47;
+#else
+        private const int DefaultHostServiceCount = 43;
+#endif
+
+        /// <summary>
         /// Tests whether or not a <see cref="Bunit.TestContext"/> is created on setup.
         /// </summary>
         [TestMethod]
@@ -37,9 +50,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
 
             TestHost.Should().NotBeNull();
             BUnitTestContext.Should().NotBeNull();
-#if NET8_0_OR_GREATER
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(43);
-#endif
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(DefaultHostServiceCount);
             BUnitTestContext.Services.Should().HaveCount(26);
             GetService<NavigationManager>().Should().NotBeNull().And.BeOfType(typeof(BunitNavigationManager));
             BUnitTestContext.Services.GetService<IConfiguration>().Should().NotBeNull();
@@ -99,9 +110,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             BUnitTestContext.Should().NotBeNull();
             BUnitTestContext.Services.Should().HaveCount(26);
             BUnitTestContext.Services.GetService<DummyService>().Should().NotBeNull();
-#if NET8_0_OR_GREATER
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);
-#endif
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(DefaultHostServiceCount + 1);
             TestHost.Services.GetService<DummyService>().Should().NotBeNull();
             GetService<DummyService>().Should().NotBeNull();
         }
@@ -123,9 +132,7 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             BUnitTestContext.Should().NotBeNull();
             BUnitTestContext.Services.Should().HaveCount(26);
             BUnitTestContext.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
-#if NET8_0_OR_GREATER
-            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(44);
-#endif
+            TestHost.Services.GetAllServiceDescriptors().Should().HaveCount(DefaultHostServiceCount + 1);
             TestHost.Services.GetService<TestJavaScriptService>().Should().NotBeNull();
             var service = GetService<TestJavaScriptService>();
             service.Should().NotBeNull();
@@ -141,8 +148,10 @@ namespace CloudNimble.Breakdance.Tests.Blazor
             TestSetup();
 
             var result = TestHost.Services.GetContainerContentsLog();
-#if NET8_0_OR_GREATER
-            var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET8.txt");
+#if NET11_0_OR_GREATER
+            var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET11.txt");
+#else
+            var fullPath = Path.Combine(projectPath, "Baselines//BlazorTestHost_NET10.txt");
 #endif
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
             {
