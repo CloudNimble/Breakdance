@@ -52,7 +52,7 @@ jobs:
           -Name 'LongPathsEnabled' -Value 1 -Type DWord
 
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0  # Full history for versioning
 
@@ -154,7 +154,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Install .NET SDK
       shell: pwsh
@@ -230,7 +230,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Download artifacts
       uses: actions/download-artifact@v8
