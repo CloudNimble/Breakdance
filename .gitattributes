@@ -15,3 +15,7 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Baselines are compared byte-for-byte against generated output, which uses LF. Keep them LF on every checkout,
+# whatever core.autocrlf says (GitHub's Windows runners default it to true).
+**/Baselines/*.txt text eol=lf

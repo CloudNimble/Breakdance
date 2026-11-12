@@ -25,13 +25,13 @@
 	<PropertyGroup>
         <PackageId>$(MSBuildProjectName.Replace('CloudNimble.', ''))</PackageId>
         <Product>Breakdance</Product>
-		<Version>8.0.0</Version>
-		<PackageVersion>8.0-alpha.1</PackageVersion>
+		<Version>9.0.0</Version>
+		<PackageVersion>9.0.0-preview.1</PackageVersion>
 		
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble, Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
-		<Copyright>Copyright © 2017-2025 CloudNimble, Inc. All rights reserved.</Copyright>
+		<Copyright>Copyright © 2017-2026 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile Condition="$(IncludeReadmeFile) == 'true'">readme.md</PackageReadmeFile>
@@ -90,7 +90,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<StandardTestTfms>net10.0;net9.0;net8.0</StandardTestTfms>
+		<StandardTestTfms>net11.0;net10.0</StandardTestTfms>
 	</PropertyGroup>
 
 	<ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">

@@ -3,13 +3,12 @@
     <PropertyGroup>
         <RootNamespace>CloudNimble.Breakdance.Claude</RootNamespace>
         <AssemblyName>CloudNimble.Breakdance.Claude</AssemblyName>
-        <TargetFrameworks>net10.0</TargetFrameworks>
+        <TargetFrameworks>net11.0;net10.0</TargetFrameworks>
         <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ClaudeEssentials" Version="1.*" />
+        <PackageReference Include="ClaudeEssentials" Version="2.*" />
     </ItemGroup>
-
 
 </Project>

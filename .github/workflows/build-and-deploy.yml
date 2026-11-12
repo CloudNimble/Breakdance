@@ -1,0 +1,274 @@
+name: Build and Deploy to NuGet
+
+on:
+  push:
+    branches: [ main, dev ]
+    paths-ignore:
+      - '.github/**'
+      - 'src/CloudNimble.Breakdance.Docs/**'
+      - 'specs/**'
+  workflow_dispatch:
+    inputs:
+      deploy_to_nuget:
+        description: 'Deploy to NuGet'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+  actions: write
+  id-token: write
+
+env:
+   DOTNET_VERSION: '11.0.x'
+   SOLUTION_FILE: 'src/CloudNimble.Breakdance.slnx'
+   # RWM: On Windows runners the C: OS drive is much slower than D:, where the workspace lives. Keep the SDK and the NuGet caches on D:.
+   #      (The runner context isn't available in env, so these are literal paths.)
+   DOTNET_INSTALL_DIR: 'D:\dotnet'
+   DOTNET_ROOT: 'D:\dotnet'
+   NUGET_PACKAGES: 'D:\nuget\packages'
+   NUGET_HTTP_CACHE_PATH: 'D:\nuget\http-cache'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
+      branch_type: ${{ steps.version.outputs.BRANCH_TYPE }}
+      next_patch_version: ${{ steps.version.outputs.NEXT_PATCH_VERSION }}
+      next_preview_suffix: ${{ steps.version.outputs.NEXT_PREVIEW_SUFFIX }}
+
+    steps:
+    - name: Enable long paths
+      shell: pwsh
+      run: |
+        # Azurite's node_modules tree goes past MAX_PATH.
+        git config --system core.longpaths true
+        Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' `
+          -Name 'LongPathsEnabled' -Value 1 -Type DWord
+
+    - name: Checkout code
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0  # Full history for versioning
+
+    - name: Install .NET versions
+      shell: pwsh
+      run: |
+         Write-Host "Installing .NET versions..."
+         Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
+         $installDir = $env:DOTNET_INSTALL_DIR
+
+         Write-Host "Installing .NET 10.0..."
+         ./dotnet-install.ps1 -Channel 10.0 -InstallDir $installDir
+
+         Write-Host "Installing .NET 11.0..."
+         ./dotnet-install.ps1 -Channel 11.0 -InstallDir $installDir
+
+         echo $installDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+         dotnet --list-sdks
+
+    - name: Get version variables
+      id: version
+      shell: pwsh
+      run: |
+        # main ships the current release line from VERSION_*. dev and every other branch build the next release line from DEV_VERSION_*.
+        $ref = "${{ github.ref }}"
+        if ($ref -eq "refs/heads/main") {
+          $branchType = "main"
+          $majorVersion = "${{ vars.VERSION_MAJOR }}"
+          $minorVersion = "${{ vars.VERSION_MINOR }}"
+          $patchVersion = "${{ vars.VERSION_PATCH }}"
+        }
+        else {
+          $branchType = if ($ref -eq "refs/heads/dev") { "dev" } else { "feature" }
+          $majorVersion = "${{ vars.DEV_VERSION_MAJOR }}"
+          $minorVersion = "${{ vars.DEV_VERSION_MINOR }}"
+          $patchVersion = "${{ vars.DEV_VERSION_PATCH }}"
+          $previewSuffix = "${{ vars.DEV_VERSION_PREVIEW_SUFFIX }}"
+        }
+        if ([string]::IsNullOrEmpty($majorVersion)) { $majorVersion = "1" }
+        if ([string]::IsNullOrEmpty($minorVersion)) { $minorVersion = "0" }
+        if ([string]::IsNullOrEmpty($patchVersion)) { $patchVersion = "0" }
+        if ([string]::IsNullOrEmpty($previewSuffix)) { $previewSuffix = "0" }
+
+        switch ($branchType) {
+          "main" {
+            $version = "$majorVersion.$minorVersion.$patchVersion"
+            $nextPatchVersion = [int]$patchVersion + 1
+            echo "NEXT_PATCH_VERSION=$nextPatchVersion" >> $env:GITHUB_OUTPUT
+            Write-Host "Main branch version: $version (next patch will be $nextPatchVersion)"
+          }
+          "dev" {
+            $nextPreviewSuffix = [int]$previewSuffix + 1
+            $version = "$majorVersion.$minorVersion.$patchVersion-preview.$nextPreviewSuffix"
+            echo "NEXT_PREVIEW_SUFFIX=$nextPreviewSuffix" >> $env:GITHUB_OUTPUT
+            Write-Host "Dev branch version: $version (next suffix will be $nextPreviewSuffix)"
+          }
+          default {
+            $timestamp = Get-Date -Format "yyyyMMdd-HHmmss" -AsUTC
+            $version = "$majorVersion.$minorVersion.$patchVersion-CI-$timestamp"
+            Write-Host "Feature branch version: $version"
+          }
+        }
+
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        echo "BRANCH_TYPE=$branchType" >> $env:GITHUB_OUTPUT
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_FILE }}
+
+    - name: Build solution
+      # Note: not using --no-restore here. Solution-level restore can silently skip projects
+      # with analyzer ProjectReferences. Letting build handle restore for any missed projects
+      # only adds a few seconds since packages are already cached.
+      run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release /p:Version=${{ steps.version.outputs.VERSION }} /p:PackageVersion=${{ steps.version.outputs.VERSION }}
+
+    - name: Test
+      working-directory: src
+      run: dotnet test --configuration Release --no-build
+
+    - name: Pack
+      run: dotnet pack ${{ env.SOLUTION_FILE }} --configuration Release --no-build --output ./artifacts /p:PackageVersion=${{ steps.version.outputs.VERSION }}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: nuget-packages
+        path: |
+          ./artifacts/*.nupkg
+          ./artifacts/*.snupkg
+        retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: windows-latest
+    environment: production
+    if: |
+      (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')) ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_to_nuget == 'true')
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Install .NET SDK
+      shell: pwsh
+      run: |
+         # Checkout brings global.json, so `dotnet nuget push` needs the .NET 11 SDK.
+         Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
+         $installDir = $env:DOTNET_INSTALL_DIR
+         ./dotnet-install.ps1 -Channel 11.0 -InstallDir $installDir
+         echo $installDir | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+         dotnet --list-sdks
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: nuget-packages
+        path: ./artifacts
+
+    - name: NuGet login (Trusted Publishing)
+      uses: nuget/login@v1
+      id: nuget_login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+
+    - name: Push to NuGet
+      id: nuget_push
+      shell: bash
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+    - name: Update preview suffix (dev branch only)
+      if: needs.build.outputs.branch_type == 'dev'
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+      run: |
+        $nextSuffix = "${{ needs.build.outputs.next_preview_suffix }}"
+        Write-Host "Updating DEV_VERSION_PREVIEW_SUFFIX to $nextSuffix"
+
+        try {
+          gh variable set DEV_VERSION_PREVIEW_SUFFIX --body "$nextSuffix"
+          Write-Host "Successfully updated DEV_VERSION_PREVIEW_SUFFIX to $nextSuffix"
+        }
+        catch {
+          Write-Host "WARNING: Failed to update DEV_VERSION_PREVIEW_SUFFIX: $($_.Exception.Message)"
+          # Don't fail the build for this
+        }
+
+    - name: Update patch version (main branch only)
+      if: needs.build.outputs.branch_type == 'main'
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+      run: |
+        $nextPatch = "${{ needs.build.outputs.next_patch_version }}"
+        Write-Host "Updating VERSION_PATCH to $nextPatch"
+
+        try {
+          gh variable set VERSION_PATCH --body "$nextPatch"
+          Write-Host "Successfully updated VERSION_PATCH to $nextPatch"
+        }
+        catch {
+          Write-Host "WARNING: Failed to update version variables: $($_.Exception.Message)"
+          # Don't fail the build for this
+        }
+
+  create-release:
+    needs: [build, deploy]
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && github.event.inputs.deploy_to_nuget == 'true')
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: nuget-packages
+        path: ./artifacts
+
+    - name: Prepare Release Notes
+      shell: pwsh
+      run: |
+         $version = "${{ needs.build.outputs.version }}"
+         Write-Host "Creating release for version: $version"
+
+         $packages = Get-ChildItem ./artifacts/*.nupkg | ForEach-Object { $_.Name -replace '\.nupkg$', '' }
+         $packageList = ""
+         foreach ($package in $packages) {
+           $packageName = $package -replace "\.$version$", ""
+           $packageList += "- [$packageName](https://www.nuget.org/packages/$packageName/$version)`n"
+         }
+
+         $lines = @(
+           "## NuGet Packages",
+           $packageList,
+           "",
+           "## Installation",
+           '```',
+           "dotnet add package Breakdance.Assemblies --version $version",
+           '```'
+         )
+         $body = $lines -join "`n"
+         Set-Content -Path "./release-notes.md" -Value $body -Encoding utf8
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+         tag_name: v${{ needs.build.outputs.version }}
+         name: Release v${{ needs.build.outputs.version }}
+         body_path: ./release-notes.md
+         generate_release_notes: true
+         draft: false
+         prerelease: false

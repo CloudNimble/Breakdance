@@ -4,7 +4,7 @@
         <AssemblyName>CloudNimble.Breakdance.Tests.DotHttp</AssemblyName>
         <RootNamespace>CloudNimble.Breakdance.Tests.DotHttp</RootNamespace>
         <!-- net48 tests netstandard2.0 compatibility (VS runs on .NET Framework) -->
-        <TargetFrameworks>net10.0;net9.0;net8.0;net48</TargetFrameworks>
+        <TargetFrameworks>net11.0;net10.0;net48</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <RunSettingsFilePath>$(MSBuildProjectDirectory)\..\.runsettings</RunSettingsFilePath>
         <NoWarn>$(NoWarn);NU1605;NU1701</NoWarn>
@@ -30,11 +30,12 @@
         <PackageReference Include="MSTest.TestFramework" Version="4.*" />
     </ItemGroup>
 
-    <!-- Align package versions for net48 to match DotHttp netstandard2.0 dependencies -->
+    <!-- Align package versions for net48. MSTest's CodeCoverage brings System.Text.Json >= 10.0.10, so the test host must
+         load that one; binding redirects then send DotHttp's netstandard2.0 System.Text.Json 8.x references to it. -->
     <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.*" />
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.*" />
         <PackageReference Include="System.Memory" Version="4.*" />
-        <PackageReference Include="System.Text.Json" Version="8.*" />
+        <PackageReference Include="System.Text.Json" Version="10.*" />
     </ItemGroup>
 
 </Project>

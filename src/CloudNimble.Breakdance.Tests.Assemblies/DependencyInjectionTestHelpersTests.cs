@@ -38,12 +38,10 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
 
             //RWM: If we're in a .NET Core test, remove the Core crap.
             //result = result.Replace("Core", "");
-#if NET10_0_OR_GREATER
+#if NET11_0_OR_GREATER
+            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET11.txt"));
+#else
             var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET10.txt"));
-#elif NET8_0_OR_GREATER
-            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET8.txt"));
-#elif NET6_0_OR_GREATER
-            var baseline = File.ReadAllText(Path.Combine(projectPath, "Baselines/HostBuilder_NET6.txt"));
 #endif
             result.Should().Be(baseline);
         }
@@ -72,12 +70,10 @@ namespace CloudNimble.Breakdance.Tests.Assemblies
         {
             var host = GetSimpleMessageBusHost();
             var result = host.GetContainerContentsLog();
-#if NET10_0_OR_GREATER
+#if NET11_0_OR_GREATER
+            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET11.txt");
+#else
             var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET10.txt");
-#elif NET8_0_OR_GREATER
-            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET8.txt");
-#elif NET6_0_OR_GREATER
-            var fullPath = Path.Combine(projectPath, "Baselines//HostBuilder_NET6.txt");
 #endif
             if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
             {

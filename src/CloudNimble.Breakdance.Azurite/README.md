@@ -14,7 +14,7 @@ A test harness for Azurite (Azure Storage Emulator) that integrates seamlessly w
 ## Requirements
 
 - **Node.js**: Required to run Azurite (npm must be in PATH)
-- **.NET 8.0+**: Target framework support for net8.0, net9.0, net10.0
+- **.NET 10.0+**: Target framework support for net10.0 and net11.0
 
 ## Installation
 
