@@ -20,8 +20,8 @@
     <ItemGroup>
         <!-- Source generator dependencies -->
         <PackageReference Include="Humanizer.Core" Version="3.*" NoWarn="NU1608" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.*" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.*" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.12.*" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="5.9.*" PrivateAssets="all" />
 
         <!-- Runtime dependencies for netstandard2.0 -->
         <PackageReference Include="System.Text.Json" Version="8.*" Condition="'$(TargetFramework)' == 'netstandard2.0'" PrivateAssets="all" />
