@@ -1,8 +1,8 @@
 {
   "colors": {
+    "primary": "#419AC5",
     "dark": "#3CD0E2",
-    "light": "#419AC5",
-    "primary": "#419AC5"
+    "light": "#419AC5"
   },
   "name": "Breakdance",
   "navigation": {

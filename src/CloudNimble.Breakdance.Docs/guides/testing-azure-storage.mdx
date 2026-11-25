@@ -119,6 +119,14 @@ You can start only the services you need to reduce resource usage and startup ti
     };
     ```
   </Tab>
+  <Tab title="Table Only">
+    ```csharp
+    var config = new AzuriteConfiguration
+    {
+        Services = AzuriteServiceType.Table
+    };
+    ```
+  </Tab>
   <Tab title="Multiple Services">
     ```csharp
     var config = new AzuriteConfiguration
@@ -128,11 +136,6 @@ You can start only the services you need to reduce resource usage and startup ti
     ```
   </Tab>
 </Tabs>
-
-<Warning>
-Table-only mode (`AzuriteServiceType.Table` alone) is currently not supported due to an upstream bug in Azurite
-where the table service reports incorrect port information. Use `AzuriteServiceType.All` if you need Table storage.
-</Warning>
 
 ### Storage Persistence
 

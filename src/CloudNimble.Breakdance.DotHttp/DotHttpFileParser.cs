@@ -583,7 +583,7 @@ namespace CloudNimble.Breakdance.DotHttp
         private const string RequestNamePattern = @"^(?:#|//)\s*@name\s+([\w-]+)";
         private const string ResponseReferencePattern = @"\{\{(\w+)\.(response|request)\.(body|headers)\.([^}]+)\}\}";
 
-#if NET7_0_OR_GREATER
+#if NET10_0_OR_GREATER
         /// <summary>
         /// Regex for parsing HTTP request lines. Matches: METHOD URL [HTTP/VERSION]
         /// </summary>

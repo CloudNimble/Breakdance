@@ -3,7 +3,10 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace CloudNimble.Breakdance.Tests.Azurite
@@ -234,8 +237,7 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         public async Task ParallelInstanceCreation_ShouldSucceed()
         {
             // Arrange
-            // Note: azurite-blob doesn't properly report dynamically assigned ports in its output,
-            // so we use specific high ports to avoid conflicts. Using a random base port.
+            // Use specific high ports from a random base so each instance's port is known up front.
             var random = new Random();
             var basePort = random.Next(40000, 45000);
             var instances = new List<AzuriteInstance>();
@@ -285,8 +287,6 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         public async Task DynamicPort_ShouldAssignAvailablePort()
         {
             // Arrange - Use port 0 for dynamic port assignment
-            // Note: The main 'azurite' command (used with All services) properly reports
-            // dynamically assigned ports. Single-service commands (azurite-blob, etc.) don't.
             var config = new AzuriteConfiguration
             {
                 Services = AzuriteServiceType.All,
@@ -341,6 +341,80 @@ namespace CloudNimble.Breakdance.Tests.Azurite
 
             // Assert
             instance.IsRunning.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public async Task StopAsync_ShouldReleasePortsPromptly()
+        {
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.All,
+                BlobPort = 0,
+                QueuePort = 0,
+                TablePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            using var instance = new AzuriteInstance(config);
+            await instance.StartAsync();
+            int[] ports =[instance.BlobPort.Value, instance.QueuePort.Value, instance.TablePort.Value];
+
+            var stopwatch = Stopwatch.StartNew();
+            await instance.StopAsync();
+            stopwatch.Stop();
+
+            stopwatch.Elapsed.Should().BeLessThan(TimeSpan.FromSeconds(3), "stopping should not wait on shutdown timeouts");
+            foreach (var port in ports)
+            {
+                using var client = new TcpClient();
+                Func<Task> connect = () => client.ConnectAsync("127.0.0.1", port);
+                await connect.Should().ThrowAsync<SocketException>($"nothing should be listening on port {port} after the instance stops");
+            }
+        }
+
+        [TestMethod]
+        public async Task StartAsync_WhenPortIsInUse_ShouldReportPortConflict()
+        {
+            using var listener = new TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            var occupiedPort = ((IPEndPoint)listener.LocalEndpoint).Port;
+
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Blob,
+                BlobPort = occupiedPort,
+                AutoAssignPorts = false,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            using var instance = new AzuriteInstance(config);
+
+            Func<Task> act = () => instance.StartAsync();
+
+            await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("Port conflict detected*");
+            instance.IsRunning.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public async Task StartAsync_WhenAssignedPortIsInUse_ShouldRetryOnAnotherPort()
+        {
+            using var listener = new TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            var occupiedPort = ((IPEndPoint)listener.LocalEndpoint).Port;
+
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Queue,
+                QueuePort = occupiedPort,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            await using var instance = new AzuriteInstance(config);
+
+            await instance.StartAsync();
+
+            instance.QueuePort.Should().BeGreaterThan(0).And.NotBe(occupiedPort);
+            (await instance.ListQueuesAsync()).Should().BeEmpty();
         }
 
         [TestMethod]
@@ -410,28 +484,62 @@ namespace CloudNimble.Breakdance.Tests.Azurite
         }
 
         [TestMethod]
-        public async Task IndividualServices_TableOnly_ShouldThrowNotSupportedException()
+        public async Task IndividualServices_TableOnly_ShouldStartCorrectly()
         {
-            // Table-only mode is disabled due to an Azurite bug where azurite-table
-            // reports port 0 instead of the actual bound port when using dynamic ports.
-            // Once the bug is fixed upstream, this test should be updated.
+            var random = new Random();
+            var tablePort = random.Next(15000, 20000);
 
-            // Arrange
             var config = new AzuriteConfiguration
             {
                 Services = AzuriteServiceType.Table,
-                TablePort = 10002,
+                TablePort = tablePort,
                 InMemoryPersistence = true,
                 Silent = true
             };
             var instance = new AzuriteInstance(config);
 
-            // Act
-            Func<Task> act = async () => await instance.StartAsync();
+            try
+            {
+                await instance.StartAsync();
 
-            // Assert - Should throw NotSupportedException with helpful message
-            await act.Should().ThrowAsync<NotSupportedException>()
-                .WithMessage("*Table-only mode is not currently supported*");
+                instance.BlobPort.Should().BeNull();
+                instance.QueuePort.Should().BeNull();
+                instance.TablePort.Should().Be(tablePort);
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
+        }
+
+        [TestMethod]
+        public async Task IndividualServices_TableOnly_WithOsAssignedPort_ShouldReportBoundPort()
+        {
+            var config = new AzuriteConfiguration
+            {
+                Services = AzuriteServiceType.Table,
+                TablePort = 0,
+                InMemoryPersistence = true,
+                Silent = true
+            };
+            var instance = new AzuriteInstance(config);
+
+            try
+            {
+                await instance.StartAsync();
+
+                instance.TablePort.Should().BeGreaterThan(0);
+                instance.TableEndpoint.Should().Be($"http://127.0.0.1:{instance.TablePort}");
+
+                var tables = await instance.ListTablesAsync();
+                tables.Should().BeEmpty();
+            }
+            finally
+            {
+                await instance.StopAsync();
+                instance.Dispose();
+            }
         }
 
         #region Storage Cleanup Tests - Queue Operations

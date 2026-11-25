@@ -25,23 +25,13 @@ A [DelegatingHandler](https://learn.microsoft.com/dotnet/api/system.net.http.del
 
 ## Remarks
 
+This handler passes requests through to the actual endpoint, then captures the response
+and saves it as a snapshot file. This enables recording real API responses for later
+replay during testing.
 
-
-
-             This handler passes requests through to the actual endpoint, then captures the response
-             and saves it as a snapshot file. This enables recording real API responses for later
-             replay during testing.
-             
-
-
-
-
-             Use this handler during an initial recording phase to capture responses from third-party
-             APIs, then use [ResponseSnapshotReplayHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler) to replay those responses
-             during test execution without hitting live endpoints.
-             
-
-
+Use this handler during an initial recording phase to capture responses from third-party
+APIs, then use [ResponseSnapshotReplayHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler) to replay those responses
+during test execution without hitting live endpoints.
 
 ## Examples
 
@@ -155,7 +145,7 @@ The file extension string for the request's Accept header.
 <Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase`</Note>
 
 Parses the RequestUri in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) into a [Path](https://learn.microsoft.com/dotnet/api/system.io.path)-safe string
-            suitable for storing response snapshots on the file system.
+suitable for storing response snapshots on the file system.
 
 #### Syntax
 

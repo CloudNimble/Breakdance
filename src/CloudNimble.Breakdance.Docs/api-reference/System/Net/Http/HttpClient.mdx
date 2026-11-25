@@ -62,17 +62,17 @@ An [HttpResponseMessage](https://learn.microsoft.com/dotnet/api/system.net.http.
 This sample shows the simplest way to create a testable [HttpClient](/api-reference/System/Net/Http/HttpClient) and execute a test request, using MSTest and FluentAssertions.
 ```csharp
 [TestClass]
- ApiTests
+public class ApiTests
 {
-hod]
-sync Task TestApi_Companies_ReturnsResults()
+    [TestMethod]
+    public async Task TestApi_Companies_ReturnsResults()
     {
-httpClient = WebApiTestHelpers.GetTestableHttpClient();
-result = await httpClient.ExecuteTestRequest(HttpMethods.Get, resource = "/Companies");
-lt.Should().NotBeNull();
-lt.StatusCode.Should().Be(HttpStatusCode.OK);
-content = await result.Content.ReadAsStringAsync();
-ent.Should().NotBeNullOrWhiteSpace();
+        var httpClient = WebApiTestHelpers.GetTestableHttpClient();
+        var result = await httpClient.ExecuteTestRequest(HttpMethods.Get, resource = "/Companies");
+        result.Should().NotBeNull();
+        result.StatusCode.Should().Be(HttpStatusCode.OK);
+        var content = await result.Content.ReadAsStringAsync();
+        content.Should().NotBeNullOrWhiteSpace();
     }
 }
 ```

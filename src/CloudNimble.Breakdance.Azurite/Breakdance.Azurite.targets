@@ -1,6 +1,6 @@
 <Project>
 
-	<!-- Ensure Azurite is globally installed before running tests. Only run once in multi-targeting builds (outer build or single-TFM only). -->
+	<!-- Ensure a supported Azurite is globally installed before running tests. Only run once in multi-targeting builds (outer build or single-TFM only). -->
 	<Target Name="EnsureAzuriteInstalled" BeforeTargets="Build" Condition="'$(TargetFramework)' == '' OR '$(TargetFrameworks)' == ''">
 
 		<!-- Check if npm is installed -->
@@ -16,18 +16,32 @@
 			<AzuriteCheckPassed>true</AzuriteCheckPassed>
 		</PropertyGroup>
 
-		<!-- Check if Azurite is globally installed -->
+		<!-- Check if Azurite is globally installed, and which version -->
 		<Exec Condition="'$(AzuriteCheckPassed)' == 'true'" Command="npm list -g azurite --depth=0" ContinueOnError="true" IgnoreExitCode="true" ConsoleToMSBuild="true">
 			<Output TaskParameter="ExitCode" PropertyName="AzuriteInstalledExitCode" />
+			<Output TaskParameter="ConsoleOutput" PropertyName="AzuriteListOutput" />
 		</Exec>
 
-		<!-- Install Azurite globally if not found -->
-		<Message Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' != '0'" Importance="high" Text="Azurite not found globally. Installing azurite globally via npm..." />
-		<Exec Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' != '0'" Command="npm install -g azurite" />
+		<!--
+			Oldest Azurite that Breakdance supports: the first release where azurite-table reports its bound port (Azure/Azurite#2643).
+			Keep in sync with MinimumAzuriteVersion in AzuriteInstance.cs and package.json.
+		-->
+		<PropertyGroup Condition="'$(AzuriteCheckPassed)' == 'true'">
+			<AzuriteMinimumVersion>3.38.0</AzuriteMinimumVersion>
+			<AzuriteInstalledVersion Condition="'$(AzuriteInstalledExitCode)' == '0'">$([System.Text.RegularExpressions.Regex]::Match($(AzuriteListOutput),'azurite@(\d+\.\d+\.\d+)').Groups[1].Value)</AzuriteInstalledVersion>
+			<AzuriteNeedsInstall Condition="'$(AzuriteInstalledVersion)' == ''">true</AzuriteNeedsInstall>
+			<AzuriteNeedsUpgrade Condition="'$(AzuriteInstalledVersion)' != '' AND $([MSBuild]::VersionLessThan('$(AzuriteInstalledVersion)', '$(AzuriteMinimumVersion)'))">true</AzuriteNeedsUpgrade>
+		</PropertyGroup>
+
+		<!-- Install Azurite globally if not found, or upgrade it if it is older than the minimum -->
+		<Message Condition="'$(AzuriteNeedsInstall)' == 'true'" Importance="high" Text="Azurite not found globally. Installing azurite globally via npm..." />
+		<Message Condition="'$(AzuriteNeedsUpgrade)' == 'true'" Importance="high" Text="Global Azurite $(AzuriteInstalledVersion) is older than the required $(AzuriteMinimumVersion). Upgrading azurite globally via npm..." />
+		<Exec Condition="'$(AzuriteNeedsInstall)' == 'true' OR '$(AzuriteNeedsUpgrade)' == 'true'" Command="npm install -g azurite@latest" />
 
 		<!-- Confirm installation -->
-		<Message Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' == '0'" Importance="high" Text="Azurite is already installed globally." />
-		<Message Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteInstalledExitCode)' != '0'" Importance="high" Text="Azurite has been installed globally." />
+		<Message Condition="'$(AzuriteCheckPassed)' == 'true' AND '$(AzuriteNeedsInstall)' != 'true' AND '$(AzuriteNeedsUpgrade)' != 'true'" Importance="high" Text="Azurite $(AzuriteInstalledVersion) is already installed globally." />
+		<Message Condition="'$(AzuriteNeedsInstall)' == 'true'" Importance="high" Text="Azurite has been installed globally." />
+		<Message Condition="'$(AzuriteNeedsUpgrade)' == 'true'" Importance="high" Text="Azurite has been upgraded globally." />
 
 	</Target>
 

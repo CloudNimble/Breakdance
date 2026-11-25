@@ -683,7 +683,7 @@ namespace CloudNimble.Breakdance.DotHttp
         private const string ResponseReferencePattern = @"\{\{(\w+)\.(response|request)\.(body|headers)\.([^}]+)\}\}";
         private const string SimpleVariablePattern = @"\{\{(\w+)\}\}";
 
-#if NET7_0_OR_GREATER
+#if NET10_0_OR_GREATER
         /// <summary>
         /// Regex for dynamic variables. Matches: {{$functionName arguments}}
         /// </summary>

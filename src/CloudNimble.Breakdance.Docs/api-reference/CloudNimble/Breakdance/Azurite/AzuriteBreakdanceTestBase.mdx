@@ -1,6 +1,6 @@
 ---
 title: AzuriteBreakdanceTestBase
-description: "Base class for tests that require an Azurite instance.              Each derived class must declare its own static [AzuriteInstance](/api-reference/CloudNimb..."
+description: "Base class for tests that require an Azurite instance. Each derived class must declare its own static [AzuriteInstance](/api-reference/CloudNimble/Breakdance..."
 icon: shapes
 tag: "ABSTRACT"
 keywords: ['AzuriteBreakdanceTestBase', 'CloudNimble.Breakdance.Azurite.AzuriteBreakdanceTestBase', 'CloudNimble.Breakdance.Azurite', 'class', 'CloudNimble.Breakdance.Assemblies.BreakdanceTestBase']
@@ -23,20 +23,14 @@ CloudNimble.Breakdance.Azurite.AzuriteBreakdanceTestBase
 ## Summary
 
 Base class for tests that require an Azurite instance.
-             Each derived class must declare its own static [AzuriteInstance](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteInstance) field
-             and override the `Azurite` property to return it.
+Each derived class must declare its own static [AzuriteInstance](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteInstance) field
+and override the `Azurite` property to return it.
 
 ## Remarks
 
-
-
-
-             MSTest requires [ClassInitialize] and [ClassCleanup] to be static methods.
-             To avoid cross-class pollution (static fields on a base class are shared by ALL derived classes),
-             each test class must own its own static instance.
-             
-
-
+MSTest requires [ClassInitialize] and [ClassCleanup] to be static methods.
+To avoid cross-class pollution (static fields on a base class are shared by ALL derived classes),
+each test class must own its own static instance.
 
 ## Examples
 

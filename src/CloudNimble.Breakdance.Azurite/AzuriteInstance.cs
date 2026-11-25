@@ -2,12 +2,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
+using System.Globalization;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -32,13 +31,15 @@ namespace CloudNimble.Breakdance.Azurite
         private static readonly Regex _portFromErrorRegex =
             new(@"127\.0\.0\.1:(\d{1,5})", RegexOptions.Compiled);
 
-        private Process _process;
+        // The current start attempt, or the last one. It is kept after it stops so its output stays readable.
+        private AzuriteProcess _process;
         private readonly AzuriteConfiguration _config;
         private bool _isRunning;
         private bool _disposed;
-        private StringBuilder _outputBuffer = new();
-        private StringBuilder _errorBuffer = new();
-        private TaskCompletionSource<bool> _portsDetected = new();
+
+        // Completed from the thread that reads Azurite's output. Continuations must not run on that thread,
+        // or the code awaiting startup would take it over and stall output reading.
+        private TaskCompletionSource<bool> _portsDetected = new(TaskCreationOptions.RunContinuationsAsynchronously);
         private int _successfulServicesCount = 0;
         private readonly Random _random = new();
         private int? _attemptingBlobPort;
@@ -50,6 +51,10 @@ namespace CloudNimble.Breakdance.Azurite
         private const string DefaultAccountName = "devstoreaccount1";
         private const string DefaultAccountKey = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
         private const string StorageApiVersion = "2020-10-02";
+
+        // First Azurite release where azurite-table reports its bound port (Azure/Azurite#2643).
+        // Keep in sync with AzuriteMinimumVersion in Breakdance.Azurite.targets and package.json.
+        private const string MinimumAzuriteVersion = "3.38.0";
 
         #endregion
 
@@ -97,17 +102,17 @@ namespace CloudNimble.Breakdance.Azurite
         /// <summary>
         /// Gets whether the Azurite instance is currently running.
         /// </summary>
-        public bool IsRunning => _isRunning && _process != null && !_process.HasExited;
+        public bool IsRunning => _isRunning && _process is { HasExited: false };
 
         /// <summary>
         /// Gets the standard output captured from the Azurite process.
         /// </summary>
-        public string StandardOutput => _outputBuffer.ToString();
+        public string StandardOutput => _process?.StandardOutput ?? string.Empty;
 
         /// <summary>
         /// Gets the standard error captured from the Azurite process.
         /// </summary>
-        public string StandardError => _errorBuffer.ToString();
+        public string StandardError => _process?.StandardError ?? string.Empty;
 
         #endregion
 
@@ -198,6 +203,19 @@ namespace CloudNimble.Breakdance.Azurite
                     // Brief delay before retry
                     await Task.Delay(50);
                 }
+                catch
+                {
+                    // StopAsync ignores an instance that never finished starting, so a process
+                    // left running here would hold its ports until the test host exits.
+                    // The captured output is kept for diagnostics.
+                    if (_process is not null)
+                    {
+                        await _process.StopAsync();
+                    }
+
+                    ResetRunState();
+                    throw;
+                }
             }
         }
 
@@ -206,80 +224,48 @@ namespace CloudNimble.Breakdance.Azurite
         /// </summary>
         private async Task StartProcessAsync()
         {
-            // Build command arguments
-            var args = BuildArguments();
-
-            // Determine which Azurite command to use based on services requested
-            var command = GetAzuriteCommand();
-
-            // Get working directory
-            var workingDirectory = GetAzuriteDirectory();
+            // Finding Azurite runs npm, so it is done once per process rather than once per instance.
+            var installation = await AzuriteInstallation.LocateAsync();
+            var scriptPath = installation.GetScriptPath(GetAzuriteCommand());
 
             // Calculate appropriate Node.js heap size:
             // - If ExtentMemoryLimitMB is set, add 128MB overhead for Azurite's internal structures
             // - Otherwise, use 256MB default (sufficient for basic in-memory operations)
+            // The limit prevents OOM errors when multiple Azurite instances run in parallel (e.g., parallel tests).
             var heapSizeMB = _config.ExtentMemoryLimitMB.HasValue
                 ? _config.ExtentMemoryLimitMB.Value + 128
                 : 256;
 
-            // Set NODE_OPTIONS to limit Node.js heap size to prevent OOM errors
-            // when multiple Azurite instances run in parallel (e.g., parallel tests)
-            var nodeOptions = $"--max-old-space-size={heapSizeMB}";
-            var fullCommand = $"set NODE_OPTIONS={nodeOptions} && npx {command} {args}";
-
-            // Build the window title for process identification
+            // The title makes the instance identifiable in process listings.
             var instanceName = string.IsNullOrWhiteSpace(_config.InstanceName) ? "Unknown" : _config.InstanceName;
-            var windowTitle = $"Breakdance.Azurite - {instanceName}";
+            var processTitle = $"Breakdance.Azurite - {instanceName}";
 
-            // Use cmd.exe /k (instead of /c) to keep cmd.exe alive.
-            // This maintains the process tree so Kill(entireProcessTree: true) works correctly.
-            // With /c, cmd.exe exits immediately after spawning npx, orphaning the Node processes.
-            _process = new Process
+            // Azurite is started as a single node process, with no command interpreter or npx in front of it.
+            // Stopping it is then one reliable kill; a kill of a cmd -> npx -> cmd -> node tree leaves node running.
+            var startInfo = new ProcessStartInfo
             {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "cmd.exe",
-                    Arguments = $"/k title {windowTitle} && {fullCommand}",
-                    WorkingDirectory = workingDirectory,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    RedirectStandardInput = true,
-                    StandardOutputEncoding = Encoding.UTF8,
-                    StandardErrorEncoding = Encoding.UTF8
-                }
+                FileName = "node",
+                WorkingDirectory = installation.WorkingDirectory
             };
-
-            // Log the command for debugging
-            _outputBuffer.AppendLine($"[DEBUG] Starting process: cmd.exe /k title {windowTitle} && {fullCommand}");
-            _outputBuffer.AppendLine($"[DEBUG] Working directory: {workingDirectory}");
-            _outputBuffer.AppendLine($"[DEBUG] Instance name: {instanceName}");
-
-            // Capture output and parse ports
-            _process.OutputDataReceived += (sender, e) =>
+            startInfo.ArgumentList.Add($"--max-old-space-size={heapSizeMB}");
+            startInfo.ArgumentList.Add($"--title={processTitle}");
+            startInfo.ArgumentList.Add(scriptPath);
+            foreach (var argument in BuildArguments())
             {
-                if (!string.IsNullOrEmpty(e.Data))
-                {
-                    _outputBuffer.AppendLine(e.Data);
-                    ParsePortFromOutput(e.Data);
-                }
-            };
+                startInfo.ArgumentList.Add(argument);
+            }
 
-            _process.ErrorDataReceived += (sender, e) =>
-            {
-                if (!string.IsNullOrEmpty(e.Data))
-                    _errorBuffer.AppendLine(e.Data);
-            };
+            // Detection state belongs to one attempt. The previous attempt has stopped and drained by now.
+            _process?.Dispose();
+            _successfulServicesCount = 0;
+            _portsDetected = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            _process.Start();
-
-            // Assign the process to a Windows Job Object so it's automatically killed
-            // when the parent .NET process exits (for any reason: crash, Ctrl+C, debugger detach, etc.)
-            WindowsJobObject.AssignProcess(_process);
-
-            _process.BeginOutputReadLine();
-            _process.BeginErrorReadLine();
+            _process = AzuriteProcess.Start(
+                startInfo,
+                ParsePortFromOutput,
+                $"[DEBUG] Starting process: {startInfo.FileName} {string.Join(" ", startInfo.ArgumentList)}",
+                $"[DEBUG] Working directory: {startInfo.WorkingDirectory}",
+                $"[DEBUG] Instance name: {instanceName}");
         }
 
         /// <summary>
@@ -293,69 +279,11 @@ namespace CloudNimble.Breakdance.Azurite
 
             try
             {
-                if (!_process.HasExited)
-                {
-                    // Try graceful shutdown first
-                    try
-                    {
-                        // Send Ctrl+C to the process to initiate graceful shutdown
-                        // For cmd.exe /k, we need to send an exit command through stdin
-                        try
-                        {
-                            await _process.StandardInput.WriteLineAsync("exit");
-                            await _process.StandardInput.FlushAsync();
-                        }
-                        catch
-                        {
-                            // Ignore errors writing to stdin
-                        }
-
-                        _process.StandardInput.Close();
-
-                        // Wait up to 3 seconds for graceful exit
-                        var gracefulCts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-                        await _process.WaitForExitAsync(gracefulCts.Token);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        // Graceful shutdown timed out, will force kill below
-                    }
-                    catch
-                    {
-                        // Ignore errors during graceful shutdown, will force kill below
-                    }
-
-                    // Force kill entire process tree if still running
-                    if (!_process.HasExited)
-                    {
-                        try
-                        {
-                            _process.Kill(entireProcessTree: true);
-
-                            // Wait up to 5 seconds for force kill to complete
-                            var forceCts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-                            await _process.WaitForExitAsync(forceCts.Token);
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            // Process still running after force kill - log but continue
-                        }
-                        catch
-                        {
-                            // Ignore kill errors
-                        }
-                    }
-                }
+                await _process.StopAsync();
             }
             finally
             {
-                _isRunning = false;
-                BlobPort = null;
-                QueuePort = null;
-                TablePort = null;
-                _attemptingBlobPort = null;
-                _attemptingQueuePort = null;
-                _attemptingTablePort = null;
+                ResetRunState();
             }
         }
 
@@ -681,97 +609,91 @@ namespace CloudNimble.Breakdance.Azurite
             {
                 AzuriteServiceType.Blob => "azurite-blob",
                 AzuriteServiceType.Queue => "azurite-queue",
-                // NOTE: Table-only mode is disabled due to a bug in Azurite where azurite-table
-                // reports port 0 in its output instead of the actual bound port when using dynamic ports.
-                // See: https://github.com/Azure/Azurite - table/main.ts uses config.port instead of server.getHttpServerAddress()
-                // Once this is fixed upstream, uncomment the line below:
-                // AzuriteServiceType.Table => "azurite-table",
-                AzuriteServiceType.Table => throw new NotSupportedException(
-                    "Table-only mode is not currently supported due to an Azurite bug. " +
-                    "Please use AzuriteServiceType.All instead, which starts all services including Table. " +
-                    "See: https://github.com/Azure/Azurite/issues for the upstream bug."),
+                AzuriteServiceType.Table => "azurite-table",
                 _ => "azurite" // Default to all services
             };
         }
 
         /// <summary>
         /// Parses port information from Azurite's standard output.
-        /// Azurite outputs two types of messages:
-        /// 1. "Azurite Blob service is starting on 127.0.0.1:PORT" - BEFORE port is bound (uses config port, may be 0)
-        /// 2. "Azurite Blob service successfully listens on http://127.0.0.1:PORT" - AFTER port is bound (uses actual port)
+        /// Every service (Blob, Queue, and Table) outputs two types of messages:
+        /// 1. "Azurite Table service is starting on 127.0.0.1:PORT" - BEFORE port is bound (uses config port, may be 0)
+        /// 2. "Azurite Table service successfully listens on http://127.0.0.1:PORT" - AFTER port is bound (uses actual port)
         ///
         /// We track "attempting" ports from the "starting" messages for retry logic,
-        /// and set actual ports from the "successfully" messages.
+        /// and set actual ports from the "successfully" messages. A "successfully" message without a
+        /// bound port fails the startup, because the service would be unreachable.
         /// </summary>
         /// <param name="output">A line of output from Azurite.</param>
         private void ParsePortFromOutput(string output)
         {
-            try
+            // Runs on the thread reading Azurite's output. AzuriteProcess records anything thrown here
+            // in the captured standard error and keeps reading.
+
+            // Determine which service this message is about
+            string serviceType = null;
+            if (output.Contains("Blob", StringComparison.OrdinalIgnoreCase))
+                serviceType = "Blob";
+            else if (output.Contains("Queue", StringComparison.OrdinalIgnoreCase))
+                serviceType = "Queue";
+            else if (output.Contains("Table", StringComparison.OrdinalIgnoreCase))
+                serviceType = "Table";
+
+            if (serviceType == null)
+                return;
+
+            // Parse the port from this line - support multiple URL formats
+            int? parsedPort = ParsePortFromLine(output);
+
+            // Check for "starting on" messages - these set the "attempting" port for retry logic
+            // The port here may be 0 if using dynamic port assignment
+            if (output.Contains("is starting on", StringComparison.OrdinalIgnoreCase))
             {
-                // Determine which service this message is about
-                string serviceType = null;
-                if (output.Contains("Blob", StringComparison.OrdinalIgnoreCase))
-                    serviceType = "Blob";
-                else if (output.Contains("Queue", StringComparison.OrdinalIgnoreCase))
-                    serviceType = "Queue";
-                else if (output.Contains("Table", StringComparison.OrdinalIgnoreCase))
-                    serviceType = "Table";
-
-                if (serviceType == null)
-                    return;
-
-                // Parse the port from this line - support multiple URL formats
-                int? parsedPort = ParsePortFromLine(output);
-
-                // Check for "starting on" messages - these set the "attempting" port for retry logic
-                // The port here may be 0 if using dynamic port assignment
-                if (output.Contains("is starting on", StringComparison.OrdinalIgnoreCase))
+                if (parsedPort.HasValue)
                 {
-                    if (parsedPort.HasValue)
+                    switch (serviceType)
                     {
-                        switch (serviceType)
-                        {
-                            case "Blob": _attemptingBlobPort = parsedPort; break;
-                            case "Queue": _attemptingQueuePort = parsedPort; break;
-                            case "Table": _attemptingTablePort = parsedPort; break;
-                        }
-                    }
-                }
-                // Check for "success" messages - these set the actual port (service is now listening)
-                else if (output.Contains("success", StringComparison.OrdinalIgnoreCase))
-                {
-                    _successfulServicesCount++;
-
-                    // Only set port if it's a valid port (not 0)
-                    // Port 0 means the OS assigned a port, but the message still shows 0
-                    // This happens with azurite-table due to an upstream bug
-                    if (parsedPort.HasValue && parsedPort.Value > 0)
-                    {
-                        switch (serviceType)
-                        {
-                            case "Blob": BlobPort = parsedPort; break;
-                            case "Queue": QueuePort = parsedPort; break;
-                            case "Table": TablePort = parsedPort; break;
-                        }
-                    }
-
-                    // Check if all expected services are successfully listening
-                    int expectedServices = 0;
-                    if (_config.Services.HasFlag(AzuriteServiceType.Blob)) expectedServices++;
-                    if (_config.Services.HasFlag(AzuriteServiceType.Queue)) expectedServices++;
-                    if (_config.Services.HasFlag(AzuriteServiceType.Table)) expectedServices++;
-
-                    if (_successfulServicesCount >= expectedServices)
-                    {
-                        _portsDetected.TrySetResult(true);
+                        case "Blob": _attemptingBlobPort = parsedPort; break;
+                        case "Queue": _attemptingQueuePort = parsedPort; break;
+                        case "Table": _attemptingTablePort = parsedPort; break;
                     }
                 }
             }
-            catch (Exception ex)
+            // Check for "success" messages - these set the actual port (service is now listening)
+            else if (output.Contains("success", StringComparison.OrdinalIgnoreCase))
             {
-                // Log parsing errors but don't throw - we're in an event handler
-                _errorBuffer.AppendLine($"Exception parsing Azurite output: {ex.Message}");
-                _errorBuffer.AppendLine($"Output line: {output}");
+                // Every service reports the port it actually bound. Azurite older than
+                // MinimumAzuriteVersion echoed the configured port for azurite-table instead,
+                // so an OS-assigned port came back as 0 and the service could not be reached.
+                if (parsedPort is not > 0)
+                {
+                    _portsDetected.TrySetException(new InvalidOperationException(
+                        $"Azurite did not report the port the {serviceType} service is listening on. " +
+                        $"Breakdance requires Azurite {MinimumAzuriteVersion} or later; " +
+                        $"upgrade with: npm install -g azurite@latest\n" +
+                        $"Output line: {output}"));
+                    return;
+                }
+
+                switch (serviceType)
+                {
+                    case "Blob": BlobPort = parsedPort; break;
+                    case "Queue": QueuePort = parsedPort; break;
+                    case "Table": TablePort = parsedPort; break;
+                }
+
+                _successfulServicesCount++;
+
+                // Check if all expected services are successfully listening
+                int expectedServices = 0;
+                if (_config.Services.HasFlag(AzuriteServiceType.Blob)) expectedServices++;
+                if (_config.Services.HasFlag(AzuriteServiceType.Queue)) expectedServices++;
+                if (_config.Services.HasFlag(AzuriteServiceType.Table)) expectedServices++;
+
+                if (_successfulServicesCount >= expectedServices)
+                {
+                    _portsDetected.TrySetResult(true);
+                }
             }
         }
 
@@ -808,8 +730,8 @@ namespace CloudNimble.Breakdance.Azurite
         /// <summary>
         /// Builds the command-line arguments for Azurite.
         /// </summary>
-        /// <returns>The arguments string.</returns>
-        private string BuildArguments()
+        /// <returns>The arguments, one entry per argument, unquoted.</returns>
+        private List<string> BuildArguments()
         {
             var args = new List<string>();
 
@@ -818,11 +740,15 @@ namespace CloudNimble.Breakdance.Azurite
                 args.Add("--inMemoryPersistence");
 
                 if (_config.ExtentMemoryLimitMB.HasValue)
-                    args.Add($"--extentMemoryLimit {_config.ExtentMemoryLimitMB.Value}");
+                {
+                    args.Add("--extentMemoryLimit");
+                    args.Add(_config.ExtentMemoryLimitMB.Value.ToString(CultureInfo.InvariantCulture));
+                }
             }
             else if (!string.IsNullOrWhiteSpace(_config.Location))
             {
-                args.Add($"--location \"{_config.Location}\"");
+                args.Add("--location");
+                args.Add(_config.Location);
             }
 
             if (_config.Silent)
@@ -838,79 +764,31 @@ namespace CloudNimble.Breakdance.Azurite
                 args.Add("--disableTelemetry");
 
             if (!string.IsNullOrWhiteSpace(_config.DebugLogPath))
-                args.Add($"--debug \"{_config.DebugLogPath}\"");
+            {
+                args.Add("--debug");
+                args.Add(_config.DebugLogPath);
+            }
 
             // Only specify ports if explicitly configured
             if (_config.BlobPort.HasValue)
-                args.Add($"--blobPort {_config.BlobPort.Value}");
+            {
+                args.Add("--blobPort");
+                args.Add(_config.BlobPort.Value.ToString(CultureInfo.InvariantCulture));
+            }
+
             if (_config.QueuePort.HasValue)
-                args.Add($"--queuePort {_config.QueuePort.Value}");
+            {
+                args.Add("--queuePort");
+                args.Add(_config.QueuePort.Value.ToString(CultureInfo.InvariantCulture));
+            }
+
             if (_config.TablePort.HasValue)
-                args.Add($"--tablePort {_config.TablePort.Value}");
-
-            return string.Join(" ", args);
-        }
-
-        /// <summary>
-        /// Gets the directory containing the Azurite node_modules, or null if using global install.
-        /// </summary>
-        /// <returns>The directory path where node_modules exists, or null if Azurite is globally installed.</returns>
-        private string GetAzuriteDirectory()
-        {
-            try
             {
-                // Check if Azurite is globally installed
-                using (var globalCheck = Process.Start(new ProcessStartInfo
-                {
-                    FileName = "cmd.exe",
-                    Arguments = "/c npm list -g azurite --depth=0",
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                }))
-                {
-                    globalCheck?.WaitForExit();
-
-                    if (globalCheck?.ExitCode == 0)
-                    {
-                        // Azurite is globally installed, npx will find it automatically
-                        // Return current directory as working directory
-                        return Environment.CurrentDirectory;
-                    }
-                }
-
-                // Fall back to checking for local node_modules
-                var assemblyLocation = typeof(AzuriteInstance).Assembly.Location;
-                var assemblyDir = Path.GetDirectoryName(assemblyLocation);
-                var nodeModulesPath = Path.Combine(assemblyDir, "node_modules");
-
-                // Verify node_modules exists
-                if (!Directory.Exists(nodeModulesPath))
-                {
-                    throw new DirectoryNotFoundException(
-                        $"Azurite not found. Neither global install nor local node_modules found.\n" +
-                        $"Please install Azurite globally: npm install -g azurite\n" +
-                        $"Or ensure the Breakdance.Azurite NuGet package build target ran successfully.");
-                }
-
-                // Verify azurite package exists within node_modules
-                var azuritePackagePath = Path.Combine(nodeModulesPath, "azurite");
-                if (!Directory.Exists(azuritePackagePath))
-                {
-                    throw new DirectoryNotFoundException(
-                        $"Azurite package not found at '{azuritePackagePath}'.\n" +
-                        $"Please install Azurite globally: npm install -g azurite");
-                }
-
-                // Return the assembly directory since npx will look for azurite in node_modules
-                return assemblyDir;
+                args.Add("--tablePort");
+                args.Add(_config.TablePort.Value.ToString(CultureInfo.InvariantCulture));
             }
-            catch (Exception ex) when (!(ex is DirectoryNotFoundException || ex is InvalidOperationException))
-            {
-                throw new InvalidOperationException(
-                    $"Failed to determine Azurite directory: {ex.Message}", ex);
-            }
+
+            return args;
         }
 
         /// <summary>
@@ -934,6 +812,11 @@ namespace CloudNimble.Breakdance.Azurite
                 // Check if process has exited
                 if (_process.HasExited)
                 {
+                    // Azurite exits when it cannot bind a port, and the reason is in its last lines of output.
+                    // Those may not have been read yet, so wait for them and classify again before giving up.
+                    await _process.WaitForOutputDrainAsync();
+                    CheckForFatalErrors();
+
                     throw new InvalidOperationException(
                         $"Azurite process exited unexpectedly with code {_process.ExitCode}.\n" +
                         $"Output: {StandardOutput}\n" +
@@ -951,6 +834,9 @@ namespace CloudNimble.Breakdance.Azurite
                     $"Output: {StandardOutput}\n" +
                     $"Error: {StandardError}");
             }
+
+            // Surfaces a startup failure reported by the output parser.
+            await portsDetectionTask;
 
             // Ports detected from STDOUT - Azurite is ready!
             // The "service is starting at" messages from Azurite indicate the services are listening and ready.
@@ -1020,42 +906,32 @@ namespace CloudNimble.Breakdance.Azurite
         /// </summary>
         private async Task CleanupFailedProcessAsync()
         {
-            // Kill the failed process
-            if (_process != null)
+            // Wait until the failed process is gone and its output has been read. Its ports are free after
+            // that, and nothing it wrote can arrive late and be mistaken for output of the next attempt.
+            // The next attempt replaces the process and its captured output.
+            if (_process is not null)
             {
-                try
-                {
-                    if (!_process.HasExited)
-                    {
-                        _process.Kill(entireProcessTree: true);
-                    }
-                }
-                catch
-                {
-                    // Ignore kill errors
-                }
-
-                _process.Dispose();
-                _process = null;
+                await _process.StopAsync();
             }
 
             // Note: config ports are NOT cleared here. The StartAsync retry catch decides
             // which port(s) to null based on what specifically failed, so working ports
             // can be reused on the next attempt.
+            ResetRunState();
+        }
 
-            // Reset port properties
+        /// <summary>
+        /// Clears everything that describes a running instance, after its process has stopped.
+        /// </summary>
+        private void ResetRunState()
+        {
+            _isRunning = false;
             BlobPort = null;
             QueuePort = null;
             TablePort = null;
-
-            // Reset detection state
-            _outputBuffer = new StringBuilder();
-            _errorBuffer = new StringBuilder();
-            _successfulServicesCount = 0;
-            _portsDetected = new TaskCompletionSource<bool>();
-
-            // Brief delay to ensure ports are released
-            await Task.Delay(100);
+            _attemptingBlobPort = null;
+            _attemptingQueuePort = null;
+            _attemptingTablePort = null;
         }
 
         /// <summary>
@@ -1390,7 +1266,9 @@ namespace CloudNimble.Breakdance.Azurite
 
             if (disposing)
             {
-                StopAsync().GetAwaiter().GetResult();
+                // A synchronous stop, so disposing never blocks a thread on asynchronous work.
+                _process?.Stop();
+                ResetRunState();
                 _process?.Dispose();
                 _httpClient?.Dispose();
             }

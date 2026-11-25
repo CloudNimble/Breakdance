@@ -1,3 +1,6 @@
+// .NET 11 ties a child process to its parent with ProcessStartInfo.KillOnParentExit, on every platform.
+// This Windows-only fallback exists for earlier target frameworks.
+#if !NET11_0_OR_GREATER
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -22,11 +25,7 @@ namespace CloudNimble.Breakdance.Azurite
 
         #region Private Members
 
-#if NET9_0_OR_GREATER
         private static readonly Lock _lock = new();
-#else
-        private static readonly object _lock = new object();
-#endif
         private static IntPtr _jobHandle = IntPtr.Zero;
         private static bool _initialized = false;
 
@@ -209,3 +208,4 @@ namespace CloudNimble.Breakdance.Azurite
     }
 
 }
+#endif

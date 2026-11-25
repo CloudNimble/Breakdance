@@ -85,7 +85,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
                 throw new InvalidOperationException($"No response snapshot file could be found at the path: {fullPath}.");
             }
 
-#if NETCOREAPP3_1_OR_GREATER
+#if NET10_0_OR_GREATER
             var fileContent = await File.ReadAllTextAsync(fullPath, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
 #else
             var fileContent = File.ReadAllText(fullPath, Encoding.UTF8);

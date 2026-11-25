@@ -94,8 +94,8 @@ namespace CloudNimble.Breakdance.Azurite
 
         /// <summary>
         /// Gets or sets a name to identify this Azurite instance (e.g., test class name).
-        /// Used for process identification and debugging. The full window title will be
-        /// "Breakdance.Azurite - {InstanceName}". If not set, defaults to "Unknown".
+        /// Used for process identification and debugging. The Node.js process is started with the title
+        /// "Breakdance.Azurite - {InstanceName}", which appears in its command line. If not set, defaults to "Unknown".
         /// </summary>
         public string InstanceName { get; set; }
 

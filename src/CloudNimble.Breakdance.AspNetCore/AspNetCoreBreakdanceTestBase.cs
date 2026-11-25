@@ -199,8 +199,6 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
         public override IEnumerable<T> GetServices<T>() where T : class => TestServer?.Services.GetServices<T>() ?? base.GetServices<T>();
 
-#if NET8_0_OR_GREATER
-
         /// <summary>
         /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.
         /// </summary>
@@ -216,8 +214,6 @@ namespace CloudNimble.Breakdance.AspNetCore
         /// <param name="key">The </param>
         /// <returns>An <see cref="IEnumerable{T}"/> of type <typeparamref name="T"/>.</returns>
         public override IEnumerable<T> GetKeyedServices<T>(string key)  where T : class => TestServer?.Services.GetKeyedServices<T>(key) ?? base.GetKeyedServices<T>(key);
-
-#endif
 
         /// <summary>
         /// Method used by test assemblies to setup the environment.

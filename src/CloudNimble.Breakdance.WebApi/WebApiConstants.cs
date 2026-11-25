@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP3_1_OR_GREATER
+﻿#if NET10_0_OR_GREATER
 using System.Net.Http;
 
 namespace CloudNimble.Breakdance.AspNetCore

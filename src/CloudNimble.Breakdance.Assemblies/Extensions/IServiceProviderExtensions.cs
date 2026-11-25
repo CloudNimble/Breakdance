@@ -27,10 +27,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (provider is ServiceProvider serviceProvider)
             {
-#if NET6_0_OR_GREATER
+#if NET10_0_OR_GREATER
                 return GetServicesFromServiceProviderEngine(serviceProvider);
-#endif
-#if NET5_0 || NETCOREAPP3_1 || NETSTANDARD2_0_OR_GREATER || NET472_OR_GREATER
+#else
                 var engine = serviceProvider.GetFieldValue("_engine");
                 return GetServicesFromServiceProviderEngine(engine);
 #endif
@@ -59,7 +58,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 foreach (DictionaryEntry entry in dictionary)
                 {
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
                     result.Add((Type)entry.Key.GetPropertyValue("ServiceType"), (ServiceDescriptor)entry.Value.GetPropertyValue("Last"));
 #else
                     result.Add((Type)entry.Key, (ServiceDescriptor)entry.Value.GetPropertyValue("Last"));

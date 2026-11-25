@@ -48,8 +48,8 @@ public Object()
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AutoAssignPorts
 
 Gets or sets whether to automatically assign random ports when ports are not specified.
-            When true and ports are null, random ports in 20000-30000 range will be assigned.
-            Defaults to true.
+When true and ports are null, random ports in 20000-30000 range will be assigned.
+Defaults to true.
 
 #### Syntax
 
@@ -64,7 +64,7 @@ Type: `bool`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BlobPort
 
 Gets or sets the optional blob service port.
-            If null, Azurite will use its default port and we'll parse the actual port from output.
+If null, Azurite will use its default port and we'll parse the actual port from output.
 
 #### Syntax
 
@@ -107,7 +107,7 @@ Type: `bool`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ExtentMemoryLimitMB
 
 Gets or sets the maximum memory limit in MB for in-memory storage.
-            Null means unlimited. Only applies when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is true.
+Null means unlimited. Only applies when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is true.
 
 #### Syntax
 
@@ -136,8 +136,8 @@ Type: `bool`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> InstanceName
 
 Gets or sets a name to identify this Azurite instance (e.g., test class name).
-            Used for process identification and debugging. The full window title will be
-            "Breakdance.Azurite - {InstanceName}". If not set, defaults to "Unknown".
+Used for process identification and debugging. The Node.js process is started with the title
+"Breakdance.Azurite - {InstanceName}", which appears in its command line. If not set, defaults to "Unknown".
 
 #### Syntax
 
@@ -152,7 +152,7 @@ Type: `string`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Location
 
 Gets or sets the workspace location for disk persistence.
-            Only used when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is false.
+Only used when [AzuriteConfiguration.InMemoryPersistence](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#inmemorypersistence) is false.
 
 #### Syntax
 
@@ -181,7 +181,7 @@ Type: `bool`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MaxRetries
 
 Gets or sets the maximum number of retry attempts when port conflicts occur.
-            Only applies when [AzuriteConfiguration.AutoAssignPorts](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#autoassignports) is true. Defaults to 20.
+Only applies when [AzuriteConfiguration.AutoAssignPorts](/api-reference/CloudNimble/Breakdance/Azurite/AzuriteConfiguration#autoassignports) is true. Defaults to 20.
 
 #### Syntax
 
@@ -196,7 +196,7 @@ Type: `int`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QueuePort
 
 Gets or sets the optional queue service port.
-            If null, Azurite will use its default port and we'll parse the actual port from output.
+If null, Azurite will use its default port and we'll parse the actual port from output.
 
 #### Syntax
 
@@ -267,7 +267,7 @@ Type: `int`
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TablePort
 
 Gets or sets the optional table service port.
-            If null, Azurite will use its default port and we'll parse the actual port from output.
+If null, Azurite will use its default port and we'll parse the actual port from output.
 
 #### Syntax
 

@@ -184,7 +184,7 @@ namespace CloudNimble.Breakdance.Assemblies
             GC.SuppressFinalize(this);
         }
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
 
         /// <summary>
         /// Get service of type <typeparamref name="T"/> from the System.IServiceProvider.

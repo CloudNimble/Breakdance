@@ -137,7 +137,7 @@ namespace CloudNimble.Breakdance.Assemblies.Http
             {
                 try
                 {
-#if NETCOREAPP3_1_OR_GREATER
+#if NET10_0_OR_GREATER
                     await File.WriteAllTextAsync(fullPath, content, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
 #else
                     File.WriteAllText(fullPath, content, Encoding.UTF8);

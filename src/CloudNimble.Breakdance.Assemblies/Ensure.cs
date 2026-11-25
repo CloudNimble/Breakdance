@@ -19,7 +19,7 @@ namespace CloudNimble.Breakdance.Assemblies
         public static void ArgumentNotNull(object argument, string argumentName)
         {
 
-#if NET6_0_OR_GREATER
+#if NET10_0_OR_GREATER
             ArgumentNullException.ThrowIfNull(argument, argumentName);
 #else
             if (argument is null)

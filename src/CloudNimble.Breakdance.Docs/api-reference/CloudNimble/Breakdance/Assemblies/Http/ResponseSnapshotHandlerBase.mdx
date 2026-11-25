@@ -25,22 +25,12 @@ Base class for Response Snapshot handlers that enable testing with real captured
 
 ## Remarks
 
+Response Snapshots are real HTTP responses captured from actual API calls and stored as files.
+This allows testing against real response data without hitting live endpoints or polluting
+third-party services with test data.
 
-
-
-            Response Snapshots are real HTTP responses captured from actual API calls and stored as files.
-            This allows testing against real response data without hitting live endpoints or polluting
-            third-party services with test data.
-            
-
-
-
-
-            Use [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler) to capture responses from live APIs,
-            then use [ResponseSnapshotReplayHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler) to replay those responses in tests.
-            
-
-
+Use [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler) to capture responses from live APIs,
+then use [ResponseSnapshotReplayHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotReplayHandler) to replay those responses in tests.
 
 ## Constructors
 

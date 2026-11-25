@@ -25,22 +25,12 @@ A [DelegatingHandler](https://learn.microsoft.com/dotnet/api/system.net.http.del
 
 ## Remarks
 
+This handler intercepts outgoing HTTP requests and returns responses from snapshot files
+instead of making actual network calls. This enables deterministic testing against real
+response data without hitting live endpoints.
 
-
-
-             This handler intercepts outgoing HTTP requests and returns responses from snapshot files
-             instead of making actual network calls. This enables deterministic testing against real
-             response data without hitting live endpoints.
-             
-
-
-
-
-             Response snapshots are typically captured using [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler)
-             during an initial recording phase, then replayed during test execution.
-             
-
-
+Response snapshots are typically captured using [ResponseSnapshotCaptureHandler](/api-reference/CloudNimble/Breakdance/Assemblies/Http/ResponseSnapshotCaptureHandler)
+during an initial recording phase, then replayed during test execution.
 
 ## Examples
 
@@ -150,7 +140,7 @@ The file extension string for the request's Accept header.
 <Note>Inherited from `CloudNimble.Breakdance.Assemblies.Http.ResponseSnapshotHandlerBase`</Note>
 
 Parses the RequestUri in the [HttpRequestMessage](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) into a [Path](https://learn.microsoft.com/dotnet/api/system.io.path)-safe string
-            suitable for storing response snapshots on the file system.
+suitable for storing response snapshots on the file system.
 
 #### Syntax
 

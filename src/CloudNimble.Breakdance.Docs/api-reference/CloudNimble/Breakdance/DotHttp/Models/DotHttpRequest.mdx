@@ -26,7 +26,7 @@ Represents a single HTTP request parsed from a .http file.
 ## Remarks
 
 Supports all standard HTTP methods, request chaining via response variable references,
-            file-based request bodies, and request-level variable overrides.
+file-based request bodies, and request-level variable overrides.
 
 ## Examples
 
@@ -76,7 +76,7 @@ Type: `string`
 #### Remarks
 
 May contain {{variable}} references that are resolved at runtime.
-            For file references, this will be null and [DotHttpRequest.BodyFilePath](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpRequest#bodyfilepath) will be set.
+For file references, this will be null and [DotHttpRequest.BodyFilePath](/api-reference/CloudNimble/Breakdance/DotHttp/Models/DotHttpRequest#bodyfilepath) will be set.
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BodyFilePath
 
@@ -104,7 +104,7 @@ Content-Type: application/octet-stream
 #### Remarks
 
 When set, the body content should be loaded from this file path at runtime.
-             The path is relative to the .http file location.
+The path is relative to the .http file location.
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Comments
 
@@ -123,7 +123,7 @@ Type: `System.Collections.Generic.List<string>`
 #### Remarks
 
 Comments are parsed from lines starting with # or // that precede the request line.
-            The comment markers are preserved for accurate representation.
+The comment markers are preserved for accurate representation.
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DependsOn
 
@@ -182,7 +182,7 @@ Type: `System.Collections.Generic.Dictionary<string, string>`
 #### Remarks
 
 Headers are stored with case-insensitive keys per RFC 7230.
-            Header values may contain {{variable}} references that are resolved at runtime.
+Header values may contain {{variable}} references that are resolved at runtime.
 
 ### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HttpVersion
 
@@ -333,7 +333,7 @@ GET {{baseUrl}}/users
 #### Remarks
 
 Variables defined after a request separator (###) but before the next request line
-            apply only to that request and override file-level variables with the same name.
+apply only to that request and override file-level variables with the same name.
 
 ## Methods
 

@@ -360,7 +360,7 @@ namespace CloudNimble.Breakdance.DotHttp
         // Pattern constants - single source of truth for both GeneratedRegex and compiled Regex
         private const string ResponseReferencePattern = @"\{\{(\w+)\.(response|request)\.(body|headers)\.([^}]+)\}\}";
 
-#if NET7_0_OR_GREATER
+#if NET10_0_OR_GREATER
         /// <summary>
         /// Regex pattern for response variable references.
         /// Matches: {{name.response.body.$.path}} or {{name.response.headers.HeaderName}}
